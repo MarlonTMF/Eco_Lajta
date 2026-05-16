@@ -43,14 +43,6 @@ public class AuthController {
                 .setAudience(Collections.singletonList(googleClientId))
                 .build();
 
-            log.info("Google Client ID usado: {}", googleClientId);
-
-            String[] parts = tokenDto.getToken().split("\\.");
-            String tokenPayload = new String(java.util.Base64.getUrlDecoder().decode(parts[1]));
-            log.info("Token payload: {}", tokenPayload);
-
-            log.info("Token recibido (primeros 50 chars): {}", tokenDto.getToken().substring(0, 50));
-
 
             GoogleIdToken idToken = verifier.verify(tokenDto.getToken());
 
