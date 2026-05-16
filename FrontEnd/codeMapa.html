@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EcoKawsay - Intelligent Citizen Map</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .map-gradient-overlay {
+            background: linear-gradient(to bottom, rgba(248, 250, 248, 0.8) 0%, rgba(248, 250, 248, 0) 20%);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e6e9e7",
+                        "outline": "#707a6c",
+                        "on-surface": "#191c1b",
+                        "on-surface-variant": "#40493d",
+                        "tertiary-fixed-dim": "#ebbcac",
+                        "surface": "#f8faf8",
+                        "tertiary-fixed": "#ffdbcf",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#88d982",
+                        "surface-container-highest": "#e1e3e1",
+                        "on-secondary-container": "#00436a",
+                        "secondary": "#00639a",
+                        "on-tertiary-fixed-variant": "#603f33",
+                        "surface-tint": "#1b6d24",
+                        "surface-container-low": "#f2f4f2",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#704d40",
+                        "primary-container": "#2e7d32",
+                        "inverse-surface": "#2e3130",
+                        "inverse-on-surface": "#eff1ef",
+                        "secondary-container": "#51b2fe",
+                        "surface-bright": "#f8faf8",
+                        "background": "#f8faf8",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#ffeee8",
+                        "on-primary-container": "#cbffc2",
+                        "surface-variant": "#e1e3e1",
+                        "secondary-fixed-dim": "#96ccff",
+                        "on-primary-fixed-variant": "#005312",
+                        "on-background": "#191c1b",
+                        "on-secondary-fixed": "#001d32",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#eceeec",
+                        "secondary-fixed": "#cee5ff",
+                        "outline-variant": "#bfcaba",
+                        "on-primary-fixed": "#002204",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#a3f69c",
+                        "on-secondary-fixed-variant": "#004a75",
+                        "on-tertiary-fixed": "#2e150b",
+                        "tertiary-container": "#8b6557",
+                        "surface-dim": "#d8dad9",
+                        "primary": "#0d631b",
+                        "inverse-primary": "#88d982"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "md": "24px",
+                        "margin-desktop": "80px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "lg": "40px",
+                        "xl": "64px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Montserrat"],
+                        "body-md": ["Montserrat"],
+                        "label-sm": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "label-lg": ["Montserrat"],
+                        "title-lg": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "headline-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500"}],
+                        "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface overflow-hidden h-screen flex">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-64 flex flex-col py-md z-40 bg-surface-container-low border-r border-outline-variant">
+<div class="px-md mb-xl">
+<h1 class="text-headline-lg font-black text-primary">EcoKawsay</h1>
+<p class="text-label-lg font-label-lg text-on-surface-variant">Environmental Ecosystem</p>
+</div>
+<nav class="flex-grow space-y-xs">
+<a class="text-primary bg-primary-container rounded-r-full font-bold flex items-center px-4 py-3 translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="dashboard">dashboard</span>
+<span class="text-label-lg font-label-lg">Dashboard</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-r-full transition-all duration-200 flex items-center px-4 py-3" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="filter_center_focus">filter_center_focus</span>
+<span class="text-label-lg font-label-lg">EcoCam</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-r-full transition-all duration-200 flex items-center px-4 py-3" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="text-label-lg font-label-lg">Rewards</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-r-full transition-all duration-200 flex items-center px-4 py-3" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="groups">groups</span>
+<span class="text-label-lg font-label-lg">Community</span>
+</a>
+</nav>
+<div class="px-md mb-md">
+<button class="w-full bg-primary text-on-primary py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-sm hover:brightness-110 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+                Launch Waste Scanner
+            </button>
+</div>
+<div class="border-t border-outline-variant pt-md">
+<a class="text-on-surface-variant flex items-center px-4 py-3 hover:bg-surface-container-high rounded-r-full" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="help">help</span>
+<span class="text-label-lg font-label-lg">Help Center</span>
+</a>
+<a class="text-on-surface-variant flex items-center px-4 py-3 hover:bg-surface-container-high rounded-r-full" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="logout">logout</span>
+<span class="text-label-lg font-label-lg">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-grow ml-64 relative h-full">
+<!-- Map Background -->
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-surface-variant relative overflow-hidden">
+<!-- Mock Map Representation -->
+<img class="w-full h-full object-cover grayscale-[20%] opacity-80" data-alt="A highly detailed overhead satellite and street map view of Cochabamba city, Bolivia, showcasing a dense urban grid surrounded by lush green valleys and mountains. The map features modern UI aesthetic with vibrant markers in primary green and sky blue scattered across the landscape. The lighting is bright and clear, reflecting a midday sun that highlights the contrast between the built environment and the natural landscape. The style is clean, professional, and tech-forward." data-location="Cochabamba" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM9ow0uavbuqqbxuL_M5EzhebdD8ficww_ml8hyvc8l1UsCLfSCwZDHAW6IqkAK4fFeiq69oUPv1R9MgWSwneSpWEG-nMeyQIm6dfV-xYRW9SAR0PQDrFlVcloij9tfQTPxomVn05e91NdRiyduPl7fRr719p9pbIixxTabaq6wpb7Nx1o0v9l4wZeAQkIMLv07aCRLq08YOnRgj2Ceaq9HKDfQnoRQaYUEbVJ64mUWX5fk9wU3BeOqkZW13x2D7ZoexSZtPiQaNB9"/>
+<!-- Floating Markers -->
+<!-- Plaza Colón (Active) -->
+<div class="absolute top-[45%] left-[52%] -translate-x-1/2 -translate-y-1/2 z-20 cursor-pointer group">
+<div class="bg-primary text-on-primary p-3 rounded-full shadow-lg border-2 border-white scale-110 group-hover:scale-125 transition-transform">
+<span class="material-symbols-outlined block" data-icon="recycling" style="font-variation-settings: 'FILL' 1;">recycling</span>
+</div>
+<div class="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-surface-container-lowest px-3 py-1 rounded-lg shadow-md border border-outline-variant whitespace-nowrap">
+<span class="text-label-lg font-bold text-primary">Plaza Colón Point</span>
+</div>
+</div>
+<!-- Other Points -->
+<div class="absolute top-[30%] left-[40%] z-10 opacity-70 hover:opacity-100 cursor-pointer transition-opacity">
+<div class="bg-secondary text-on-primary p-2 rounded-full shadow-md border-2 border-white">
+<span class="material-symbols-outlined block text-[20px]" data-icon="delete">delete</span>
+</div>
+</div>
+<div class="absolute top-[60%] left-[35%] z-10 opacity-70 hover:opacity-100 cursor-pointer transition-opacity">
+<div class="bg-tertiary-container text-on-tertiary-container p-2 rounded-full shadow-md border-2 border-white">
+<span class="material-symbols-outlined block text-[20px]" data-icon="warning">warning</span>
+</div>
+</div>
+<div class="absolute top-[55%] left-[65%] z-10 opacity-70 hover:opacity-100 cursor-pointer transition-opacity">
+<div class="bg-primary-container text-on-primary-container p-2 rounded-full shadow-md border-2 border-white">
+<span class="material-symbols-outlined block text-[20px]" data-icon="eco">eco</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Top App Bar Overlay -->
+<header class="flex justify-between items-center w-full px-8 h-16 sticky top-0 z-50 bg-surface-bright bg-opacity-95 backdrop-blur-md shadow-sm">
+<div class="flex items-center gap-base">
+<span class="text-title-lg font-title-lg font-bold text-primary">EcoKawsay Map</span>
+</div>
+<div class="flex items-center bg-surface-container-high rounded-full px-4 py-2 w-1/3">
+<span class="material-symbols-outlined text-on-surface-variant mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-full placeholder:text-on-surface-variant" placeholder="Search collection points in Cochabamba..." type="text"/>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="h-10 w-10 rounded-full overflow-hidden border border-outline-variant">
+<img alt="User avatar for EcoKawsay dashboard" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaRgB1t44-f3hnYZeqllCwhM6eex0b3ZHcEhU955x1cxIscgIE90A_wu-s0a8Aul-5NQAiFZwrQoBwmju8rmHygLEln2L3Gf85PrEve7AXM8e5ZMCGnV2v9fwtT7HL39kf7cTjNRNBnUYLC8_Yqv7wuDM095fGUzqGZsUBGTfPMtrAPAnOjqwwkGZPHuUzcR5VBeXfDPuP-eGfs5-XnhQtyMY_aSUS14oKmyXkJJ017NwJIwT4crtFocSiYYV9FsO_vcP12eeKSf0i"/>
+</div>
+</div>
+</header>
+<!-- Category Filters Overlay -->
+<div class="absolute top-20 left-1/2 -translate-x-1/2 z-30 flex gap-sm">
+<button class="px-6 py-2 rounded-full bg-primary text-on-primary shadow-lg font-bold flex items-center gap-2 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="apps">apps</span>
+                All
+            </button>
+<button class="px-6 py-2 rounded-full bg-white text-on-surface shadow-md font-medium flex items-center gap-2 hover:bg-surface-container-low active:scale-95 transition-all">
+<div class="w-2 h-2 rounded-full bg-secondary-container"></div>
+                PET
+            </button>
+<button class="px-6 py-2 rounded-full bg-white text-on-surface shadow-md font-medium flex items-center gap-2 hover:bg-surface-container-low active:scale-95 transition-all">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+                Glass
+            </button>
+<button class="px-6 py-2 rounded-full bg-white text-on-surface shadow-md font-medium flex items-center gap-2 hover:bg-surface-container-low active:scale-95 transition-all">
+<div class="w-2 h-2 rounded-full bg-primary-container"></div>
+                Organic
+            </button>
+</div>
+<!-- Selected Point Detail Drawer (Right Sidebar) -->
+<aside class="absolute right-0 top-0 h-full w-[400px] bg-white z-40 shadow-2xl flex flex-col border-l border-outline-variant overflow-y-auto">
+<div class="relative h-64 w-full">
+<img class="w-full h-full object-cover" data-alt="A modern, high-tech recycling collection station located in the beautiful Plaza Colón in Cochabamba, Bolivia. The station is integrated with clean wooden panels and sleek metal, featuring digital displays showing capacity. The surrounding area is a vibrant urban park with green trees and colonial-style architecture in the background. The lighting is bright and airy, with a professional architectural photography feel that emphasizes cleanliness and civic pride." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByeR3AbL6Qe1nFpIiOkavFkPREWKwENE6khjZyIh5-YovTfujR-Lr0Lm5u4tqe7SlHrrEEeHfgS-3w0NaQK5E_jrTlnlF5q68gddMU9Ck3KOHzH_R95IUTP1GzKUQUme3FWD1w6QhKVseWzhVhJaiYuyYKfBoAA7hH-a_dSc1BI7flMKebcGGreald5DiwMfYF0oYBVUY6VirUuBIIls1sQyYyk79vdlPqFOxUPTYXIDvDd_VCL7MXqlswYRuTzfhqaQZYyqgQobs9"/>
+<button class="absolute top-4 right-4 bg-white/20 backdrop-blur-md p-2 rounded-full text-white hover:bg-white/40 transition-colors">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<div class="p-lg">
+<div class="flex justify-between items-start mb-md">
+<div>
+<h2 class="text-headline-lg font-bold text-primary mb-1">Plaza Colón Point</h2>
+<div class="flex items-center text-on-surface-variant gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
+<span class="text-label-lg">Cochabamba Centro, Zona 1</span>
+</div>
+</div>
+<div class="bg-primary-container text-on-primary-container px-3 py-1 rounded-lg flex items-center gap-1">
+<span class="text-title-lg font-bold">+15</span>
+<span class="text-label-sm">Tokens</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md mb-lg">
+<div class="bg-surface-container-low p-md rounded-xl">
+<p class="text-label-sm text-on-surface-variant uppercase font-bold tracking-wider mb-2">Operating Hours</p>
+<p class="text-body-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="schedule">schedule</span>
+                            08:00 - 20:00
+                        </p>
+</div>
+<div class="bg-surface-container-low p-md rounded-xl">
+<p class="text-label-sm text-on-surface-variant uppercase font-bold tracking-wider mb-2">Status</p>
+<p class="text-body-lg font-bold flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            Open Now
+                        </p>
+</div>
+</div>
+<div class="mb-lg">
+<div class="flex justify-between items-center mb-sm">
+<span class="text-label-lg font-bold">Current Capacity</span>
+<span class="text-label-lg font-bold text-error">78% Full</span>
+</div>
+<div class="h-3 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-error rounded-full" style="width: 78%"></div>
+</div>
+<p class="text-label-sm text-on-surface-variant mt-2 italic">Recommended: Disposal scheduled in 2 hours.</p>
+</div>
+<div class="space-y-sm">
+<button class="w-full py-4 bg-primary text-on-primary rounded-xl font-bold flex items-center justify-center gap-2 hover:brightness-110 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined" data-icon="directions">directions</span>
+                        Get Directions
+                    </button>
+<button class="w-full py-4 bg-white border-2 border-error text-error rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-error/5 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined" data-icon="report">report</span>
+                        Report Issue
+                    </button>
+</div>
+<div class="mt-xl">
+<h3 class="text-title-lg font-bold mb-md">Site Photos</h3>
+<div class="grid grid-cols-3 gap-sm">
+<img class="aspect-square object-cover rounded-lg hover:scale-105 transition-transform cursor-pointer" data-alt="Close up high-resolution photo of a modern green waste sorting bin in an urban park in Cochabamba. The sunlight glints off the polished metal surfaces, and the primary green color is vibrant and clean. The background shows blurred greenery and people enjoying the park." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2HaQ0jT-QLuQm3C3-pfGv-dPAosegulTpX-MdaVjwhyFEUEbIr2_s6du0L5PoIIGTSuFlQh7SBUS2dthY1f60wcXeytuO3T5NRUvLMM79-a9Vrvsb-WRpVOpt3AeXroYVP--EWAb2BegjkNB1EC2bBcbaWjgNhWKKjV_TF8jQPnU2gmwOiMM4ZGybVD5HjwxNZMOEIWaGgPp2QBZ45lnYbTrySzyPc-jTQ1Qu9N3uS2jout5M9ghvsDjqZcT6tYM-liUrOs8d7WmR"/>
+<img class="aspect-square object-cover rounded-lg hover:scale-105 transition-transform cursor-pointer" data-alt="A wide architectural shot of a civic recycling station at dusk in Cochabamba. Soft street lights illuminate the area, and the sky is a deep twilight blue. The UI colors of the station pop against the evening background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9Z2CY8BztCGLo4Dgdd-r6EoqCW7hEg9NvxVSJ6JQuAFr3qCnXoXpd0y6iqKPalcxX5bM5FP_8BwpXjeGUphH8wLCCrUwmmDkgYupU8h6W8Pil0pD1ThL4f0xHdc_1yEkVIYWlX8f5_q83RaXeFagDR1pdjiz_pnYSwzKcGsxB77N0-VSn91s37kF384YQEgtfphHNrVo_kClawvB8DQWOq4ZDf0BUcEy9qoO_AiDEYHVFVIBSddvqstcKOjB3pXBA7OJcVOQBb9wI"/>
+<div class="aspect-square bg-surface-container-highest rounded-lg flex items-center justify-center text-on-surface-variant cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="text-label-sm font-bold">+5 more</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Floating Action Button (FAB) -->
+<button class="absolute bottom-10 right-10 z-50 bg-secondary text-on-primary w-16 h-16 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[32px]" data-icon="add" style="font-variation-settings: 'FILL' 0, 'wght' 600;">add</span>
+</button>
+<!-- Zoom Controls -->
+<div class="absolute bottom-10 left-10 z-30 flex flex-col gap-xs">
+<button class="bg-white p-3 rounded-t-xl shadow-md border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<button class="bg-white p-3 rounded-b-xl shadow-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="remove">remove</span>
+</button>
+<button class="mt-xs bg-white p-3 rounded-xl shadow-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="my_location">my_location</span>
+</button>
+</div>
+</main>
+</body></html>

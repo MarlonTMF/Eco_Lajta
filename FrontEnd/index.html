@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoKawsay - Demo Interactiva</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Onboarding Screen -->
+    <section id="onboarding">
+        <div class="onboarding-image"></div>
+        <div class="onboarding-content">
+            <div class="onboarding-tag">
+                <i data-lucide="shield-check"></i>
+                Phase One: Awareness
+            </div>
+            <h1>Welcome to EcoKawsay</h1>
+            <p>Our mission is to empower every citizen to become a guardian of our urban ecosystem. Through bio-digital innovation, we bridge the gap between technology and environmental action, fostering a cleaner, more vibrant city for generations to come.</p>
+            
+            <div style="display: flex; gap: 8px; margin-bottom: 40px;">
+                <div style="width: 24px; height: 4px; background: var(--primary); border-radius: 2px;"></div>
+                <div style="width: 8px; height: 4px; background: #E5E7EB; border-radius: 2px;"></div>
+                <div style="width: 8px; height: 4px; background: #E5E7EB; border-radius: 2px;"></div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="#" class="text-muted" style="text-decoration: none; font-weight: 500;">View Quick Start Guide</a>
+                <button class="btn-white" style="background: var(--primary); color: white;" onclick="closeOnboarding()">
+                    Next <i data-lucide="arrow-right" style="width: 18px; display: inline; vertical-align: middle;"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <i data-lucide="leaf"></i>
+                    <span>EcoKawsay</span>
+                </div>
+            </div>
+
+            <nav class="nav-links">
+                <a href="#" class="nav-link active" onclick="showScreen('dashboard', this)">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showScreen('ecocam', this)">
+                    <i data-lucide="camera"></i>
+                    <span>EcoCam</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showScreen('rewards', this)">
+                    <i data-lucide="gift"></i>
+                    <span>Rewards</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showScreen('community', this)">
+                    <i data-lucide="users"></i>
+                    <span>Community</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showScreen('projects', this)">
+                    <i data-lucide="rocket"></i>
+                    <span>Missions</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showScreen('map', this)">
+                    <i data-lucide="map"></i>
+                    <span>Map</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showScreen('ranking', this)">
+                    <i data-lucide="trophy"></i>
+                    <span>Ranking</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showScreen('profile', this)">
+                    <i data-lucide="user"></i>
+                    <span>Profile</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="scanner-btn-side" onclick="showScreen('ecocam')">
+                    <i data-lucide="scan"></i>
+                    <span>Launch Waste Scanner</span>
+                </button>
+                <button class="scanner-btn-side" style="background: #EF4444; margin-top: -12px;" onclick="showScreen('report')">
+                    <i data-lucide="alert-triangle"></i>
+                    <span>Report Critical Point</span>
+                </button>
+                <a href="#" class="nav-link">
+                    <i data-lucide="help-circle"></i>
+                    <span>Help Center</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i data-lucide="log-out"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-container">
+                    <i data-lucide="search" style="width: 18px; color: var(--text-muted);"></i>
+                    <input type="text" placeholder="Search resources, rewards, missions...">
+                </div>
+                <div class="user-actions">
+                    <button class="icon-btn" onclick="showScreen('notifications')">
+                        <i data-lucide="bell"></i>
+                        <span class="notification-dot"></span>
+                    </button>
+                    <button class="icon-btn">
+                        <i data-lucide="settings"></i>
+                    </button>
+                    <img src="https://i.pravatar.cc/100?img=11" alt="Profile" class="user-profile-thumb" onclick="showScreen('profile')">
+                </div>
+            </div>
+
+            <!-- Dashboard Screen -->
+            <section id="dashboard" class="screen active">
+                <div class="hero-banner">
+                    <div class="hero-content">
+                        <p style="margin-bottom: 8px;">¡Bienvenido de nuevo, Mateo!</p>
+                        <h1>Tu acción importa.</h1>
+                        <p>Suma puntos y salva el planeta con cada residuo gestionado.</p>
+                        <button class="btn-white" onclick="showScreen('ecocam')">RECICLAR AHORA</button>
+                    </div>
+                    <div class="hero-visual" style="font-size: 8rem; opacity: 0.2;">
+                        <i data-lucide="recycle"></i>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="left-col">
+                        <div class="card mb-4">
+                            <div class="card-title">
+                                <span>Tu Impacto</span>
+                                <span class="text-muted" style="font-size: 0.8rem;">Este Mes <i data-lucide="chevron-down" style="width:14px; vertical-align:middle;"></i></span>
+                            </div>
+                            <div style="display: flex; gap: 40px; align-items: flex-end;">
+                                <div style="text-align: center;">
+                                    <div style="background: #E8F5E9; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; color: var(--primary-light);">
+                                        <i data-lucide="leaf"></i>
+                                    </div>
+                                    <div style="font-size: 2rem; font-weight: 800;">48.5 <span style="font-size: 0.9rem; font-weight: 400;">kg</span></div>
+                                    <div class="text-muted" style="font-size: 0.7rem; text-transform: uppercase;">Total Desviado</div>
+                                </div>
+                                <div style="flex: 1; display: flex; gap: 12px; align-items: flex-end; height: 120px;">
+                                    <!-- Bar Chart Mockup -->
+                                    <div style="flex: 1; background: #60A5FA; height: 80%; border-radius: 4px; position: relative;">
+                                        <span style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); font-size: 0.7rem; font-weight: 600;">PET</span>
+                                    </div>
+                                    <div style="flex: 1; background: #F87171; height: 40%; border-radius: 4px; position: relative;">
+                                        <span style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); font-size: 0.7rem; font-weight: 600;">Papel</span>
+                                    </div>
+                                    <div style="flex: 1; background: #34D399; height: 60%; border-radius: 4px; position: relative;">
+                                        <span style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); font-size: 0.7rem; font-weight: 600;">Org.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4" style="background: #F9FAF5; padding: 12px; border-radius: 12px; display: flex; align-items: center; gap: 12px; border: 1px dashed var(--border);">
+                                <i data-lucide="trending-up" style="color: var(--accent);"></i>
+                                <span style="font-size: 0.85rem;">+12% más que el mes pasado. <a href="#" style="color: var(--primary); font-weight: 600;">Ver reporte detallado</a></span>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-title">Actividad Reciente</div>
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr style="border-bottom: 1px solid var(--border);">
+                                    <td style="padding: 16px 0;">
+                                        <div style="display: flex; gap: 12px; align-items: center;">
+                                            <div style="background: #F3F4F6; padding: 8px; border-radius: 8px;"><i data-lucide="scan" style="width:18px;"></i></div>
+                                            <div>
+                                                <div style="font-weight: 600; font-size: 0.9rem;">Escaneo EcoCam - Botella PET</div>
+                                                <div class="text-muted" style="font-size: 0.75rem;">Reciclaje Individual</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-muted" style="font-size: 0.8rem;">Hoy, 10:24 AM</td>
+                                    <td style="text-align: right; font-weight: 700; color: var(--accent);">+15 pts</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 16px 0;">
+                                        <div style="display: flex; gap: 12px; align-items: center;">
+                                            <div style="background: #F3F4F6; padding: 8px; border-radius: 8px;"><i data-lucide="shopping-bag" style="width:18px;"></i></div>
+                                            <div>
+                                                <div style="font-weight: 600; font-size: 0.9rem;">Canje de Cupón - Supermercado X</div>
+                                                <div class="text-muted" style="font-size: 0.75rem;">Recompensa</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-muted" style="font-size: 0.8rem;">Ayer, 18:15 PM</td>
+                                    <td style="text-align: right; font-weight: 700; color: #EF4444;">-200 ETK</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="right-col">
+                        <div class="card mb-4" style="background: #F9FAF5;">
+                            <div style="display: flex; align-items: center; gap: 16px;">
+                                <div style="position: relative;">
+                                    <img src="https://i.pravatar.cc/100?img=11" alt="Mateo" style="width: 60px; height: 60px; border-radius: 50%;">
+                                    <span style="position: absolute; bottom: 0; right: 0; background: var(--accent); color: white; width: 20px; height: 20px; border-radius: 50%; font-size: 0.6rem; display: flex; align-items: center; justify-content: center; border: 2px solid white;"><i data-lucide="check" style="width: 10px;"></i></span>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 700; font-size: 1.1rem;">Mateo Velasco</div>
+                                    <div style="background: var(--primary); color: white; font-size: 0.65rem; padding: 2px 8px; border-radius: 20px; display: inline-block;">GUARDIÁN DEL VALLE</div>
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px;">
+                                <div style="background: white; padding: 12px; border-radius: 12px; border: 1px solid var(--border);">
+                                    <div class="text-muted" style="font-size: 0.7rem;">Eco-Tokens</div>
+                                    <div style="font-weight: 800; font-size: 1.2rem;">2,450</div>
+                                </div>
+                                <div style="background: white; padding: 12px; border-radius: 12px; border: 1px solid var(--border);">
+                                    <div class="text-muted" style="font-size: 0.7rem;">Racha Actual</div>
+                                    <div style="font-weight: 800; font-size: 1.2rem;">12 días</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-title">Desafíos <i data-lucide="map" style="width: 18px; color: var(--text-muted); cursor: pointer;"></i></div>
+                            <div style="border-radius: 16px; overflow: hidden; margin-bottom: 16px; border: 1px solid var(--border);">
+                                <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=400" alt="Cleanup" style="width: 100%; height: 120px; object-fit: cover;">
+                                <div style="padding: 12px;">
+                                    <span style="background: #EF4444; color: white; font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; font-weight: 700;">● EN VIVO</span>
+                                    <div style="font-weight: 700; font-size: 0.9rem; margin: 4px 0;">Limpieza OTB Queru Queru</div>
+                                    <p style="font-size: 0.7rem; color: var(--text-muted); margin-bottom: 8px;">Únete a la brigada matutina para restaurar la plaza principal.</p>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <div style="font-size: 0.65rem; color: var(--primary); font-weight: 600;">320kg / 500kg</div>
+                                        <button style="background: var(--primary); color: white; border: none; padding: 6px 12px; border-radius: 8px; font-size: 0.7rem; font-weight: 600;">Participar</button>
+                                    </div>
+                                    <div style="height: 6px; background: #E5E7EB; border-radius: 3px; margin-top: 8px; overflow: hidden;">
+                                        <div style="width: 64%; height: 100%; background: var(--accent);"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EcoCam Screen -->
+            <section id="ecocam" class="screen">
+                <div class="grid-2">
+                    <div class="ecocam-container card">
+                        <img src="https://images.unsplash.com/photo-1563203362-907019a89bc3?auto=format&fit=crop&q=80&w=1000" alt="Scan" class="ecocam-view">
+                        <div class="scan-overlay">
+                            <div class="scan-corners"></div>
+                        </div>
+                        <div class="detection-badge">
+                            <i data-lucide="check-circle"></i>
+                            Botella PET Detectada
+                        </div>
+                        <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px;">
+                            <button class="scanner-btn-side" style="width: auto; padding: 12px 30px;" onclick="simulateScan()">Confirmar Escaneo</button>
+                            <button class="icon-btn" style="background: rgba(255,255,255,0.2); color: white; width: 44px; height: 44px; border-radius: 50%;"><i data-lucide="camera-off"></i></button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card mb-4">
+                            <h2 style="margin-bottom: 8px;">Análisis en tiempo real</h2>
+                            <p class="text-muted" style="font-size: 0.9rem; margin-bottom: 24px;">Impulsado por IA EcoKawsay.</p>
+                            
+                            <div style="display: flex; gap: 16px; margin-bottom: 24px;">
+                                <div style="flex: 1; background: #E8F5E9; padding: 20px; border-radius: 16px; text-align: center;">
+                                    <i data-lucide="award" style="color: var(--primary); margin-bottom: 8px;"></i>
+                                    <div style="font-size: 1.2rem; font-weight: 800; color: var(--primary);">+5 ETK</div>
+                                    <div style="font-size: 0.7rem; color: var(--primary-light);">RECOMPENSA EST.</div>
+                                </div>
+                                <div style="flex: 1; background: #E3F2FD; padding: 20px; border-radius: 16px; text-align: center;">
+                                    <i data-lucide="wind" style="color: #1976D2; margin-bottom: 8px;"></i>
+                                    <div style="font-size: 1.2rem; font-weight: 800; color: #1976D2;">-0.45kg</div>
+                                    <div style="font-size: 0.7rem; color: #1976D2;">HUELLA CO2</div>
+                                </div>
+                            </div>
+
+                            <div class="card" style="background: #F9FAF5; border: none; box-shadow: none;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                                    <span class="text-muted">Categoría</span>
+                                    <span style="background: var(--primary); color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700;">RECICLABLE</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                                    <span class="text-muted">Pureza de Material</span>
+                                    <span style="font-weight: 700;">Alta (94%)</span>
+                                </div>
+                                <div style="height: 8px; background: #E5E7EB; border-radius: 4px; overflow: hidden;">
+                                    <div style="width: 94%; height: 100%; background: var(--accent);"></div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4" style="background: #EBF5FF; padding: 16px; border-radius: 16px; border-left: 4px solid #3B82F6;">
+                                <div style="display: flex; gap: 12px;">
+                                    <i data-lucide="info" style="color: #3B82F6;"></i>
+                                    <p style="font-size: 0.85rem; color: #1E3A8A;">Asegúrate de que la botella esté vacía y sin etiqueta para maximizar tus Eco-Tokens.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rewards Screen -->
+            <section id="rewards" class="screen">
+                <div class="grid-2 mb-4">
+                    <div class="card" style="background: linear-gradient(135deg, #2E7D32, #1B5E20); color: white;">
+                        <div class="text-muted" style="color: rgba(255,255,255,0.7); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px;">Saldo Total</div>
+                        <div style="font-size: 3.5rem; font-weight: 800; margin: 8px 0;">1,250 <span style="font-size: 1.5rem; font-weight: 400;">ETK</span></div>
+                        <div style="display: flex; gap: 12px;">
+                            <button class="btn-white" onclick="showScreen('redemption')">Canjear <i data-lucide="shopping-cart" style="width:16px; display:inline; margin-left:4px;"></i></button>
+                            <button class="btn-white" style="background: rgba(255,255,255,0.1); border: 1px solid white; color: white;">Añadir</button>
+                        </div>
+                    </div>
+                    <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                        <div style="background: #E3F2FD; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #1976D2; margin-bottom: 16px;">
+                            <i data-lucide="zap"></i>
+                        </div>
+                        <div style="font-weight: 700; font-size: 1.2rem;">Nivel Eco-Héroe</div>
+                        <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 16px;">¡Estás a solo 250 ETK del siguiente nivel!</p>
+                        <div style="width: 100%; height: 8px; background: #E5E7EB; border-radius: 4px; overflow: hidden;">
+                            <div style="width: 75%; height: 100%; background: #1976D2;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-title">Canjear Recompensas <a href="#" style="font-size: 0.8rem; color: var(--primary);">Ver todo <i data-lucide="chevron-right" style="width:14px; vertical-align:middle;"></i></a></div>
+                <div class="grid-3 mb-4">
+                    <div class="card" style="padding: 0; overflow: hidden;">
+                        <div style="position: relative;">
+                            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=400" alt="EMAPA" style="width: 100%; height: 160px; object-fit: cover;">
+                            <span style="position: absolute; top: 12px; right: 12px; background: var(--primary); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700;">450 ETK</span>
+                        </div>
+                        <div style="padding: 20px;">
+                            <h3 style="font-size: 1rem; margin-bottom: 8px;">Canasta de Alimentos (EMAPA)</h3>
+                            <p class="text-muted" style="font-size: 0.75rem; margin-bottom: 20px;">Productos locales y sostenibles directamente a tu hogar.</p>
+                            <button class="btn-white" style="width: 100%; border: 1px solid var(--primary);" onclick="showConfirmRedemption()">Canjear ahora</button>
+                        </div>
+                    </div>
+                    <div class="card" style="padding: 0; overflow: hidden;">
+                        <div style="position: relative;">
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=400" alt="Municipio" style="width: 100%; height: 160px; object-fit: cover;">
+                            <span style="position: absolute; top: 12px; right: 12px; background: var(--primary); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700;">800 ETK</span>
+                        </div>
+                        <div style="padding: 20px;">
+                            <h3 style="font-size: 1rem; margin-bottom: 8px;">Descuento Predial (Municipio)</h3>
+                            <p class="text-muted" style="font-size: 0.75rem; margin-bottom: 20px;">Obtén un 15% de descuento en tus impuestos prediales anuales.</p>
+                            <button class="btn-white" style="width: 100%; border: 1px solid var(--primary);">Canjear ahora</button>
+                        </div>
+                    </div>
+                    <div class="card" style="padding: 0; overflow: hidden;">
+                        <div style="position: relative;">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=400" alt="Credit" style="width: 100%; height: 160px; object-fit: cover;">
+                            <span style="position: absolute; top: 12px; right: 12px; background: var(--primary); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700;">1200 ETK</span>
+                        </div>
+                        <div style="padding: 20px;">
+                            <h3 style="font-size: 1rem; margin-bottom: 8px;">Score Crediticio (Banco Verde)</h3>
+                            <p class="text-muted" style="font-size: 0.75rem; margin-bottom: 20px;">Mejora tu calificación crediticia para préstamos de vivienda.</p>
+                            <button class="btn-white" style="width: 100%; border: 1px solid var(--primary);">Mejorar Score</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Confirm Redemption Screen -->
+            <section id="confirm-redemption" class="screen">
+                <div style="max-width: 500px; margin: 0 auto; padding-top: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                        <button class="icon-btn" onclick="showScreen('rewards')"><i data-lucide="arrow-left"></i></button>
+                        <h1 style="font-size: 1.5rem; font-weight: 800; color: var(--primary); margin: 0;">Confirmar Canje</h1>
+                        <button class="icon-btn"><i data-lucide="bell"></i></button>
+                    </div>
+
+                    <div class="card" style="padding: 0; overflow: hidden; margin-bottom: 24px;">
+                        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=600" alt="EMAPA" style="width: 100%; height: 200px; object-fit: cover;">
+                        <div style="padding: 24px;">
+                            <h2 style="font-size: 1.4rem; margin-bottom: 8px;">Canasta de Alimentos (EMAPA)</h2>
+                            <p class="text-muted" style="font-size: 0.9rem; margin-bottom: 24px;">Productos locales y sostenibles directamente a tu hogar.</p>
+                            
+                            <div style="display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid var(--border); padding-top: 16px;">
+                                <div>
+                                    <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Costo</div>
+                                    <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary);">450 ETK</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Saldo Final</div>
+                                    <div style="font-size: 1.8rem; font-weight: 800;">800 ETK</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-4" style="background: #F3F4F6; border: none; display: flex; gap: 16px; align-items: center;">
+                        <div style="background: white; width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); flex-shrink: 0;"><i data-lucide="wallet"></i></div>
+                        <div style="flex: 1;">
+                            <div style="font-weight: 700; font-size: 0.9rem;">Estado de Billetera</div>
+                            <p style="font-size: 0.75rem; color: var(--text-muted);">Tu saldo actual es de **1,250 ETK**. Después de esta transacción, mantendrás un balance positivo para futuros canjes.</p>
+                        </div>
+                    </div>
+
+                    <div style="background: #E3F2FD; padding: 24px; border-radius: 16px; text-align: center; margin-bottom: 24px;">
+                        <i data-lucide="droplet" style="color: #1976D2; margin-bottom: 8px;"></i>
+                        <div style="font-size: 1.5rem; font-weight: 800; color: #1976D2;">-450 ETK</div>
+                        <div style="font-size: 0.75rem; color: #1976D2; font-weight: 600;">Ahorro Ambiental</div>
+                    </div>
+
+                    <div style="background: #FEF2F2; border: 1px solid #FEE2E2; padding: 16px; border-radius: 16px; display: flex; gap: 12px; margin-bottom: 32px;">
+                        <i data-lucide="alert-triangle" style="color: #EF4444; flex-shrink: 0;"></i>
+                        <p style="font-size: 0.8rem; color: #B91C1C;">Esta acción descontará **450 ETK** de tu billetera y generará un **ticket intransferible**. Asegúrate de que los datos sean correctos antes de confirmar.</p>
+                    </div>
+
+                    <button class="scanner-btn-side" style="width: 100%; padding: 16px; font-size: 1.1rem; margin-bottom: 16px;" onclick="confirmRedemption()">Sí, Confirmar Canje</button>
+                    <div style="text-align: center; margin-bottom: 40px;">
+                        <a href="#" style="color: #991B1B; font-weight: 700; text-decoration: none; font-size: 0.9rem;" onclick="showScreen('rewards')">Cancelar</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ticket Screen -->
+            <section id="ticket" class="screen">
+                <div style="max-width: 500px; margin: 0 auto; text-align: center;">
+                    <div style="background: var(--surface); border-radius: 30px; padding: 40px; box-shadow: var(--shadow); border: 1px solid var(--border);">
+                        <div style="background: #E8F5E9; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; color: var(--accent);">
+                            <i data-lucide="check-circle" style="width: 40px; height: 40px;"></i>
+                        </div>
+                        <h1 style="font-size: 2rem; margin-bottom: 8px;">¡Canje Exitoso!</h1>
+                        <p class="text-muted" style="margin-bottom: 32px;">Tu canasta ha sido reservada con éxito.</p>
+                        
+                        <div style="background: #F3F4F6; border-radius: 20px; padding: 30px; margin-bottom: 32px; border: 1px dashed var(--border);">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=EK-EMAPA-7782" alt="QR" style="margin-bottom: 20px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem;">
+                                <span class="text-muted">ID de Ticket:</span>
+                                <span class="font-bold">#EK-EMAPA-7782</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem;">
+                                <span class="text-muted">Fecha:</span>
+                                <span>24 Oct, 2023</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                                <span class="text-muted">Monto:</span>
+                                <span class="text-primary font-bold">450 ETK</span>
+                            </div>
+                        </div>
+
+                        <div class="card" style="background: #F9FAF5; border: none; text-align: left; margin-bottom: 24px;">
+                            <div style="font-weight: 700; color: var(--primary); margin-bottom: 8px;">RESUMEN DE PRODUCTO</div>
+                            <div style="font-weight: 600;">Canasta de Alimentos (EMAPA)</div>
+                            <div class="text-muted" style="font-size: 0.8rem; display: flex; align-items: center; gap: 4px; margin-top: 4px;">
+                                <i data-lucide="map-pin" style="width:14px;"></i> Punto de recojo: Centros EMAPA Autorizados
+                            </div>
+                        </div>
+
+                        <div style="background: #EBF5FF; padding: 12px; border-radius: 12px; border: 1px solid #BFDBFE; display: flex; gap: 12px; text-align: left; margin-bottom: 32px;">
+                            <i data-lucide="info" style="color: #3B82F6; flex-shrink: 0;"></i>
+                            <p style="font-size: 0.8rem; color: #1E3A8A;">Presenta este código QR en el mostrador para recoger tu canasta. Válido por 30 días.</p>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <button class="btn-white" style="width: 100%; border: 1px solid var(--primary); color: var(--primary);"><i data-lucide="download" style="width:18px; display:inline; margin-right:8px;"></i> Descargar Ticket</button>
+                            <button class="scanner-btn-side" style="width: 100%;" onclick="showScreen('dashboard')">Volver al Inicio</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Community Screen -->
+            <section id="community" class="screen">
+                <div class="dashboard-grid">
+                    <div class="left-col">
+                        <div class="card mb-4" style="padding: 0; overflow: hidden;">
+                            <div style="background: url('https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=1000') center/cover; height: 300px; padding: 40px; color: white; display: flex; flex-direction: column; justify-content: flex-end; position: relative;">
+                                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.8));"></div>
+                                <div style="position: relative;">
+                                    <span style="background: var(--primary-light); color: white; font-size: 0.7rem; font-weight: 700; padding: 4px 12px; border-radius: 4px; text-transform: uppercase;">Evento Destacado</span>
+                                    <h1 style="font-size: 2.5rem; margin: 8px 0;">Proyecto Río Rocha</h1>
+                                    <p style="opacity: 0.9; margin-bottom: 24px;">Únete a la jornada de limpieza masiva para revitalizar nuestro pulmón hídrico. Tu participación suma puntos dobles para el ranking de tu OTB.</p>
+                                    <div style="display: flex; gap: 24px; font-size: 0.9rem;">
+                                        <div style="display: flex; align-items: center; gap: 8px;"><i data-lucide="calendar" style="width:18px;"></i> 15 de Octubre, 2023</div>
+                                        <div style="display: flex; align-items: center; gap: 8px;"><i data-lucide="clock" style="width:18px;"></i> 09:00 - 12:00</div>
+                                    </div>
+                                    <button class="btn-white" style="position: absolute; bottom: 0; right: 0; background: var(--accent); color: white;"><i data-lucide="qr-code" style="width:18px; display:inline; margin-right:8px;"></i> Validar con QR</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h2>Comunidad y Noticias</h2>
+                            <div style="background: #E5E7EB; padding: 4px; border-radius: 8px; display: flex; gap: 4px;">
+                                <button style="background: white; border: none; padding: 6px 16px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer;">Todos</button>
+                                <button style="background: none; border: none; padding: 6px 16px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); cursor: pointer;">Oficial</button>
+                            </div>
+                        </div>
+
+                        <div class="card mb-4">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                                <div style="display: flex; gap: 12px; align-items: center;">
+                                    <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i data-lucide="building"></i></div>
+                                    <div>
+                                        <div style="font-weight: 700;">Alcaldía de Cochabamba</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">HACE 2 HORAS - OFICIAL</div>
+                                    </div>
+                                </div>
+                                <i data-lucide="more-vertical" style="color: var(--text-muted); cursor: pointer;"></i>
+                            </div>
+                            <p style="margin-bottom: 16px; line-height: 1.5;">¡Nuevos contenedores de reciclaje diferenciado en el centro histórico! Estamos instalando 50 puntos nuevos para facilitar la separación de residuos sólidos, orgánicos y plásticos.</p>
+                            <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&q=80&w=1000" alt="Bins" style="width: 100%; border-radius: 16px; margin-bottom: 16px;">
+                            <div style="display: flex; gap: 24px; color: var(--text-muted); font-size: 0.9rem;">
+                                <div style="display: flex; align-items: center; gap: 6px;"><i data-lucide="heart" style="width:18px;"></i> 342</div>
+                                <div style="display: flex; align-items: center; gap: 6px;"><i data-lucide="message-square" style="width:18px;"></i> 48</div>
+                                <div style="display: flex; align-items: center; gap: 6px; margin-left: auto;"><i data-lucide="share-2" style="width:18px;"></i></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="right-col">
+                        <div class="card mb-4">
+                            <div class="card-title"><i data-lucide="award" style="color: var(--accent); width: 20px;"></i> Líderes (OTBs)</div>
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr style="border-bottom: 1px solid var(--border);">
+                                    <td style="padding: 12px 0;"><span style="background: var(--accent); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700;">1</span></td>
+                                    <td style="padding: 12px 0; font-weight: 600;">OTB Recoleta</td>
+                                    <td style="padding: 12px 0; text-align: right; font-weight: 700;">1,240 <span style="font-size: 0.6rem; font-weight: 400;">kg</span></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid var(--border);">
+                                    <td style="padding: 12px 0;"><span style="background: #E5E7EB; color: var(--text); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700;">2</span></td>
+                                    <td style="padding: 12px 0; font-weight: 600;">OTB Cala Cala</td>
+                                    <td style="padding: 12px 0; text-align: right; font-weight: 700;">980 <span style="font-size: 0.6rem; font-weight: 400;">kg</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px 0;"><span style="background: #E5E7EB; color: var(--text); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700;">3</span></td>
+                                    <td style="padding: 12px 0; font-weight: 600;">OTB Tupuraya</td>
+                                    <td style="padding: 12px 0; text-align: right; font-weight: 700;">750 <span style="font-size: 0.6rem; font-weight: 400;">kg</span></td>
+                                </tr>
+                            </table>
+                            <a href="#" style="display: block; text-align: center; margin-top: 16px; font-size: 0.8rem; color: var(--primary); font-weight: 600;">Ver ranking completo</a>
+                        </div>
+
+                        <div class="card" style="background: #60A5FA; color: white;">
+                            <i data-lucide="help-circle" style="width: 32px; height: 32px; margin-bottom: 16px;"></i>
+                            <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 8px;">¿Sabías que...?</div>
+                            <p style="font-size: 0.85rem; opacity: 0.9; line-height: 1.5;">Reciclar una tonelada de papel ahorra 17 árboles y 26,000 litros de agua. ¡Tu esfuerzo local tiene impacto global!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ranking Screen -->
+            <section id="ranking" class="screen">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px;">
+                    <div>
+                        <p class="text-muted" style="margin-bottom: 8px;">Rewards / Ranking de Ciudadanos</p>
+                        <h1 style="font-size: 3rem; font-weight: 800;">Top Global Cochabamba</h1>
+                        <p class="text-muted" style="max-width: 600px;">Reconocimiento a los ciudadanos con mayor impacto ambiental positivo este mes. Tu actividad de reciclaje y reportes directos salvan el ecosistema local.</p>
+                    </div>
+                    <div style="background: #60A5FA; color: white; padding: 24px; border-radius: 24px; display: flex; align-items: center; gap: 16px; cursor: pointer;">
+                        <div style="display: flex; -webkit-mask-image: linear-gradient(to right, black 80%, transparent); mask-image: linear-gradient(to right, black 80%, transparent);">
+                            <img src="https://i.pravatar.cc/40?img=1" style="width:32px; height:32px; border-radius:50%; border:2px solid white; margin-right:-12px;">
+                            <img src="https://i.pravatar.cc/40?img=2" style="width:32px; height:32px; border-radius:50%; border:2px solid white; margin-right:-12px;">
+                            <img src="https://i.pravatar.cc/40?img=3" style="width:32px; height:32px; border-radius:50%; border:2px solid white; margin-right:-12px;">
+                        </div>
+                        <div>
+                            <div style="font-weight: 700;">¡Multiplica tu impacto!</div>
+                            <div style="font-size: 0.8rem; opacity: 0.9;">Invita a tus amigos <i data-lucide="arrow-right" style="width:14px; vertical-align:middle;"></i></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="left-col">
+                        <div class="card-title"><i data-lucide="award" style="color: #FFD700;"></i> Podio de Honor</div>
+                        <div style="display: flex; align-items: flex-end; gap: 12px; margin-top: 24px; padding-bottom: 40px;">
+                            <!-- 2nd Place -->
+                            <div class="card" style="flex: 1; text-align: center; padding: 20px 10px; border-bottom: 8px solid #C0C0C0;">
+                                <img src="https://i.pravatar.cc/100?img=5" style="width: 60px; height: 60px; border-radius: 50%; border: 4px solid #C0C0C0; margin-bottom: 12px;">
+                                <div style="font-weight: 700; font-size: 0.9rem;">Sofía M.</div>
+                                <div style="color: var(--primary); font-weight: 800; font-size: 0.8rem;">9,820 pts</div>
+                                <div style="background: #C0C0C0; color: white; width: 20px; height: 20px; border-radius: 50%; font-size: 0.6rem; display: flex; align-items: center; justify-content: center; margin: 12px auto 0;">2</div>
+                            </div>
+                            <!-- 1st Place -->
+                            <div class="card" style="flex: 1.2; text-align: center; padding: 40px 10px; border-bottom: 8px solid #FFD700; transform: translateY(-20px); background: #F9FAF5;">
+                                <div style="position: relative; display: inline-block;">
+                                    <img src="https://i.pravatar.cc/100?img=8" style="width: 100px; height: 100px; border-radius: 50%; border: 6px solid #FFD700; margin-bottom: 12px;">
+                                    <span style="position: absolute; top: -10px; right: -10px; background: #FFD700; color: white; width: 30px; height: 30px; border-radius: 50%; font-size: 1rem; display: flex; align-items: center; justify-content: center; border: 4px solid white;">👑</span>
+                                </div>
+                                <div style="font-weight: 800; font-size: 1.2rem;">Alejandro V.</div>
+                                <div style="color: var(--primary); font-weight: 900; font-size: 1rem;">12,450 pts</div>
+                                <div style="background: var(--accent); color: white; font-size: 0.6rem; padding: 4px 12px; border-radius: 20px; margin-top: 12px; display: inline-block;">GUARDIÁN DEL VALLE</div>
+                            </div>
+                            <!-- 3rd Place -->
+                            <div class="card" style="flex: 1; text-align: center; padding: 20px 10px; border-bottom: 8px solid #CD7F32;">
+                                <img src="https://i.pravatar.cc/100?img=12" style="width: 60px; height: 60px; border-radius: 50%; border: 4px solid #CD7F32; margin-bottom: 12px;">
+                                <div style="font-weight: 700; font-size: 0.9rem;">Renato G.</div>
+                                <div style="color: var(--primary); font-weight: 800; font-size: 0.8rem;">8,540 pts</div>
+                                <div style="background: #CD7F32; color: white; width: 20px; height: 20px; border-radius: 50%; font-size: 0.6rem; display: flex; align-items: center; justify-content: center; margin: 12px auto 0;">3</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="right-col">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <div class="card-title" style="margin-bottom: 0;">Clasificación General</div>
+                            <div style="background: #E5E7EB; padding: 4px; border-radius: 8px; display: flex; gap: 4px;">
+                                <button style="background: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; cursor: pointer;">Este Mes</button>
+                                <button style="background: none; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; color: var(--text-muted); cursor: pointer;">Histórico</button>
+                            </div>
+                        </div>
+                        <div class="card" style="padding: 0;">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr style="background: #F9FAF5; color: var(--text-muted); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px;">
+                                    <th style="padding: 12px 16px; text-align: left;">Rango</th>
+                                    <th style="padding: 12px 16px; text-align: left;">Ciudadano</th>
+                                    <th style="padding: 12px 16px; text-align: center;">EcoPoints</th>
+                                    <th style="padding: 12px 16px; text-align: right;">Crecimiento</th>
+                                </tr>
+                                <tr style="border-bottom: 1px solid var(--border);">
+                                    <td style="padding: 16px; font-weight: 700; text-align: center;">4</td>
+                                    <td style="padding: 16px;">
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <img src="https://i.pravatar.cc/40?img=3" style="width:32px; height:32px; border-radius:50%;">
+                                            <div>
+                                                <div style="font-weight: 600; font-size: 0.85rem;">Mónica Quiroga</div>
+                                                <div style="font-size: 0.65rem; color: var(--text-muted);">Zona Norte</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="padding: 16px; text-align: center; font-weight: 800;">7,210</td>
+                                    <td style="padding: 16px; text-align: right; color: var(--accent); font-weight: 600; font-size: 0.8rem;">+12% <i data-lucide="trending-up" style="width:12px; vertical-align:middle;"></i></td>
+                                </tr>
+                                <tr style="background: var(--primary); color: white;">
+                                    <td style="padding: 16px; font-weight: 700; text-align: center;">6</td>
+                                    <td style="padding: 16px;">
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <div style="background: rgba(255,255,255,0.2); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.7rem;">MR</div>
+                                            <div>
+                                                <div style="font-weight: 700; font-size: 0.85rem;">Marcelo R. (Tú)</div>
+                                                <div style="font-size: 0.65rem; opacity: 0.8;">Cala Cala</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="padding: 16px; text-align: center; font-weight: 800;">5,920</td>
+                                    <td style="padding: 16px; text-align: right; color: #AAF255; font-weight: 600; font-size: 0.8rem;">+24% <i data-lucide="trending-up" style="width:12px; vertical-align:middle;"></i></td>
+                                </tr>
+                            </table>
+                            <div style="padding: 12px; text-align: center; background: #F9FAF5; border-radius: 0 0 20px 20px; cursor: pointer;">
+                                <span style="font-size: 0.75rem; font-weight: 600; color: var(--primary);">Ver Clasificación Completa <i data-lucide="chevron-down" style="width:14px; vertical-align:middle;"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Screen -->
+            <section id="profile" class="screen">
+                <div class="card mb-4" style="padding: 0; overflow: hidden;">
+                    <div style="background: url('https://images.unsplash.com/photo-1518005020250-68a0d0d7a982?auto=format&fit=crop&q=80&w=1000') center/cover; height: 180px; position: relative;">
+                        <div style="position: absolute; bottom: -50px; left: 40px; border: 6px solid white; border-radius: 50%; overflow: hidden; width: 120px; height: 120px; background: white;">
+                            <img src="https://i.pravatar.cc/120?img=11" alt="Mateo" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <button class="btn-white" style="position: absolute; bottom: 16px; right: 16px; background: var(--primary); color: white;"><i data-lucide="download" style="width:18px; display:inline; margin-right:8px;"></i> Descargar Certificado Verde</button>
+                    </div>
+                    <div style="padding: 60px 40px 30px;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <div>
+                                <h1 style="font-size: 2rem; font-weight: 800; margin-bottom: 4px;">Mateo Velasco <i data-lucide="check-circle" style="width:20px; color:var(--accent); display:inline; vertical-align:middle;"></i></h1>
+                                <div style="display: flex; gap: 12px; align-items: center; color: var(--primary); font-weight: 700; font-size: 0.9rem;">
+                                    <i data-lucide="shield"></i> GUARDIÁN DEL VALLE
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 32px;">
+                                <div style="text-align: center;">
+                                    <div style="font-weight: 800; font-size: 1.5rem;">428 <span style="font-size: 0.8rem; font-weight: 400;">kg</span></div>
+                                    <div class="text-muted" style="font-size: 0.7rem; text-transform: uppercase;">Total Reciclado</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-weight: 800; font-size: 1.5rem;">2,450 <span style="font-size: 0.8rem; font-weight: 400;">ETK</span></div>
+                                    <div class="text-muted" style="font-size: 0.7rem; text-transform: uppercase;">Balance</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-weight: 800; font-size: 1.5rem;">24</div>
+                                    <div class="text-muted" style="font-size: 0.7rem; text-transform: uppercase;">Eventos</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-title">Muro de Logros</div>
+                        <div class="grid-3" style="margin-top: 20px;">
+                            <div style="text-align: center;">
+                                <div style="background: #E8F5E9; width: 70px; height: 70px; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; color: var(--primary);"><i data-lucide="recycle" style="width:32px; height:32px;"></i></div>
+                                <div style="font-weight: 700; font-size: 0.8rem;">Pionero Orgánico</div>
+                                <div class="text-muted" style="font-size: 0.65rem;">Nivel 2</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="background: #E3F2FD; width: 70px; height: 70px; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; color: #1976D2;"><i data-lucide="bike" style="width:32px; height:32px;"></i></div>
+                                <div style="font-weight: 700; font-size: 0.8rem;">Ciclista Urbano</div>
+                                <div class="text-muted" style="font-size: 0.65rem;">Nivel 4</div>
+                            </div>
+                            <div style="text-align: center; opacity: 0.3;">
+                                <div style="background: #F3F4F6; width: 70px; height: 70px; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;"><i data-lucide="lock" style="width:32px; height:32px;"></i></div>
+                                <div style="font-weight: 700; font-size: 0.8rem;">Líder Regional</div>
+                                <div class="text-muted" style="font-size: 0.65rem;">Bloqueado</div>
+                            </div>
+                        </div>
+                        <button class="btn-white" style="width: 100%; border: 1px solid var(--border); margin-top: 32px; font-size: 0.8rem; font-weight: 600;">Explorar Todas las Insignias</button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">Actividad Reciente <a href="#" style="font-size: 0.8rem; color: var(--primary);">Ver Historial Completo</a></div>
+                        <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 24px;">
+                            <div style="display: flex; gap: 16px;">
+                                <div style="background: #E8F5E9; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); flex-shrink: 0;"><i data-lucide="check" style="width:16px;"></i></div>
+                                <div>
+                                    <div style="font-weight: 700; font-size: 0.9rem;">Reciclaje de PET exitoso</div>
+                                    <p class="text-muted" style="font-size: 0.75rem;">Registraste 5.4kg de botellas plásticas en el Punto Verde del Prado.</p>
+                                    <div style="color: var(--accent); font-weight: 700; font-size: 0.8rem; margin-top: 4px;">+54 ETK</div>
+                                </div>
+                                <div class="text-muted" style="font-size: 0.7rem; margin-left: auto;">Hace 2 horas</div>
+                            </div>
+                            <div style="display: flex; gap: 16px;">
+                                <div style="background: #E3F2FD; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #1976D2; flex-shrink: 0;"><i data-lucide="calendar" style="width:16px;"></i></div>
+                                <div>
+                                    <div style="font-weight: 700; font-size: 0.9rem;">Inscripción a 'Limpieza del Río Rocha'</div>
+                                    <p class="text-muted" style="font-size: 0.75rem;">Te has unido a 140 voluntarios para la jornada de este sábado.</p>
+                                </div>
+                                <div class="text-muted" style="font-size: 0.7rem; margin-left: auto;">Ayer, 15:45</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Notifications Screen -->
+            <section id="notifications" class="screen">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                    <h1>Smart Notifications</h1>
+                    <a href="#" style="color: var(--primary); font-weight: 600; font-size: 0.9rem;">Mark all as read</a>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div class="card" style="border-left: 4px solid #EF4444; background: #FEF2F2;">
+                        <div style="display: flex; gap: 16px;">
+                            <div style="background: #FEE2E2; width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #EF4444;"><i data-lucide="alert-triangle"></i></div>
+                            <div style="flex: 1;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                    <span style="font-weight: 700; color: #B91C1C;">Critical: Smart Bin Capacity Reached</span>
+                                    <span class="text-muted" style="font-size: 0.7rem;">2 mins ago</span>
+                                </div>
+                                <p style="font-size: 0.85rem; color: #7F1D1D; margin-bottom: 12px;">Your primary recycling bin at Sector 7 is at 98% capacity. Schedule a collection now to avoid overflow penalties.</p>
+                                <div style="display: flex; gap: 12px;">
+                                    <button style="background: #EF4444; color: white; border: none; padding: 6px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600;" onclick="showScreen('report')">Schedule Collection</button>
+                                    <button style="background: none; border: none; color: #B91C1C; font-size: 0.8rem; font-weight: 600;">View Map</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="border-left: 4px solid var(--accent);">
+                        <div style="display: flex; gap: 16px;">
+                            <div style="background: #ECFDF5; width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--accent);"><i data-lucide="flame"></i></div>
+                            <div style="flex: 1;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                    <span style="font-weight: 700;">Daily Streak at Risk!</span>
+                                    <span class="text-muted" style="font-size: 0.7rem;">1 hour ago</span>
+                                </div>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">You haven't logged a waste scan today. Complete one eco-action to maintain your 15-day streak and earn 50 Bonus EcoPoints.</p>
+                                <button style="background: var(--primary); color: white; border: none; padding: 6px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600;" onclick="showScreen('ecocam')">Keep Streak Alive</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="padding: 0; overflow: hidden;">
+                        <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=1000" style="width: 100%; height: 120px; object-fit: cover;">
+                        <div style="padding: 16px; display: flex; gap: 16px;">
+                            <div style="background: #DBEAFE; width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #2563EB;"><i data-lucide="users"></i></div>
+                            <div style="flex: 1;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                    <span style="font-weight: 700;">Join the Riverside Restoration</span>
+                                    <span class="text-muted" style="font-size: 0.7rem;">3 hours ago</span>
+                                </div>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">Our local community is gathering this Saturday at 9:00 AM for the monthly Riverside cleanup. Be a hero for your local ecosystem!</p>
+                                <div style="display: flex; gap: 12px;">
+                                    <button style="background: white; color: var(--primary); border: 1px solid var(--primary); padding: 6px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 600;">Accept Invitation</button>
+                                    <button style="background: none; border: none; color: var(--text-muted); font-size: 0.8rem; font-weight: 600;">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Critical Point Report Screen (Split Layout) -->
+            <section id="report" class="screen">
+                <div class="split-layout">
+                    <!-- Left: GPS Map Confirmation -->
+                    <div class="split-left">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAm6C3WN4OWCjd8SMnX_aFAFLXSqkIdZ31AmjAYHu0bjOzgPOn_bhEi3f2iDxYGvof0HNiLGx-TNMEvLxXwpukIuYXfksDUJUlj_lJWw3phLQHdarEfWiG6azhdBMkqtB_F8bqNb2yjpyGtmmAgpzHJY29xO4UMFRkvNtnPB1oqWMJ4IMtEVWyHdgt86emHDlay6gh7gkTHtaByzv56DDEsHxbcpp1k6h9Iyhbw5nKBZHseNMF9wifqD08Ee_dRLw2OXQWdM-GE_nHk" alt="GPS Confirmation" style="width:100%; height:100%; object-fit:cover;">
+                        
+                        <div class="gps-overlay">
+                            <h2 style="font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 4px;">Confirm GPS Location</h2>
+                            <div style="display: flex; align-items: center; gap: 8px; color: var(--primary); font-size: 0.8rem; font-weight: 600;">
+                                <i data-lucide="crosshair" style="width:16px;"></i> High accuracy (± 2m)
+                            </div>
+                        </div>
+
+                        <div style="position: absolute; bottom: 24px; left: 24px; right: 24px; background: white; padding: 20px; border-radius: 16px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 16px;">
+                            <div style="width: 48px; height: 48px; border-radius: 50%; background: #E8F5E9; display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                                <i data-lucide="map-pin"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Current Address</div>
+                                <div style="font-weight: 700; font-size: 1.1rem;">Calle Los Pinos #452, Cochabamba</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Evidence & Form -->
+                    <div class="split-right">
+                        <div style="margin-bottom: 32px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <span class="text-muted" style="font-size: 0.8rem;">Reporting Progress</span>
+                                <span style="font-weight: 700; color: var(--primary); font-size: 0.8rem;">Step 2 of 3</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width: 66%;"></div>
+                            </div>
+                        </div>
+
+                        <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 16px;">Evidence Captured</h3>
+                        <div style="position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 24px;">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCC6D2jFX3MKid-9xMkDIDWfAZ0FSMYr41ujjRDDzdjzgbABDEB6Eh0PRF-fUrqiBkd223tE4DnMHDCPVICV_39dEU1CoKwjuVDB-_kClZdKQz3T1bQUjYhLkWzwRWrrKiDIo7BoLBp_4Dd6Oxoeg0oCG5AzY3wqGjjZT5hLbgfttVgrrwRC7-8Ic2285VSfu_6yM6ElTSUHHsjrJ6QlQsX43xFNwOxW2zzBKI-tATFpiYCcL5gspWloXXRod7B9-eXeYfxZgB9GvHq" alt="Evidence" style="width: 100%; height: 250px; object-fit: cover;">
+                            <div class="badge-verified" style="position: absolute; top: 12px; right: 12px;">
+                                <i data-lucide="check-circle" style="width: 14px;"></i> AI Verified
+                            </div>
+                        </div>
+
+                        <div style="background: #E8F5E9; padding: 20px; border-radius: 16px; border: 1px solid rgba(27, 94, 32, 0.1); display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="background: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary);"><i data-lucide="leaf"></i></div>
+                                <div>
+                                    <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Potential Reward</div>
+                                    <div style="font-weight: 800; color: var(--primary);">+10 ETK Tokens</div>
+                                </div>
+                            </div>
+                            <span style="background: var(--primary); color: white; padding: 4px 10px; border-radius: 8px; font-size: 0.65rem; font-weight: 800;">LEVEL UP</span>
+                        </div>
+
+                        <div style="margin-bottom: 32px;">
+                            <div class="text-muted" style="font-size: 0.8rem; font-weight: 600; margin-bottom: 8px;">Optional Note</div>
+                            <textarea placeholder="Describe the situation or provide more details..." style="width: 100%; border: none; border-bottom: 2px solid var(--border); padding: 12px 0; height: 100px; outline: none; font-size: 0.9rem; resize: none;"></textarea>
+                        </div>
+
+                        <div style="display: flex; gap: 16px;">
+                            <button class="scanner-btn-side" style="flex: 1; margin: 0; padding: 16px;" onclick="submitReport()">Send Report <i data-lucide="send" style="width:18px;"></i></button>
+                            <button class="btn-white" style="border: 2px solid var(--border); padding: 16px 24px;" onclick="showScreen('dashboard')">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- EcoKawsay Map Screen (Intelligent Map) -->
+            <section id="map" class="screen">
+                <div style="position: relative; height: calc(100vh - 120px); background: white; border-radius: 24px; overflow: hidden; border: 1px solid var(--border);">
+                    <!-- Satellite Map Background -->
+                    <div style="position: absolute; inset: 0;">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM9ow0uavbuqqbxuL_M5EzhebdD8ficww_ml8hyvc8l1UsCLfSCwZDHAW6IqkAK4fFeiq69oUPv1R9MgWSwneSpWEG-nMeyQIm6dfV-xYRW9SAR0PQDrFlVcloij9tfQTPxomVn05e91NdRiyduPl7fRr719p9pbIixxTabaq6wpb7Nx1o0v9l4wZeAQkIMLv07aCRLq08YOnRgj2Ceaq9HKDfQnoRQaYUEbVJ64mUWX5fk9wU3BeOqkZW13x2D7ZoexSZtPiQaNB9" alt="Satellite Map" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;">
+                    </div>
+
+                    <!-- Category Filters Overlay -->
+                    <div style="position: absolute; top: 24px; left: 50%; transform: translateX(-50%); z-index: 30; display: flex; gap: 12px;">
+                        <button class="btn-white" style="background: var(--primary); color: white; border: none; padding: 10px 24px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 8px;">
+                            <i data-lucide="layout-grid" style="width:18px;"></i> All
+                        </button>
+                        <button class="btn-white" style="box-shadow: var(--shadow); padding: 10px 24px; display: flex; align-items: center; gap: 8px;">
+                            <span style="width:8px; height:8px; background:#51b2fe; border-radius:50%;"></span> PET
+                        </button>
+                        <button class="btn-white" style="box-shadow: var(--shadow); padding: 10px 24px; display: flex; align-items: center; gap: 8px;">
+                            <span style="width:8px; height:8px; background:#707a6c; border-radius:50%;"></span> Glass
+                        </button>
+                        <button class="btn-white" style="box-shadow: var(--shadow); padding: 10px 24px; display: flex; align-items: center; gap: 8px;">
+                            <span style="width:8px; height:8px; background:var(--primary); border-radius:50%;"></span> Organic
+                        </button>
+                    </div>
+
+                    <!-- Floating Markers -->
+                    <div class="map-marker-container" style="top: 45%; left: 52%;" onclick="toggleMapDrawer()">
+                        <div class="marker-pin" style="background: var(--primary); border-color: white; transform: rotate(-45deg) scale(1.1);">
+                            <i data-lucide="recycle" style="width: 20px;"></i>
+                        </div>
+                        <div style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 8px; background: white; padding: 4px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; box-shadow: var(--shadow);">Plaza Colón Point</div>
+                    </div>
+
+                    <!-- Other markers (simulated) -->
+                    <div class="map-marker-container" style="top: 30%; left: 40%;">
+                        <div class="marker-pin" style="background: #00639a; border-color: white; width: 32px; height: 32px;">
+                            <i data-lucide="trash-2" style="width: 14px;"></i>
+                        </div>
+                    </div>
+                    <div class="map-marker-container" style="top: 60%; left: 35%;">
+                        <div class="marker-pin" style="background: #ba1a1a; border-color: white; width: 32px; height: 32px;">
+                            <i data-lucide="alert-triangle" style="width: 14px;"></i>
+                        </div>
+                    </div>
+
+                    <!-- Zoom Controls -->
+                    <div style="position: absolute; bottom: 32px; left: 32px; z-index: 30; display: flex; flex-direction: column; gap: 8px;">
+                        <button class="icon-btn" style="background: white; border: 1px solid var(--border); width: 44px; height: 44px; border-radius: 12px; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;"><i data-lucide="plus"></i></button>
+                        <button class="icon-btn" style="background: white; border: 1px solid var(--border); width: 44px; height: 44px; border-radius: 12px; border-top-left-radius: 4px; border-top-right-radius: 4px; margin-top: -8px;"><i data-lucide="minus"></i></button>
+                        <button class="icon-btn" style="background: white; border: 1px solid var(--border); width: 44px; height: 44px; border-radius: 12px; margin-top: 8px;"><i data-lucide="navigation"></i></button>
+                    </div>
+
+                    <!-- Floating Action Button (FAB) -->
+                    <button style="position: absolute; bottom: 32px; right: 32px; z-index: 50; background: #00639a; color: white; width: 64px; height: 64px; border-radius: 50%; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                        <i data-lucide="plus" style="width: 32px; height: 32px;"></i>
+                    </button>
+
+                    <!-- Point Detail Drawer (Right Sidebar) -->
+                    <aside id="map-drawer" class="map-drawer">
+                        <div style="position: relative; height: 240px;">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuByeR3AbL6Qe1nFpIiOkavFkPREWKwENE6khjZyIh5-YovTfujR-Lr0Lm5u4tqe7SlHrrEEeHfgS-3w0NaQK5E_jrTlnlF5q68gddMU9Ck3KOHzH_R95IUTP1GzKUQUme3FWD1w6QhKVseWzhVhJaiYuyYKfBoAA7hH-a_dSc1BI7flMKebcGGreald5DiwMfYF0oYBVUY6VirUuBIIls1sQyYyk79vdlPqFOxUPTYXIDvDd_VCL7MXqlswYRuTzfhqaQZYyqgQobs9" alt="Plaza Colón" style="width: 100%; height: 100%; object-fit: cover;">
+                            <button class="icon-btn" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); color: white;" onclick="toggleMapDrawer()">
+                                <i data-lucide="x"></i>
+                            </button>
+                        </div>
+                        <div style="padding: 32px;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
+                                <div>
+                                    <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--primary); margin-bottom: 4px;">Plaza Colón Point</h2>
+                                    <div style="display: flex; align-items: center; gap: 6px; color: var(--text-muted); font-size: 0.85rem;">
+                                        <i data-lucide="map-pin" style="width: 16px;"></i> Cochabamba Centro, Zona 1
+                                    </div>
+                                </div>
+                                <div style="background: var(--primary-container); color: var(--on-primary-container); padding: 8px 16px; border-radius: 12px; text-align: center;">
+                                    <div style="font-weight: 800; font-size: 1.2rem;">+15</div>
+                                    <div style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Tokens</div>
+                                </div>
+                            </div>
+
+                            <div class="grid-2 mb-4">
+                                <div style="background: #F9FAF5; padding: 16px; border-radius: 16px;">
+                                    <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Operating Hours</div>
+                                    <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.9rem; color: var(--primary);"><i data-lucide="clock" style="width:16px;"></i> 08:00 - 20:00</div>
+                                </div>
+                                <div style="background: #F9FAF5; padding: 16px; border-radius: 16px;">
+                                    <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Status</div>
+                                    <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.9rem; color: var(--accent);"><i data-lucide="check-circle" style="width:16px;"></i> Open Now</div>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 32px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="font-weight: 700; font-size: 0.9rem;">Current Capacity</span>
+                                    <span style="font-weight: 800; color: #B91C1C;">78% Full</span>
+                                </div>
+                                <div class="progress-container" style="height: 12px;">
+                                    <div class="progress-bar" style="width: 78%; background: #EF4444;"></div>
+                                </div>
+                                <p class="text-muted" style="font-size: 0.7rem; margin-top: 8px; font-style: italic;">Recommended: Disposal scheduled in 2 hours.</p>
+                            </div>
+
+                            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px;">
+                                <button class="scanner-btn-side" style="width: 100%; margin: 0; padding: 16px; font-size: 1rem;"><i data-lucide="navigation"></i> Get Directions</button>
+                                <button class="btn-white" style="width: 100%; border: 2px solid #EF4444; color: #EF4444; padding: 16px;"><i data-lucide="alert-circle"></i> Report Issue</button>
+                            </div>
+
+                            <div class="card-title">Site Photos</div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2HaQ0jT-QLuQm3C3-pfGv-dPAosegulTpX-MdaVjwhyFEUEbIr2_s6du0L5PoIIGTSuFlQh7SBUS2dthY1f60wcXeytuO3T5NRUvLMM79-a9Vrvsb-WRpVOpt3AeXroYVP--EWAb2BegjkNB1EC2bBcbaWjgNhWKKjV_TF8jQPnU2gmwOiMM4ZGybVD5HjwxNZMOEIWaGgPp2QBZ45lnYbTrySzyPc-jTQ1Qu9N3uS2jout5M9ghvsDjqZcT6tYM-liUrOs8d7WmR" style="width: 100%; aspect-ratio: 1; border-radius: 12px; object-fit: cover;">
+                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9Z2CY8BztCGLo4Dgdd-r6EoqCW7hEg9NvxVSJ6JQuAFr3qCnXoXpd0y6iqKPalcxX5bM5FP_8BwpXjeGUphH8wLCCrUwmmDkgYupU8h6W8Pil0pD1ThL4f0xHdc_1yEkVIYWlX8f5_q83RaXeFagDR1pdjiz_pnYSwzKcGsxB77N0-VSn91s37kF384YQEgtfphHNrVo_kClawvB8DQWOq4ZDf0BUcEy9qoO_AiDEYHVFVIBSddvqstcKOjB3pXBA7OJcVOQBb9wI" style="width: 100%; aspect-ratio: 1; border-radius: 12px; object-fit: cover;">
+                                <div style="width: 100%; aspect-ratio: 1; background: #F3F4F6; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">+5 more</div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+
+            <!-- Projects Screen -->
+            <section id="projects" class="screen">
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+                        <h1 style="font-size: 2.5rem; font-weight: 800; color: var(--primary);">Explorar Misiones</h1>
+                        <div class="search-container" style="width: 300px;">
+                            <i data-lucide="search"></i>
+                            <input type="text" placeholder="Buscar misiones, OTBs o proyectos...">
+                        </div>
+                    </div>
+
+                    <!-- Category Filters -->
+                    <div style="display: flex; gap: 12px; margin-bottom: 32px; overflow-x: auto; padding-bottom: 8px;">
+                        <button class="btn-white" style="background: var(--primary); color: white; border: none; padding: 8px 24px;">Todas</button>
+                        <button class="btn-white" style="padding: 8px 24px;">Reforestación</button>
+                        <button class="btn-white" style="padding: 8px 24px;">Limpieza</button>
+                        <button class="btn-white" style="padding: 8px 24px;">Talleres</button>
+                        <button class="btn-white" style="padding: 8px 24px;">Reciclaje</button>
+                    </div>
+
+                    <!-- Featured Mission -->
+                    <div class="card" style="padding: 0; overflow: hidden; margin-bottom: 40px; cursor: pointer;" onclick="showScreen('project-info')">
+                        <div style="position: relative; height: 300px;">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmErypPrnovHxJ2HTYAQovxmLSeomSuEomqdgF-M-TEjt_AF1cxtunRs9qCOewIVMgaCOW3lC5wLECm9spOMkk3hvYMS1HXvO-3jgXKhPIDZ7C3pJUY6pjbzWojrlmko7LBCLHvyX9jO3mYLFiu66TuphKJeWR5wKJSacHpdUNKc4zQOT0yPpkkmBPdPowOLLSAb00IfOBdex77WmRKhpXFdkXLPjcL0QPhL4O63W1n_9zJguc0vG0MDDyZPg4a8Z-QDCSXx9YnCfV" style="width: 100%; height: 100%; object-fit: cover;">
+                            <div style="position: absolute; top: 20px; right: 20px; background: var(--primary); color: white; padding: 6px 16px; border-radius: 20px; font-weight: 700;">500 ETK</div>
+                        </div>
+                        <div style="padding: 32px;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                <div>
+                                    <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 8px;">Reforestación Urbana Sector Norte</h2>
+                                    <p class="text-muted" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="map-pin" style="width:18px;"></i> Sector Norte, Cochabamba</p>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div class="text-muted" style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">Fecha</div>
+                                    <div style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">24 Ago</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 24px;">Cerca de ti</h2>
+                    <div class="grid-2">
+                        <!-- Card 1 -->
+                        <div class="card" style="display: flex; gap: 20px; padding: 16px; align-items: center; cursor: pointer;" onclick="showScreen('project-info')">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdlH9SMXPbc-UzzQeYCMszQqXmDg9Odd_JCZ04K4y9naQIvDIz6_CShNsNEdCRH-TTyFd38mGqRIZjL7Fg1jhVTYj9STKgxFVUSDHZVC3xF1wgTC3bnZsZWAnVZN82WOuACpUHj-VfgFxLFWv5rX1c0yHlb214CVnjywQSFyJUM5vwU7xnUzA-pU3toKAorHIZn9jh4f1pgKOo5Hxhg8NYrMZgtoyYPoV0e85aqIrGjZC9YbWs9gD0_3Jj28GBEtExZWvtmRPaVjwx" style="width: 100px; height: 100px; border-radius: 12px; object-fit: cover;">
+                            <div style="flex: 1;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <h4 style="font-weight: 700;">Brigada Vidrio 2.0</h4>
+                                    <span style="font-size: 0.75rem; font-weight: 800; color: var(--primary);">350 ETK</span>
+                                </div>
+                                <p class="text-muted" style="font-size: 0.8rem; margin: 4px 0;"><i data-lucide="map-pin" style="width:14px;"></i> OTB Centro Histórico</p>
+                                <div style="font-size: 0.8rem; font-weight: 700; color: var(--primary); margin-top: 8px;">14 Oct</div>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="card" style="display: flex; gap: 20px; padding: 16px; align-items: center; cursor: pointer;" onclick="showScreen('project-info')">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIwSeaFbKtPBMDdDPjIgW85siJD-akhBLQcZ99H06Th4YyqsoUjSMFiyp-I_i177FD33S1t04SoS-xnPRHZRRXdot7XMZLcl-0o6FDZb4zBtphAAD18ZSSIhoo2PWkGwSA668XCUTy3QFGXMzYTQ_Uh8u5vr45CBRdFtrmui-CnV3mhTQpMHX9vmCUbvUBRcOz-g9H9auRYZoOy4ZjcNFbWp0kHfohGgKlzh1hLH3QCIKq6FbcOE14hY-_--jEsWXwQbAJoZ8he2Xe" style="width: 100px; height: 100px; border-radius: 12px; object-fit: cover;">
+                            <div style="flex: 1;">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <h4 style="font-weight: 700;">Taller Compostaje Comunitario</h4>
+                                    <span style="font-size: 0.75rem; font-weight: 800; color: var(--primary);">400 ETK</span>
+                                </div>
+                                <p class="text-muted" style="font-size: 0.8rem; margin: 4px 0;"><i data-lucide="map-pin" style="width:14px;"></i> OTB Sur Moderno</p>
+                                <div style="font-size: 0.8rem; font-weight: 700; color: var(--primary); margin-top: 8px;">16 Oct</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project Info Screen -->
+            <section id="project-info" class="screen">
+                <div style="max-width: 800px; margin: 0 auto; background: white; border-radius: 30px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border);">
+                    <div style="position: relative; height: 400px;">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCywmhkVJq6Zcko4NWXa-caBNOCv17qC-_KXsx1c2ToUDZZ3Blbj-SJsYLgxJKjwkUFDwNyTePrHYz653XKr5WkahmhZSflsQE2VyI7yip1gYr4nqH5bURokaPGVLc_PasyBsmCPTPBXLM3yjdbMijHJn-CUfFJDjEYU0dRTCymD0yDUdILJyRBS22hBhrjqRRjbWasGdLYQFqkYHJB6gQDPElN1uNw7qj0X9jgfMuuFxIDM8a29-p3t51YTmre9Lo7P49GpcQqWNUt" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(transparent, rgba(0,0,0,0.7));"></div>
+                        <button class="icon-btn" style="position: absolute; top: 24px; left: 24px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); color: white;" onclick="showScreen('projects')">
+                            <i data-lucide="arrow-left"></i>
+                        </button>
+                        <div style="position: absolute; bottom: 32px; left: 32px; right: 32px; color: white;">
+                            <span style="background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">Misión Comunitaria</span>
+                            <h1 style="font-size: 2.5rem; font-weight: 800; margin-top: 12px;">Reforestación Parque Sur</h1>
+                            <p style="display: flex; align-items: center; gap: 8px; opacity: 0.9; margin-top: 8px;"><i data-lucide="map-pin" style="width:18px;"></i> OTB Sur Moderno, Cochabamba</p>
+                        </div>
+                    </div>
+
+                    <div style="padding: 40px;">
+                        <!-- Stats Grid -->
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; background: #F9FAF5; padding: 24px; border-radius: 20px; margin-bottom: 40px; border: 1px solid var(--border);">
+                            <div style="text-align: center;">
+                                <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Recompensa</div>
+                                <div style="font-size: 1.3rem; font-weight: 800; color: var(--primary);">450 ETK</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Fecha</div>
+                                <div style="font-size: 1.3rem; font-weight: 800;">15 Oct</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Hora</div>
+                                <div style="font-size: 1.3rem; font-weight: 800;">08:30 AM</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Cupos</div>
+                                <div style="font-size: 1.3rem; font-weight: 800;">12/50</div>
+                            </div>
+                        </div>
+
+                        <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--primary); margin-bottom: 16px;">Sobre esta misión</h3>
+                        <p style="color: var(--text-muted); line-height: 1.8; font-size: 1rem; margin-bottom: 32px;">
+                            Únete a nosotros para transformar el pulmón sur de nuestra ciudad. Esta iniciativa busca combatir el **efecto isla de calor** mediante la plantación estratégica de especies nativas como Molles y Jacarandás. Al participar, no solo incrementas el oxígeno, sino que ayudas a reducir la temperatura ambiente hasta en 4°C en la zona sur.
+                        </p>
+
+                        <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--primary); margin-bottom: 16px;">Punto de Encuentro</h3>
+                        <div style="height: 200px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 40px; position: relative;">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB38tdBF9x6Q-SK4hQ8yi4pJDDhFjVy4kttzYARR9ZnIKkvikZW-j-wIgjhpKzi1KNgvdQX5r6m_8IrAwskP0psPygHyYrgr8p4wYcHA3wYiwjM5kQB3JFZS_fIlB-zDmm3KDajnWJfAlLWnTptAh1v5L6T-HRoB9w6WwTYpynVTHqq9SvrTOx_hDLPeSb5J_imd21tI698Sn8AAZtkkEzIN5vlCDdNGQsZhxXiXoBuVtD4nJH4nhfMTkr55ODgtt8XIZHpOkIl7i_E" style="width: 100%; height: 100%; object-fit: cover;">
+                            <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
+                                <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+                                    <i data-lucide="map-pin"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="scanner-btn-side" style="width: 100%; padding: 20px; font-size: 1.2rem; margin-bottom: 40px;" onclick="showScreen('participation-success')">
+                            Confirmar Participación <i data-lucide="chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Participation Success Screen -->
+            <section id="participation-success" class="screen">
+                <div style="max-width: 500px; margin: 0 auto; text-align: center; padding: 40px 20px;">
+                    <div style="background: var(--surface); border-radius: 30px; padding: 40px; box-shadow: var(--shadow); border: 1px solid var(--border); position: relative; overflow: hidden;">
+                        
+                        <div style="background: var(--primary-container); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; color: var(--on-primary-container);">
+                            <i data-lucide="check-circle" style="width: 40px; height: 40px;"></i>
+                        </div>
+                        <h1 style="font-size: 2rem; font-weight: 800; color: var(--primary); margin-bottom: 8px;">¡Registro Exitoso!</h1>
+                        <p class="text-muted" style="margin-bottom: 32px;">Tu participación ha sido confirmada</p>
+                        
+                        <!-- Ticket Card -->
+                        <div style="background: white; border-radius: 20px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 32px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                            <div style="padding: 32px; border-bottom: 2px dashed var(--border); position: relative;">
+                                <!-- QR Simulation -->
+                                <div style="background: #F9FAF5; padding: 16px; border-radius: 16px; display: inline-block; margin-bottom: 16px; border: 1px solid var(--border);">
+                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=EK-MISSION-PARQUE-SUR" alt="QR" style="width: 150px; height: 150px;">
+                                </div>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+                                    Muestra este código al llegar para validar tu participación y ganar tus <span style="color: var(--primary); font-weight: 800;">450 ETK</span>.
+                                </p>
+                                
+                                <!-- Ticket Perforations -->
+                                <div style="position: absolute; bottom: -12px; left: -12px; width: 24px; height: 24px; background: var(--surface); border-radius: 50%; border-right: 1px solid var(--border);"></div>
+                                <div style="position: absolute; bottom: -12px; right: -12px; width: 24px; height: 24px; background: var(--surface); border-radius: 50%; border-left: 1px solid var(--border);"></div>
+                            </div>
+                            
+                            <div style="padding: 24px; background: #F9FAF5; text-align: left;">
+                                <div style="display: flex; gap: 16px; margin-bottom: 16px;">
+                                    <i data-lucide="leaf" style="color: var(--primary); width: 20px;"></i>
+                                    <div>
+                                        <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Misión</div>
+                                        <div style="font-weight: 700;">Reforestación Parque Sur</div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 16px; margin-bottom: 16px;">
+                                    <i data-lucide="calendar" style="color: #00639a; width: 20px;"></i>
+                                    <div>
+                                        <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Horario</div>
+                                        <div style="font-weight: 700;">08:30 AM - 15 Oct</div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 16px;">
+                                    <i data-lucide="map-pin" style="color: #704d40; width: 20px;"></i>
+                                    <div>
+                                        <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Lugar</div>
+                                        <div style="font-weight: 700;">Parque Sur (Punto de Encuentro)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <button class="scanner-btn-side" style="width: 100%; padding: 16px; font-size: 1.1rem; margin: 0; background: var(--primary-container); color: var(--on-primary-container);">
+                                <i data-lucide="wallet"></i> Guardar en Wallet
+                            </button>
+                            <button class="btn-white" style="width: 100%; border: 2px solid var(--border); padding: 16px;" onclick="showScreen('projects')">
+                                Volver a Mis Misiones
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Critical Point Report - EcoKawsay</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#d8dad9",
+                    "primary-fixed": "#a3f69c",
+                    "outline-variant": "#bfcaba",
+                    "surface-container-high": "#e6e9e7",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#f8faf8",
+                    "on-primary-fixed": "#002204",
+                    "on-background": "#191c1b",
+                    "surface-container": "#eceeec",
+                    "on-secondary-container": "#00436a",
+                    "surface-container-highest": "#e1e3e1",
+                    "on-tertiary-fixed": "#2e150b",
+                    "error-container": "#ffdad6",
+                    "surface": "#f8faf8",
+                    "on-primary-container": "#cbffc2",
+                    "tertiary-fixed-dim": "#ebbcac",
+                    "outline": "#707a6c",
+                    "on-surface-variant": "#40493d",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed": "#cee5ff",
+                    "secondary-container": "#51b2fe",
+                    "primary-fixed-dim": "#88d982",
+                    "background": "#f8faf8",
+                    "secondary": "#00639a",
+                    "on-secondary-fixed": "#001d32",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#004a75",
+                    "primary": "#0d631b",
+                    "tertiary-fixed": "#ffdbcf",
+                    "surface-tint": "#1b6d24",
+                    "tertiary-container": "#8b6557",
+                    "on-tertiary-container": "#ffeee8",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#eff1ef",
+                    "on-primary-fixed-variant": "#005312",
+                    "tertiary": "#704d40",
+                    "surface-variant": "#e1e3e1",
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f2f4f2",
+                    "error": "#ba1a1a",
+                    "primary-container": "#2e7d32",
+                    "inverse-surface": "#2e3130",
+                    "on-surface": "#191c1b",
+                    "secondary-fixed-dim": "#96ccff",
+                    "inverse-primary": "#88d982",
+                    "on-tertiary-fixed-variant": "#603f33"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "margin-desktop": "80px",
+                    "md": "24px",
+                    "lg": "40px",
+                    "gutter": "24px",
+                    "base": "8px",
+                    "sm": "12px",
+                    "margin-mobile": "16px",
+                    "xl": "64px"
+            },
+            "fontFamily": {
+                    "title-lg": ["Montserrat"],
+                    "display-lg": ["Montserrat"],
+                    "body-md": ["Montserrat"],
+                    "headline-lg-mobile": ["Montserrat"],
+                    "body-lg": ["Montserrat"],
+                    "label-sm": ["Montserrat"],
+                    "label-lg": ["Montserrat"],
+                    "headline-lg": ["Montserrat"]
+            },
+            "fontSize": {
+                    "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Montserrat', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="bg-surface-bright dark:bg-surface-dim shadow-sm bg-opacity-95 backdrop-blur-md flex justify-between items-center w-full px-margin-desktop h-16 sticky top-0 z-50">
+<div class="flex items-center gap-md">
+<span class="text-title-lg font-title-lg font-bold text-primary dark:text-inverse-primary">EcoKawsay</span>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden md:flex items-center gap-xl mr-xl">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary font-body-md text-body-md transition-colors duration-200" href="#">Dashboard</a>
+<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary font-body-md text-body-md" href="#">EcoCam</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary font-body-md text-body-md transition-colors duration-200" href="#">Rewards</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary font-body-md text-body-md transition-colors duration-200" href="#">Community</a>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-base rounded-full hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-200">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<button class="p-base rounded-full hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-200">
+<span class="material-symbols-outlined text-on-surface-variant">settings</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img alt="User avatar for EcoKawsay dashboard" data-alt="A professional studio portrait of a young adult environmental activist with a friendly expression. The lighting is soft and natural, emphasizing a bright and clean aesthetic. The background is a minimalist, light gray eco-friendly workspace. This high-quality profile image matches the modern corporate and bio-digital visual theme of the application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6I0MYBfLft_xDW-aVUO9qh5H-J1BeLdSN3DlqKxu5sC4uNw6f2udS8ZE4vFjZQRn-IpXTlbEoeWFosg7Z58NL49jM4DlPqU-ZfoBECUEyuRU9N76xCt1vU_4OMpt_xutkxp8WBGjj_m19gH2vrG8c1dfBrw2aZbwFgYVA0AQpNBd9S1n5LEnMRSdzr7EBsLBMg2nRmOrXj-9c-f74jtzbUzneP8_3Ts5BYeySLlOv_Tb5SbNxLGv587COXouFQqeWKcI870bS1lGM"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex h-[calc(100vh-64px)] overflow-hidden">
+<!-- Left Side: Map Section -->
+<section class="w-1/2 relative bg-surface-container-low overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A detailed digital map view of Cochabamba city, Bolivia, showcasing urban streets and green areas like Parque Tunari. The map uses a customized tech-forward palette with vibrant greens for parks and soft grays for roads. A prominent, glowing green circular indicator with a pulsing effect marks a high-accuracy GPS location in a residential neighborhood. The lighting suggests a clear daytime atmosphere." data-location="Cochabamba, Bolivia" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAm6C3WN4OWCjd8SMnX_aFAFLXSqkIdZ31AmjAYHu0bjOzgPOn_bhEi3f2iDxYGvof0HNiLGx-TNMEvLxXwpukIuYXfksDUJUlj_lJWw3phLQHdarEfWiG6azhdBMkqtB_F8bqNb2yjpyGtmmAgpzHJY29xO4UMFRkvNtnPB1oqWMJ4IMtEVWyHdgt86emHDlay6gh7gkTHtaByzv56DDEsHxbcpp1k6h9Iyhbw5nKBZHseNMF9wifqD08Ee_dRLw2OXQWdM-GE_nHk"/>
+</div>
+<!-- Map Overlays -->
+<div class="absolute top-md left-md right-md z-10">
+<div class="bg-surface-bright/90 backdrop-blur-lg p-md rounded-xl shadow-sm border border-outline-variant/50 max-w-sm">
+<h2 class="font-title-lg text-title-lg text-primary mb-xs">Confirm GPS Location</h2>
+<div class="flex items-center gap-xs text-primary">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">gps_fixed</span>
+<span class="font-label-lg text-label-lg">High accuracy (± 2m)</span>
+</div>
+</div>
+</div>
+<div class="absolute bottom-md left-md right-md z-10 flex justify-center">
+<div class="bg-surface-bright p-md rounded-xl shadow-lg border border-outline-variant flex items-center gap-md w-full max-w-md">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">location_on</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Current Address</p>
+<p class="font-title-lg text-title-lg text-on-surface">Calle Los Pinos #452</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Side: Form & Evidence Section -->
+<section class="w-1/2 bg-surface-bright overflow-y-auto p-xl custom-scrollbar">
+<!-- Progress Header -->
+<div class="mb-xl">
+<div class="flex justify-between items-center mb-sm">
+<span class="font-label-lg text-label-lg text-on-surface-variant">Reporting Progress</span>
+<span class="font-label-lg text-label-lg text-primary font-bold">Step 2 of 3</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container w-[66%] transition-all duration-500"></div>
+</div>
+</div>
+<div class="space-y-xl">
+<!-- Evidence Card -->
+<div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-md">Evidence Captured</h3>
+<div class="relative rounded-xl overflow-hidden border border-outline-variant group shadow-sm">
+<img class="w-full h-64 object-cover" data-alt="A crisp, high-resolution photo of a discarded clear plastic bottle lying on a sidewalk next to a green patch of grass. The lighting is bright and clear, emphasizing the texture of the plastic and the environmental impact. The image is framed within the UI as primary evidence for a waste report, maintaining the clean, tech-forward aesthetic of the EcoKawsay app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCC6D2jFX3MKid-9xMkDIDWfAZ0FSMYr41ujjRDDzdjzgbABDEB6Eh0PRF-fUrqiBkd223tE4DnMHDCPVICV_39dEU1CoKwjuVDB-_kClZdKQz3T1bQUjYhLkWzwRWrrKiDIo7BoLBp_4Dd6Oxoeg0oCG5AzY3wqGjjZT5hLbgfttVgrrwRC7-8Ic2285VSfu_6yM6ElTSUHHsjrJ6QlQsX43xFNwOxW2zzBKI-tATFpiYCcL5gspWloXXRod7B9-eXeYfxZgB9GvHq"/>
+<div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+<button class="bg-surface-bright text-primary px-md py-sm rounded-full font-label-lg text-label-lg flex items-center gap-xs shadow-md">
+<span class="material-symbols-outlined text-[18px]">photo_camera</span>
+                                Retake Photo
+                             </button>
+</div>
+<div class="absolute top-sm right-sm bg-primary text-on-primary px-sm py-xs rounded-full font-label-sm text-label-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            AI Verified
+                        </div>
+</div>
+</div>
+<!-- Reward & Note Grid -->
+<div class="grid grid-cols-1 gap-gutter">
+<!-- Potential Reward Card -->
+<div class="bg-primary-fixed p-md rounded-xl border border-primary/20 flex items-center justify-between">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-on-primary-fixed/10 flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined text-[28px]">eco</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-primary-fixed/70 uppercase">Potential Reward</p>
+<p class="font-title-lg text-title-lg text-on-primary-fixed font-bold">+10 ETK Tokens</p>
+</div>
+</div>
+<div class="bg-on-primary-fixed text-primary-fixed px-sm py-xs rounded-lg font-bold text-label-lg">
+                            LEVEL UP
+                        </div>
+</div>
+<!-- Note Field -->
+<div class="space-y-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant ml-xs" for="optional-note">Optional Note
+<div class="relative">
+<textarea class="w-full bg-surface-container-low border-b-2 border-outline-variant focus:border-primary focus:ring-0 rounded-t-lg font-body-md text-body-md p-md transition-all resize-none" id="optional-note" placeholder="Describe the situation or provide more details..." rows="3"></textarea>
+</div>
+</label></div>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center gap-md pt-md">
+<button class="flex-1 bg-primary text-on-primary h-14 rounded-xl font-title-lg text-title-lg flex items-center justify-center gap-sm shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-150">
+<span>Send Report</span>
+<span class="material-symbols-outlined">send</span>
+</button>
+<button class="px-xl h-14 rounded-xl border-2 border-outline text-on-surface-variant font-title-lg text-title-lg hover:bg-surface-container-high transition-colors">
+                        Cancel
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- SideNavBar (Hidden on reporting screen to prioritize content canvas as per UX goal) -->
+<!-- The prompt implies a focused task, but the shared component JSON includes it. 
+         Based on 'Shell Visibility & Relevance', since this is a 'Task-Focused' screen 
+         with specific actions, the navigation shell should be suppressed to prioritize 
+         the canvas. I will omit the SideNav to follow the UX Goal of the prompt. -->
+</body></html>
