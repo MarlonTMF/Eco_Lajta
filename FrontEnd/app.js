@@ -43,10 +43,30 @@ function closeOnboarding() {
     }, 500);
 }
 
-// Scanner Simulation
+function goToLogin() {
+    closeOnboarding();
+    setTimeout(() => {
+        showScreen('login');
+    }, 100);
+}
+
 function startScannerSimulation() {
     const corners = document.querySelector('.scan-corners');
-    corners.style.animation = 'pulse 2s infinite';
+    if (corners) {
+        corners.style.animation = 'pulse 2s infinite';
+    }
+}
+
+// Category Selection Logic
+function selectCategory(button) {
+    // Remove selected class from all category buttons
+    const buttons = document.querySelectorAll('.category-btn');
+    buttons.forEach(btn => {
+        btn.classList.remove('selected');
+    });
+
+    // Add selected class to the clicked button
+    button.classList.add('selected');
 }
 
 function simulateScan() {

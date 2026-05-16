@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#cee5ff",
+                    "secondary-container": "#51b2fe",
+                    "primary": "#0d631b",
+                    "on-primary": "#ffffff",
+                    "surface-container-high": "#e6e9e7",
+                    "error-container": "#ffdad6",
+                    "primary-fixed-dim": "#88d982",
+                    "surface-bright": "#f8faf8",
+                    "inverse-on-surface": "#eff1ef",
+                    "tertiary-fixed": "#ffdbcf",
+                    "tertiary-container": "#8b6557",
+                    "surface-tint": "#1b6d24",
+                    "background": "#f8faf8",
+                    "surface-container-low": "#f2f4f2",
+                    "on-surface-variant": "#40493d",
+                    "surface-container-highest": "#e1e3e1",
+                    "primary-container": "#2e7d32",
+                    "on-error-container": "#93000a",
+                    "surface": "#f8faf8",
+                    "on-primary-container": "#cbffc2",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed-dim": "#ebbcac",
+                    "on-surface": "#191c1b",
+                    "on-secondary-fixed": "#001d32",
+                    "outline-variant": "#bfcaba",
+                    "secondary-fixed-dim": "#96ccff",
+                    "on-tertiary-fixed": "#2e150b",
+                    "on-tertiary-container": "#ffeee8",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#603f33",
+                    "inverse-primary": "#88d982",
+                    "surface-container": "#eceeec",
+                    "secondary": "#00639a",
+                    "outline": "#707a6c",
+                    "surface-dim": "#d8dad9",
+                    "primary-fixed": "#a3f69c",
+                    "on-error": "#ffffff",
+                    "tertiary": "#704d40",
+                    "surface-variant": "#e1e3e1",
+                    "on-background": "#191c1b",
+                    "on-primary-fixed-variant": "#005312",
+                    "on-secondary-fixed-variant": "#004a75",
+                    "on-primary-fixed": "#002204",
+                    "inverse-surface": "#2e3130",
+                    "on-secondary-container": "#00436a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "margin-desktop": "80px",
+                    "xs": "4px",
+                    "lg": "40px",
+                    "base": "8px",
+                    "gutter": "24px",
+                    "sm": "12px",
+                    "xl": "64px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "title-lg": ["Montserrat"],
+                    "headline-lg": ["Montserrat"],
+                    "body-lg": ["Montserrat"],
+                    "headline-lg-mobile": ["Montserrat"],
+                    "body-md": ["Montserrat"],
+                    "label-sm": ["Montserrat"],
+                    "label-lg": ["Montserrat"],
+                    "display-lg": ["Montserrat"]
+            },
+            "fontSize": {
+                    "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500"}],
+                    "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Montserrat', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #0d631b;
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 0 10px rgba(13, 99, 27, 0.2);
+        }
+        input[type="range"]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: #eceeec;
+            border-radius: 4px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 flex items-center justify-between px-margin-mobile h-16 w-full bg-surface dark:bg-background shadow-sm shadow-primary/5">
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 p-2 rounded-full active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary dark:text-primary-fixed-dim tracking-tight">EcoKawsay</h1>
+</div>
+<button class="text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 p-2 rounded-full active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<main class="flex-grow container mx-auto px-margin-mobile py-lg max-w-2xl">
+<section class="space-y-xl">
+<!-- Header Section -->
+<div class="text-center space-y-sm">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Registro de Bolsa</h2>
+<p class="font-body-md text-body-md text-outline">Ayúdanos a clasificar tus residuos para un recojo eficiente.</p>
+</div>
+<!-- Step 1: Category Selector -->
+<div class="space-y-md">
+<div class="flex items-center gap-base">
+<span class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">1</span>
+<h3 class="font-title-lg text-title-lg text-on-surface">Selecciona la Categoría</h3>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<!-- Plastic -->
+<button class="group flex flex-col items-center p-md bg-surface-container-low rounded-xl border-2 border-transparent hover:border-primary hover:bg-surface-container-high transition-all duration-200 active:scale-95">
+<div class="w-16 h-16 rounded-full bg-primary-container/10 flex items-center justify-center mb-sm group-hover:bg-primary-container/20">
+<span class="material-symbols-outlined text-primary text-[32px]">water_full</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface-variant">Plástico (PET)</span>
+</button>
+<!-- Paper -->
+<button class="group flex flex-col items-center p-md bg-surface-container-low rounded-xl border-2 border-transparent hover:border-primary hover:bg-surface-container-high transition-all duration-200 active:scale-95">
+<div class="w-16 h-16 rounded-full bg-tertiary-fixed/30 flex items-center justify-center mb-sm group-hover:bg-tertiary-fixed/50">
+<span class="material-symbols-outlined text-tertiary text-[32px]">auto_stories</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface-variant">Papel/Cartón</span>
+</button>
+<!-- Glass -->
+<button class="group flex flex-col items-center p-md bg-surface-container-low rounded-xl border-2 border-transparent hover:border-primary hover:bg-surface-container-high transition-all duration-200 active:scale-95">
+<div class="w-16 h-16 rounded-full bg-secondary-fixed/30 flex items-center justify-center mb-sm group-hover:bg-secondary-fixed/50">
+<span class="material-symbols-outlined text-secondary text-[32px]">wine_bar</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface-variant">Vidrio</span>
+</button>
+<!-- Metal -->
+<button class="group flex flex-col items-center p-md bg-surface-container-low rounded-xl border-2 border-transparent hover:border-primary hover:bg-surface-container-high transition-all duration-200 active:scale-95">
+<div class="w-16 h-16 rounded-full bg-surface-dim/30 flex items-center justify-center mb-sm group-hover:bg-surface-dim/50">
+<span class="material-symbols-outlined text-on-surface-variant text-[32px]">precision_manufacturing</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface-variant">Metales</span>
+</button>
+</div>
+</div>
+<!-- Step 2: Weight Estimator -->
+<div class="space-y-md">
+<div class="flex items-center gap-base">
+<span class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">2</span>
+<h3 class="font-title-lg text-title-lg text-on-surface">Peso Estimado</h3>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-outline-variant/30 flex flex-col items-center space-y-lg">
+<div class="text-center">
+<span class="font-display-lg text-display-lg text-primary block">5.0</span>
+<span class="font-label-lg text-label-lg text-outline">Kilogramos (kg)</span>
+</div>
+<div class="w-full space-y-sm">
+<input class="w-full" max="20" min="0.5" step="0.5" type="range" value="5"/>
+<div class="flex justify-between font-label-sm text-label-sm text-outline px-1">
+<span>0.5 kg</span>
+<span>10 kg</span>
+<span>20 kg</span>
+</div>
+</div>
+<div class="bg-secondary-container/10 p-md rounded-lg flex items-start gap-sm">
+<span class="material-symbols-outlined text-secondary">info</span>
+<p class="font-body-md text-body-md text-on-secondary-container">Una bolsa de mercado llena pesa aproximadamente entre 3kg y 5kg.</p>
+</div>
+</div>
+</div>
+<!-- Action Button -->
+<div class="pt-md pb-xl">
+<button class="w-full py-md px-lg bg-primary text-on-primary font-title-lg text-title-lg rounded-full shadow-lg shadow-primary/20 hover:scale-[1.02] hover:shadow-xl active:scale-95 transition-all duration-200 flex items-center justify-center gap-base">
+                    Solicitar Recojo
+                    <span class="material-symbols-outlined">local_shipping</span>
+</button>
+</div>
+</section>
+<!-- Visual Context Card (Asymmetric Layout Hint) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mt-lg">
+<div class="relative overflow-hidden rounded-2xl h-48 group">
+<img alt="Recycling" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A clean, cinematic close-up shot of various recyclable items like clear plastic bottles, crumpled brown cardboard, and green glass bottles arranged aesthetically on a white surface. The lighting is bright and airy, representing a professional eco-friendly laboratory environment. The color palette emphasizes clean whites and vibrant natural greens, creating a mood of hope and modern environmental responsibility. High-contrast details highlight the textures of the materials." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhQJLQ8xbuCKYFAk2nXHO7tgmM-9ckEHAFu4kviDFbtbgoN99tMyP1OMG65d7HfT9ozzU6yuWi4yVi6UdBz9ZyAyw9Z3VFX7hjfzOwwLzCSRGKe2Np1dMBt6TQxqswEeVvQ5-l1YcBSkDjH6GJheeu8zyhGe0jdmnomdXMU__0tVguzKhG-VA1WHPoy8ZhOmtIq8J0aU83CxLMXX73CLRBKzkYEUu-G0i4ymHLne0SORJ22TrftLpq3XdWc0dg54zdWXe5QDHiJARi"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-md">
+<span class="text-on-primary font-title-lg text-title-lg">Impacto Ambiental</span>
+<p class="text-on-primary/80 font-body-md text-body-md">Cada bolsa cuenta para un futuro más verde.</p>
+</div>
+</div>
+<div class="bg-primary-container text-on-primary-container p-md rounded-2xl flex flex-col justify-between">
+<div>
+<h4 class="font-title-lg text-title-lg mb-xs">¿Sabías qué?</h4>
+<p class="font-body-md text-body-md opacity-90">Reciclar 1 tonelada de papel salva 17 árboles adultos de ser talados.</p>
+</div>
+<div class="flex justify-end">
+<span class="material-symbols-outlined text-[48px] opacity-20" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 pb-safe bg-surface-container dark:bg-surface-container-lowest shadow-[0_-4px_12px_rgba(13,99,27,0.05)] rounded-t-xl md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-5 py-1 hover:bg-primary-fixed-dim/10 transition-all duration-200 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-5 py-1 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+<span class="font-label-sm text-label-sm">Missions</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-5 py-1 hover:bg-primary-fixed-dim/10 transition-all duration-200 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-sm text-label-sm">Wallet</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-5 py-1 hover:bg-primary-fixed-dim/10 transition-all duration-200 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm">Community</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-5 py-1 hover:bg-primary-fixed-dim/10 transition-all duration-200 active:scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+</body></html>

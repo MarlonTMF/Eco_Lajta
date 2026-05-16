@@ -1,0 +1,112 @@
+<div style="position: relative; height: calc(100vh - 120px); background: white; border-radius: 24px; overflow: hidden; border: 1px solid var(--border);">
+    <!-- Satellite Map Background -->
+    <div style="position: absolute; inset: 0;">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM9ow0uavbuqqbxuL_M5EzhebdD8ficww_ml8hyvc8l1UsCLfSCwZDHAW6IqkAK4fFeiq69oUPv1R9MgWSwneSpWEG-nMeyQIm6dfV-xYRW9SAR0PQDrFlVcloij9tfQTPxomVn05e91NdRiyduPl7fRr719p9pbIixxTabaq6wpb7Nx1o0v9l4wZeAQkIMLv07aCRLq08YOnRgj2Ceaq9HKDfQnoRQaYUEbVJ64mUWX5fk9wU3BeOqkZW13x2D7ZoexSZtPiQaNB9" alt="Satellite Map" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;">
+    </div>
+
+    <!-- Category Filters Overlay -->
+    <div style="position: absolute; top: 24px; left: 50%; transform: translateX(-50%); z-index: 30; display: flex; gap: 12px;">
+        <button class="btn-white" style="background: var(--primary); color: white; border: none; padding: 10px 24px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="layout-grid" style="width:18px;"></i> All
+        </button>
+        <button class="btn-white" style="box-shadow: var(--shadow); padding: 10px 24px; display: flex; align-items: center; gap: 8px;">
+            <span style="width:8px; height:8px; background:#51b2fe; border-radius:50%;"></span> PET
+        </button>
+        <button class="btn-white" style="box-shadow: var(--shadow); padding: 10px 24px; display: flex; align-items: center; gap: 8px;">
+            <span style="width:8px; height:8px; background:#707a6c; border-radius:50%;"></span> Glass
+        </button>
+        <button class="btn-white" style="box-shadow: var(--shadow); padding: 10px 24px; display: flex; align-items: center; gap: 8px;">
+            <span style="width:8px; height:8px; background:var(--primary); border-radius:50%;"></span> Organic
+        </button>
+    </div>
+
+    <!-- Floating Markers -->
+    <div class="map-marker-container" style="top: 45%; left: 52%;" onclick="document.getElementById('map-drawer').classList.toggle('active')">
+        <div class="marker-pin" style="background: var(--primary); border-color: white; transform: rotate(-45deg) scale(1.1);">
+            <i data-lucide="recycle" style="width: 20px; transform: rotate(45deg);"></i>
+        </div>
+        <div style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 8px; background: white; padding: 4px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; box-shadow: var(--shadow);">Plaza Colón Point</div>
+    </div>
+
+    <!-- Other markers (simulated) -->
+    <div class="map-marker-container" style="top: 30%; left: 40%;">
+        <div class="marker-pin" style="background: #00639a; border-color: white; width: 32px; height: 32px;">
+            <i data-lucide="trash-2" style="width: 14px; transform: rotate(45deg);"></i>
+        </div>
+    </div>
+    <div class="map-marker-container" style="top: 60%; left: 35%;">
+        <div class="marker-pin" style="background: #ba1a1a; border-color: white; width: 32px; height: 32px;">
+            <i data-lucide="alert-triangle" style="width: 14px; transform: rotate(45deg);"></i>
+        </div>
+    </div>
+
+    <!-- Zoom Controls -->
+    <div style="position: absolute; bottom: 32px; left: 32px; z-index: 30; display: flex; flex-direction: column; gap: 8px;">
+        <button class="icon-btn" style="background: white; border: 1px solid var(--border); width: 44px; height: 44px; border-radius: 12px; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;"><i data-lucide="plus"></i></button>
+        <button class="icon-btn" style="background: white; border: 1px solid var(--border); width: 44px; height: 44px; border-radius: 12px; border-top-left-radius: 4px; border-top-right-radius: 4px; margin-top: -8px;"><i data-lucide="minus"></i></button>
+        <button class="icon-btn" style="background: white; border: 1px solid var(--border); width: 44px; height: 44px; border-radius: 12px; margin-top: 8px;"><i data-lucide="navigation"></i></button>
+    </div>
+
+    <!-- Floating Action Button (FAB) -->
+    <button style="position: absolute; bottom: 32px; right: 32px; z-index: 50; background: #00639a; color: white; width: 64px; height: 64px; border-radius: 50%; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+        <i data-lucide="plus" style="width: 32px; height: 32px;"></i>
+    </button>
+
+    <!-- Point Detail Drawer (Right Sidebar) -->
+    <aside id="map-drawer" class="map-drawer" style="right: -400px; transition: right 0.3s ease;">
+        <div style="position: relative; height: 240px;">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuByeR3AbL6Qe1nFpIiOkavFkPREWKwENE6khjZyIh5-YovTfujR-Lr0Lm5u4tqe7SlHrrEEeHfgS-3w0NaQK5E_jrTlnlF5q68gddMU9Ck3KOHzH_R95IUTP1GzKUQUme3FWD1w6QhKVseWzhVhJaiYuyYKfBoAA7hH-a_dSc1BI7flMKebcGGreald5DiwMfYF0oYBVUY6VirUuBIIls1sQyYyk79vdlPqFOxUPTYXIDvDd_VCL7MXqlswYRuTzfhqaQZYyqgQobs9" alt="Plaza Colón" style="width: 100%; height: 100%; object-fit: cover;">
+            <button class="icon-btn" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); color: white;" onclick="document.getElementById('map-drawer').classList.toggle('active')">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <div style="padding: 32px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
+                <div>
+                    <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--primary); margin-bottom: 4px;">Plaza Colón Point</h2>
+                    <div style="display: flex; align-items: center; gap: 6px; color: var(--text-muted); font-size: 0.85rem;">
+                        <i data-lucide="map-pin" style="width: 16px;"></i> Cochabamba Centro, Zona 1
+                    </div>
+                </div>
+                <div style="background: var(--primary-container); color: var(--on-primary-container); padding: 8px 16px; border-radius: 12px; text-align: center;">
+                    <div style="font-weight: 800; font-size: 1.2rem;">+15</div>
+                    <div style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Tokens</div>
+                </div>
+            </div>
+
+            <div class="grid-2 mb-4">
+                <div style="background: #F9FAF5; padding: 16px; border-radius: 16px;">
+                    <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Operating Hours</div>
+                    <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.9rem; color: var(--primary);"><i data-lucide="clock" style="width:16px;"></i> 08:00 - 20:00</div>
+                </div>
+                <div style="background: #F9FAF5; padding: 16px; border-radius: 16px;">
+                    <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Status</div>
+                    <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.9rem; color: var(--accent);"><i data-lucide="check-circle" style="width:16px;"></i> Open Now</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 32px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-weight: 700; font-size: 0.9rem;">Current Capacity</span>
+                    <span style="font-weight: 800; color: #B91C1C;">78% Full</span>
+                </div>
+                <div class="progress-container" style="height: 12px;">
+                    <div class="progress-bar" style="width: 78%; background: #EF4444;"></div>
+                </div>
+                <p class="text-muted" style="font-size: 0.7rem; margin-top: 8px; font-style: italic;">Recommended: Disposal scheduled in 2 hours.</p>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px;">
+                <button class="scanner-btn-side" style="width: 100%; margin: 0; padding: 16px; font-size: 1rem;"><i data-lucide="navigation"></i> Get Directions</button>
+                <button class="btn-white" style="width: 100%; border: 2px solid #EF4444; color: #EF4444; padding: 16px;"><i data-lucide="alert-circle"></i> Report Issue</button>
+            </div>
+
+            <div class="card-title">Site Photos</div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2HaQ0jT-QLuQm3C3-pfGv-dPAosegulTpX-MdaVjwhyFEUEbIr2_s6du0L5PoIIGTSuFlQh7SBUS2dthY1f60wcXeytuO3T5NRUvLMM79-a9Vrvsb-WRpVOpt3AeXroYVP--EWAb2BegjkNB1EC2bBcbaWjgNhWKKjV_TF8jQPnU2gmwOiMM4ZGybVD5HjwxNZMOEIWaGgPp2QBZ45lnYbTrySzyPc-jTQ1Qu9N3uS2jout5M9ghvsDjqZcT6tYM-liUrOs8d7WmR" style="width: 100%; aspect-ratio: 1; border-radius: 12px; object-fit: cover;">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9Z2CY8BztCGLo4Dgdd-r6EoqCW7hEg9NvxVSJ6JQuAFr3qCnXoXpd0y6iqKPalcxX5bM5FP_8BwpXjeGUphH8wLCCrUwmmDkgYupU8h6W8Pil0pD1ThL4f0xHdc_1yEkVIYWlX8f5_q83RaXeFagDR1pdjiz_pnYSwzKcGsxB77N0-VSn91s37kF384YQEgtfphHNrVo_kClawvB8DQWOq4ZDf0BUcEy9qoO_AiDEYHVFVIBSddvqstcKOjB3pXBA7OJcVOQBb9wI" style="width: 100%; aspect-ratio: 1; border-radius: 12px; object-fit: cover;">
+                <div style="width: 100%; aspect-ratio: 1; background: #F3F4F6; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">+5 more</div>
+            </div>
+        </div>
+    </aside>
+</div>
