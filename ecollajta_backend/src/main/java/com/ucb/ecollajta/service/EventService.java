@@ -1,4 +1,4 @@
-package com.ucb.ecollajta.events.service;
+package com.ucb.ecollajta.service;
 
 
 
@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ucb.ecollajta.common.Result;
-import com.ucb.ecollajta.events.dto.EventCreateDto;
-import com.ucb.ecollajta.events.dto.EventUpdateDto;
-import com.ucb.ecollajta.events.mappers.EventMapper;
-import com.ucb.ecollajta.events.model.Event;
-import com.ucb.ecollajta.events.model.EventStatus;
-import com.ucb.ecollajta.events.repository.EventRepository;
+import com.ucb.ecollajta.dto.events.EventCreateDto;
+import com.ucb.ecollajta.dto.events.EventUpdateDto;
+import com.ucb.ecollajta.mappers.EventMapper;
+import com.ucb.ecollajta.model.Event;
+import com.ucb.ecollajta.model.EventStatus;
+import com.ucb.ecollajta.repository.events.EventRepository;
 
 @Service
 public class EventService {

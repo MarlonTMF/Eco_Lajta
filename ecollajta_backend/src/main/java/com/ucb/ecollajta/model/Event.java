@@ -1,4 +1,4 @@
-package com.ucb.ecollajta.events.model;
+package com.ucb.ecollajta.model;
 
 import jakarta.persistence.*;
 import lombok.*;

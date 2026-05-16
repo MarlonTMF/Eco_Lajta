@@ -1,4 +1,4 @@
-package com.ucb.ecollajta.events.dto;
+package com.ucb.ecollajta.dto.events;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;

@@ -1,14 +1,14 @@
-package com.ucb.ecollajta.events.controller;
+package com.ucb.ecollajta.controller;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ucb.ecollajta.common.Result;
-import com.ucb.ecollajta.events.dto.EventCreateDto;
-import com.ucb.ecollajta.events.dto.EventUpdateDto;
-import com.ucb.ecollajta.events.model.Event;
-import com.ucb.ecollajta.events.service.EventService;
+import com.ucb.ecollajta.dto.events.EventCreateDto;
+import com.ucb.ecollajta.dto.events.EventUpdateDto;
+import com.ucb.ecollajta.model.Event;
+import com.ucb.ecollajta.service.EventService;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

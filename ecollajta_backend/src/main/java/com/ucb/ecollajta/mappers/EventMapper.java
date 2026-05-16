@@ -1,11 +1,11 @@
-package com.ucb.ecollajta.events.mappers;
+package com.ucb.ecollajta.mappers;
 
 
 import org.springframework.stereotype.Component;
 
-import com.ucb.ecollajta.events.dto.EventCreateDto;
-import com.ucb.ecollajta.events.dto.EventUpdateDto;
-import com.ucb.ecollajta.events.model.Event;
+import com.ucb.ecollajta.dto.events.EventCreateDto;
+import com.ucb.ecollajta.dto.events.EventUpdateDto;
+import com.ucb.ecollajta.model.Event;
 
 @Component
 public class EventMapper {
