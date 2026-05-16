@@ -33,9 +33,17 @@ public class EventController {
         return this.eventService.getAll();
     }
     
+    @GetMapping("/one")
+    public Result<Event> getOne(@RequestParam Long id) {
+        return this.eventService.getOne(id);
+    }
 
     @PostMapping("")
     public Result<Event> save(@RequestBody EventCreateDto requestDto) {
-        return this.eventService.saveOne(requestDto);
+        return this.eventService.insertOne(requestDto);
+    }
+    @PostMapping("many")
+    public Result<List<Event>> saveMany(@RequestBody List<EventCreateDto> requestDtos) {
+        return this.eventService.insertMany(requestDtos);
     }
 }
