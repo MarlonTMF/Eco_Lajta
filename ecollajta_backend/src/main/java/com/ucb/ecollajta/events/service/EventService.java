@@ -15,6 +15,7 @@ import com.ucb.ecollajta.events.dto.EventCreateDto;
 import com.ucb.ecollajta.events.dto.EventUpdateDto;
 import com.ucb.ecollajta.events.mappers.EventMapper;
 import com.ucb.ecollajta.events.model.Event;
+import com.ucb.ecollajta.events.model.EventStatus;
 import com.ucb.ecollajta.events.repository.EventRepository;
 
 @Service
@@ -62,7 +63,20 @@ public class EventService {
                 throw new NameNotFoundException("Evento no encontrado");
             }
             var updatedEvent = EventMapper.toEvent(dto, event.get());
-            return Result.success(eventRepository.save(updatedEvent));
+            return Result.success(eventRepository.saveAndFlush(updatedEvent));
+        }catch(Exception e) {
+            return Result.failure(e.getClass().getSimpleName(),e.getMessage());
+        }
+    }
+    public Result<Event> updateEventStatus(Long id, String status){
+        try{
+            var event = eventRepository.findById(id);
+            if(event.isEmpty()) {
+                throw new NameNotFoundException("Evento no encontrado");
+            }
+            var eventToUpdate = event.get();
+            eventToUpdate.setStatus(EventStatus.valueOf(status));
+            return Result.success(eventRepository.saveAndFlush(eventToUpdate));
         }catch(Exception e) {
             return Result.failure(e.getClass().getSimpleName(),e.getMessage());
         }

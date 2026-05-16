@@ -60,4 +60,9 @@ public class EventController {
         var result = this.eventService.updateOne(requestDto, id);
         return result.isSuccess() ? ResponseEntity.ok(result) : ResponseEntity.badRequest().body(result);
     }
+    @PutMapping("/cancel/{id}")
+    public ResponseEntity<Result<Event>> updateStatus(@PathVariable Long id) {
+        var result = this.eventService.updateEventStatus(id, "cancelled");
+        return result.isSuccess() ? ResponseEntity.ok(result) : ResponseEntity.badRequest().body(result);
+    }
 }
