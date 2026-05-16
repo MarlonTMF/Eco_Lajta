@@ -32,12 +32,13 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public User createFromGoogle(String email, String fullName, String googleSub) {
+    public User createFromGoogle(String email, String fullName, String googleSub, String photoUrl) {
         log.info("Creating user from Google login, email: {}", email);
         User user = User.builder()
             .email(email)
             .fullName(fullName)
             .googleSub(googleSub)
+            .photoUrl(photoUrl)
             .role(UserRole.ROLE_CITIZEN)
             .build();
         User saved = userRepository.save(user);
