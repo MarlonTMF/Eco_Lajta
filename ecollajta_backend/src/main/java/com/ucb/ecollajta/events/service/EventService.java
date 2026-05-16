@@ -6,11 +6,13 @@ import java.util.List;
 
 import javax.naming.NameNotFoundException;
 
+import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ucb.ecollajta.common.Result;
 import com.ucb.ecollajta.events.dto.EventCreateDto;
+import com.ucb.ecollajta.events.dto.EventUpdateDto;
 import com.ucb.ecollajta.events.mappers.EventMapper;
 import com.ucb.ecollajta.events.model.Event;
 import com.ucb.ecollajta.events.repository.EventRepository;
@@ -24,14 +26,14 @@ public class EventService {
             var event = EventMapper.toEvent(dtoRequest);
             return Result.success(eventRepository.save(event));
         }catch(Exception e){
-            return Result.failure("Save Event", "Error al guardar el evento");
+            return Result.failure(e.getClass().getSimpleName(),e.getMessage());
         }
     }
     public Result<List<Event>> getAll(){
         try{
             return Result.success(eventRepository.findAll());
         }catch(Exception e){
-            return Result.failure("Get All Events", "Error al obtener los eventos");
+            return Result.failure(e.getClass().getSimpleName(),e.getMessage());
         }
     }
     public Result<List<Event>> insertMany(List<EventCreateDto> dtos){
@@ -39,7 +41,7 @@ public class EventService {
             var events = dtos.stream().map(EventMapper::toEvent).toList();
             return Result.success(eventRepository.saveAll(events));
         }catch(Exception e) {
-            return Result.failure("Save Many Events", "Error al guardar los eventos");
+            return Result.failure(e.getClass().getSimpleName(),e.getMessage());
         }
     }
     public Result<Event> getOne(Long id){
@@ -50,7 +52,19 @@ public class EventService {
             }
             return Result.success(event.get());
         }catch(Exception e) {
-            return Result.failure(e.getCause().getMessage(), e.getMessage());
+            return Result.failure(e.getClass().getSimpleName(),e.getMessage());
+        }
+    }
+    public Result<Event> updateOne(EventUpdateDto dto, Long id){
+        try{
+            var event = eventRepository.findById(id);
+            if(event.isEmpty()) {
+                throw new NameNotFoundException("Evento no encontrado");
+            }
+            var updatedEvent = EventMapper.toEvent(dto, event.get());
+            return Result.success(eventRepository.save(updatedEvent));
+        }catch(Exception e) {
+            return Result.failure(e.getClass().getSimpleName(),e.getMessage());
         }
     }
 }

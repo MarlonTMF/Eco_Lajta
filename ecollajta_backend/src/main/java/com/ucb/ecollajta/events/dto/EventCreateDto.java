@@ -1,5 +1,6 @@
 package com.ucb.ecollajta.events.dto;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 public record EventCreateDto(
@@ -8,6 +9,8 @@ public record EventCreateDto(
     String locationName,
     OffsetDateTime startsAt,
     OffsetDateTime endsAt,
-    int pointsReward
+    int pointsReward,
+    BigDecimal longitude,
+    BigDecimal latitude
 ) {
 }

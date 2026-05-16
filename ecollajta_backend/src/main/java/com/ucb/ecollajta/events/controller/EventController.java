@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ucb.ecollajta.common.Result;
 import com.ucb.ecollajta.events.dto.EventCreateDto;
+import com.ucb.ecollajta.events.dto.EventUpdateDto;
 import com.ucb.ecollajta.events.model.Event;
 import com.ucb.ecollajta.events.service.EventService;
 
@@ -14,8 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 
@@ -29,21 +34,30 @@ public class EventController {
     }
 
     @GetMapping()
-    public Result<List<Event>> getAll() {
-        return this.eventService.getAll();
+    public ResponseEntity<Result<List<Event>>> getAll() {
+        var result = this.eventService.getAll();
+        return result.isSuccess() ? ResponseEntity.ok(result) : ResponseEntity.badRequest().body(result);
     }
     
     @GetMapping("/one")
-    public Result<Event> getOne(@RequestParam Long id) {
-        return this.eventService.getOne(id);
+    public ResponseEntity<Result<Event>> getOne(@RequestParam Long id) {
+        var result = this.eventService.getOne(id);
+        return result.isSuccess() ? ResponseEntity.ok(result) : ResponseEntity.badRequest().body(result);
     }
 
     @PostMapping("")
-    public Result<Event> save(@RequestBody EventCreateDto requestDto) {
-        return this.eventService.insertOne(requestDto);
+    public ResponseEntity<Result<Event>> save(@RequestBody EventCreateDto requestDto) {
+        var result = this.eventService.insertOne(requestDto);
+        return result.isSuccess() ? ResponseEntity.ok(result) : ResponseEntity.badRequest().body(result);
     }
     @PostMapping("many")
-    public Result<List<Event>> saveMany(@RequestBody List<EventCreateDto> requestDtos) {
-        return this.eventService.insertMany(requestDtos);
+    public ResponseEntity<Result<List<Event>>> saveMany(@RequestBody List<EventCreateDto> requestDtos) {
+        var result = this.eventService.insertMany(requestDtos);
+        return result.isSuccess() ? ResponseEntity.ok(result) : ResponseEntity.badRequest().body(result);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Result<Event>> updateOne(@PathVariable Long id, @RequestBody EventUpdateDto requestDto) {
+        var result = this.eventService.updateOne(requestDto, id);
+        return result.isSuccess() ? ResponseEntity.ok(result) : ResponseEntity.badRequest().body(result);
     }
 }
