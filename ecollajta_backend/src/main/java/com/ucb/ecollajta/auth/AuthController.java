@@ -53,10 +53,11 @@ public class AuthController {
             GoogleIdToken.Payload payload = idToken.getPayload();
             String email = payload.getEmail();
             String googleSub = payload.getSubject();
+            String photoUrl = (String) payload.get("picture");
             String fullName = (String) payload.get("name");
 
             User user = userService.findByEmail(email)
-                .orElseGet(() -> userService.createFromGoogle(email, fullName, googleSub));
+                .orElseGet(() -> userService.createFromGoogle(email, fullName, googleSub, photoUrl));
 
             Map<String, Object> extraClaims = new HashMap<>();
             extraClaims.put("role", user.getRole().name());
