@@ -1,6 +1,6 @@
 package com.ucb.ecollajta.auth;
 
-import com.ucb.ecollajta.model.user.User;
+import com.ucb.ecollajta.model.User;
 import com.ucb.ecollajta.service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;

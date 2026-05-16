@@ -1,6 +1,6 @@
 package com.ucb.ecollajta.repository.user;
 
-import com.ucb.ecollajta.model.user.User;
+import com.ucb.ecollajta.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

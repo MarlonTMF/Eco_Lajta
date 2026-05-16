@@ -1,4 +1,4 @@
-package com.ucb.ecollajta.model.user;
+package com.ucb.ecollajta.model;
 
 import jakarta.persistence.*;
 import lombok.*;

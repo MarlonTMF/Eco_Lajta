@@ -1,6 +1,6 @@
 package com.ucb.ecollajta.auth;
 
-import com.ucb.ecollajta.model.user.User;
+import com.ucb.ecollajta.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 

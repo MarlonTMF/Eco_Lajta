@@ -1,10 +1,13 @@
 package com.ucb.ecollajta.service;
 
-import com.ucb.ecollajta.model.user.User;
-import com.ucb.ecollajta.model.user.UserRole;
+import com.ucb.ecollajta.model.User;
+import com.ucb.ecollajta.model.UserRole;
 import com.ucb.ecollajta.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +16,14 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userRepository.findByEmail(email)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
+    }
 
     @Transactional(readOnly = true)
     public Optional<User> findByEmail(String email) {

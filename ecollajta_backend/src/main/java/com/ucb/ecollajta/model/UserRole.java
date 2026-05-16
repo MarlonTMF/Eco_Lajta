@@ -1,4 +1,4 @@
-package com.ucb.ecollajta.model.user;
+package com.ucb.ecollajta.model;
 
 public enum UserRole {
     ROLE_CITIZEN,

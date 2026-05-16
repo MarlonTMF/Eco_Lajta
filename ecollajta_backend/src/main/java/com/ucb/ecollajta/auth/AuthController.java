@@ -1,12 +1,10 @@
-package com.ucb.ecollajta.controller;
+package com.ucb.ecollajta.auth;
+
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
-import com.ucb.ecollajta.auth.AuthResponse;
-import com.ucb.ecollajta.auth.JwtService;
-import com.ucb.ecollajta.auth.TokenDto;
-import com.ucb.ecollajta.model.user.User;
+import com.ucb.ecollajta.model.User;
 import com.ucb.ecollajta.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
