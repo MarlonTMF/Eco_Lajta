@@ -11,6 +11,7 @@
 
     <!-- Onboarding Screen -->
     <section id="onboarding">
+        <button onclick="goToLogin()" style="position: absolute; top: 32px; right: 40px; background: white; color: var(--primary); padding: 12px 32px; border-radius: 100px; font-weight: 800; border: none; cursor: pointer; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-size: 1rem;">Login</button>
         <div class="onboarding-image"></div>
         <div class="onboarding-content">
             <div class="onboarding-tag">
@@ -50,9 +51,9 @@
                     <i data-lucide="layout-dashboard"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="#" class="nav-link" onclick="showScreen('ecocam', this)">
-                    <i data-lucide="camera"></i>
-                    <span>EcoCam</span>
+                <a href="#" class="nav-link" onclick="showScreen('my-recycling', this)">
+                    <i data-lucide="recycle"></i>
+                    <span>Mi Reciclaje</span>
                 </a>
                 <a href="#" class="nav-link" onclick="showScreen('rewards', this)">
                     <i data-lucide="gift"></i>
@@ -70,10 +71,6 @@
                     <i data-lucide="map"></i>
                     <span>Map</span>
                 </a>
-                <a href="#" class="nav-link" onclick="showScreen('ranking', this)">
-                    <i data-lucide="trophy"></i>
-                    <span>Ranking</span>
-                </a>
                 <a href="#" class="nav-link" onclick="showScreen('profile', this)">
                     <i data-lucide="user"></i>
                     <span>Profile</span>
@@ -81,11 +78,7 @@
             </nav>
 
             <div class="sidebar-footer">
-                <button class="scanner-btn-side" onclick="showScreen('ecocam')">
-                    <i data-lucide="scan"></i>
-                    <span>Launch Waste Scanner</span>
-                </button>
-                <button class="scanner-btn-side" style="background: #EF4444; margin-top: -12px;" onclick="showScreen('report')">
+                <button class="scanner-btn-side" style="background: #EF4444;" onclick="showScreen('report-step-1')">
                     <i data-lucide="alert-triangle"></i>
                     <span>Report Critical Point</span>
                 </button>
@@ -120,6 +113,76 @@
                 </div>
             </div>
 
+            <!-- Login Screen -->
+            <section id="login" class="screen">
+                <div class="split-layout">
+                    <!-- Left: Hero Image -->
+                    <div class="split-left" style="position: relative;">
+                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1000" alt="Green Future" style="width:100%; height:100%; object-fit:cover;">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);"></div>
+                        <div style="position: absolute; bottom: 40px; left: 40px; right: 40px; color: white;">
+                            <h1 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 16px;">Un futuro verde para Cochabamba</h1>
+                            <p style="font-size: 1.1rem; opacity: 0.9; line-height: 1.6;">Únete a la red ecológica más grande de la región y transforma tus hábitos en impacto real.</p>
+                        </div>
+                    </div>
+
+                    <!-- Right: Login Form -->
+                    <div class="split-right" style="display: flex; flex-direction: column; justify-content: center; padding: 40px 60px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px;">
+                            <div class="logo">
+                                <i data-lucide="leaf" style="color: var(--primary);"></i>
+                                <span style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">EcoKawsay</span>
+                            </div>
+                            <i data-lucide="leaf" style="width: 48px; height: 48px; color: #E8F5E9;"></i>
+                        </div>
+
+                        <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 8px;">Bienvenido de vuelta</h2>
+                        <p class="text-muted" style="margin-bottom: 40px;">Ingresa tus credenciales para continuar sumando por Cochabamba</p>
+
+                        <div style="margin-bottom: 24px;">
+                            <label style="display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 8px;">Email o Usuario</label>
+                            <input type="text" placeholder="ejemplo@ecokawsay.org" style="width: 100%; padding: 16px; background: #F3F4F6; border: none; border-radius: 12px; outline: none; font-size: 1rem;">
+                        </div>
+
+                        <div style="margin-bottom: 24px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <label style="font-size: 0.9rem; font-weight: 600;">Contraseña</label>
+                                <a href="#" style="font-size: 0.9rem; color: var(--primary); text-decoration: none; font-weight: 600;">¿Olvidaste tu contraseña?</a>
+                            </div>
+                            <input type="password" placeholder="••••••••" style="width: 100%; padding: 16px; background: #F3F4F6; border: none; border-radius: 12px; outline: none; font-size: 1rem;">
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 32px;">
+                            <input type="checkbox" id="remember" style="width: 20px; height: 20px; accent-color: var(--primary);">
+                            <label for="remember" style="font-size: 0.95rem; color: var(--text-muted);">Recordar mi sesión</label>
+                        </div>
+
+                        <button style="width: 100%; padding: 18px; background: var(--primary); color: white; font-size: 1.1rem; font-weight: 700; border: none; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 32px;" onclick="showScreen('dashboard')">
+                            Iniciar Sesión <i data-lucide="log-in" style="width: 20px;"></i>
+                        </button>
+
+                        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 32px;">
+                            <div style="flex: 1; height: 1px; background: var(--border);"></div>
+                            <span class="text-muted" style="font-size: 0.85rem; font-weight: 600; letter-spacing: 1px;">O CONTINÚA CON</span>
+                            <div style="flex: 1; height: 1px; background: var(--border);"></div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; margin-bottom: 40px;">
+                            <button style="flex: 1; padding: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; font-weight: 600; color: var(--text);">
+                                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style="width: 20px;"> Google
+                            </button>
+                            <button style="flex: 1; padding: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; font-weight: 600; color: var(--text);">
+                                <img src="https://www.svgrepo.com/show/475647/facebook-color.svg" alt="Facebook" style="width: 20px;"> Facebook
+                            </button>
+                        </div>
+
+                        <p style="text-align: center; color: var(--text-muted); font-size: 0.95rem;">
+                            ¿No tienes cuenta? <a href="#" style="color: var(--primary); font-weight: 700; text-decoration: none;">Regístrate aquí</a>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
             <!-- Dashboard Screen -->
             <section id="dashboard" class="screen active">
                 <div class="hero-banner">
@@ -127,7 +190,7 @@
                         <p style="margin-bottom: 8px;">¡Bienvenido de nuevo, Mateo!</p>
                         <h1>Tu acción importa.</h1>
                         <p>Suma puntos y salva el planeta con cada residuo gestionado.</p>
-                        <button class="btn-white" onclick="showScreen('ecocam')">RECICLAR AHORA</button>
+                        <button class="btn-white" onclick="showScreen('register-bag')">RECICLAR AHORA</button>
                     </div>
                     <div class="hero-visual" style="font-size: 8rem; opacity: 0.2;">
                         <i data-lucide="recycle"></i>
@@ -247,62 +310,269 @@
                 </div>
             </section>
 
-            <!-- EcoCam Screen -->
-            <section id="ecocam" class="screen">
-                <div class="grid-2">
-                    <div class="ecocam-container card">
-                        <img src="https://images.unsplash.com/photo-1563203362-907019a89bc3?auto=format&fit=crop&q=80&w=1000" alt="Scan" class="ecocam-view">
-                        <div class="scan-overlay">
-                            <div class="scan-corners"></div>
+            <!-- Mi Reciclaje Screen -->
+            <section id="my-recycling" class="screen">
+                <div style="max-width: 900px; margin: 0 auto;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+                        <div>
+                            <h1 style="font-size: 2.5rem; font-weight: 800; color: var(--primary);">Mi Reciclaje</h1>
+                            <p class="text-muted">Rastrea tu impacto ecológico personal y contribuciones.</p>
                         </div>
-                        <div class="detection-badge">
-                            <i data-lucide="check-circle"></i>
-                            Botella PET Detectada
+                        <button class="btn-white" onclick="showScreen('register-bag')" style="background: var(--primary); color: white; display: flex; align-items: center; gap: 8px;">
+                            <i data-lucide="package" style="width:18px;"></i> Registrar Bolsa
+                        </button>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div class="grid-3 mb-4">
+                        <div class="card" style="text-align: center;">
+                            <div style="background: #E8F5E9; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: var(--primary);">
+                                <i data-lucide="scale-3d" style="width:28px; height:28px;"></i>
+                            </div>
+                            <div style="font-size: 2rem; font-weight: 800; color: var(--primary);">48.5 <span style="font-size: 1rem; font-weight: 500; color: var(--text-muted);">kg</span></div>
+                            <div class="text-muted" style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Total Desviado</div>
                         </div>
-                        <div style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px;">
-                            <button class="scanner-btn-side" style="width: auto; padding: 12px 30px;" onclick="simulateScan()">Confirmar Escaneo</button>
-                            <button class="icon-btn" style="background: rgba(255,255,255,0.2); color: white; width: 44px; height: 44px; border-radius: 50%;"><i data-lucide="camera-off"></i></button>
+                        <div class="card" style="text-align: center;">
+                            <div style="background: #E3F2FD; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: #1976D2;">
+                                <i data-lucide="leaf" style="width:28px; height:28px;"></i>
+                            </div>
+                            <div style="font-size: 2rem; font-weight: 800; color: #1976D2;">-14.2 <span style="font-size: 1rem; font-weight: 500; color: var(--text-muted);">kg CO2</span></div>
+                            <div class="text-muted" style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Huella Reducida</div>
+                        </div>
+                        <div class="card" style="text-align: center;">
+                            <div style="background: #FFF3E0; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: #E65100;">
+                                <i data-lucide="flame" style="width:28px; height:28px;"></i>
+                            </div>
+                            <div style="font-size: 2rem; font-weight: 800; color: #E65100;">12 <span style="font-size: 1rem; font-weight: 500; color: var(--text-muted);">días</span></div>
+                            <div class="text-muted" style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Racha Actual</div>
                         </div>
                     </div>
-                    <div>
-                        <div class="card mb-4">
-                            <h2 style="margin-bottom: 8px;">Análisis en tiempo real</h2>
-                            <p class="text-muted" style="font-size: 0.9rem; margin-bottom: 24px;">Impulsado por IA EcoKawsay.</p>
+
+                    <div class="grid-2">
+                        <!-- Chart Mockup -->
+                        <div class="card">
+                            <h2 style="font-size: 1.2rem; margin-bottom: 24px;">Progreso Mensual</h2>
+                            <div style="display: flex; gap: 12px; align-items: flex-end; height: 200px; padding-bottom: 24px; border-bottom: 1px solid var(--border); margin-bottom: 16px;">
+                                <div style="flex: 1; background: #E5E7EB; height: 40%; border-radius: 8px 8px 0 0; position: relative;">
+                                    <span style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); font-size: 0.75rem; color: var(--text-muted);">Ago</span>
+                                </div>
+                                <div style="flex: 1; background: #93C5FD; height: 65%; border-radius: 8px 8px 0 0; position: relative;">
+                                    <span style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); font-size: 0.75rem; color: var(--text-muted);">Sep</span>
+                                </div>
+                                <div style="flex: 1; background: var(--primary); height: 90%; border-radius: 8px 8px 0 0; position: relative;">
+                                    <span style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); font-size: 0.75rem; font-weight: 700;">Oct</span>
+                                    <div style="position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: var(--text); color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700;">14.5kg</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span class="text-muted" style="font-size: 0.85rem;">Has superado tu meta de este mes en un <strong style="color: var(--accent);">+15%</strong></span>
+                            </div>
+                        </div>
+
+                        <!-- Recent History -->
+                        <div class="card">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                                <h2 style="font-size: 1.2rem;">Últimas Aportaciones</h2>
+                                <a href="#" style="color: var(--primary); font-size: 0.8rem; font-weight: 600;">Ver Todo</a>
+                            </div>
                             
-                            <div style="display: flex; gap: 16px; margin-bottom: 24px;">
-                                <div style="flex: 1; background: #E8F5E9; padding: 20px; border-radius: 16px; text-align: center;">
-                                    <i data-lucide="award" style="color: var(--primary); margin-bottom: 8px;"></i>
-                                    <div style="font-size: 1.2rem; font-weight: 800; color: var(--primary);">+5 ETK</div>
-                                    <div style="font-size: 0.7rem; color: var(--primary-light);">RECOMPENSA EST.</div>
+                            <div style="display: flex; flex-direction: column; gap: 16px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid var(--border);">
+                                    <div style="display: flex; align-items: center; gap: 16px;">
+                                        <div style="background: #F3F4F6; width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                            <i data-lucide="package" style="width:18px; color: #4B5563;"></i>
+                                        </div>
+                                        <div>
+                                            <div style="font-weight: 700; font-size: 0.95rem;">Cartón Corrugado</div>
+                                            <div class="text-muted" style="font-size: 0.75rem;">Hoy, 14:30 · Punto Verde Centro</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div style="font-weight: 800; color: var(--primary);">+25 ETK</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">2.5 kg</div>
+                                    </div>
                                 </div>
-                                <div style="flex: 1; background: #E3F2FD; padding: 20px; border-radius: 16px; text-align: center;">
-                                    <i data-lucide="wind" style="color: #1976D2; margin-bottom: 8px;"></i>
-                                    <div style="font-size: 1.2rem; font-weight: 800; color: #1976D2;">-0.45kg</div>
-                                    <div style="font-size: 0.7rem; color: #1976D2;">HUELLA CO2</div>
-                                </div>
-                            </div>
 
-                            <div class="card" style="background: #F9FAF5; border: none; box-shadow: none;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-                                    <span class="text-muted">Categoría</span>
-                                    <span style="background: var(--primary); color: white; padding: 2px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700;">RECICLABLE</span>
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid var(--border);">
+                                    <div style="display: flex; align-items: center; gap: 16px;">
+                                        <div style="background: #E0F2FE; width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                            <i data-lucide="glass-water" style="width:18px; color: #0284C7;"></i>
+                                        </div>
+                                        <div>
+                                            <div style="font-weight: 700; font-size: 0.95rem;">Botellas de Vidrio</div>
+                                            <div class="text-muted" style="font-size: 0.75rem;">Ayer, 09:15 · Recolector Móvil</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div style="font-weight: 800; color: var(--primary);">+40 ETK</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">4.0 kg</div>
+                                    </div>
                                 </div>
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-                                    <span class="text-muted">Pureza de Material</span>
-                                    <span style="font-weight: 700;">Alta (94%)</span>
-                                </div>
-                                <div style="height: 8px; background: #E5E7EB; border-radius: 4px; overflow: hidden;">
-                                    <div style="width: 94%; height: 100%; background: var(--accent);"></div>
-                                </div>
-                            </div>
 
-                            <div class="mt-4" style="background: #EBF5FF; padding: 16px; border-radius: 16px; border-left: 4px solid #3B82F6;">
-                                <div style="display: flex; gap: 12px;">
-                                    <i data-lucide="info" style="color: #3B82F6;"></i>
-                                    <p style="font-size: 0.85rem; color: #1E3A8A;">Asegúrate de que la botella esté vacía y sin etiqueta para maximizar tus Eco-Tokens.</p>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div style="display: flex; align-items: center; gap: 16px;">
+                                        <div style="background: #FEF3C7; width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                            <i data-lucide="battery-charging" style="width:18px; color: #D97706;"></i>
+                                        </div>
+                                        <div>
+                                            <div style="font-weight: 700; font-size: 0.95rem;">Pilas Alcalinas</div>
+                                            <div class="text-muted" style="font-size: 0.75rem;">12 Oct, 18:00 · Punto Especial</div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div style="font-weight: 800; color: var(--primary);">+150 ETK</div>
+                                        <div class="text-muted" style="font-size: 0.7rem;">0.3 kg</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Register Bag Screen -->
+            <section id="register-bag" class="screen">
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 32px;">
+                        <button class="icon-btn" onclick="showScreen('my-recycling')" style="background: #F3F4F6; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i data-lucide="arrow-left" style="width: 20px;"></i></button>
+                        <div>
+                            <h1 style="font-size: 2.5rem; font-weight: 800; color: var(--primary);">Registro de Bolsa</h1>
+                            <p class="text-muted">Ayúdanos a clasificar tus residuos para un recojo eficiente.</p>
+                        </div>
+                    </div>
+
+                    <div class="card mb-4">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+                            <span style="width: 32px; height: 32px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</span>
+                            <h3 style="font-size: 1.2rem; font-weight: 700;">Selecciona la Categoría</h3>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+                            <button class="category-btn" onclick="selectCategory(this)">
+                                <div style="background: #E8F5E9; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; color: var(--primary);">
+                                    <i data-lucide="droplets" style="width:28px; height:28px;"></i>
+                                </div>
+                                <span style="font-weight: 600; color: var(--text);">Plástico (PET)</span>
+                            </button>
+                            <button class="category-btn" onclick="selectCategory(this)">
+                                <div style="background: #FFF3E0; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; color: #E65100;">
+                                    <i data-lucide="book" style="width:28px; height:28px;"></i>
+                                </div>
+                                <span style="font-weight: 600; color: var(--text);">Papel/Cartón</span>
+                            </button>
+                            <button class="category-btn" onclick="selectCategory(this)">
+                                <div style="background: #E3F2FD; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; color: #1976D2;">
+                                    <i data-lucide="wine" style="width:28px; height:28px;"></i>
+                                </div>
+                                <span style="font-weight: 600; color: var(--text);">Vidrio</span>
+                            </button>
+                            <button class="category-btn" onclick="selectCategory(this)">
+                                <div style="background: #F3F4F6; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; color: #4B5563;">
+                                    <i data-lucide="settings" style="width:28px; height:28px;"></i>
+                                </div>
+                                <span style="font-weight: 600; color: var(--text);">Metales</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card mb-4">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+                            <span style="width: 32px; height: 32px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</span>
+                            <h3 style="font-size: 1.2rem; font-weight: 700;">Peso Estimado</h3>
+                        </div>
+                        <div style="background: #F9FAF5; padding: 32px; border-radius: 16px; text-align: center;">
+                            <div style="font-size: 4rem; font-weight: 800; color: var(--primary); line-height: 1;">5.0</div>
+                            <div class="text-muted" style="margin-bottom: 24px; font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Kilogramos (kg)</div>
+                            <div style="margin: 32px 0;">
+                                <input type="range" min="0.5" max="20" step="0.5" value="5" style="width: 100%; margin-bottom: 12px; accent-color: var(--primary);">
+                                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">
+                                    <span>0.5 kg</span>
+                                    <span>10 kg</span>
+                                    <span>20 kg</span>
+                                </div>
+                            </div>
+                            <div style="background: #E0F2FE; color: #0284C7; padding: 16px; border-radius: 12px; display: flex; align-items: center; gap: 12px; text-align: left;">
+                                <i data-lucide="info" style="width:24px; height:24px; flex-shrink:0;"></i>
+                                <span style="font-size: 0.9rem; font-weight: 500;">Una bolsa de mercado llena pesa aproximadamente entre 3kg y 5kg.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-white" style="width: 100%; padding: 18px; background: var(--primary); color: white; font-size: 1.2rem; font-weight: 700; border-radius: 100px; display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 32px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'" onclick="showScreen('pickup-confirmation')">
+                        Solicitar Recojo <i data-lucide="truck" style="width:24px;"></i>
+                    </button>
+
+                    <div class="grid-2">
+                        <div style="position: relative; border-radius: 16px; overflow: hidden; height: 180px;">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhQJLQ8xbuCKYFAk2nXHO7tgmM-9ckEHAFu4kviDFbtbgoN99tMyP1OMG65d7HfT9ozzU6yuWi4yVi6UdBz9ZyAyw9Z3VFX7hjfzOwwLzCSRGKe2Np1dMBt6TQxqswEeVvQ5-l1YcBSkDjH6GJheeu8zyhGe0jdmnomdXMU__0tVguzKhG-VA1WHPoy8ZhOmtIq8J0aU83CxLMXX73CLRBKzkYEUu-G0i4ymHLne0SORJ22TrftLpq3XdWc0dg54zdWXe5QDHiJARi" style="width: 100%; height: 100%; object-fit: cover;">
+                            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(13,99,27,0.9), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;">
+                                <div style="font-size: 1.1rem; font-weight: 700; color: white;">Impacto Ambiental</div>
+                                <div style="font-size: 0.85rem; color: rgba(255,255,255,0.9);">Cada bolsa cuenta para un futuro más verde.</div>
+                            </div>
+                        </div>
+                        <div class="card" style="background: var(--primary); color: white; display: flex; flex-direction: column; justify-content: space-between; border: none;">
+                            <div>
+                                <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;">¿Sabías qué?</h4>
+                                <p style="font-size: 0.85rem; opacity: 0.9; line-height: 1.5;">Reciclar 1 tonelada de papel salva 17 árboles adultos de ser talados.</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <i data-lucide="leaf" style="width:40px; height:40px; opacity: 0.2;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pickup Confirmation Screen -->
+            <section id="pickup-confirmation" class="screen">
+                <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+                    <!-- Success Animation Header -->
+                    <div style="background: #E8F5E9; width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; color: var(--primary); box-shadow: 0 10px 25px rgba(13,99,27,0.1);">
+                        <i data-lucide="check-circle" style="width:48px; height:48px;"></i>
+                    </div>
+                    <h2 style="font-size: 2rem; font-weight: 800; color: var(--primary); margin-bottom: 8px;">¡Solicitud Confirmada!</h2>
+                    <p class="text-muted" style="font-size: 1.1rem; margin-bottom: 40px;">Tu recolector está en camino para procesar tus materiales reciclables.</p>
+
+                    <!-- QR Code Card -->
+                    <div class="card" style="margin-bottom: 32px; padding: 40px 24px;">
+                        <div style="background: white; border: 4px solid var(--border); border-radius: 16px; width: 240px; height: 240px; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyag7gHjijjYMBITr3a3bZI82HbVTwCJrm8M4-D6XDfaNyMDSlFxX_yjlijGo_Nst5Q4x21vvHbqy8eYxA5FVM815cgv9uQwXHRybjCYcrgP4Xzs0YRejhwMQRZZc7qM_lbYqy3emQ-OqSZNBb7kem-wNxyepRZjnGhji80u8hZ4mZduX-xtmRj-sXlxAymA2V82Dewt7mvwY3c_bp9r6AA_R81Qb8EdV85qNiPCLyEeN_JiboowC8zoZUrWE_MDg0KiIntNmNqbwt" style="width: 80%; height: 80%; object-fit: contain;">
+                        </div>
+                        <p style="font-weight: 600; font-size: 1rem; color: var(--text);">Muestra este código al conductor para validar el peso real y recibir tus Eco-Tokens.</p>
+                    </div>
+
+                    <!-- Summary Details -->
+                    <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; text-align: left;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #F9FAF5; border: 1px solid var(--border); border-radius: 12px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <i data-lucide="tag" style="color: var(--primary);"></i>
+                                <span class="text-muted" style="font-weight: 600;">Categoría</span>
+                            </div>
+                            <span style="font-weight: 800; font-size: 1.2rem; color: var(--primary);">PET</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #F9FAF5; border: 1px solid var(--border); border-radius: 12px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <i data-lucide="scale" style="color: var(--primary);"></i>
+                                <span class="text-muted" style="font-weight: 600;">Peso Est.</span>
+                            </div>
+                            <span style="font-weight: 800; font-size: 1.2rem; color: var(--primary);">5 kg</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #E8F5E9; border: 1px solid #A5D6A7; border-radius: 12px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <i data-lucide="award" style="color: var(--primary);"></i>
+                                <span style="font-weight: 700; color: var(--primary);">Recompensa Est.</span>
+                            </div>
+                            <span style="font-weight: 800; font-size: 1.3rem; color: var(--primary);">+250 ETK</span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <button class="btn-white" style="width: 100%; padding: 18px; background: var(--primary); color: white; font-size: 1.1rem; font-weight: 700; border-radius: 100px; display: flex; justify-content: center; align-items: center; gap: 12px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'" onclick="showScreen('my-recycling')">
+                            <i data-lucide="wallet" style="width:20px;"></i> Guardar en Wallet
+                        </button>
+                        <button class="btn-white" style="width: 100%; padding: 18px; background: white; color: var(--primary); border: 2px solid var(--border); font-size: 1.1rem; font-weight: 700; border-radius: 100px; display: flex; justify-content: center; align-items: center; gap: 12px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'" onclick="showScreen('dashboard')">
+                            <i data-lucide="home" style="width:20px;"></i> Volver al Inicio
+                        </button>
                     </div>
                 </div>
             </section>
@@ -798,7 +1068,86 @@
             </section>
 
 
-            <!-- Critical Point Report Screen (Split Layout) -->
+            <!-- Critical Point Report Screen - Step 1 -->
+            <section id="report-step-1" class="screen">
+                <div class="split-layout">
+                    <!-- Left: Interactive Map -->
+                    <div class="split-left" style="position: relative;">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCm_rZhTZ-5J-Fn0ozbdYEaUqhTo7-oCfgMyjJ_SK2-7-k-n-VCqdD2O6k-rR35FLR1dm0Xdf62imDdsr2CV-dBA9O0VbOSnwmzLXlTZfkXwiF50EbYvJOMlWGWTSCKv4pEf49tjJnv3H_8-r_47df_gAXV-M_kUl9921Oece2EZG2ag_PWq4kSP7y_JpWAyiqxrq1MgIUGPOByD2a1uu4zDrNjZgellDsKAGNpctbrA_T8XxZCrgW3Pmqdsen69xh3Z5bSflKkjCGB" alt="Interactive Map" style="width:100%; height:100%; object-fit:cover;">
+                        
+                        <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;">
+                            <div style="display: flex; flex-direction: column; align-items: center;">
+                                <i data-lucide="map-pin" style="color: var(--primary); width: 48px; height: 48px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));"></i>
+                                <div style="width: 16px; height: 16px; background: rgba(13,99,27,0.2); border-radius: 50%; animation: pulse 2s infinite;"></div>
+                            </div>
+                        </div>
+
+                        <div style="position: absolute; top: 24px; left: 24px; background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); padding: 12px 20px; border-radius: 100px; box-shadow: var(--shadow); border: 1px solid var(--border);">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 0.9rem; font-weight: 700; color: var(--primary);">GPS:</span>
+                                <span style="font-family: monospace; color: var(--text);">-17.3935° S, -66.1570° W</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Form -->
+                    <div class="split-right">
+                        <div style="margin-bottom: 32px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <span class="text-muted" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; color: var(--primary);">Paso 1 de 3</span>
+                                <span style="font-weight: 800; font-size: 1.1rem; color: var(--text);">Ubicación</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width: 33%;"></div>
+                            </div>
+                        </div>
+
+                        <h1 style="font-size: 2.5rem; font-weight: 800; color: var(--text); margin-bottom: 12px;">Reporte de Punto Crítico</h1>
+                        <p class="text-muted" style="font-size: 1.1rem; margin-bottom: 32px;">Confirma la ubicación exacta donde se encuentra el residuo para que nuestros equipos de limpieza puedan intervenir.</p>
+
+                        <div class="card" style="margin-bottom: 32px; display: flex; align-items: flex-start; gap: 16px; padding: 24px;">
+                            <div style="background: var(--primary); color: white; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <i data-lucide="map-pin"></i>
+                            </div>
+                            <div style="flex: 1;">
+                                <div class="text-muted" style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;">Dirección Detectada</div>
+                                <div style="font-weight: 800; font-size: 1.2rem; margin-bottom: 4px;">Calle Los Pinos #452</div>
+                                <div class="text-muted" style="font-size: 0.9rem;">Zona Queru Queru, Cochabamba</div>
+                            </div>
+                            <button style="background: none; border: none; color: var(--accent); font-weight: 700; cursor: pointer;">Editar</button>
+                        </div>
+
+                        <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 16px;">Reporting Tips</h3>
+                        <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px;">
+                            <div style="background: #F9FAF5; padding: 16px; border-radius: 12px; border: 1px solid var(--border); display: flex; align-items: center; gap: 12px;">
+                                <i data-lucide="crosshair" style="color: var(--accent); width: 24px;"></i>
+                                <span style="font-size: 0.95rem; color: var(--text-muted);">Asegúrate de que el pin esté exactamente sobre los residuos.</span>
+                            </div>
+                            <div style="background: #F9FAF5; padding: 16px; border-radius: 12px; border: 1px solid var(--border); display: flex; align-items: center; gap: 12px;">
+                                <i data-lucide="camera" style="color: var(--accent); width: 24px;"></i>
+                                <span style="font-size: 0.95rem; color: var(--text-muted);">En el siguiente paso, toma fotos con buena iluminación.</span>
+                            </div>
+                            <div style="background: #F9FAF5; padding: 16px; border-radius: 12px; border: 1px solid var(--border); display: flex; align-items: center; gap: 12px;">
+                                <i data-lucide="shield-check" style="color: var(--accent); width: 24px;"></i>
+                                <span style="font-size: 0.95rem; color: var(--text-muted);">Tus datos están protegidos por nuestro sistema EcoKawsay.</span>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: center;">
+                            <button class="btn-white" style="flex: 1; padding: 18px; background: var(--primary); color: white; font-size: 1.2rem; font-weight: 700; border-radius: 16px; display: flex; justify-content: center; align-items: center; gap: 12px; cursor: pointer;" onclick="showScreen('report')">
+                                Confirmar Ubicación <i data-lucide="arrow-right"></i>
+                            </button>
+                            <button class="btn-white" style="width: 60px; height: 60px; padding: 0; display: flex; justify-content: center; align-items: center; border-radius: 16px; border: 2px solid var(--border);" onclick="showScreen('dashboard')">
+                                <i data-lucide="x"></i>
+                            </button>
+                        </div>
+                        
+                        <p class="text-muted" style="text-align: center; margin-top: 24px; font-style: italic; font-size: 0.9rem;">¿No es la ubicación correcta? Arrastra el mapa para ajustar el pin.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Critical Point Report Screen (Step 2 - Split Layout) -->
             <section id="report" class="screen">
                 <div class="split-layout">
                     <!-- Left: GPS Map Confirmation -->

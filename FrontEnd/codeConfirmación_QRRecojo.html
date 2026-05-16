@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed-variant": "#004a75",
+                      "on-surface-variant": "#40493d",
+                      "surface-container": "#eceeec",
+                      "on-secondary-container": "#00436a",
+                      "secondary-container": "#51b2fe",
+                      "tertiary-fixed-dim": "#ebbcac",
+                      "surface-bright": "#f8faf8",
+                      "secondary-fixed-dim": "#96ccff",
+                      "inverse-on-surface": "#eff1ef",
+                      "on-surface": "#191c1b",
+                      "on-secondary": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "tertiary-fixed": "#ffdbcf",
+                      "inverse-surface": "#2e3130",
+                      "primary-fixed": "#a3f69c",
+                      "on-background": "#191c1b",
+                      "tertiary": "#704d40",
+                      "on-tertiary-fixed-variant": "#603f33",
+                      "error": "#ba1a1a",
+                      "inverse-primary": "#88d982",
+                      "on-primary-fixed": "#002204",
+                      "surface-container-lowest": "#ffffff",
+                      "surface": "#f8faf8",
+                      "tertiary-container": "#8b6557",
+                      "secondary": "#00639a",
+                      "outline-variant": "#bfcaba",
+                      "surface-tint": "#1b6d24",
+                      "on-secondary-fixed": "#001d32",
+                      "background": "#f8faf8",
+                      "surface-variant": "#e1e3e1",
+                      "on-error-container": "#93000a",
+                      "surface-dim": "#d8dad9",
+                      "surface-container-highest": "#e1e3e1",
+                      "primary-container": "#2e7d32",
+                      "on-primary-fixed-variant": "#005312",
+                      "on-tertiary-fixed": "#2e150b",
+                      "primary-fixed-dim": "#88d982",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed": "#cee5ff",
+                      "outline": "#707a6c",
+                      "on-error": "#ffffff",
+                      "on-tertiary-container": "#ffeee8",
+                      "surface-container-high": "#e6e9e7",
+                      "primary": "#0d631b",
+                      "surface-container-low": "#f2f4f2",
+                      "on-primary-container": "#cbffc2"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "gutter": "24px",
+                      "xs": "4px",
+                      "base": "8px",
+                      "xl": "64px",
+                      "md": "24px",
+                      "lg": "40px",
+                      "margin-desktop": "80px",
+                      "sm": "12px"
+              },
+              "fontFamily": {
+                      "label-lg": ["Montserrat"],
+                      "headline-lg": ["Montserrat"],
+                      "body-md": ["Montserrat"],
+                      "label-sm": ["Montserrat"],
+                      "title-lg": ["Montserrat"],
+                      "display-lg": ["Montserrat"],
+                      "headline-lg-mobile": ["Montserrat"],
+                      "body-lg": ["Montserrat"]
+              },
+              "fontSize": {
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                      "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                      "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                      "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim flex justify-between items-center px-margin-mobile h-16 w-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">eco</span>
+<h1 class="text-headline-lg-mobile font-headline-lg-mobile font-bold text-primary dark:text-primary-fixed-dim">EcoKawsay</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAx2rXjBTBowUJA-P8u1qHEXI1fAnIN3dAFyTDopjLdsTCgvUFIwUgLmJS9lw8DALsmXyibqhgTDAvANTGjLtoN6LX2LYtu0R-7pWAHo4Q2pdkLB-gAMkqf9aSfkwF2XHv-g3nSmluobfZblt2EhLu1NpwOEk2KH1VHsspVOydnVe40SWWZ22zZ34GVvcywSxY6s_oe-rfl24u6h-ES8o80IU5xTpe8gjtq6CmXmi8O19yw4WthHw9XlPoPcUhPgw8yegwiVrh2Lygd"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-24 pb-32 px-margin-mobile max-w-md mx-auto w-full">
+<!-- Success Animation/Icon Header -->
+<section class="flex flex-col items-center text-center mb-lg">
+<div class="w-24 h-24 bg-primary-container rounded-full flex items-center justify-center mb-md shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined text-on-primary-container text-[48px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-xs">¡Solicitud Confirmada!</h2>
+<p class="font-body-md text-body-md text-on-surface-variant px-4">Tu recolector está en camino para procesar tus materiales reciclables.</p>
+</section>
+<!-- QR Code Card -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_4px_24px_rgba(27,109,36,0.08)] mb-lg flex flex-col items-center">
+<div class="w-full aspect-square bg-white border-8 border-surface-container rounded-lg flex items-center justify-center mb-md overflow-hidden">
+<img class="w-4/5 h-4/5 object-contain" data-alt="A clean, minimalist QR code displayed prominently in the center of a white frame. The surrounding environment is characterized by a soft green aesthetic with natural daylight. The design is sleek and modern, using professional white-space and high-contrast lines to ensure legibility and a bio-digital feel. The atmosphere is reliable and institutional, suggesting a secure digital transaction." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyag7gHjijjYMBITr3a3bZI82HbVTwCJrm8M4-D6XDfaNyMDSlFxX_yjlijGo_Nst5Q4x21vvHbqy8eYxA5FVM815cgv9uQwXHRybjCYcrgP4Xzs0YRejhwMQRZZc7qM_lbYqy3emQ-OqSZNBb7kem-wNxyepRZjnGhji80u8hZ4mZduX-xtmRj-sXlxAymA2V82Dewt7mvwY3c_bp9r6AA_R81Qb8EdV85qNiPCLyEeN_JiboowC8zoZUrWE_MDg0KiIntNmNqbwt"/>
+</div>
+<p class="font-body-md text-body-md text-on-surface text-center font-medium">
+                Muestra este código al conductor para validar el peso real y recibir tus Eco-Tokens
+            </p>
+</div>
+<!-- Summary Details -->
+<section class="space-y-sm mb-lg">
+<div class="flex items-center justify-between p-md bg-surface-container-low rounded-xl border border-outline-variant/30">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">category</span>
+<span class="font-label-lg text-label-lg text-on-surface-variant">Categoría</span>
+</div>
+<span class="font-title-lg text-title-lg text-primary font-bold">PET</span>
+</div>
+<div class="flex items-center justify-between p-md bg-surface-container-low rounded-xl border border-outline-variant/30">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">weight</span>
+<span class="font-label-lg text-label-lg text-on-surface-variant">Peso Est.</span>
+</div>
+<span class="font-title-lg text-title-lg text-primary font-bold">5 kg</span>
+</div>
+<div class="flex items-center justify-between p-md bg-primary-container/10 rounded-xl border border-primary-container/20">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">token</span>
+<span class="font-label-lg text-label-lg text-primary">Recompensa</span>
+</div>
+<span class="font-title-lg text-title-lg text-primary font-extrabold">+250 ETK</span>
+</div>
+</section>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-sm">
+<button class="w-full bg-primary-container text-on-primary-container h-14 rounded-full font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-md">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+                Guardar en Wallet
+            </button>
+<button class="w-full border-2 border-outline text-primary h-14 rounded-full font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined">home</span>
+                Volver al Inicio
+            </button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center py-2 px-2 pb-safe bg-surface-container dark:bg-surface-container-highest z-50 rounded-t-xl shadow-[0_-2px_12px_rgba(27,109,36,0.08)]">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:text-primary transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-container text-on-primary-container rounded-full px-4 py-1 active:scale-90 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment</span>
+<span class="font-label-sm text-label-sm">Missions</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:text-primary transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-sm text-label-sm">Wallet</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:text-primary transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm">Community</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:text-primary transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</button>
+</nav>
+</body></html>
