@@ -37,7 +37,7 @@ public class EventService {
     public Result<List<Event>> insertMany(List<EventCreateDto> dtos){
         try {
             var events = dtos.stream().map(EventMapper::toEvent).toList();
-            return Result.success(events);
+            return Result.success(eventRepository.saveAll(events));
         }catch(Exception e) {
             return Result.failure("Save Many Events", "Error al guardar los eventos");
         }
