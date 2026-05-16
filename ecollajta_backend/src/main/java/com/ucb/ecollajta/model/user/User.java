@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -48,10 +49,10 @@ public class User implements UserDetails{
     private Long zoneId;
 
     @Column(precision = 9, scale = 6)
-    private Double latitude;
+    private BigDecimal latitude;
 
     @Column(precision = 9, scale = 6)
-    private Double longitude;
+    private BigDecimal longitude;
 
     @Builder.Default
     @Column(name = "points_balance", nullable = false)
