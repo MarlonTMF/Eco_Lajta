@@ -22,15 +22,8 @@
         </div>
       </div>
 
-      <!-- Right side: Actions & Stats -->
+      <!-- Right side: Stats -->
       <div class="info-right">
-        <div class="action-row">
-          <button class="btn-download" (click)="downloadCertificate()">
-            <span class="material-symbols-outlined">download</span>
-            Descargar Certificado Verde
-          </button>
-        </div>
-
         <div class="stats-grid">
           <div class="stat-item">
             <span class="stat-number">{{ profile.totalRecycled }} <span class="stat-unit">kg</span></span>
@@ -69,7 +62,7 @@
         }
       </div>
 
-      <button class="btn-outline w-full mt-6">
+      <button routerLink="/rewards" class="btn-outline w-full mt-6">
         Explorar Todas las Insignias
       </button>
     </div>
@@ -78,7 +71,7 @@
     <div class="card-glass activity-card">
       <div class="card-header">
         <h2 class="card-title text-primary">Actividad Reciente</h2>
-        <a href="#" class="header-link text-primary" (click)="$event.preventDefault()">Ver Historial Completo</a>
+        <a routerLink="/my-recycling" class="header-link text-primary">Ver Historial Completo</a>
       </div>
 
       <div class="activity-timeline">
