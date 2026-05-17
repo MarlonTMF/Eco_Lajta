@@ -16,4 +16,19 @@ public class UserMapper {
             user.getPointsBalance()
         );
     }
+
+    public com.ucb.ecollajta.model.dto.AdminUserDTO toAdminDto(User user) {
+        return new com.ucb.ecollajta.model.dto.AdminUserDTO(
+            user.getId(),
+            user.getFullName(),
+            user.getEmail(),
+            user.getPhotoUrl(),
+            user.getCi(),
+            user.getPhone(),
+            user.getAddressLine(), // using addressLine as zone for now
+            user.getPointsBalance(),
+            user.getIsActive(),
+            user.getRole().name()
+        );
+    }
 }

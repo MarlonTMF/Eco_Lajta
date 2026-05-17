@@ -1,10 +1,12 @@
-import { Component, OnInit, signal, computed } from '@angular/core';
+import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { USER_REPOSITORY_TOKEN } from '../../../../infrastructure/tokens/injection-tokens';
+import { AdminUserDTO, AdminUserUpdateDTO } from '../../../../domain/repositories/user.repository';
 
 export interface CitizenEntity {
-  id: string;
+  id: string; // The backend uses numeric id, we map it to string for UI if needed, or keep number.
   name: string;
   email: string;
   ci: string;
@@ -12,6 +14,7 @@ export interface CitizenEntity {
   ecoTokenBalance: number;
   status: 'Active' | 'Suspended';
   avatarUrl: string;
+  rawRole: string;
 }
 
 export interface OtbCommitment {
@@ -31,69 +34,10 @@ export interface OtbCommitment {
   imports: [CommonModule, RouterModule, FormsModule],
 })
 export class AdminUsersComponent implements OnInit {
+  private userRepo = inject(USER_REPOSITORY_TOKEN);
+
   // State Signals
-  citizens = signal<CitizenEntity[]>([
-    {
-      id: 'cit-1',
-      name: 'Alejandra Vargas',
-      email: 'a.vargas@email.com',
-      ci: '7928341 SC',
-      zone: 'Cala Cala',
-      ecoTokenBalance: 1240,
-      status: 'Active',
-      avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80'
-    },
-    {
-      id: 'cit-2',
-      name: 'Ricardo Mendez',
-      email: 'r.mendez@city.bo',
-      ci: '5482910 CB',
-      zone: 'La Chimba',
-      ecoTokenBalance: 850,
-      status: 'Active',
-      avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&q=80'
-    },
-    {
-      id: 'cit-3',
-      name: 'Sofia Rojas',
-      email: 's.rojas@mail.com',
-      ci: '9201833 BN',
-      zone: 'Quillacollo',
-      ecoTokenBalance: 2100,
-      status: 'Suspended',
-      avatarUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&q=80'
-    },
-    {
-      id: 'cit-4',
-      name: 'Lucia Claros',
-      email: 'l.claros@provider.bo',
-      ci: '8172645 CB',
-      zone: 'Sacaba',
-      ecoTokenBalance: 315,
-      status: 'Active',
-      avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&q=80'
-    },
-    {
-      id: 'cit-5',
-      name: 'Mateo Velasco',
-      email: 'm.velasco@gmail.com',
-      ci: '6129847 CB',
-      zone: 'Cala Cala',
-      ecoTokenBalance: 2450,
-      status: 'Active',
-      avatarUrl: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=150&q=80'
-    },
-    {
-      id: 'cit-6',
-      name: 'Carlos Espinoza',
-      email: 'c.espinoza@hotmail.com',
-      ci: '4839201 CB',
-      zone: 'La Chimba',
-      ecoTokenBalance: 150,
-      status: 'Active',
-      avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80'
-    }
-  ]);
+  citizens = signal<CitizenEntity[]>([]);
 
   otbs = signal<OtbCommitment[]>([
     { rank: 1, name: 'Cala Cala', region: 'Zona Norte', participationPercent: 92, icon: 'park', iconColor: 'var(--primary)' },
@@ -105,15 +49,29 @@ export class AdminUsersComponent implements OnInit {
   searchText = signal<string>('');
   selectedZone = signal<string>('All');
 
+  // Edit Modal State
+  isEditModalOpen = signal<boolean>(false);
+  editingUserId = signal<string | null>(null);
+  
+  // Form fields
+  editFullName = signal<string>('');
+  editCi = signal<string>('');
+  editZone = signal<string>('');
+  editEcoTokenBalance = signal<number>(0);
+  editStatus = signal<'Active'|'Suspended'>('Active');
+
   // Computed signals for search and filters
   filteredCitizens = computed(() => {
     const query = this.searchText().toLowerCase().trim();
     const zone = this.selectedZone();
 
     return this.citizens().filter(c => {
-      const matchesSearch = c.name.toLowerCase().includes(query) ||
-                            c.email.toLowerCase().includes(query) ||
-                            c.ci.toLowerCase().includes(query);
+      const nameStr = c.name || '';
+      const emailStr = c.email || '';
+      const ciStr = c.ci || '';
+      const matchesSearch = nameStr.toLowerCase().includes(query) ||
+                            emailStr.toLowerCase().includes(query) ||
+                            ciStr.toLowerCase().includes(query);
       const matchesZone = zone === 'All' || c.zone === zone;
 
       return matchesSearch && matchesZone;
@@ -122,25 +80,95 @@ export class AdminUsersComponent implements OnInit {
 
   // Zones for selector
   zones = computed(() => {
-    const allZones = this.citizens().map(c => c.zone);
+    const allZones = this.citizens().map(c => c.zone).filter(z => !!z);
     return ['All', ...new Set(allZones)];
   });
 
-  ngOnInit(): void {}
-
-  toggleUserStatus(citizen: CitizenEntity): void {
-    this.citizens.update(list => list.map(c => {
-      if (c.id === citizen.id) {
-        const newStatus = c.status === 'Active' ? 'Suspended' : 'Active';
-        return { ...c, status: newStatus };
-      }
-      return c;
-    }));
+  async ngOnInit() {
+    await this.loadUsers();
   }
 
-  deleteUser(citizenId: string): void {
-    if (confirm('¿Estás seguro de eliminar a este ciudadano del sistema?')) {
-      this.citizens.update(list => list.filter(c => c.id !== citizenId));
+  async loadUsers() {
+    try {
+      const backendUsers = await this.userRepo.getAllUsers();
+      const mapped: CitizenEntity[] = backendUsers.map(u => ({
+        id: u.id.toString(),
+        name: u.fullName || 'Sin Nombre',
+        email: u.email,
+        ci: u.ci || 'N/A',
+        zone: u.zone || 'Sin Zona',
+        ecoTokenBalance: u.pointsBalance || 0,
+        status: u.isActive ? 'Active' : 'Suspended',
+        avatarUrl: u.photoUrl || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(u.fullName || 'U'),
+        rawRole: u.role
+      }));
+      this.citizens.set(mapped);
+    } catch (error) {
+      console.error('Error loading users', error);
+    }
+  }
+
+  async toggleUserStatus(citizen: CitizenEntity) {
+    const newIsActive = citizen.status !== 'Active';
+    try {
+      await this.userRepo.updateUser(Number(citizen.id), { isActive: newIsActive });
+      this.citizens.update(list => list.map(c => {
+        if (c.id === citizen.id) {
+          return { ...c, status: newIsActive ? 'Active' : 'Suspended' };
+        }
+        return c;
+      }));
+    } catch (error) {
+      console.error('Error updating status', error);
+      alert('Error al actualizar el estado.');
+    }
+  }
+
+  openEditModal(citizen: CitizenEntity) {
+    this.editingUserId.set(citizen.id);
+    this.editFullName.set(citizen.name);
+    this.editCi.set(citizen.ci);
+    this.editZone.set(citizen.zone);
+    this.editEcoTokenBalance.set(citizen.ecoTokenBalance);
+    this.editStatus.set(citizen.status);
+    this.isEditModalOpen.set(true);
+  }
+
+  closeEditModal() {
+    this.isEditModalOpen.set(false);
+    this.editingUserId.set(null);
+  }
+
+  async saveEditedUser() {
+    const id = this.editingUserId();
+    if (!id) return;
+    
+    try {
+      const payload: AdminUserUpdateDTO = {
+        fullName: this.editFullName(),
+        ci: this.editCi(),
+        zone: this.editZone(),
+        pointsBalance: this.editEcoTokenBalance(),
+        isActive: this.editStatus() === 'Active'
+      };
+      
+      await this.userRepo.updateUser(Number(id), payload);
+      await this.loadUsers(); // refresh from db
+      this.closeEditModal();
+    } catch (error) {
+      console.error('Error saving user', error);
+      alert('Error al guardar cambios del usuario.');
+    }
+  }
+
+  async deleteUser(citizenId: string) {
+    if (confirm('La eliminación dura no está habilitada. ¿Deseas suspender a este ciudadano en su lugar?')) {
+      try {
+        await this.userRepo.updateUser(Number(citizenId), { isActive: false });
+        await this.loadUsers();
+      } catch (e) {
+        console.error(e);
+      }
     }
   }
 }

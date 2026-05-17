@@ -142,7 +142,7 @@
           </button>
         </div>
 
-        <div class="site-photos-gallery" *ngIf="activePoint.photos?.length">
+        <div class="site-photos-gallery" *ngIf="activePoint.photos.length">
           <h3 class="gallery-title">Galería</h3>
           <div class="gallery-grid">
             <img *ngFor="let photo of activePoint.photos" [src]="photo" alt="" class="gallery-thumb" loading="lazy" />

@@ -6,6 +6,7 @@ import java.util.Set;
 import com.google.auto.value.AutoValue.Builder;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,6 +44,7 @@ public class Reward {
     @Column(name = "icon", length = 50)
     private String icon;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "rewards")
     private Set<User> users = new HashSet<>();
 }
