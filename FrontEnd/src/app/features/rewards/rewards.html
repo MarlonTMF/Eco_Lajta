@@ -106,10 +106,14 @@
             <tbody>
               @for (tx of transactions(); track tx.id) {
                 <tr class="table-row">
-                  <td>
+                  <td data-label="Transacción">
                     <div class="tx-cell-wrap">
-                      <div class="tx-icon-circle" aria-hidden="true" [class.bg-green-soft]="tx.isPositive" [class.bg-red-soft]="!tx.isPositive">
-                        <span class="material-symbols-outlined" [class.text-primary]="tx.isPositive" [class.text-error]="!tx.isPositive">{{ tx.icon }}</span>
+                      <div class="tx-icon-circle" aria-hidden="true"
+                          [class.bg-green-soft]="tx.isPositive"
+                          [class.bg-red-soft]="!tx.isPositive">
+                        <span class="material-symbols-outlined"
+                              [class.text-primary]="tx.isPositive"
+                              [class.text-error]="!tx.isPositive">{{ tx.icon }}</span>
                       </div>
                       <div class="tx-details">
                         <p class="tx-title">{{ tx.title }}</p>
@@ -117,7 +121,7 @@
                       </div>
                     </div>
                   </td>
-                  <td>
+                  <td data-label="Categoría">
                     <span class="badge-pill"
                           [class.badge-green]="tx.category === 'Reciclaje'"
                           [class.badge-orange]="tx.category === 'Recompensa'"
@@ -125,8 +129,10 @@
                       {{ tx.category }}
                     </span>
                   </td>
-                  <td class="tx-date-cell">{{ tx.date }}</td>
-                  <td class="tx-amount-cell text-right" [class.text-primary]="tx.isPositive" [class.text-error]="!tx.isPositive">
+                  <td data-label="Fecha" class="tx-date-cell">{{ tx.date }}</td>
+                  <td data-label="Monto" class="tx-amount-cell"
+                      [class.text-primary]="tx.isPositive"
+                      [class.text-error]="!tx.isPositive">
                     {{ tx.isPositive ? '+' : '-' }}{{ tx.amountDp }} DP
                   </td>
                 </tr>
