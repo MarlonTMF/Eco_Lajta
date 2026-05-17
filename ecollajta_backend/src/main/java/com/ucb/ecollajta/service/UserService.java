@@ -1,6 +1,7 @@
 package com.ucb.ecollajta.service;
 
 import com.ucb.ecollajta.exception.ResourceNotFoundException;
+import com.ucb.ecollajta.common.Result;
 import com.ucb.ecollajta.model.User;
 import com.ucb.ecollajta.model.UserRole;
 import com.ucb.ecollajta.repository.user.UserRepository;
@@ -34,12 +35,6 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public User save(User user) {
-        log.debug("Saving user in the database: {}", user.getEmail());
-        return userRepository.save(user);
-    }
-
-    @Transactional
     public User createFromGoogle(String email, String fullName, String googleSub, String photoUrl) {
         log.info("Creating user from Google login, email: {}", email);
         
@@ -67,5 +62,17 @@ public class UserService implements UserDetailsService {
             .getName();
         return userRepository.findByEmail(email)
             .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    }
+    public Result<User> getOne(Long id) {
+        return userRepository.findById(id)
+            .map(Result::success)
+            .orElseGet(() -> Result.failure("UserNotFound", "User with id " + id + " not found"));
+    }
+    public Result<User> save(User user) {
+        try {
+            return Result.success(userRepository.saveAndFlush(user));
+        } catch (Exception e) {
+            return Result.failure(e.getClass().getSimpleName(), e.getMessage());
+        }
     }
 }
