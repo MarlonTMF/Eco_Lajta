@@ -3,3 +3,7 @@
 ecoollajta_backend/.env
 
 .vscode/
+
+FrontEnd/.vscode/
+FrontEnd/eco-kawsay-app/.angular
+FrontEnd/eco-kawsay-app/node_modules

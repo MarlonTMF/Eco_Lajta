@@ -1,7 +1,6 @@
 package com.ucb.ecollajta.common;
 
-import com.ucb.ecollajta.model.events.Event;
-import com.ucb.ecollajta.model.events.EventStatus;
+import com.ucb.ecollajta.model.events.*;
 import com.ucb.ecollajta.model.CommunityPost;
 import com.ucb.ecollajta.model.Reward;
 import com.ucb.ecollajta.repository.events.EventRepository;
