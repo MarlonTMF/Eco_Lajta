@@ -1,0 +1,50 @@
+<section id="onboarding" class="animate-fade-in" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; background: white; display: flex;">
+    <!-- Top Bar with Login -->
+    <div style="position: absolute; top: 0; left: 0; right: 0; padding: 40px; display: flex; justify-content: space-between; align-items: center; z-index: 1001;">
+        <div class="logo">
+            <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; shadow: 0 4px 12px rgba(13,99,27,0.2);">
+                <i class="material-symbols-outlined" style="font-size: 24px;">eco</i>
+            </div>
+            <span style="letter-spacing: -1px; color: var(--primary);">EcoLlajta</span>
+        </div>
+        <button routerLink="/login" class="btn-white" style="padding: 12px 32px; border-radius: 100px; font-weight: 800; border: 1px solid var(--border);">
+            Login
+        </button>
+    </div>
+
+    <div class="onboarding-image">
+        <div style="position: absolute; bottom: 60px; left: 60px; right: 60px; background: rgba(0,0,0,0.3); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); padding: 32px; border-radius: 32px; color: white;">
+            <div style="display: flex; gap: 4px; margin-bottom: 12px;">
+                <i class="material-symbols-outlined" style="color: #fbbf24; font-size: 20px;">star</i>
+                <i class="material-symbols-outlined" style="color: #fbbf24; font-size: 20px;">star</i>
+                <i class="material-symbols-outlined" style="color: #fbbf24; font-size: 20px;">star</i>
+                <i class="material-symbols-outlined" style="color: #fbbf24; font-size: 20px;">star</i>
+                <i class="material-symbols-outlined" style="color: #fbbf24; font-size: 20px;">star</i>
+            </div>
+            <p style="font-style: italic; font-size: 1.1rem; line-height: 1.6; margin-bottom: 16px;">"EcoLlajta ha cambiado la forma en que mi familia ve el reciclaje. Ahora es un juego donde todos ganamos."</p>
+            <div style="font-weight: 800; font-size: 0.9rem;">— María Gutierrez, Guardiana del Valle</div>
+        </div>
+    </div>
+
+    <div class="onboarding-content">
+        <div class="onboarding-tag">
+            <i class="material-symbols-outlined" style="font-size: 18px;">shield_with_heart</i>
+            Fase Uno: Concientización
+        </div>
+        <h1 style="font-size: 4rem; font-weight: 900; line-height: 1; color: var(--text); margin-bottom: 32px;">Bienvenido a <span class="gradient-text">EcoLlajta</span></h1>
+        <p style="font-size: 1.2rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 48px;">Nuestra misión es empoderar a cada ciudadano para convertirse en guardián de nuestro ecosistema urbano. A través de la innovación bio-digital, cerramos la brecha entre la tecnología y la acción ambiental.</p>
+        
+        <div style="display: flex; gap: 12px; margin-bottom: 60px;">
+            <div style="width: 48px; height: 6px; background: var(--primary); border-radius: 10px;"></div>
+            <div style="width: 12px; height: 6px; background: #e2e8f0; border-radius: 10px;"></div>
+            <div style="width: 12px; height: 6px; background: #e2e8f0; border-radius: 10px;"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="#" style="color: var(--text-muted); text-decoration: none; font-weight: 700; font-size: 0.95rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 4px;">Guía de Inicio Rápido</a>
+            <button class="btn-primary" style="padding: 20px 40px; border-radius: 24px;" routerLink="/dashboard">
+                Comenzar <i class="material-symbols-outlined">arrow_forward</i>
+            </button>
+        </div>
+    </div>
+</section>

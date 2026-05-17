@@ -1,0 +1,129 @@
+<div class="map-view-wrapper">
+  <!-- Satellite Map Background -->
+  <div class="map-background">
+    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM9ow0uavbuqqbxuL_M5EzhebdD8ficww_ml8hyvc8l1UsCLfSCwZDHAW6IqkAK4fFeiq69oUPv1R9MgWSwneSpWEG-nMeyQIm6dfV-xYRW9SAR0PQDrFlVcloij9tfQTPxomVn05e91NdRiyduPl7fRr719p9pbIixxTabaq6wpb7Nx1o0v9l4wZeAQkIMLv07aCRLq08YOnRgj2Ceaq9HKDfQnoRQaYUEbVJ64mUWX5fk9wU3BeOqkZW13x2D7ZoexSZtPiQaNB9" alt="Satellite Map of Cochabamba" class="map-img" />
+  </div>
+
+  <!-- Category Filters Overlay -->
+  <div class="map-filters-overlay">
+    @for (cat of categories; track cat.id) {
+      <button 
+        class="btn-filter-pill" 
+        [class.active]="selectedCategory() === cat.id"
+        (click)="selectCategory(cat.id)"
+      >
+        @if (cat.id === 'all') {
+          <span class="material-symbols-outlined filter-icon">grid_view</span>
+        } @else {
+          <span class="dot-indicator" [style.background-color]="cat.color"></span>
+        }
+        {{ cat.label }}
+      </button>
+    }
+  </div>
+
+  <!-- Floating Markers -->
+  <div class="map-marker-container primary-marker" style="top: 45%; left: 52%;" (click)="toggleDrawer()">
+    <div class="marker-pin border-primary">
+      <span class="material-symbols-outlined icon-inside">recycling</span>
+    </div>
+    <div class="marker-label">Plaza Colón Point</div>
+  </div>
+
+  <!-- Other markers (simulated) -->
+  <div class="map-marker-container blue-marker" style="top: 30%; left: 40%;" (click)="toggleDrawer()">
+    <div class="marker-pin border-blue">
+      <span class="material-symbols-outlined icon-inside">delete</span>
+    </div>
+  </div>
+  
+  <div class="map-marker-container red-marker" style="top: 60%; left: 35%;" (click)="toggleDrawer()">
+    <div class="marker-pin border-red">
+      <span class="material-symbols-outlined icon-inside">warning</span>
+    </div>
+  </div>
+
+  <!-- Zoom Controls -->
+  <div class="zoom-controls">
+    <button class="zoom-btn btn-top"><span class="material-symbols-outlined">add</span></button>
+    <button class="zoom-btn btn-bottom"><span class="material-symbols-outlined">remove</span></button>
+    <button class="zoom-btn btn-nav"><span class="material-symbols-outlined">near_me</span></button>
+  </div>
+
+  <!-- Floating Action Button (FAB) -->
+  <button class="map-fab-btn" (click)="toggleDrawer()">
+    <span class="material-symbols-outlined fab-icon">add</span>
+  </button>
+
+  <!-- Point Detail Drawer (Right Sidebar) -->
+  <aside class="map-drawer-panel" [class.active]="isDrawerOpen()">
+    <div class="drawer-header-image">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuByeR3AbL6Qe1nFpIiOkavFkPREWKwENE6khjZyIh5-YovTfujR-Lr0Lm5u4tqe7SlHrrEEeHfgS-3w0NaQK5E_jrTlnlF5q68gddMU9Ck3KOHzH_R95IUTP1GzKUQUme3FWD1w6QhKVseWzhVhJaiYuyYKfBoAA7hH-a_dSc1BI7flMKebcGGreald5DiwMfYF0oYBVUY6VirUuBIIls1sQyYyk79vdlPqFOxUPTYXIDvDd_VCL7MXqlswYRuTzfhqaQZYyqgQobs9" alt="Plaza Colón" class="header-cover-img" />
+      <button class="btn-close-drawer" (click)="toggleDrawer()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <div class="drawer-content">
+      <div class="drawer-header-info">
+        <div class="title-area">
+          <h2 class="drawer-title text-primary">Plaza Colón Point</h2>
+          <div class="location-row">
+            <span class="material-symbols-outlined location-icon">location_on</span>
+            <span class="location-text">Cochabamba Centro, Zona 1</span>
+          </div>
+        </div>
+        <div class="points-badge">
+          <span class="points-number">+15</span>
+          <span class="points-label">Tokens</span>
+        </div>
+      </div>
+
+      <div class="info-kpi-grid">
+        <div class="kpi-card">
+          <span class="kpi-label">Operating Hours</span>
+          <div class="kpi-value text-primary">
+            <span class="material-symbols-outlined kpi-icon">schedule</span> 
+            08:00 - 20:00
+          </div>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Status</span>
+          <div class="kpi-value text-accent">
+            <span class="material-symbols-outlined kpi-icon">check_circle</span> 
+            Open Now
+          </div>
+        </div>
+      </div>
+
+      <div class="capacity-gauge">
+        <div class="capacity-header">
+          <span class="gauge-title">Current Capacity</span>
+          <span class="gauge-percentage text-danger">78% Full</span>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar bg-danger" style="width: 78%;"></div>
+        </div>
+        <p class="gauge-hint text-muted">Recommended: Disposal scheduled in 2 hours.</p>
+      </div>
+
+      <div class="action-buttons-column">
+        <button class="btn-primary-action">
+          <span class="material-symbols-outlined">near_me</span> Get Directions
+        </button>
+        <button class="btn-secondary-action">
+          <span class="material-symbols-outlined">info</span> Report Issue
+        </button>
+      </div>
+
+      <div class="site-photos-gallery">
+        <h3 class="gallery-title">Site Photos</h3>
+        <div class="gallery-grid">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2HaQ0jT-QLuQm3C3-pfGv-dPAosegulTpX-MdaVjwhyFEUEbIr2_s6du0L5PoIIGTSuFlQh7SBUS2dthY1f60wcXeytuO3T5NRUvLMM79-a9Vrvsb-WRpVOpt3AeXroYVP--EWAb2BegjkNB1EC2bBcbaWjgNhWKKjV_TF8jQPnU2gmwOiMM4ZGybVD5HjwxNZMOEIWaGgPp2QBZ45lnYbTrySzyPc-jTQ1Qu9N3uS2jout5M9ghvsDjqZcT6tYM-liUrOs8d7WmR" alt="Site 1" class="gallery-thumb" />
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9Z2CY8BztCGLo4Dgdd-r6EoqCW7hEg9NvxVSJ6JQuAFr3qCnXoXpd0y6iqKPalcxX5bM5FP_8BwpXjeGUphH8wLCCrUwmmDkgYupU8h6W8Pil0pD1ThL4f0xHdc_1yEkVIYWlX8f5_q83RaXeFagDR1pdjiz_pnYSwzKcGsxB77N0-VSn91s37kF384YQEgtfphHNrVo_kClawvB8DQWOq4ZDf0BUcEy9qoO_AiDEYHVFVIBSddvqstcKOjB3pXBA7OJcVOQBb9wI" alt="Site 2" class="gallery-thumb" />
+          <div class="gallery-more-card">+5 more</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>

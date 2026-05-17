@@ -1,0 +1,150 @@
+<div class="community-container">
+  <!-- PAGE HEADER & ACTION BANNER -->
+  <div class="community-header animate-fade-in">
+    <div class="header-left">
+      <p class="section-tag text-primary">REWARDS / RANKING DE CIUDADANOS</p>
+      <h1 class="page-title">Top Global Cochabamba</h1>
+      <p class="text-muted max-w-600">
+        Reconocimiento a los ciudadanos con mayor impacto ambiental positivo este mes. Tu actividad de reciclaje y reportes directos salvan el ecosistema local.
+      </p>
+    </div>
+
+    <div class="header-right-banner" (click)="inviteFriends()">
+      <div class="avatar-stack">
+        <img src="https://i.pravatar.cc/40?img=1" alt="User 1" class="stack-img" />
+        <img src="https://i.pravatar.cc/40?img=2" alt="User 2" class="stack-img" />
+        <img src="https://i.pravatar.cc/40?img=3" alt="User 3" class="stack-img" />
+      </div>
+      <div class="banner-text">
+        <div class="banner-title">¡Multiplica tu impacto!</div>
+        <div class="banner-sub">
+          Invita a tus amigos 
+          <span class="material-symbols-outlined align-middle text-sm font-bold">arrow_forward</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEADERBOARD SPLIT GRID -->
+  <div class="community-grid animate-slide-up">
+    <!-- LEFT: PODIO DE HONOR -->
+    <div class="podium-card card-glass">
+      <div class="card-title">
+        <span class="material-symbols-outlined trophy-icon">emoji_events</span>
+        Podio de Honor
+      </div>
+
+      <div class="podium-layout">
+        <!-- 2nd PLACE (Sofia) -->
+        <div class="podium-col second-place">
+          <div class="avatar-wrapper border-silver">
+            <img [src]="podium[0].avatar" alt="Sofia" class="podium-avatar" />
+            <div class="rank-badge bg-silver">2</div>
+          </div>
+          <div class="podium-info">
+            <h4 class="podium-name">{{ podium[0].name }}</h4>
+            <div class="podium-points text-primary">{{ podium[0].points | number }} DP</div>
+            <div class="podium-badge">{{ podium[0].badge }}</div>
+          </div>
+        </div>
+
+        <!-- 1st PLACE (Alejandro - Elevated) -->
+        <div class="podium-col first-place">
+          <div class="avatar-wrapper border-gold">
+            <div class="crown-overlay">👑</div>
+            <img [src]="podium[1].avatar" alt="Alejandro" class="podium-avatar-large" />
+            <div class="rank-badge bg-gold">1</div>
+          </div>
+          <div class="podium-info mt-4">
+            <h4 class="podium-name-large">{{ podium[1].name }}</h4>
+            <div class="podium-points-large text-primary">{{ podium[1].points | number }} DP</div>
+            <div class="role-chip">{{ podium[1].badge }}</div>
+          </div>
+        </div>
+
+        <!-- 3rd PLACE (Renato) -->
+        <div class="podium-col third-place">
+          <div class="avatar-wrapper border-bronze">
+            <img [src]="podium[2].avatar" alt="Renato" class="podium-avatar" />
+            <div class="rank-badge bg-bronze">3</div>
+          </div>
+          <div class="podium-info">
+            <h4 class="podium-name">{{ podium[2].name }}</h4>
+            <div class="podium-points text-primary">{{ podium[2].points | number }} DP</div>
+            <div class="podium-badge">{{ podium[2].badge }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: CLASIFICACIÓN GENERAL -->
+    <div class="leaderboard-card card-glass">
+      <div class="leaderboard-header">
+        <h3 class="card-title mb-0">Clasificación General</h3>
+        <div class="period-toggle">
+          <button 
+            class="toggle-btn" 
+            [class.active]="selectedPeriod() === 'month'"
+            (click)="setPeriod('month')"
+          >
+            Este Mes
+          </button>
+          <button 
+            class="toggle-btn" 
+            [class.active]="selectedPeriod() === 'alltime'"
+            (click)="setPeriod('alltime')"
+          >
+            Histórico
+          </button>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="leaderboard-table">
+          <thead>
+            <tr>
+              <th class="col-rank">Rango</th>
+              <th class="col-user">Ciudadano</th>
+              <th class="col-points text-center">Dirty Points</th>
+              <th class="col-growth text-right">Crecimiento</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (user of leaderboard; track user.rank) {
+              <tr [class.current-user-row]="user.isCurrentUser">
+                <td class="cell-rank">{{ user.rank }}</td>
+                <td class="cell-user">
+                  <div class="user-cell-wrap">
+                    @if (user.avatar) {
+                      <img [src]="user.avatar" alt="Avatar" class="cell-avatar" />
+                    } @else {
+                      <div class="cell-avatar-initials" [class.bg-white-opacity]="user.isCurrentUser">
+                        {{ user.initials }}
+                      </div>
+                    }
+                    <div class="user-names">
+                      <div class="user-main-name">{{ user.name }}</div>
+                      <div class="user-zone">{{ user.zone }}</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="cell-points text-center">{{ user.points | number }}</td>
+                <td class="cell-growth text-right" [class.text-highlight]="user.isCurrentUser">
+                  {{ user.growth }}
+                  <span class="material-symbols-outlined trending-icon align-middle">trending_up</span>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="leaderboard-footer" (click)="inviteFriends()">
+        <span class="footer-btn">
+          Ver Clasificación Completa 
+          <span class="material-symbols-outlined align-middle">chevron_down</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

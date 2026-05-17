@@ -1,0 +1,105 @@
+<div class="profile-container">
+  <!-- USER CARD HEADER -->
+  <div class="profile-header-card animate-fade-in">
+    <!-- Cover/Accent Area -->
+    <div class="profile-cover"></div>
+
+    <div class="profile-main-info">
+      <!-- Left side: Avatar, Name & Badge -->
+      <div class="info-left">
+        <div class="avatar-container">
+          <img [src]="profile.avatarUrl" alt="Avatar" class="avatar-img" />
+        </div>
+        <div class="user-details">
+          <h1 class="user-name">
+            {{ profile.name }}
+            <span class="material-symbols-outlined verified-badge">check_circle</span>
+          </h1>
+          <div class="user-badge">
+            <span class="material-symbols-outlined badge-icon">shield</span>
+            <span class="badge-text">{{ profile.role }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side: Actions & Stats -->
+      <div class="info-right">
+        <div class="action-row">
+          <button class="btn-download" (click)="downloadCertificate()">
+            <span class="material-symbols-outlined">download</span>
+            Descargar Certificado Verde
+          </button>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-number">{{ profile.totalRecycled }} <span class="stat-unit">kg</span></span>
+            <span class="stat-label">TOTAL RECICLADO</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">{{ profile.balanceDirtyPoints | number }} <span class="stat-unit">DP</span></span>
+            <span class="stat-label">BALANCE</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">{{ profile.eventsCount }}</span>
+            <span class="stat-label">EVENTOS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPLIT GRID (ACHIEVEMENTS + ACTIVITIES) -->
+  <div class="profile-content-grid animate-slide-up">
+    <!-- LEFT: MURO DE LOGROS -->
+    <div class="card-glass achievements-card">
+      <div class="card-header">
+        <h2 class="card-title text-primary">Muro de Logros</h2>
+      </div>
+
+      <div class="achievements-list">
+        @for (item of achievements; track item.title) {
+          <div class="achievement-item" [class.locked]="item.locked">
+            <div class="achievement-icon-wrap" [class]="item.bgClass">
+              <span class="material-symbols-outlined" [class]="item.colorClass">{{ item.icon }}</span>
+            </div>
+            <h4 class="achievement-title">{{ item.title }}</h4>
+            <p class="achievement-level text-muted">{{ item.level }}</p>
+          </div>
+        }
+      </div>
+
+      <button class="btn-outline w-full mt-6">
+        Explorar Todas las Insignias
+      </button>
+    </div>
+
+    <!-- RIGHT: ACTIVIDAD RECIENTE -->
+    <div class="card-glass activity-card">
+      <div class="card-header">
+        <h2 class="card-title text-primary">Actividad Reciente</h2>
+        <a href="#" class="header-link text-primary" (click)="$event.preventDefault()">Ver Historial Completo</a>
+      </div>
+
+      <div class="activity-timeline">
+        @for (act of recentActivities; track act.title) {
+          <div class="timeline-row">
+            <div class="activity-icon-circle" [class]="act.bgClass">
+              <span class="material-symbols-outlined" [class]="act.colorClass">{{ act.icon }}</span>
+            </div>
+            <div class="activity-details">
+              <div class="activity-header-row">
+                <h4 class="activity-title">{{ act.title }}</h4>
+                <span class="activity-time text-muted">{{ act.time }}</span>
+              </div>
+              <p class="activity-desc text-muted">{{ act.description }}</p>
+              @if (act.reward) {
+                <span class="activity-reward text-secondary font-bold">{{ act.reward }}</span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

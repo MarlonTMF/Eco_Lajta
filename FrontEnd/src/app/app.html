@@ -1,0 +1,7 @@
+<div class="app-container" [class.no-sidebar]="!showLayout()">
+  <app-sidebar *ngIf="showLayout()" [class.active]="isSidebarActive()" (closeSidebar)="toggleSidebar()"></app-sidebar>
+  <main [class.main-content]="showLayout()" [class.auth-content]="!showLayout()">
+      <app-topbar *ngIf="showLayout()" (menuToggle)="toggleSidebar()"></app-topbar>
+      <router-outlet></router-outlet>
+  </main>
+</div>

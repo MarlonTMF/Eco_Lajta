@@ -1,0 +1,377 @@
+<!DOCTYPE html><html class="light" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Eco-Tokens Wallet | EcoKawsay</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#f8faf8",
+                      "secondary-fixed": "#cee5ff",
+                      "primary-container": "#2e7d32",
+                      "on-secondary-fixed-variant": "#004a75",
+                      "inverse-primary": "#88d982",
+                      "on-tertiary-fixed-variant": "#603f33",
+                      "outline": "#707a6c",
+                      "on-primary-container": "#cbffc2",
+                      "surface": "#f8faf8",
+                      "tertiary-fixed-dim": "#ebbcac",
+                      "surface-container-high": "#e6e9e7",
+                      "tertiary": "#704d40",
+                      "primary-fixed-dim": "#88d982",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-fixed": "#001d32",
+                      "on-secondary-container": "#00436a",
+                      "secondary-fixed-dim": "#96ccff",
+                      "surface-dim": "#d8dad9",
+                      "on-tertiary-fixed": "#2e150b",
+                      "surface-tint": "#1b6d24",
+                      "inverse-surface": "#2e3130",
+                      "on-error": "#ffffff",
+                      "on-surface-variant": "#40493d",
+                      "inverse-on-surface": "#eff1ef",
+                      "surface-container": "#eceeec",
+                      "on-tertiary-container": "#ffeee8",
+                      "secondary": "#00639a",
+                      "error-container": "#ffdad6",
+                      "surface-container-low": "#f2f4f2",
+                      "outline-variant": "#bfcaba",
+                      "on-primary-fixed": "#002204",
+                      "error": "#ba1a1a",
+                      "surface-container-highest": "#e1e3e1",
+                      "secondary-container": "#51b2fe",
+                      "surface-container-lowest": "#ffffff",
+                      "primary": "#0d631b",
+                      "on-primary": "#ffffff",
+                      "on-background": "#191c1b",
+                      "on-error-container": "#93000a",
+                      "background": "#f8faf8",
+                      "primary-fixed": "#a3f69c",
+                      "on-primary-fixed-variant": "#005312",
+                      "tertiary-fixed": "#ffdbcf",
+                      "on-surface": "#191c1b",
+                      "tertiary-container": "#8b6557",
+                      "surface-variant": "#e1e3e1",
+                      "on-tertiary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "base": "8px",
+                      "xl": "64px",
+                      "gutter": "24px",
+                      "sm": "12px",
+                      "md": "24px",
+                      "margin-desktop": "80px",
+                      "xs": "4px",
+                      "lg": "40px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Montserrat"],
+                      "label-sm": ["Montserrat"],
+                      "headline-lg-mobile": ["Montserrat"],
+                      "title-lg": ["Montserrat"],
+                      "display-lg": ["Montserrat"],
+                      "body-md": ["Montserrat"],
+                      "label-lg": ["Montserrat"],
+                      "body-lg": ["Montserrat"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                      "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface-bright text-on-surface">
+<!-- TopAppBar Navigation Shell -->
+<header class="bg-surface-bright dark:bg-surface-dim shadow-sm bg-opacity-95 backdrop-blur-md flex justify-between items-center w-full px-margin-desktop h-16 sticky top-0 z-50">
+<div class="flex items-center gap-base">
+<span class="text-title-lg font-title-lg font-bold text-primary dark:text-inverse-primary">EcoKawsay</span>
+</div>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="{{DATA:SCREEN:SCREEN_13}}">Dashboard</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="{{DATA:SCREEN:SCREEN_12}}">EcoCam</a>
+<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary transition-colors duration-200 font-body-md text-body-md py-2" href="{{DATA:SCREEN:SCREEN_11}}">Rewards</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="{{DATA:SCREEN:SCREEN_10}}">Community</a>
+</nav>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container-high p-2 rounded-full transition-all">notifications</button>
+<button class="material-symbols-outlined text-primary hover:bg-surface-container-high p-2 rounded-full transition-all">settings</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User avatar for EcoKawsay dashboard" data-alt="A close-up portrait of a professional man in his late 30s with a warm, friendly smile, set against a blurred, lush green garden background. The lighting is soft and natural, emphasizing a bright, positive atmosphere. The overall style is modern and high-resolution, perfectly fitting a corporate-eco brand identity with clean, vibrant tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdJHg2krUC9Bjs4r8ZrEN52bmQoYHrx_b0prRAXNSumYlux59OiDqicKoI8lm7Z4SIFkx16KzJDfhoI2IK919m0dnenPkxInAVWH6eY-CeKwl1jYh8uxHXicST1y5cV8CFR9KuVCrVyFWrJ_VA-3xxZTRLB4e8xPOmWefPi0Aoi-g32UwtwaxH8YMd99_eDs4nqUfG2VAmj-nxziRtSX0hw0tb0e9gXQ1t3ENPJfZwGZRkViam4EQJMF1VMV_IhXEcIZLyfhU2QhlV">
+</div>
+</div>
+</header>
+<div class="flex min-h-screen">
+<!-- SideNavBar Anchor -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low dark:bg-surface-container-lowest border-r border-outline-variant flex flex-col py-md z-40 hidden md:flex">
+<div class="px-md mb-lg">
+<h1 class="text-headline-lg font-headline-lg font-black text-primary dark:text-inverse-primary">EcoKawsay</h1>
+<p class="text-label-lg font-label-lg text-on-surface-variant">Environmental Ecosystem</p>
+</div>
+<nav class="flex-grow">
+<ul class="space-y-sm">
+<li class="">
+<a class="text-on-surface-variant dark:text-on-surface-variant flex items-center px-4 py-3 hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-r-full transition-all duration-200 hover:translate-x-1" href="{{DATA:SCREEN:SCREEN_13}}">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+</li>
+<li class="">
+<a class="text-on-surface-variant dark:text-on-surface-variant flex items-center px-4 py-3 hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-r-full transition-all duration-200 hover:translate-x-1" href="{{DATA:SCREEN:SCREEN_12}}">
+<span class="material-symbols-outlined mr-3">filter_center_focus</span>
+<span class="font-label-lg text-label-lg">EcoCam</span>
+</a>
+</li>
+<li class="">
+<a class="text-primary dark:text-inverse-primary bg-primary-container dark:bg-on-primary-fixed-variant rounded-r-full font-bold flex items-center px-4 py-3" href="{{DATA:SCREEN:SCREEN_11}}">
+<span class="material-symbols-outlined mr-3" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="font-label-lg text-label-lg">Rewards</span>
+</a>
+</li>
+<li class="">
+<a class="text-on-surface-variant dark:text-on-surface-variant flex items-center px-4 py-3 hover:bg-surface-container-high dark:hover:bg-surface-container-highest rounded-r-full transition-all duration-200 hover:translate-x-1" href="{{DATA:SCREEN:SCREEN_10}}">
+<span class="material-symbols-outlined mr-3">groups</span>
+<span class="font-label-lg text-label-lg">Community</span>
+</a>
+</li>
+</ul>
+</nav>
+<div class="mt-auto px-md space-y-md">
+<a href="{{DATA:SCREEN:SCREEN_12}}" class="w-full bg-primary text-on-primary py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-sm hover:scale-[1.02] transition-all">
+<span class="material-symbols-outlined">qr_code_scanner</span>
+                    Launch Waste Scanner
+                </a>
+<div class="pt-md border-t border-outline-variant space-y-sm">
+<a class="text-on-surface-variant flex items-center px-4 py-2 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">help</span>
+<span class="font-label-lg text-label-lg">Help Center</span>
+</a>
+<a class="text-on-surface-variant flex items-center px-4 py-2 hover:text-error transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">logout</span>
+<span class="font-label-lg text-label-lg">Logout</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-grow ml-0 md:ml-64 p-md md:p-lg xl:p-xl space-y-lg">
+<!-- Hero Balance Card - Bento Design -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="col-span-1 md:col-span-2 bg-primary-container text-on-primary-container p-lg rounded-xl shadow-lg relative overflow-hidden flex flex-col justify-between h-64">
+<!-- Abstract Background Pattern -->
+<div class="absolute right-[-10%] top-[-10%] w-64 h-64 bg-on-primary-container opacity-10 rounded-full blur-3xl"></div>
+<div class="absolute left-[20%] bottom-[-20%] w-48 h-48 bg-primary opacity-20 rounded-full blur-2xl"></div>
+<div>
+<p class="text-label-lg font-label-lg uppercase tracking-widest opacity-80 mb-xs">Saldo Total</p>
+<h2 class="text-display-lg font-display-lg">1,250 <span class="text-headline-lg font-headline-lg">ETK</span></h2>
+</div>
+<div class="flex gap-md z-10">
+<a href="{{DATA:SCREEN:SCREEN_7}}" class="bg-on-primary-container text-primary-container px-lg py-sm rounded-full font-bold hover:scale-[1.05] transition-transform flex items-center gap-xs">
+<span class="material-symbols-outlined">payments</span>
+                            Canjear
+                        </a>
+<button class="bg-primary-container border-2 border-on-primary-container text-on-primary-container px-lg py-sm rounded-full font-bold hover:bg-on-primary-container hover:text-primary-container transition-all flex items-center gap-xs">
+<span class="material-symbols-outlined">add_circle</span>
+                            Añadir
+                        </button>
+</div>
+</div>
+<div class="bg-surface-container-highest p-lg rounded-xl flex flex-col justify-center items-center text-center space-y-md border border-outline-variant">
+<div class="w-16 h-16 bg-secondary-container text-on-secondary-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div>
+<h3 class="text-title-lg font-title-lg text-primary">Nivel Eco-Héroe</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mt-xs">¡Estás a solo 250 ETK del siguiente nivel!</p>
+</div>
+<div class="w-full bg-surface-container-low rounded-full h-3 overflow-hidden">
+<div class="bg-secondary h-full rounded-full w-[75%]"></div>
+</div>
+</div>
+</section>
+<!-- Rewards Grid -->
+<section class="space-y-md">
+<div class="flex justify-between items-center">
+<h3 class="text-headline-lg font-headline-lg text-on-surface">Canjear Recompensas</h3>
+<button class="text-secondary font-bold flex items-center gap-xs hover:underline">
+                        Ver todo <span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Reward Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group">
+<div class="h-48 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A beautifully arranged wooden basket filled with fresh, vibrant organic vegetables like bell peppers, tomatoes, and leafy greens. The setting is a clean, bright market stall with soft daylight. The style is crisp and natural, emphasizing health, sustainability, and community support in a modern eco-conscious aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwkRHwETf8GPQYFDQ-EFEcfTycNIWJaFd4WtHJSM2iTktl43VaTsPi0iqHsLFZAZww1KUys-nOiF8iWTYEwKTFSzLPWl4y4PNWR4bbV6uxTItQntkWXpKYIkujcL4ENXq1NRHHbpH5Ov0VKo8vpLDT3p9jeO5qVVcSWfr4p718SCM1zClJC-gkZWCoJwjc1cyi4rrDJz4cho-6-ooneInem-BOGy_7DxELLDi26T56qYWv_Lpw-njAmE7i5jb5nL07z9EG_bUmXHAJ">
+<div class="absolute top-4 right-4 bg-primary text-on-primary px-3 py-1 rounded-full text-label-lg font-bold">
+                                450 ETK
+                            </div>
+</div>
+<div class="p-md space-y-sm">
+<h4 class="text-title-lg font-title-lg text-on-surface">Canasta de Alimentos (EMAPA)</h4>
+<p class="text-body-md font-body-md text-on-surface-variant line-clamp-2">Productos básicos de alta calidad producidos por agricultores locales certificados.</p>
+<button class="w-full py-3 border-2 border-primary text-primary font-bold rounded-xl group-hover:bg-primary group-hover:text-on-primary transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">shopping_basket</span>
+                                Canjear ahora
+                            </button>
+</div>
+</div>
+<!-- Reward Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group">
+<div class="h-48 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sleek, modern glass building facade reflecting a clear blue sky, representing a municipal city hall or official building. The architecture is contemporary and sustainable. The shot is high-angle with clean lines and bright, airy lighting, conveying a sense of transparency, efficiency, and civic progress." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD23z8T_-kN-0e-RWhgwxLYtOqthq7A-5s-XANI62F1LuNOSFhnFcgBYumwSjAhcNeHCaw1z--NUnkx5c9Q428UnW1BQU0DImQ9bz-QNxj303-IGtP26Criiel_xbdlvgrFg3pFecUnGZ7LuB0qBmk9cS4l1eUCj9gDsv1rmOroWq9cZHRdCAEteg0kwNDVHIC1kK0qG3UGhK-KMUcCqmtvlfm7tGnNObL91vJxC0-TRw7vnhNlyXpE0hcQY5iXFcg6jQN5r-dbMlDi">
+<div class="absolute top-4 right-4 bg-primary text-on-primary px-3 py-1 rounded-full text-label-lg font-bold">
+                                800 ETK
+                            </div>
+</div>
+<div class="p-md space-y-sm">
+<h4 class="text-title-lg font-title-lg text-on-surface">Descuento Predial (Municipio)</h4>
+<p class="text-body-md font-body-md text-on-surface-variant line-clamp-2">Obtén un 15% de descuento en tus impuestos prediales anuales por tu compromiso ambiental.</p>
+<button class="w-full py-3 border-2 border-primary text-primary font-bold rounded-xl group-hover:bg-primary group-hover:text-on-primary transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">receipt_long</span>
+                                Canjear ahora
+                            </button>
+</div>
+</div>
+<!-- Reward Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-md transition-shadow group">
+<div class="h-48 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A clean, professional workspace featuring a tablet displaying financial growth charts and a sustainable plant in the corner. The lighting is bright and high-key, creating a professional and trustworthy bank-like atmosphere. The color palette includes soft whites and primary greens, emphasizing ethical finance and credit score improvement." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLVNMufydUnRCOCLhs6U5zvFSFG8S-WMCfGE_hKuaAGdenie5Z0j_lUxCiDXwY5Y6qTzuBkUhw3y0-Q5PRQ1_YU1ay3MJNs2M5CuVNJsTcT0yHNlB2LvSBK63tnNrqycT60eu2Y4zrotJqI6RtZtu7jqiLev-9h6G6Jf4ARnt6mw-mnspF-iGGL85S5ojnSEMCECi-hAwd_qd4FTiDL1tcj4WE4v4dL88zg5JieaLflKLtL-tOkYirZmoVSDB8xr_9psOBJfz_QzwQ">
+<div class="absolute top-4 right-4 bg-primary text-on-primary px-3 py-1 rounded-full text-label-lg font-bold">
+                                1200 ETK
+                            </div>
+</div>
+<div class="p-md space-y-sm">
+<h4 class="text-title-lg font-title-lg text-on-surface">Score Crediticio (Banco Verde)</h4>
+<p class="text-body-md font-body-md text-on-surface-variant line-clamp-2">Mejora tu calificación crediticia para préstamos de vivienda sostenible con tus tokens.</p>
+<button class="w-full py-3 border-2 border-primary text-primary font-bold rounded-xl group-hover:bg-primary group-hover:text-on-primary transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">trending_up</span>
+                                Canjear ahora
+                            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Recent Activity List -->
+<section class="space-y-md">
+<div class="flex justify-between items-center">
+<h3 class="text-headline-lg font-headline-lg text-on-surface">Actividad Reciente</h3>
+</div>
+<div class="bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant text-label-lg font-label-lg text-on-surface-variant uppercase tracking-wider">
+<th class="px-lg py-md">Transacción</th>
+<th class="px-lg py-md">Categoría</th>
+<th class="px-lg py-md">Fecha</th>
+<th class="px-lg py-md text-right">Monto</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Transaction 1 -->
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined">recycling</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">PET recycling</p>
+<p class="text-body-md text-on-surface-variant">Centro de acopio Sur</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="px-3 py-1 bg-primary-container text-on-primary-container rounded-full text-xs font-bold uppercase">Reciclaje</span>
+</td>
+<td class="px-lg py-md text-on-surface-variant font-body-md">24 Oct, 2023</td>
+<td class="px-lg py-md text-right font-bold text-primary text-title-lg">+45 ETK</td>
+</tr>
+<!-- Transaction 2 -->
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-error-container text-on-error-container flex items-center justify-center">
+<span class="material-symbols-outlined">shopping_cart</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">EMAPA redemption</p>
+<p class="text-body-md text-on-surface-variant">Canje de beneficios</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="px-3 py-1 bg-tertiary-container text-on-tertiary-container rounded-full text-xs font-bold uppercase">Recompensa</span>
+</td>
+<td class="px-lg py-md text-on-surface-variant font-body-md">22 Oct, 2023</td>
+<td class="px-lg py-md text-right font-bold text-error text-title-lg">-200 ETK</td>
+</tr>
+<!-- Transaction 3 -->
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined">compost</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Compost delivery</p>
+<p class="text-body-md text-on-surface-variant">Residuos orgánicos</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="px-3 py-1 bg-primary-container text-on-primary-container rounded-full text-xs font-bold uppercase">Reciclaje</span>
+</td>
+<td class="px-lg py-md text-on-surface-variant font-body-md">20 Oct, 2023</td>
+<td class="px-lg py-md text-right font-bold text-primary text-title-lg">+120 ETK</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Floating Action Button Contextual Support -->
+<div class="fixed bottom-lg right-lg flex flex-col items-end gap-md">
+<button class="bg-secondary-container text-on-secondary-container w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl">chat_bubble</span>
+</button>
+</div>
+
+
+</body></html>

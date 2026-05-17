@@ -1,0 +1,187 @@
+<!-- missions.component.html -->
+<div class="admin-page">
+
+  <!-- PAGE TOPBAR -->
+  <header class="page-topbar">
+    <h2 class="page-title">Community Missions</h2>
+    <div class="topbar-actions">
+      <div class="search-pill">
+        <span class="material-symbols-outlined">search</span>
+        <input
+          type="text"
+          placeholder="Search missions..."
+          [value]="searchTerm()"
+          (input)="searchTerm.set($any($event.target).value)"
+        />
+      </div>
+      <button class="icon-btn"><span class="material-symbols-outlined">notifications</span></button>
+      <button class="icon-btn"><span class="material-symbols-outlined">settings</span></button>
+      <div class="avatar-pill"></div>
+    </div>
+  </header>
+
+  @if (missionsResource.isLoading()) {
+    <div class="loading-state">Cargando misiones...</div>
+  } @else if (missionsResource.error()) {
+    <div class="error-state">Error al cargar misiones.</div>
+  } @else {
+    @let page = missionsResource.value()!;
+
+    <!-- STATS ROW -->
+    <section class="stats-row">
+      <div class="stat-card">
+        <p class="stat-label">Total Rewards Distributed</p>
+        <h3 class="stat-value text-secondary">{{ page.totalDirtyPointsDistributed | dirtyPoints }}</h3>
+        <p class="stat-trend">
+          <span class="material-symbols-outlined trend-icon">trending_up</span>
+          +12% from last month
+        </p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">Active Missions</p>
+        <h3 class="stat-value text-primary">{{ page.activeMissionsCount }} Live</h3>
+        <p class="stat-sub">
+          <span class="material-symbols-outlined">group</span>
+          {{ page.activeVolunteers.toLocaleString() }} Volunteers active
+        </p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">QR Verification Rate</p>
+        <h3 class="stat-value text-on-surface">{{ page.qrVerificationRate }}%</h3>
+        <div class="qr-bar">
+          <div class="qr-fill" [style.width.%]="page.qrVerificationRate"></div>
+        </div>
+        <span class="material-symbols-outlined qr-icon">qr_code_2</span>
+      </div>
+    </section>
+
+    <!-- MISSION MANAGEMENT + OTB RANKINGS SPLIT -->
+    <div class="content-split">
+
+      <!-- LEFT: MISSION LIST -->
+      <div class="mission-col">
+        <div class="section-header">
+          <h3 class="section-title">Mission Management</h3>
+          <button class="btn-create" (click)="openModal()">
+            <span class="material-symbols-outlined">add</span>
+            Create New Mission
+          </button>
+        </div>
+
+        <div class="mission-list">
+          @for (mission of filteredMissions(); track mission.id) {
+            <div class="mission-card" (click)="navigateToDetail(mission.id)">
+              <div class="mission-img-wrap">
+                <img [src]="mission.imageUrl" [alt]="mission.title" />
+                <span class="status-chip" [style.background]="mission.statusColor">
+                  {{ mission.status }}
+                </span>
+              </div>
+              <div class="mission-info">
+                <div class="mission-header-row">
+                  <h4 class="mission-title">{{ mission.title }}</h4>
+                  <span class="reward-pool" [style.color]="'var(--primary)'">
+                    {{ mission.rewardPoolDirtyPoints | dirtyPoints }} Pool
+                  </span>
+                </div>
+                <p class="mission-desc">{{ mission.description }}</p>
+                <div class="mission-meta">
+                  <div class="meta-item">
+                    <span class="meta-label">SLOTS FILLED</span>
+                    <span class="meta-val">{{ mission.slotsFilled }} / {{ mission.slotsTotal }}</span>
+                  </div>
+                  <div class="meta-item">
+                    <span class="meta-label">QR SCANS</span>
+                    <span class="meta-val">{{ mission.qrScans }}</span>
+                  </div>
+                </div>
+                <div class="engagement-row">
+                  <span class="meta-label">ENGAGEMENT</span>
+                  <span class="engagement-val" [style.color]="mission.engagementColor">
+                    {{ mission.engagement }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- RIGHT: OTB RANKINGS -->
+      <div class="otb-col">
+        <div class="section-header">
+          <h3 class="section-title">OTB Rankings</h3>
+          <span class="material-symbols-outlined text-muted">military_tech</span>
+        </div>
+
+        <div class="otb-list">
+          @for (otb of page.otbRankings; track otb.rank) {
+            <div class="otb-row">
+              <div class="otb-rank">{{ otb.rank }}</div>
+              <div class="otb-info">
+                <span class="otb-name">{{ otb.name }}</span>
+                <span class="otb-members">{{ otb.members }} members</span>
+              </div>
+              <div class="otb-stats">
+                <span class="otb-points text-primary">{{ otb.dirtyPointsDistributed | dirtyPoints:false }}k DP</span>
+                <span class="otb-eff text-muted">{{ otb.efficiencyPercent }}% Eff.</span>
+              </div>
+            </div>
+          }
+        </div>
+
+        <button class="btn-outline mt-4">View Detailed OTB Reports</button>
+      </div>
+
+    </div>
+  }
+
+</div>
+
+<!-- CREATE MISSION MODAL -->
+@if (showModal()) {
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Create New Mission</h3>
+        <button class="icon-btn" (click)="closeModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <label class="field-label">Mission Title</label>
+        <input class="field-input" type="text" placeholder="Mission name..."
+          [value]="formTitle()"
+          (input)="formTitle.set($any($event.target).value)" />
+
+        <label class="field-label">Reward Pool (Dirty Points)</label>
+        <input class="field-input" type="number" placeholder="e.g. 5000"
+          [value]="formPool()"
+          (input)="formPool.set(+$any($event.target).value)" />
+
+        <label class="field-label">Required Slots</label>
+        <input class="field-input" type="number" placeholder="e.g. 100"
+          [value]="formSlots()"
+          (input)="formSlots.set(+$any($event.target).value)" />
+
+        <label class="field-label">District</label>
+        <input class="field-input" type="text" placeholder="e.g. Distrito 4"
+          [value]="formDistrict()"
+          (input)="formDistrict.set($any($event.target).value)" />
+
+        <label class="field-label">Mission Description</label>
+        <textarea class="field-input" rows="3" placeholder="Describe the mission..."
+          [value]="formDescription()"
+          (input)="formDescription.set($any($event.target).value)"></textarea>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-outline" (click)="closeModal()">Cancel</button>
+        <button class="btn-primary" (click)="launchMission()" [disabled]="submitting()">
+          @if (submitting()) { Launching... } @else { Launch Mission }
+        </button>
+      </div>
+    </div>
+  </div>
+}

@@ -190,15 +190,8 @@ body {
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Dashboard Widgets */
@@ -346,8 +339,7 @@ body {
     border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-.scan-corners::before,
-.scan-corners::after {
+.scan-corners::before, .scan-corners::after {
     content: '';
     position: absolute;
     width: 40px;
@@ -356,17 +348,8 @@ body {
     border-style: solid;
 }
 
-.scan-corners::before {
-    top: -2px;
-    left: -2px;
-    border-width: 4px 0 0 4px;
-}
-
-.scan-corners::after {
-    bottom: -2px;
-    right: -2px;
-    border-width: 0 4px 4px 0;
-}
+.scan-corners::before { top: -2px; left: -2px; border-width: 4px 0 0 4px; }
+.scan-corners::after { bottom: -2px; right: -2px; border-width: 0 4px 4px 0; }
 
 .detection-badge {
     position: absolute;
@@ -384,53 +367,21 @@ body {
 }
 
 /* Grid helper */
-.grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-}
-
-.grid-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-}
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 
 /* Utilities */
-.text-primary {
-    color: var(--primary);
-}
-
-.font-bold {
-    font-weight: 700;
-}
-
-.mt-4 {
-    margin-top: 16px;
-}
-
-.mb-4 {
-    margin-bottom: 16px;
-}
+.text-primary { color: var(--primary); }
+.font-bold { font-weight: 700; }
+.mt-4 { margin-top: 16px; }
+.mb-4 { margin-bottom: 16px; }
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
-    .sidebar {
-        width: 80px;
-    }
-
-    .sidebar .logo span,
-    .sidebar .nav-link span {
-        display: none;
-    }
-
-    .main-content {
-        margin-left: 80px;
-    }
-
-    .search-container {
-        width: 250px;
-    }
+    .sidebar { width: 80px; }
+    .sidebar .logo span, .sidebar .nav-link span { display: none; }
+    .main-content { margin-left: 80px; }
+    .search-container { width: 250px; }
 }
 
 /* --- New Design Elements (Integrated from codeMapa/codeReportePunto) --- */
@@ -444,7 +395,6 @@ body {
     overflow: hidden;
     margin: 8px 0;
 }
-
 .progress-bar {
     height: 100%;
     background: var(--primary);
@@ -460,12 +410,11 @@ body {
     width: 400px;
     background: white;
     z-index: 40;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
     border-left: 1px solid var(--border);
     transform: translateX(100%);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .map-drawer.active {
     transform: translateX(0);
 }
@@ -478,13 +427,11 @@ body {
     overflow: hidden;
     border: 1px solid var(--border);
 }
-
 .split-left {
     flex: 1;
     position: relative;
     background: #f0f0f0;
 }
-
 .split-right {
     width: 450px;
     background: white;
@@ -500,7 +447,6 @@ body {
     cursor: pointer;
     z-index: 10;
 }
-
 .marker-pin {
     width: 40px;
     height: 40px;
@@ -510,10 +456,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     border: 3px solid var(--primary);
 }
-
 .marker-pin i {
     transform: rotate(45deg);
     color: var(--primary);
@@ -566,22 +511,11 @@ body {
 .category-btn.selected {
     border-color: var(--primary);
     background: #E8F5E9;
-    box-shadow: 0 4px 12px rgba(13, 99, 27, 0.1);
+    box-shadow: 0 4px 12px rgba(13,99,27,0.1);
 }
 
 @keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-    50% {
-        transform: scale(1.5);
-        opacity: 0;
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 0;
-    }
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 0; }
 }

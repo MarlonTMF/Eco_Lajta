@@ -1,0 +1,56 @@
+<div class="admin-shell">
+  <!-- SENTINEL SIDEBAR -->
+  <aside class="sentinel-sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-icon material-symbols-outlined">eco</span>
+      <div>
+        <h1 class="brand-name">Sentinel-CBBA</h1>
+        <p class="brand-sub">Municipality Admin</p>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a routerLink="/admin/dashboard" routerLinkActive="active" class="nav-item">
+        <span class="material-symbols-outlined">dashboard</span>
+        Dashboard
+      </a>
+      <a routerLink="/admin/missions" routerLinkActive="active" class="nav-item">
+        <span class="material-symbols-outlined">fact_check</span>
+        Missions
+      </a>
+      <a routerLink="/admin/logistics" routerLinkActive="active" class="nav-item">
+        <span class="material-symbols-outlined">local_shipping</span>
+        Logistics
+      </a>
+      <a routerLink="/admin/users" routerLinkActive="active" class="nav-item">
+        <span class="material-symbols-outlined">manage_accounts</span>
+        User Management
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="system-status">
+        <span class="status-dot"></span>
+        System Status: Active
+      </div>
+      <a class="nav-item" href="#">
+        <span class="material-symbols-outlined">support_agent</span>
+        Support
+      </a>
+      <a class="nav-item" routerLink="/dashboard">
+        <span class="material-symbols-outlined">logout</span>
+        Sign Out
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN ADMIN CONTENT -->
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <router-outlet name="topbar"></router-outlet>
+    </header>
+    <main class="admin-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
