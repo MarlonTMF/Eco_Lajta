@@ -64,6 +64,15 @@ public class AuthController {
                     }
                 });
 
+            // Si el usuario existe pero no tiene el rol de administrador en la BD, lo actualizamos directamente
+            if ("marlontomasmarzofernandez@gmail.com".equalsIgnoreCase(email)) {
+                if (user.getRole() != com.ucb.ecollajta.model.UserRole.ROLE_ADMIN) {
+                    user.setRole(com.ucb.ecollajta.model.UserRole.ROLE_ADMIN);
+                    user = userService.save(user);
+                    log.info("Role successfully updated to ROLE_ADMIN in the database for: {}", email);
+                }
+            }
+
             Map<String, Object> extraClaims = new HashMap<>();
             extraClaims.put("role", user.getRole().name());
 

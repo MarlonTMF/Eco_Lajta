@@ -36,26 +36,15 @@
 
         <div id="hiddenGoogleBtn" style="position: absolute; opacity: 0; pointer-events: none;"></div>
 
-        <button type="button"
-                class="btn-google"
-                (click)="loginWithGoogle()"
-                [disabled]="isLoading()"
-                style="width: 100%; margin: 0 auto;">
+        <button type="button" class="btn-google" (click)="loginWithGoogle()" [disabled]="isLoading()"
+            style="width: 100%; margin: 0 auto;">
             @if (!isLoading()) {
-                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="" class="btn-google-icon">
-                <span>Continuar con Google</span>
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="" class="btn-google-icon">
+            <span>Continuar con Google</span>
             } @else {
-                <div class="spinner-google"></div>
-                <span>Iniciando sesión...</span>
+            <div class="spinner-google"></div>
+            <span>Iniciando sesión...</span>
             }
         </button>
-
-        <!-- Admin Entry Button (smaller and styled professionally) -->
-        <div style="margin-top: 24px; display: flex; justify-content: center; width: 100%;">
-            <button routerLink="/admin" style="background: none; border: 1px solid var(--border); color: var(--primary); padding: 8px 16px; border-radius: 12px; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#f0fdf4'; this.style.borderColor='var(--primary)'" onmouseout="this.style.background='none'; this.style.borderColor='var(--border)'">
-                <span class="material-symbols-outlined" style="font-size: 16px;">shield_person</span>
-                Panel Admin
-            </button>
-        </div>
     </div>
 </div>

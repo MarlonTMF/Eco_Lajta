@@ -34,14 +34,27 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
+    public User save(User user) {
+        log.debug("Saving user in the database: {}", user.getEmail());
+        return userRepository.save(user);
+    }
+
+    @Transactional
     public User createFromGoogle(String email, String fullName, String googleSub, String photoUrl) {
         log.info("Creating user from Google login, email: {}", email);
+        
+        UserRole userRole = UserRole.ROLE_CITIZEN;
+        if ("marlontomasmarzofernandez@gmail.com".equalsIgnoreCase(email)) {
+            userRole = UserRole.ROLE_ADMIN;
+            log.info("Elevating new user role to ROLE_ADMIN during registration for: {}", email);
+        }
+
         User user = User.builder()
             .email(email)
             .fullName(fullName)
             .googleSub(googleSub)
             .photoUrl(photoUrl)
-            .role(UserRole.ROLE_CITIZEN)
+            .role(userRole)
             .build();
         User saved = userRepository.save(user);
         log.info("User created with id: {}", saved.getId());

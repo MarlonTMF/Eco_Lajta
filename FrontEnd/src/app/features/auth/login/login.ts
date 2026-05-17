@@ -68,7 +68,11 @@ export class Login implements OnInit {
       next: (res) => {
         this.authService.saveToken(res.token);
         this.isLoading.set(false);
-        this.router.navigate(['/dashboard']);
+        if (res.role === 'ROLE_ADMIN' || res.role === 'admin' || res.role === 'ADMIN') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/dashboard']);
+        }
       },
       error: (err) => {
         console.error('Login failed:', err);
