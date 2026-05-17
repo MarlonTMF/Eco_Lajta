@@ -32,19 +32,19 @@
         <!-- Tarjeta de Resumen -->
         <section class="summary-section card-glass">
           <div class="cover-image-container">
-            <img [src]="reward()?.imagenUrl" [alt]="reward()?.nombre" class="cover-img" />
+            <img [src]="reward()?.image" [alt]="reward()?.title" class="cover-img" />
           </div>
           <div class="summary-info">
             <div>
-              <span class="category-tag text-primary">{{ reward()?.categoria }}</span>
-              <h2 class="reward-title">{{ reward()?.nombre }}</h2>
-              <p class="reward-desc">{{ reward()?.descripcion }}</p>
+              <span class="category-tag text-primary">{{ reward()?.category }}</span>
+              <h2 class="reward-title">{{ reward()?.title }}</h2>
+              <p class="reward-desc">{{ reward()?.description }}</p>
             </div>
 
             <div class="balance-split-row">
               <div class="col-cost">
                 <span class="split-label">Costo</span>
-                <span class="split-value text-primary">{{ reward()?.costo }} DP</span>
+                <span class="split-value text-primary">{{ reward()?.cost }} DP</span>
               </div>
               <div class="col-final">
                 <span class="split-label">Saldo Final</span>
@@ -68,7 +68,7 @@
           </div>
           <div class="saving-badge-box card-glass">
             <span class="material-symbols-outlined badge-eco-icon">eco</span>
-            <span class="badge-saving-amount">-{{ reward()?.costo }} DP</span>
+            <span class="badge-saving-amount">-{{ reward()?.cost }} DP</span>
             <span class="badge-saving-label">Ahorro Ambiental</span>
           </div>
         </section>
@@ -77,7 +77,7 @@
         <section class="warning-disclaimer-box">
           <span class="material-symbols-outlined warning-icon">warning</span>
           <p class="warning-text">
-            Esta acción descontará <span class="font-bold text-dark">{{ reward()?.costo }} DP</span>
+            Esta acción descontará <span class="font-bold text-dark">{{ reward()?.cost }} DP</span>
             de tu billetera y generará un <span class="font-bold text-dark">ticket intransferible</span>.
             Asegúrate de que los datos sean correctos antes de confirmar.
           </p>

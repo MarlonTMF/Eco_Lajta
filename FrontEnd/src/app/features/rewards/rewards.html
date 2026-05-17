@@ -9,14 +9,14 @@
   }
 
   <!-- Error de conexión -->
-  @if (!isLoading() && errorMsg()) {
+  @if (hasError()) {
     <div class="error-state">
       <span class="material-symbols-outlined">error_outline</span>
-      <p>{{ errorMsg() }}</p>
+      <p>No se pudo cargar la información. Por favor, intenta de nuevo más tarde.</p>
     </div>
   }
 
-  @if (!isLoading() && !errorMsg()) {
+  @if (!isLoading() && !hasError()) {
     <!-- Bento Balance Section -->
     <section class="bento-grid">
       <!-- Left Balance Hero Card -->
@@ -40,7 +40,7 @@
         </div>
         <div class="hero-level-info">
           <h3 class="hero-level-title">Nivel Eco-Héroe</h3>
-          <p class="hero-level-subtitle">¡Estás a solo {{ 3000 - (userBalance() % 3000) }} DP del siguiente rango!</p>
+          <p class="hero-level-subtitle">¡Estás a solo {{ 3000 - (userBalance() % 3000) || 3000 }} DP del siguiente rango!</p>
         </div>
         <div class="gauge-container">
           <div class="gauge-bar" [style.width.%]="ecoHeroProgress()"></div>
@@ -67,13 +67,13 @@
         @for (reward of rewards(); track reward.id) {
           <div class="reward-card group">
             <div class="reward-image-container">
-              <img [src]="reward.imagenUrl" [alt]="reward.nombre" class="reward-img" />
-              <div class="reward-cost-badge">{{ reward.costo }} DP</div>
+              <img [src]="reward.image" [alt]="reward.title" class="reward-img" />
+              <div class="reward-cost-badge">{{ reward.cost }} DP</div>
             </div>
             <div class="reward-info">
-              <span class="reward-category-badge">{{ reward.categoria }}</span>
-              <h4 class="reward-title">{{ reward.nombre }}</h4>
-              <p class="reward-desc">{{ reward.descripcion }}</p>
+              <span class="reward-category-badge">{{ reward.category }}</span>
+              <h4 class="reward-title">{{ reward.title }}</h4>
+              <p class="reward-desc">{{ reward.description }}</p>
 
               <!-- Mensaje de déficit de puntos -->
               @if (!canRedeem(reward)) {
@@ -89,7 +89,7 @@
                 [disabled]="!canRedeem(reward)"
                 (click)="redeemReward(reward)"
               >
-                <span class="material-symbols-outlined">redeem</span>
+                <span class="material-symbols-outlined">{{ reward.icon || 'redeem' }}</span>
                 {{ canRedeem(reward) ? 'Canjear ahora' : 'Puntos insuficientes' }}
               </button>
             </div>

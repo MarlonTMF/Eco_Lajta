@@ -1,21 +1,20 @@
 export interface RewardDTO {
   id: string;
-  nombre: string;
-  descripcion: string;
-  costo: number;           // en Dirty Points
-  imagenUrl: string;
-  categoria: string;
-  stock: number | null;    // null = ilimitado
+  title: string;
+  description: string;
+  cost: number;
+  image: string;
+  icon: string;
+  category: string;
+  location?: string;
 }
 
 export interface BalanceDTO {
-  dirtyPoints: number;
-  ultimaActualizacion: string; // ISO 8601
+  balance: number;
 }
 
 export interface RedeemResultDTO {
-  exitoso: boolean;
-  nuevoSaldo: number;
-  codigoTicket: string;
-  nombrePremio: string;
+  success: boolean;
+  ticketId: string;
+  message?: string;
 }

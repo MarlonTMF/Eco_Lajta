@@ -111,29 +111,42 @@
                 <article class="feed-article card-glass">
                   <div class="article-header-row">
                     <div class="author-info-wrap">
-                      <img
-                        [src]="item.avatarActor"
-                        [alt]="item.usuarioActor"
-                        class="author-image-avatar"
-                        (error)="$any($event.target).style.display='none'"
-                      />
+                      @if (!item.isAvatarImage) {
+                        <div class="author-icon-avatar bg-primary-container text-primary">
+                          <span class="material-symbols-outlined">{{ item.avatar }}</span>
+                        </div>
+                      } @else {
+                        <img [src]="item.avatar" [alt]="item.author" class="author-image-avatar" />
+                      }
                       <div class="author-names-column">
-                        <h4 class="author-name-text">{{ item.usuarioActor }}</h4>
+                        <h4 class="author-name-text">{{ item.author }}</h4>
                         <p class="author-meta-sub">
-                          {{ tiempoRelativo(item.fechaHora) }} •
-                          <span class="feed-{{ item.tipo }}">{{ item.tipo | uppercase }}</span>
+                          {{ item.timeAgo }} • <span [class]="item.categoryClass">{{ item.category }}</span>
                         </p>
                       </div>
                     </div>
-                    <span class="material-symbols-outlined feed-type-icon">{{ iconoPorTipo(item.tipo) }}</span>
+                    <button class="material-symbols-outlined btn-more-opt">more_vert</button>
                   </div>
 
-                  <p class="article-content-text">{{ item.mensaje }}</p>
+                  <p class="article-content-text">{{ item.content }}</p>
+
+                  @if (item.image) {
+                    <div class="article-media-container">
+                      <img [src]="item.image" alt="Imagen de la publicación" class="article-media-img" />
+                    </div>
+                  }
 
                   <div class="article-actions-row">
-                    <button class="action-btn-comment">
-                      <span class="material-symbols-outlined icon-action">comment</span>
-                    </button>
+                    <div class="left-action-group">
+                      <button class="action-btn-like" [class.liked]="item.likedByUser" (click)="likePost(item)">
+                        <span class="material-symbols-outlined icon-action" [class.filled]="item.likedByUser">favorite</span>
+                        <span class="action-count">{{ item.likes }}</span>
+                      </button>
+                      <button class="action-btn-comment">
+                        <span class="material-symbols-outlined icon-action">comment</span>
+                        <span class="action-count">{{ item.commentsCount }}</span>
+                      </button>
+                    </div>
                     <button class="material-symbols-outlined icon-share-action">share</button>
                   </div>
                 </article>
@@ -213,36 +226,36 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @for (entry of leaderboard(); track entry.userId) {
-                    <tr [class.current-user-row]="esUsuarioActual(entry.userId)">
+                  @for (entry of leaderboard(); track entry.rank) {
+                    <tr [class.current-user-row]="entry.isCurrentUser">
                       <td class="cell-rank">
-                        @if (entry.posicion === 1) { 🥇 }
-                        @else if (entry.posicion === 2) { 🥈 }
-                        @else if (entry.posicion === 3) { 🥉 }
-                        @else { {{ entry.posicion }} }
+                        @if (entry.rank === 1) { 🥇 }
+                        @else if (entry.rank === 2) { 🥈 }
+                        @else if (entry.rank === 3) { 🥉 }
+                        @else { {{ entry.rank }} }
                       </td>
                       <td class="cell-user">
                         <div class="user-cell-wrap">
-                          @if (entry.avatarUrl) {
-                            <img [src]="entry.avatarUrl" [alt]="entry.nombreUsuario" class="cell-avatar" />
+                          @if (entry.avatar) {
+                            <img [src]="entry.avatar" [alt]="entry.name" class="cell-avatar" />
                           } @else {
-                            <div class="cell-avatar-initials" [class.bg-white-opacity]="esUsuarioActual(entry.userId)">
-                              {{ entry.nombreUsuario.slice(0, 2).toUpperCase() }}
+                            <div class="cell-avatar-initials" [class.bg-white-opacity]="entry.isCurrentUser">
+                              {{ entry.initials || entry.name.slice(0,2).toUpperCase() }}
                             </div>
                           }
                           <div class="user-names">
                             <div class="user-main-name">
-                              {{ entry.nombreUsuario }}
-                              @if (esUsuarioActual(entry.userId)) {
-                                <span class="you-badge">(Tú)</span>
-                              }
+                              {{ entry.name }}
+                              @if (entry.isCurrentUser) { <span class="you-badge">(Tú)</span> }
                             </div>
+                            <div class="user-zone">{{ entry.zone }}</div>
                           </div>
                         </div>
                       </td>
-                      <td class="cell-points text-center">{{ entry.dirtyPoints | number }}</td>
-                      <td class="cell-growth text-right" [class.text-highlight]="esUsuarioActual(entry.userId)">
-                        {{ entry.nivelInsignia }}
+                      <td class="cell-points text-center">{{ entry.points | number }}</td>
+                      <td class="cell-growth text-right" [class.text-highlight]="entry.isCurrentUser">
+                        {{ entry.growth }}
+                        <span class="material-symbols-outlined trending-icon align-middle">trending_up</span>
                       </td>
                     </tr>
                   }

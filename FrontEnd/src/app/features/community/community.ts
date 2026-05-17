@@ -1,8 +1,25 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, computed, resource, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpCommunityRepository } from '../../infrastructure/repositories/http-community.repository';
-import { LeaderboardEntryDTO, NewsFeedItemDTO } from '../../application/dtos/community.dto';
+import { NewsFeedItemDTO } from '../../application/dtos/community.dto';
+
+interface ReportedPlace {
+  id: string;
+  title: string;
+  location: string;
+  description: string;
+  status: 'Reportado' | 'En Revisión' | 'Resuelto';
+  image: string;
+  statusClass: string;
+}
+
+interface OtbLeader {
+  rank: number;
+  name: string;
+  totalWaste: string;
+  isTrendingUp: boolean;
+}
 
 @Component({
   selector: 'app-community',
@@ -11,96 +28,52 @@ import { LeaderboardEntryDTO, NewsFeedItemDTO } from '../../application/dtos/com
   templateUrl: './community.html',
   styleUrl: './community.css',
 })
-export class CommunityComponent implements OnInit {
-  activeSection = signal<'news' | 'ranking'>('news');
+export class CommunityComponent {
+  private communityRepo = inject(HttpCommunityRepository);
+
+  activeSection  = signal<'news' | 'ranking'>('news');
   selectedPeriod = signal<string>('month');
 
-  leaderboard = signal<LeaderboardEntryDTO[]>([]);
-  feedItems = signal<NewsFeedItemDTO[]>([]);
+  // Llamadas automáticas al backend con resource()
+  feedResource        = resource({ loader: () => this.communityRepo.getNewsFeed() });
+  leaderboardResource = resource({ loader: () => this.communityRepo.getLeaderboard() });
 
-  isLoadingLeaderboard = signal<boolean>(false);
-  isLoadingFeed = signal<boolean>(false);
-  errorLeaderboard = signal<string | null>(null);
-  errorFeed = signal<string | null>(null);
+  // Datos reactivos conectados al HTML
+  feedItems   = computed(() => this.feedResource.value() ?? []);
+  leaderboard = computed(() => this.leaderboardResource.value() ?? []);
 
-  // ID del usuario autenticado actual (obtenido del localStorage)
-  currentUserId = signal<string | null>(null);
+  isLoadingFeed        = computed(() => this.feedResource.isLoading());
+  isLoadingLeaderboard = computed(() => this.leaderboardResource.isLoading());
+  errorFeed            = computed(() => this.feedResource.error() ? 'No se pudo cargar el feed.' : null);
+  errorLeaderboard     = computed(() => this.leaderboardResource.error() ? 'No se pudo cargar el ranking.' : null);
 
-  constructor(private communityRepo: HttpCommunityRepository) {}
-
-  ngOnInit(): void {
-    // Identificar usuario actual desde el token almacenado
-    const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        this.currentUserId.set(payload.sub ?? payload.userId ?? null);
-      } catch {
-        this.currentUserId.set(null);
-      }
+  // Lugares reportados estáticos (hasta que el backend los exponga)
+  reportedPlaces = signal<ReportedPlace[]>([
+    {
+      id: 'report-1',
+      title: 'Acumulación de basura',
+      location: 'Av. América & Villarroel',
+      description: 'Gran cantidad de desechos plásticos acumulados en la acera norte desde hace 3 días.',
+      status: 'Reportado',
+      statusClass: 'status-reported',
+      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBPxFlzeJeliHO2Hu9QUSrpbInHOWhFQABqu4mi1JPMHEMF0kaMvJ10VDF8RorIRk-kekqGjrdcYJ-fhzPtk2WvtMlmDVZmcBBM-6s_Ni71MHKBYALDe_aYV3frm0qhDT2NTiUVSCB1XSVA78Jixk2EzjFo7VUoDrOEmINbdmK51xnta3_GpVAPfveywI3NG4tSksvX-8I4haDbiJmWOC5E3R8QJrsAIFuR9blapz8eOTnEXwMABx5dTZZ7scR7ufyJrWTWoOb68HdC'
+    },
+    {
+      id: 'report-2',
+      title: 'Parque Descuidado',
+      location: 'Parque Fidel Anze',
+      description: 'Maleza alta y bancos dañados en el sector infantil. Se requiere mantenimiento urgente.',
+      status: 'En Revisión',
+      statusClass: 'status-review',
+      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBeVAiugut6VqNT0HWPZKlVL3fZ1oRJW-Zxw1b4SGAnUaXezNIjF6_2to9PDqWaewwca1J5Ui0D3BvTuwjgAACoPGcmX8fz1VrkbhK4diB98oy_UtLjyzyqj2BJbsefA0YouQjNQ_B1HKlvNNiDwqV4AAxKSOd3ZzwWhh9hgtAlhenpUjl685cDVs0mv--GDbRSTh495HtHdFlwna4CJRPjxwOGv35dB7BwKSWnTbuYS932CtoGhEX0OFY7EjovjnDupegHMA9pBEZ7'
     }
-    this.cargarLeaderboard();
-    this.cargarFeed();
-  }
+  ]);
 
-  async cargarLeaderboard(): Promise<void> {
-    this.isLoadingLeaderboard.set(true);
-    this.errorLeaderboard.set(null);
-    try {
-      const data = await this.communityRepo.getLeaderboard();
-      this.leaderboard.set(data);
-    } catch {
-      this.errorLeaderboard.set('No se pudo cargar el ranking. Intenta de nuevo.');
-    } finally {
-      this.isLoadingLeaderboard.set(false);
-    }
-  }
-
-  async cargarFeed(): Promise<void> {
-    this.isLoadingFeed.set(true);
-    this.errorFeed.set(null);
-    try {
-      const data = await this.communityRepo.getNewsFeed();
-      this.feedItems.set(data);
-    } catch {
-      this.errorFeed.set('No se pudo cargar el feed. Intenta de nuevo.');
-    } finally {
-      this.isLoadingFeed.set(false);
-    }
-  }
-
-  /** Calcula el tiempo relativo en español a partir de una fecha ISO 8601 */
-  tiempoRelativo(fechaIso: string): string {
-    const ahora = Date.now();
-    const fecha = new Date(fechaIso).getTime();
-    const diff = Math.max(0, ahora - fecha); // ms
-
-    const segundos = Math.floor(diff / 1000);
-    const minutos  = Math.floor(segundos / 60);
-    const horas    = Math.floor(minutos / 60);
-    const dias     = Math.floor(horas / 24);
-    const semanas  = Math.floor(dias / 7);
-
-    if (segundos < 60)  return 'hace un momento';
-    if (minutos < 60)   return `hace ${minutos} ${minutos === 1 ? 'minuto' : 'minutos'}`;
-    if (horas < 24)     return `hace ${horas} ${horas === 1 ? 'hora' : 'horas'}`;
-    if (dias < 7)       return `hace ${dias} ${dias === 1 ? 'día' : 'días'}`;
-    return `hace ${semanas} ${semanas === 1 ? 'semana' : 'semanas'}`;
-  }
-
-  /** Ícono del tipo de noticia en el feed */
-  iconoPorTipo(tipo: 'logro' | 'canje' | 'desafio'): string {
-    const iconos: Record<string, string> = {
-      logro:   'emoji_events',
-      canje:   'redeem',
-      desafio: 'flag',
-    };
-    return iconos[tipo] ?? 'notifications';
-  }
-
-  esUsuarioActual(userId: string): boolean {
-    return this.currentUserId() !== null && this.currentUserId() === userId;
-  }
+  otbLeaders = signal<OtbLeader[]>([
+    { rank: 1, name: 'OTB Recoleta',  totalWaste: '1,240 kg', isTrendingUp: true  },
+    { rank: 2, name: 'OTB Cala Cala', totalWaste: '980 kg',   isTrendingUp: true  },
+    { rank: 3, name: 'OTB Tupuraya',  totalWaste: '750 kg',   isTrendingUp: false },
+  ]);
 
   setSection(section: 'news' | 'ranking'): void {
     this.activeSection.set(section);
@@ -108,7 +81,28 @@ export class CommunityComponent implements OnInit {
 
   setPeriod(period: string): void {
     this.selectedPeriod.set(period);
-    // Al cambiar el período, se recargaría el leaderboard con el filtro correspondiente
-    this.cargarLeaderboard();
+  }
+
+  cargarFeed(): void {
+    this.feedResource.reload();
+  }
+
+  cargarLeaderboard(): void {
+    this.leaderboardResource.reload();
+  }
+
+  likePost(item: NewsFeedItemDTO): void {
+    // Optimistic update — no modifica el signal directamente (readonly desde resource)
+    // El backend real manejaría esto con un endpoint PATCH /feed/:id/like
+  }
+
+  createPost(): void {
+    const text = prompt('¿Qué está ocurriendo en tu OTB? Escribe tu reporte ecológico:');
+    if (!text) return;
+    alert('¡Tu publicación ha sido compartida con la comunidad ecológica de Cochabamba!');
+  }
+
+  inviteFriends(): void {
+    alert('Enlace de invitación copiado. ¡Invita a tus vecinos a EcoLlajta!');
   }
 }

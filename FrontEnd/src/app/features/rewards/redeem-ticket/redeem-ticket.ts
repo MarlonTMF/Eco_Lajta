@@ -1,7 +1,6 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { RedeemResultDTO } from '../../../application/dtos/rewards.dto';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-redeem-ticket',
@@ -11,44 +10,26 @@ import { RedeemResultDTO } from '../../../application/dtos/rewards.dto';
   styleUrl: './redeem-ticket.css',
 })
 export class RedeemTicketComponent implements OnInit {
-  // Datos del resultado del canje, leídos desde sessionStorage
-  codigoTicket = signal<string>('');
-  nombrePremio = signal<string>('');
-  nuevoSaldo = signal<number>(0);
-  fechaCanje = signal<string>('');
-  cargado = signal<boolean>(false);
+  private router = inject(Router);
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
+  ticketId     = signal<string>('');
+  nombrePremio = signal<string>('');
+  fechaCanje   = signal<string>('');
+  cargado      = signal<boolean>(false);
+  // Alias para compatibilidad con el HTML existente
+  codigoTicket = this.ticketId;
+  nuevoSaldo   = signal<number>(0);
 
   ngOnInit(): void {
-    // Recuperar resultado del canje guardado en la confirmación
-    const raw = sessionStorage.getItem('redeemResult');
-    if (raw) {
-      try {
-        const result: RedeemResultDTO = JSON.parse(raw);
-        this.codigoTicket.set(result.codigoTicket);
-        this.nombrePremio.set(result.nombrePremio);
-        this.nuevoSaldo.set(result.nuevoSaldo);
-        sessionStorage.removeItem('redeemResult'); // limpiar tras leer
-      } catch {
-        // Si no se puede parsear, usar valores vacíos
-        this.codigoTicket.set('#EK-ERROR');
-        this.nombrePremio.set('Premio');
-      }
-    } else {
-      // Fallback: generar ticket local si no hay datos (navegación directa)
-      const rand = Math.floor(Math.random() * 9000) + 1000;
-      this.codigoTicket.set(`#EK-${rand}`);
-      this.nombrePremio.set('Premio');
-    }
+    // Leer datos pasados por Router state desde redeem-confirm
+    const nav = this.router.getCurrentNavigation();
+    const state = nav?.extras?.state ?? history.state;
 
-    // Fecha actual en español
-    const fecha = new Date();
-    const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
-                   'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    this.ticketId.set(state?.['ticketId'] ?? `#EK-${Math.floor(Math.random() * 9000) + 1000}`);
+    this.nombrePremio.set(state?.['nombrePremio'] ?? 'Premio');
+
+    const fecha  = new Date();
+    const meses  = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
     this.fechaCanje.set(`${fecha.getDate()} ${meses[fecha.getMonth()]}, ${fecha.getFullYear()}`);
     this.cargado.set(true);
   }

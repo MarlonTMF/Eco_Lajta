@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, computed } from '@angular/core';
+import { Component, inject, computed, resource, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { HttpRewardsRepository } from '../../infrastructure/repositories/http-rewards.repository';
@@ -22,77 +22,35 @@ interface TransactionItem {
   templateUrl: './rewards.html',
   styleUrl: './rewards.css',
 })
-export class RewardsComponent implements OnInit {
-  userBalance = signal<number>(0);
-  ecoHeroProgress = signal<number>(0);
-  rewards = signal<RewardDTO[]>([]);
-  isLoading = signal<boolean>(true);
-  errorMsg = signal<string | null>(null);
+export class RewardsComponent {
+  private router      = inject(Router);
+  private rewardsRepo = inject(HttpRewardsRepository);
 
+  // Carga automática desde el backend
+  balanceResource = resource({ loader: () => this.rewardsRepo.getUserBalance() });
+  rewardsResource = resource({ loader: () => this.rewardsRepo.getRewards() });
+
+  // Señales computadas
+  userBalance    = computed(() => this.balanceResource.value()?.balance ?? 0);
+  rewards        = computed(() => this.rewardsResource.value() ?? []);
+  ecoHeroProgress = computed(() => Math.min(100, Math.round((this.userBalance() % 3000) / 30)));
+
+  // Historial de transacciones (estático hasta que el backend lo exponga)
   transactions = signal<TransactionItem[]>([
-    {
-      id: 'tx-1',
-      title: 'Reciclaje de PET',
-      location: 'Centro de acopio Sur',
-      category: 'Reciclaje',
-      date: '24 Oct, 2026',
-      amount: 45,
-      isPositive: true,
-      icon: 'recycling',
-    },
-    {
-      id: 'tx-2',
-      title: 'Canje EMAPA',
-      location: 'Canje de beneficios',
-      category: 'Recompensa',
-      date: '22 Oct, 2026',
-      amount: 200,
-      isPositive: false,
-      icon: 'shopping_cart',
-    },
-    {
-      id: 'tx-3',
-      title: 'Entrega de compost',
-      location: 'Residuos orgánicos',
-      category: 'Reciclaje',
-      date: '20 Oct, 2026',
-      amount: 120,
-      isPositive: true,
-      icon: 'compost',
-    },
+    { id: 'tx-1', title: 'Reciclaje de PET',   location: 'Centro de acopio Sur',  category: 'Reciclaje',  date: '24 Oct, 2026', amount: 45,  isPositive: true,  icon: 'recycling'      },
+    { id: 'tx-2', title: 'Canje EMAPA',         location: 'Canje de beneficios',   category: 'Recompensa', date: '22 Oct, 2026', amount: 200, isPositive: false, icon: 'shopping_cart'  },
+    { id: 'tx-3', title: 'Entrega de compost',  location: 'Residuos orgánicos',    category: 'Reciclaje',  date: '20 Oct, 2026', amount: 120, isPositive: true,  icon: 'compost'        },
   ]);
 
-  constructor(
-    private router: Router,
-    private rewardsRepo: HttpRewardsRepository
-  ) {}
+  isLoading = computed(() => this.balanceResource.isLoading() || this.rewardsResource.isLoading());
+  hasError  = computed(() => !!this.balanceResource.error() || !!this.rewardsResource.error());
 
-  async ngOnInit(): Promise<void> {
-    this.isLoading.set(true);
-    this.errorMsg.set(null);
-    try {
-      const [rewardsList, balance] = await Promise.all([
-        this.rewardsRepo.getRewards(),
-        this.rewardsRepo.getUserBalance(),
-      ]);
-      this.rewards.set(rewardsList);
-      this.userBalance.set(balance.dirtyPoints);
-      // Progreso eco-héroe: cada 3000 DP = un nivel; mostramos % dentro del nivel actual
-      this.ecoHeroProgress.set(Math.min(100, Math.round((balance.dirtyPoints % 3000) / 30)));
-    } catch {
-      this.errorMsg.set('No se pudo cargar la información. Por favor, intenta de nuevo más tarde.');
-    } finally {
-      this.isLoading.set(false);
-    }
-  }
-
-  /** Devuelve cuántos Dirty Points le faltan al usuario para canjear un premio. 0 si puede canjearlo. */
   deficit(reward: RewardDTO): number {
-    return Math.max(0, reward.costo - this.userBalance());
+    return Math.max(0, reward.cost - this.userBalance());
   }
 
   canRedeem(reward: RewardDTO): boolean {
-    return this.userBalance() >= reward.costo;
+    return this.userBalance() >= reward.cost;
   }
 
   redeemReward(reward: RewardDTO): void {

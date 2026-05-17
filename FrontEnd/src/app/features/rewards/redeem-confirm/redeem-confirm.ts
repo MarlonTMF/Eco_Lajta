@@ -1,8 +1,8 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HttpRewardsRepository } from '../../../infrastructure/repositories/http-rewards.repository';
-import { RewardDTO, BalanceDTO } from '../../../application/dtos/rewards.dto';
+import { RewardDTO } from '../../../application/dtos/rewards.dto';
 
 @Component({
   selector: 'app-redeem-confirm',
@@ -12,43 +12,34 @@ import { RewardDTO, BalanceDTO } from '../../../application/dtos/rewards.dto';
   styleUrl: './redeem-confirm.css',
 })
 export class RedeemConfirmComponent implements OnInit {
-  rewardId = signal<string>('');
-  reward = signal<RewardDTO | null>(null);
+  private route       = inject(ActivatedRoute);
+  private router      = inject(Router);
+  private rewardsRepo = inject(HttpRewardsRepository);
+
+  rewardId       = signal<string>('');
+  reward         = signal<RewardDTO | null>(null);
   currentBalance = signal<number>(0);
-  finalBalance = signal<number>(0);
-
-  isLoading = signal<boolean>(true);
-  isSubmitting = signal<boolean>(false);
-  errorMsg = signal<string | null>(null);
-
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private rewardsRepo: HttpRewardsRepository
-  ) {}
+  finalBalance   = computed(() => this.currentBalance() - (this.reward()?.cost ?? 0));
+  isLoading      = signal<boolean>(true);
+  isRedeeming    = signal<boolean>(false);
+  isSubmitting   = this.isRedeeming; // alias usado por el HTML
+  errorMsg       = signal<string | null>(null);
 
   async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.paramMap.get('id') ?? '';
     this.rewardId.set(id);
     this.isLoading.set(true);
-    this.errorMsg.set(null);
 
     try {
-      const [rewardsList, balance] = await Promise.all([
-        this.rewardsRepo.getRewards(),
+      const [balanceData, catalog] = await Promise.all([
         this.rewardsRepo.getUserBalance(),
+        this.rewardsRepo.getRewards(),
       ]);
-
-      this.currentBalance.set(balance.dirtyPoints);
-
-      const found = rewardsList.find(r => r.id === id) ?? rewardsList[0];
-      this.reward.set(found ?? null);
-
-      if (found) {
-        this.finalBalance.set(balance.dirtyPoints - found.costo);
-      }
+      this.currentBalance.set(balanceData.balance);
+      const found = catalog.find(r => r.id === id) ?? catalog[0] ?? null;
+      this.reward.set(found);
     } catch {
-      this.errorMsg.set('No se pudo cargar la información del premio. Intenta de nuevo.');
+      this.errorMsg.set('No se pudo cargar la información del premio.');
     } finally {
       this.isLoading.set(false);
     }
@@ -56,24 +47,25 @@ export class RedeemConfirmComponent implements OnInit {
 
   async confirmRedeem(): Promise<void> {
     const activeReward = this.reward();
-    if (!activeReward || this.isSubmitting()) return;
+    if (!activeReward || this.isRedeeming()) return;
 
-    this.isSubmitting.set(true);
+    this.isRedeeming.set(true);
     this.errorMsg.set(null);
 
     try {
       const result = await this.rewardsRepo.redeemReward(activeReward.id);
-      if (result.exitoso) {
-        // Guardamos el resultado en sessionStorage para mostrarlo en el ticket
-        sessionStorage.setItem('redeemResult', JSON.stringify(result));
-        this.router.navigate(['/rewards/ticket', activeReward.id]);
+      if (result.success) {
+        // Pasar el ticketId al siguiente componente via Router state
+        this.router.navigate(['/rewards/ticket', activeReward.id], {
+          state: { ticketId: result.ticketId, nombrePremio: activeReward.title }
+        });
       } else {
-        this.errorMsg.set('El canje no pudo procesarse. Verifica tu saldo e intenta de nuevo.');
+        this.errorMsg.set(result.message ?? 'El canje no pudo procesarse.');
       }
     } catch {
       this.errorMsg.set('Error al procesar el canje. Por favor, intenta más tarde.');
     } finally {
-      this.isSubmitting.set(false);
+      this.isRedeeming.set(false);
     }
   }
 
