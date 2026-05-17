@@ -1,282 +1,321 @@
 <div class="community-container">
-  
-  <!-- PAGE HEADER & NAVIGATION TABS -->
+
+  <!-- TOAST CONTAINER -->
+  <div class="toast-container" aria-live="polite">
+    @for (toast of toasts(); track toast.id) {
+      <div class="toast" [class.success]="toast.type === 'success'" [class.error]="toast.type === 'error'" role="status">
+        <span class="material-symbols-outlined toast-icon" aria-hidden="true">
+          {{ toast.type === 'success' ? 'check_circle' : 'error' }}
+        </span>
+        {{ toast.message }}
+      </div>
+    }
+  </div>
+
+  <!-- POST MODAL -->
+  @if (showModal()) {
+    <div class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title" (click)="closeModal()">
+      <div class="modal-box" (click)="$event.stopPropagation()">
+
+        <div class="modal-header">
+          <h2 id="modal-title" class="modal-title">Nueva Publicación</h2>
+          <button type="button" class="modal-close-btn" (click)="closeModal()" aria-label="Cerrar modal">
+            <span class="material-symbols-outlined" aria-hidden="true">close</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <!-- Author row -->
+          <div class="modal-author-row">
+            @if (currentUser?.photoUrl) {
+              <img [src]="currentUser!.photoUrl" alt="Tu foto" class="modal-avatar" referrerpolicy="no-referrer">
+            } @else {
+              <div class="modal-avatar-placeholder" aria-hidden="true">
+                <span class="material-symbols-outlined">person</span>
+              </div>
+            }
+            <div>
+              <div class="modal-author-name">{{ currentUser?.fullName ?? 'Usuario Eco' }}</div>
+              <div class="modal-author-role">Guardián del Valle · EcoLlajta</div>
+            </div>
+          </div>
+
+          <!-- Text -->
+          <textarea
+            class="modal-textarea"
+            placeholder="¿Qué está ocurriendo en tu OTB? Comparte un reporte ecológico..."
+            [value]="postText()"
+            (input)="postText.set($any($event.target).value)"
+            aria-label="Texto de la publicación"
+            maxlength="500">
+          </textarea>
+
+          <!-- Image -->
+          @if (imagePreview()) {
+            <div class="modal-image-preview">
+              <img [src]="imagePreview()!" alt="Vista previa">
+              <button type="button" class="modal-image-remove" (click)="removeImage()" aria-label="Eliminar imagen">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+              </button>
+            </div>
+          } @else {
+            <label class="modal-image-area" aria-label="Subir imagen">
+              <input type="file" accept="image/*" (change)="onImageSelected($event)" aria-label="Seleccionar imagen">
+              <span class="material-symbols-outlined modal-image-icon" aria-hidden="true">add_photo_alternate</span>
+              <span class="modal-image-label">Agregar foto</span>
+              <span class="modal-image-hint">JPG, PNG o WEBP · máx. 5MB</span>
+            </label>
+          }
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-modal-cancel" (click)="closeModal()">Cancelar</button>
+          <button
+            type="button"
+            class="btn-modal-submit"
+            (click)="submitPost()"
+            [disabled]="!postText().trim() || isSubmitting()">
+            {{ isSubmitting() ? 'Publicando...' : 'Publicar' }}
+          </button>
+        </div>
+
+      </div>
+    </div>
+  }
+
+  <!-- PAGE HEADER -->
   <div class="community-header animate-fade-in">
     <div class="header-left">
       <p class="section-tag text-primary">REWARDS / ECO-COMUNIDAD LLAJTA</p>
       <h1 class="page-title">Centro de Comunidad</h1>
-      <p class="text-muted max-w-600">
-        Conéctate con tu OTB, revisa los puntos críticos reportados en Cochabamba y consulta el ranking global de ciudadanos guardianes.
-      </p>
+      <p class="text-muted max-w-600">Conéctate con tu OTB, revisa los puntos críticos reportados en Cochabamba y consulta el ranking global de ciudadanos guardianes.</p>
     </div>
-
-    <!-- Navigation Tabs -->
-    <div class="community-tabs-wrap">
-      <button 
-        class="tab-nav-btn" 
-        [class.active]="activeSection() === 'news'"
-        (click)="setSection('news')"
-      >
-        <span class="material-symbols-outlined align-middle">forum</span>
+    <div class="community-tabs-wrap" role="tablist">
+      <button type="button" class="tab-nav-btn" role="tab" [attr.aria-selected]="activeSection() === 'news'"
+              [class.active]="activeSection() === 'news'" (click)="setSection('news')">
+        <span class="material-symbols-outlined" aria-hidden="true">forum</span>
         Novedades y Reportes
       </button>
-      <button 
-        class="tab-nav-btn" 
-        [class.active]="activeSection() === 'ranking'"
-        (click)="setSection('ranking')"
-      >
-        <span class="material-symbols-outlined align-middle">emoji_events</span>
+      <button type="button" class="tab-nav-btn" role="tab" [attr.aria-selected]="activeSection() === 'ranking'"
+              [class.active]="activeSection() === 'ranking'" (click)="setSection('ranking')">
+        <span class="material-symbols-outlined" aria-hidden="true">emoji_events</span>
         Ranking Global
       </button>
     </div>
   </div>
 
-  <!-- SECTION 1: NOVEDADES Y REPORTES -->
-  <div *ngIf="activeSection() === 'news'" class="news-section-wrap space-y-xl animate-fade-in">
-    
-    <!-- Hero Section: Proyecto Río Rocha -->
-    <section class="relative-hero-banner shadow-xl">
-      <img 
-        class="absolute-hero-img" 
-        alt="Proyecto Río Rocha cleanup"
-        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeVAiugut6VqNT0HWPZKlVL3fZ1oRJW-Zxw1b4SGAnUaXezNIjF6_2to9PDqWaewwca1J5Ui0D3BvTuwjgAACoPGcmX8fz1VrkbhK4diB98oy_UtLjyzyqj2BJbsefA0YouQjNQ_B1HKlvNNiDwqV4AAxKSOd3ZzwWhh9hgtAlhenpUjl685cDVs0mv--GDbRSTh495HtHdFlwna4CJRPjxwOGv35dB7BwKSWnTbuYS932CtoGhEX0OFY7EjovjnDupegHMA9pBEZ7"
-      />
-      <div class="absolute-hero-overlay">
-        <div class="hero-text-content">
-          <span class="hero-tag">Evento Destacado</span>
-          <h1 class="hero-title">Proyecto Río Rocha</h1>
-          <p class="hero-desc">Únete a la jornada de limpieza masiva para revitalizar nuestro pulmón hídrico. Tu participación suma puntos dobles para el ranking de tu OTB.</p>
-          <div class="hero-meta-row">
-            <div class="meta-item">
-              <span class="material-symbols-outlined icon-meta">calendar_month</span>
-              <span class="meta-label">15 de Octubre, 2026</span>
-            </div>
-            <div class="meta-item">
-              <span class="material-symbols-outlined icon-meta">schedule</span>
-              <span class="meta-label">08:00 - 12:00</span>
+  <!-- SECTION 1: NOVEDADES -->
+  @if (activeSection() === 'news') {
+    <div class="news-section-wrap animate-fade-in">
+
+      <section class="relative-hero-banner" aria-label="Evento destacado">
+        <img class="absolute-hero-img" alt="Proyecto Río Rocha"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeVAiugut6VqNT0HWPZKlVL3fZ1oRJW-Zxw1b4SGAnUaXezNIjF6_2to9PDqWaewwca1J5Ui0D3BvTuwjgAACoPGcmX8fz1VrkbhK4diB98oy_UtLjyzyqj2BJbsefA0YouQjNQ_B1HKlvNNiDwqV4AAxKSOd3ZzwWhh9hgtAlhenpUjl685cDVs0mv--GDbRSTh495HtHdFlwna4CJRPjxwOGv35dB7BwKSWnTbuYS932CtoGhEX0OFY7EjovjnDupegHMA9pBEZ7"/>
+        <div class="absolute-hero-overlay">
+          <div class="hero-text-content">
+            <span class="hero-tag">Evento Destacado</span>
+            <h2 class="hero-title">Proyecto Río Rocha</h2>
+            <p class="hero-desc">Únete a la jornada de limpieza masiva. Tu participación suma puntos dobles para el ranking de tu OTB.</p>
+            <div class="hero-meta-row">
+              <div class="meta-item">
+                <span class="material-symbols-outlined icon-meta" aria-hidden="true">calendar_month</span>
+                <span class="meta-label">15 de Octubre, 2026</span>
+              </div>
+              <div class="meta-item">
+                <span class="material-symbols-outlined icon-meta" aria-hidden="true">schedule</span>
+                <span class="meta-label">08:00 - 12:00</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Split Leaders & Feed Grid -->
-    <div class="leaders-feed-grid">
-      
-      <!-- LEFT SIDEBAR: LEADERS OTB & PROMO -->
-      <aside class="sidebar-left-wrap">
-        
-
-        <!-- Did you know promo card -->
-
-        <div class="did-you-know-card">
-          <span class="material-symbols-outlined did-you-know-icon">psychology</span>
-          <h3 class="did-you-know-title">¿Sabías que...?</h3>
-          <p class="did-you-know-desc">Reciclar una tonelada de papel ahorra 17 árboles y 26,000 litros de agua. ¡Tu esfuerzo local tiene impacto global!</p>
-        </div>
-
-      </aside>
-
-      <!-- RIGHT MAIN FEED: LUGARES REPORTADOS & NEWS -->
-      <section class="main-feed-wrap">
-        
-
-        <!-- Comunidad y Noticias Section Header -->
-
-        <div class="feed-header-row mt-lg">
-          <h2 class="feed-section-title">Comunidad y Noticias</h2>
-          <div class="feed-filter-toggle">
-            <button class="filter-toggle-btn active">Todos</button>
-            <button class="filter-toggle-btn">Oficial</button>
-          </div>
-        </div>
-
-        <!-- News / Social Feed List -->
-        <div class="feed-list-wrap">
-          <article *ngFor="let item of feedItems()" class="feed-article card-glass">
-            
-            <div class="article-header-row">
-              <div class="author-info-wrap">
-                <!-- Avatar image or Icon representation -->
-                <div *ngIf="!item.isAvatarImage" class="author-icon-avatar bg-primary-container text-primary">
-                  <span class="material-symbols-outlined">{{ item.avatar }}</span>
-                </div>
-                <img *ngIf="item.isAvatarImage" [src]="item.avatar" alt="Author" class="author-image-avatar" />
-                
-                <div class="author-names-column">
-                  <h4 class="author-name-text">{{ item.author }}</h4>
-                  <p class="author-meta-sub">{{ item.timeAgo }} • <span [class]="item.categoryClass">{{ item.category }}</span></p>
-                </div>
-              </div>
-              <button class="material-symbols-outlined btn-more-opt">more_vert</button>
-            </div>
-
-            <p class="article-content-text">{{ item.content }}</p>
-            
-            <!-- Article Media image if present -->
-            <div *ngIf="item.image" class="article-media-container">
-              <img [src]="item.image" alt="Feed media" class="article-media-img" />
-            </div>
-
-            <!-- Article Actions Row (Like & Comment) -->
-            <div class="article-actions-row">
-              <div class="left-action-group">
-                <button 
-                  class="action-btn-like" 
-                  [class.liked]="item.likedByUser" 
-                  (click)="likePost(item)"
-                >
-                  <span class="material-symbols-outlined icon-action" [class.filled]="item.likedByUser">favorite</span>
-                  <span class="action-count">{{ item.likes }}</span>
-                </button>
-                <button class="action-btn-comment">
-                  <span class="material-symbols-outlined icon-action">comment</span>
-                  <span class="action-count">{{ item.commentsCount }}</span>
-                </button>
-              </div>
-              <button class="material-symbols-outlined icon-share-action">share</button>
-            </div>
-
-          </article>
-        </div>
-
-        <!-- Load More Button -->
-        <div class="load-more-btn-wrap">
-          <button class="btn-load-more">
-            Cargar más noticias
-          </button>
-        </div>
-
       </section>
 
-    </div>
+      <div class="leaders-feed-grid">
+        <aside class="sidebar-left-wrap">
+          <div class="did-you-know-card">
+            <span class="material-symbols-outlined did-you-know-icon" aria-hidden="true">psychology</span>
+            <h3 class="did-you-know-title">¿Sabías que...?</h3>
+            <p class="did-you-know-desc">Reciclar una tonelada de papel ahorra 17 árboles y 26,000 litros de agua. ¡Tu esfuerzo local tiene impacto global!</p>
+          </div>
+        </aside>
 
-    <!-- Floating Action Button: Add Report/Post -->
-    <button class="fab-add-post shadow-2xl" (click)="createPost()">
-      <span class="material-symbols-outlined">add_comment</span>
-    </button>
+        <section aria-labelledby="feed-title">
+          <!-- Trigger bar -->
+          <button type="button" class="post-trigger-bar" (click)="openModal()" aria-label="Crear nueva publicación">
+            @if (currentUser?.photoUrl) {
+              <img [src]="currentUser!.photoUrl" alt="" class="modal-avatar" referrerpolicy="no-referrer" style="width:36px;height:36px;">
+            } @else {
+              <div class="modal-avatar-placeholder" style="width:36px;height:36px;" aria-hidden="true">
+                <span class="material-symbols-outlined" style="font-size:18px;">person</span>
+              </div>
+            }
+            <span class="post-trigger-placeholder">¿Qué está ocurriendo en tu OTB?</span>
+            <span class="material-symbols-outlined" style="color:#9ca3af;" aria-hidden="true">add_photo_alternate</span>
+          </button>
 
-  </div>
-
-  <!-- SECTION 2: RANKING GLOBAL DE CIUDADANOS -->
-  <div *ngIf="activeSection() === 'ranking'" class="ranking-section-wrap animate-fade-in">
-    <!-- LEADERBOARD SPLIT GRID -->
-    <div class="community-grid animate-slide-up">
-      <!-- LEFT: PODIO DE HONOR -->
-      <div class="podium-card card-glass">
-        <div class="card-title">
-          <span class="material-symbols-outlined trophy-icon">emoji_events</span>
-          Podio de Honor
-        </div>
-
-        <div class="podium-layout">
-          <!-- 2nd PLACE (Sofia) -->
-          <div class="podium-col second-place">
-            <div class="avatar-wrapper border-silver">
-              <img [src]="podium[0].avatar" alt="Sofia" class="podium-avatar" />
-              <div class="rank-badge bg-silver">2</div>
-            </div>
-            <div class="podium-info">
-              <h4 class="podium-name">{{ podium[0].name }}</h4>
-              <div class="podium-points text-primary">{{ podium[0].points | number }} DP</div>
-              <div class="podium-badge">{{ podium[0].badge }}</div>
+          <div class="feed-header-row">
+            <h2 id="feed-title" class="feed-section-title">Comunidad y Noticias</h2>
+            <div class="feed-filter-toggle" role="group" aria-label="Filtrar publicaciones">
+              <button type="button" class="filter-toggle-btn active">Todos</button>
+              <button type="button" class="filter-toggle-btn">Oficial</button>
             </div>
           </div>
 
-          <!-- 1st PLACE (Alejandro - Elevated) -->
-          <div class="podium-col first-place">
-            <div class="avatar-wrapper border-gold">
-              <div class="crown-overlay">👑</div>
-              <img [src]="podium[1].avatar" alt="Alejandro" class="podium-avatar-large" />
-              <div class="rank-badge bg-gold">1</div>
-            </div>
-            <div class="podium-info mt-4">
-              <h4 class="podium-name-large">{{ podium[1].name }}</h4>
-              <div class="podium-points-large text-primary">{{ podium[1].points | number }} DP</div>
-              <div class="role-chip">{{ podium[1].badge }}</div>
-            </div>
-          </div>
-
-          <!-- 3rd PLACE (Renato) -->
-          <div class="podium-col third-place">
-            <div class="avatar-wrapper border-bronze">
-              <img [src]="podium[2].avatar" alt="Renato" class="podium-avatar" />
-              <div class="rank-badge bg-bronze">3</div>
-            </div>
-            <div class="podium-info">
-              <h4 class="podium-name">{{ podium[2].name }}</h4>
-              <div class="podium-points text-primary">{{ podium[2].points | number }} DP</div>
-              <div class="podium-badge">{{ podium[2].badge }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT: CLASIFICACIÓN GENERAL -->
-      <div class="leaderboard-card card-glass">
-        <div class="leaderboard-header">
-          <h3 class="card-title mb-0">Clasificación General</h3>
-          <div class="period-toggle">
-            <button 
-              class="toggle-btn" 
-              [class.active]="selectedPeriod() === 'month'"
-              (click)="setPeriod('month')"
-            >
-              Este Mes
-            </button>
-            <button 
-              class="toggle-btn" 
-              [class.active]="selectedPeriod() === 'alltime'"
-              (click)="setPeriod('alltime')"
-            >
-              Histórico
-            </button>
-          </div>
-        </div>
-
-        <div class="table-container">
-          <table class="leaderboard-table">
-            <thead>
-              <tr>
-                <th class="col-rank">Rango</th>
-                <th class="col-user">Ciudadano</th>
-                <th class="col-points text-center">Dirty Points</th>
-                <th class="col-growth text-right">Crecimiento</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let user of leaderboard" [class.current-user-row]="user.isCurrentUser">
-                <td class="cell-rank">{{ user.rank }}</td>
-                <td class="cell-user">
-                  <div class="user-cell-wrap">
-                    <img *ngIf="user.avatar" [src]="user.avatar" alt="Avatar" class="cell-avatar" />
-                    <div *ngIf="!user.avatar" class="cell-avatar-initials" [class.bg-white-opacity]="user.isCurrentUser">
-                      {{ user.initials }}
+          <div class="feed-list-wrap">
+            @for (item of feedItems(); track item.id) {
+              <article class="feed-article card-glass">
+                <div class="article-header-row">
+                  <div class="author-info-wrap">
+                    <div *ngIf="!item.isAvatarImage" class="author-icon-avatar bg-primary-container text-primary" aria-hidden="true">
+                      <span class="material-symbols-outlined">{{ item.avatar }}</span>
                     </div>
-                    <div class="user-names">
-                      <div class="user-main-name">{{ user.name }}</div>
-                      <div class="user-zone">{{ user.zone }}</div>
+                    <img *ngIf="item.isAvatarImage" [src]="item.avatar" alt="Foto de {{ item.author }}" class="author-image-avatar">
+                    <div class="author-names-column">
+                      <h4 class="author-name-text">{{ item.author }}</h4>
+                      <p class="author-meta-sub">{{ item.timeAgo }} · <span [class]="item.categoryClass">{{ item.category }}</span></p>
                     </div>
                   </div>
-                </td>
-                <td class="cell-points text-center">{{ user.points | number }}</td>
-                <td class="cell-growth text-right" [class.text-highlight]="user.isCurrentUser">
-                  {{ user.growth }}
-                  <span class="material-symbols-outlined trending-icon align-middle">trending_up</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                  <button type="button" class="material-symbols-outlined btn-more-opt" aria-label="Más opciones">more_vert</button>
+                </div>
+
+                <p class="article-content-text">{{ item.content }}</p>
+
+                @if (item.image) {
+                  <div class="article-media-container">
+                    <img [src]="item.image" alt="Imagen de la publicación" class="article-media-img" loading="lazy">
+                  </div>
+                }
+
+                <div class="article-actions-row">
+                  <div class="left-action-group">
+                    <button type="button" class="action-btn-like" [class.liked]="item.likedByUser" (click)="likePost(item)"
+                            [attr.aria-label]="item.likedByUser ? 'Quitar me gusta' : 'Me gusta'">
+                      <span class="material-symbols-outlined icon-action" [class.filled]="item.likedByUser" aria-hidden="true">favorite</span>
+                      <span class="action-count">{{ item.likes }}</span>
+                    </button>
+                    <button type="button" class="action-btn-comment" aria-label="Comentar">
+                      <span class="material-symbols-outlined icon-action" aria-hidden="true">comment</span>
+                      <span class="action-count">{{ item.commentsCount }}</span>
+                    </button>
+                  </div>
+                  <button type="button" class="material-symbols-outlined icon-share-action" aria-label="Compartir">share</button>
+                </div>
+              </article>
+            }
+          </div>
+
+          <div class="load-more-btn-wrap">
+            <button type="button" class="btn-load-more">Cargar más noticias</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- FAB -->
+      <button type="button" class="fab-add-post" (click)="openModal()" aria-label="Nueva publicación">
+        <span class="material-symbols-outlined" aria-hidden="true">add_comment</span>
+      </button>
+    </div>
+  }
+
+  <!-- SECTION 2: RANKING -->
+  @if (activeSection() === 'ranking') {
+    <div class="ranking-section-wrap animate-fade-in">
+      <div class="community-grid">
+        <div class="podium-card card-glass">
+          <div class="card-title">
+            <span class="material-symbols-outlined trophy-icon" aria-hidden="true">emoji_events</span>
+            Podio de Honor
+          </div>
+          <div class="podium-layout">
+            <div class="podium-col second-place">
+              <div class="avatar-wrapper border-silver">
+                <img [src]="podium[0].avatar" alt="{{ podium[0].name }}" class="podium-avatar">
+                <div class="rank-badge bg-silver" aria-label="2do lugar">2</div>
+              </div>
+              <div class="podium-info">
+                <h4 class="podium-name">{{ podium[0].name }}</h4>
+                <div class="podium-points text-primary">{{ podium[0].points | number }} DP</div>
+                <div class="podium-badge">{{ podium[0].badge }}</div>
+              </div>
+            </div>
+            <div class="podium-col first-place">
+              <div class="avatar-wrapper border-gold">
+                <div class="crown-overlay" aria-hidden="true">👑</div>
+                <img [src]="podium[1].avatar" alt="{{ podium[1].name }}" class="podium-avatar-large">
+                <div class="rank-badge bg-gold" aria-label="1er lugar">1</div>
+              </div>
+              <div class="podium-info mt-4">
+                <h4 class="podium-name-large">{{ podium[1].name }}</h4>
+                <div class="podium-points-large text-primary">{{ podium[1].points | number }} DP</div>
+                <div class="role-chip">{{ podium[1].badge }}</div>
+              </div>
+            </div>
+            <div class="podium-col third-place">
+              <div class="avatar-wrapper border-bronze">
+                <img [src]="podium[2].avatar" alt="{{ podium[2].name }}" class="podium-avatar">
+                <div class="rank-badge bg-bronze" aria-label="3er lugar">3</div>
+              </div>
+              <div class="podium-info">
+                <h4 class="podium-name">{{ podium[2].name }}</h4>
+                <div class="podium-points text-primary">{{ podium[2].points | number }} DP</div>
+                <div class="podium-badge">{{ podium[2].badge }}</div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="leaderboard-footer" (click)="inviteFriends()">
-          <span class="footer-btn">
-            Ver Clasificación Completa 
-            <span class="material-symbols-outlined align-middle">chevron_down</span>
-          </span>
+        <div class="leaderboard-card card-glass">
+          <div class="leaderboard-header">
+            <h3 class="card-title">Clasificación General</h3>
+            <div class="period-toggle" role="group" aria-label="Período">
+              <button type="button" class="toggle-btn" [class.active]="selectedPeriod() === 'month'" (click)="setPeriod('month')">Este Mes</button>
+              <button type="button" class="toggle-btn" [class.active]="selectedPeriod() === 'alltime'" (click)="setPeriod('alltime')">Histórico</button>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="leaderboard-table">
+              <caption class="sr-only">Clasificación global de ciudadanos EcoLlajta</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Rango</th>
+                  <th scope="col">Ciudadano</th>
+                  <th scope="col" class="text-center">Dirty Points</th>
+                  <th scope="col" class="text-right">Crecimiento</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (user of leaderboard; track user.rank) {
+                  <tr [class.current-user-row]="user.isCurrentUser">
+                    <td class="cell-rank">{{ user.rank }}</td>
+                    <td>
+                      <div class="user-cell-wrap">
+                        <img *ngIf="user.avatar" [src]="user.avatar" alt="{{ user.name }}" class="cell-avatar">
+                        <div *ngIf="!user.avatar" class="cell-avatar-initials" [class.bg-white-opacity]="user.isCurrentUser">{{ user.initials }}</div>
+                        <div class="user-names">
+                          <div class="user-main-name">{{ user.name }}</div>
+                          <div class="user-zone">{{ user.zone }}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="cell-points text-center">{{ user.points | number }}</td>
+                    <td class="cell-growth text-right" [class.text-highlight]="user.isCurrentUser">
+                      {{ user.growth }}
+                      <span class="material-symbols-outlined trending-icon" aria-hidden="true">trending_up</span>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          <div class="leaderboard-footer" (click)="inviteFriends()" role="button" tabindex="0">
+            <span class="footer-btn">
+              Ver Clasificación Completa
+              <span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
+            </span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  }
 
 </div>
