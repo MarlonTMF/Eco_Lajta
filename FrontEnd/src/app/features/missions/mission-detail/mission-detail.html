@@ -1,55 +1,61 @@
-<div style="max-width: 800px; margin: 0 auto; background: white; border-radius: 30px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border);">
-    <div style="position: relative; height: 400px;">
-        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&q=80" style="width: 100%; height: 100%; object-fit: cover;">
-        <div style="position: absolute; inset: 0; background: linear-gradient(transparent, rgba(0,0,0,0.7));"></div>
-        <button class="icon-btn" style="position: absolute; top: 24px; left: 24px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); color: white;" routerLink="/projects">
-            <i data-lucide="arrow-left"></i>
-        </button>
-        <div style="position: absolute; bottom: 32px; left: 32px; right: 32px; color: white;">
-            <span style="background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">Misión Comunitaria</span>
-            <h1 style="font-size: 2.5rem; font-weight: 800; margin-top: 12px;">Reforestación Parque Sur</h1>
-            <p style="display: flex; align-items: center; gap: 8px; opacity: 0.9; margin-top: 8px;"><i data-lucide="map-pin" style="width:18px;"></i> OTB Sur Moderno, Cochabamba</p>
-        </div>
-    </div>
-
-    <div style="padding: 40px;">
-        <!-- Stats Grid -->
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; background: #F9FAF5; padding: 24px; border-radius: 20px; margin-bottom: 40px; border: 1px solid var(--border);">
-            <div style="text-align: center;">
-                <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Recompensa</div>
-                <div style="font-size: 1.3rem; font-weight: 800; color: var(--primary);">450 Dirty Points</div>
-            </div>
-            <div style="text-align: center;">
-                <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Fecha</div>
-                <div style="font-size: 1.3rem; font-weight: 800;">15 Oct</div>
-            </div>
-            <div style="text-align: center;">
-                <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Hora</div>
-                <div style="font-size: 1.3rem; font-weight: 800;">08:30 AM</div>
-            </div>
-            <div style="text-align: center;">
-                <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Cupos</div>
-                <div style="font-size: 1.3rem; font-weight: 800;">12/50</div>
+@if (mission(); as m) {
+    <div style="max-width: 800px; margin: 0 auto; background: white; border-radius: 30px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border);">
+        <div style="position: relative; height: 400px;">
+            <img [src]="getMissionImage(m.title)" style="width: 100%; height: 100%; object-fit: cover;">
+            <div style="position: absolute; inset: 0; background: linear-gradient(transparent, rgba(0,0,0,0.7));"></div>
+            <button class="icon-btn" style="position: absolute; top: 24px; left: 24px; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); color: white;" routerLink="/projects">
+                <i data-lucide="arrow-left"></i>
+            </button>
+            <div style="position: absolute; bottom: 32px; left: 32px; right: 32px; color: white;">
+                <span style="background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">Misión Comunitaria</span>
+                <h1 style="font-size: 2.5rem; font-weight: 800; margin-top: 12px;">{{ m.title }}</h1>
+                <p style="display: flex; align-items: center; gap: 8px; opacity: 0.9; margin-top: 8px;"><i data-lucide="map-pin" style="width:18px;"></i> {{ m.locationName }}</p>
             </div>
         </div>
 
-        <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--primary); margin-bottom: 16px;">Sobre esta misión</h3>
-        <p style="color: var(--text-muted); line-height: 1.8; font-size: 1rem; margin-bottom: 32px;">
-            Únete a nosotros para transformar el pulmón sur de nuestra ciudad. Esta iniciativa busca combatir el **efecto isla de calor** mediante la plantación estratégica de especies nativas como Molles y Jacarandás. Al participar, no solo incrementas el oxígeno, sino que ayudas a reducir la temperatura ambiente hasta en 4°C en la zona sur.
-        </p>
-
-        <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--primary); margin-bottom: 16px;">Punto de Encuentro</h3>
-        <div style="height: 200px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 40px; position: relative;">
-            <img src="https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=800&q=80" style="width: 100%; height: 100%; object-fit: cover;">
-            <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
-                <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
-                    <i data-lucide="map-pin"></i>
+        <div style="padding: 40px;">
+            <!-- Stats Grid -->
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; background: #F9FAF5; padding: 24px; border-radius: 20px; margin-bottom: 40px; border: 1px solid var(--border);">
+                <div style="text-align: center;">
+                    <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Recompensa</div>
+                    <div style="font-size: 1.3rem; font-weight: 800; color: var(--primary);">{{ m.pointsReward }} pts</div>
+                </div>
+                <div style="text-align: center;">
+                    <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Fecha</div>
+                    <div style="font-size: 1.3rem; font-weight: 800;">{{ formatMissionDate(m.startsAt) }}</div>
+                </div>
+                <div style="text-align: center;">
+                    <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Hora</div>
+                    <div style="font-size: 1.3rem; font-weight: 800;">{{ formatMissionTime(m.startsAt) }}</div>
+                </div>
+                <div style="text-align: center;">
+                    <div class="text-muted" style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase;">Cupos</div>
+                    <div style="font-size: 1.3rem; font-weight: 800;">12/50</div>
                 </div>
             </div>
-        </div>
 
-        <button class="scanner-btn-side" style="width: 100%; padding: 20px; font-size: 1.2rem; margin-bottom: 40px;" routerLink="/participation-success">
-            Confirmar Participación <i data-lucide="chevron-right"></i>
-        </button>
+            <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--primary); margin-bottom: 16px;">Sobre esta misión</h3>
+            <p style="color: var(--text-muted); line-height: 1.8; font-size: 1rem; margin-bottom: 32px;">
+                {{ m.description }}
+            </p>
+
+            <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--primary); margin-bottom: 16px;">Punto de Encuentro</h3>
+            <div style="height: 200px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 40px; position: relative;">
+                <img src="https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=800&q=80" style="width: 100%; height: 100%; object-fit: cover;">
+                <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
+                    <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+                        <i data-lucide="map-pin"></i>
+                    </div>
+                </div>
+            </div>
+
+            <button class="scanner-btn-side" style="width: 100%; padding: 20px; font-size: 1.2rem; margin-bottom: 40px;" routerLink="/participation-success">
+                Confirmar Participación <i data-lucide="chevron-right"></i>
+            </button>
+        </div>
     </div>
-</div>
+} @else {
+    <div class="card" style="padding: 48px; text-align: center; border-radius: 16px;">
+        <p class="text-muted" style="font-size: 1.1rem; font-weight: 600;">Cargando detalles de la misión...</p>
+    </div>
+}

@@ -34,6 +34,7 @@ export const routes: Routes = [
   { path: 'report', redirectTo: 'report-step-2'},
   { path: 'map', component: Map, canActivate: [authGuard] },
   { path: 'projects', component: ExploreMissions, canActivate: [authGuard] },
+  { path: 'mission-detail/:id', component: MissionDetail, canActivate: [authGuard] },
   { path: 'mission-detail', component: MissionDetail, canActivate: [authGuard] },
   { path: 'participation-success', component: ParticipationSuccess, canActivate: [authGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
