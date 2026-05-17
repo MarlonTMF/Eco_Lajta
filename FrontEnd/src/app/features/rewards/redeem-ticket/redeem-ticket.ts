@@ -24,7 +24,7 @@ export class RedeemTicketComponent implements OnInit {
   rewardId = signal<string>('reward-1');
   reward = signal<RewardItem | null>(null);
   
-  ticketId = signal<string>('#EK-EMAPA-7782');
+  ticketId = signal<string>('#EL-EMAPA-7782');
   currentDate = signal<string>('24 Oct, 2026');
 
   rewardsList: RewardItem[] = [
@@ -82,7 +82,7 @@ export class RedeemTicketComponent implements OnInit {
     const rand = Math.floor(Math.random() * 9000) + 1000;
     const codePrefix = this.reward()?.category === 'Alimentos' ? 'EMAPA' : 
                        this.reward()?.category === 'Impuestos' ? 'MUN' : 'BVERDE';
-    this.ticketId.set(`#EK-${codePrefix}-${rand}`);
+    this.ticketId.set(`#EL-${codePrefix}-${rand}`);
 
     const date = new Date();
     const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];

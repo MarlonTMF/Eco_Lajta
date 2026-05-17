@@ -63,6 +63,13 @@ export class RedeemConfirmComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const savedBalance = localStorage.getItem('userBalance');
+    if (savedBalance) {
+      this.currentBalance.set(parseInt(savedBalance, 10));
+    } else {
+      localStorage.setItem('userBalance', '2450');
+    }
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.rewardId.set(id);
@@ -82,6 +89,36 @@ export class RedeemConfirmComponent implements OnInit {
   confirmRedeem(): void {
     const activeReward = this.reward();
     if (!activeReward) return;
+
+    if (this.currentBalance() < activeReward.cost) {
+      alert('Puntos insuficientes para confirmar este canje.');
+      return;
+    }
+
+    // Deduce points and save to persist across components
+    const newBalance = this.currentBalance() - activeReward.cost;
+    localStorage.setItem('userBalance', newBalance.toString());
+
+    // Register transaction
+    const newTx = {
+      id: `tx-${Date.now()}`,
+      title: activeReward.title,
+      location: 'Canje de beneficios',
+      category: 'Recompensa',
+      date: 'Hoy',
+      amount: activeReward.cost,
+      isPositive: false,
+      icon: activeReward.icon,
+      bgClass: 'bg-error-container',
+      textClass: 'text-error'
+    };
+
+    const savedTxsStr = localStorage.getItem('transactions');
+    if (savedTxsStr) {
+      const savedTxs = JSON.parse(savedTxsStr);
+      savedTxs.unshift(newTx);
+      localStorage.setItem('transactions', JSON.stringify(savedTxs));
+    }
 
     this.router.navigate(['/rewards/ticket', activeReward.id]);
   }

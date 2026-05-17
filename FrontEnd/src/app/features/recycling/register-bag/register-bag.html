@@ -1,6 +1,6 @@
 <div style="max-width: 800px; margin: 0 auto;">
     <div class="flex flex-col md:flex-row items-center gap-4 md:gap-8 mb-8 md:mb-12">
-        <button class="icon-btn" routerLink="/my-recycling" style="background: #F3F4F6; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i data-lucide="arrow-left" style="width: 20px;"></i></button>
+        <button class="icon-btn" routerLink="/my-recycling" style="background: #F3F4F6; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="material-symbols-outlined" style="font-size: 20px;">arrow_back</i></button>
         <div>
             <h1 style="font-size: 2.5rem; font-weight: 800; color: var(--primary);">Registro de Bolsa</h1>
             <p class="text-muted">Ayúdanos a clasificar tus residuos para un recojo eficiente.</p>
@@ -13,27 +13,27 @@
             <h3 style="font-size: 1.2rem; font-weight: 700;">Selecciona la Categoría</h3>
         </div>
         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
-            <button class="category-btn">
+            <button class="category-btn" (click)="selectCategory('Plástico')" [style.border]="selectedCategory() === 'Plástico' ? '2px solid var(--primary)' : '2px solid transparent'" style="border-radius: 16px; padding: 12px; background: white; transition: 0.2s;">
                 <div style="background: #E8F5E9; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; color: var(--primary);">
-                    <i data-lucide="droplets" style="width:28px; height:28px;"></i>
+                    <i class="material-symbols-outlined" style="font-size:28px;">water_drop</i>
                 </div>
                 <span style="font-weight: 600; color: var(--text);">Plástico (PET)</span>
             </button>
-            <button class="category-btn">
+            <button class="category-btn" (click)="selectCategory('Papel/Cartón')" [style.border]="selectedCategory() === 'Papel/Cartón' ? '2px solid #E65100' : '2px solid transparent'" style="border-radius: 16px; padding: 12px; background: white; transition: 0.2s;">
                 <div style="background: #FFF3E0; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; color: #E65100;">
-                    <i data-lucide="book" style="width:28px; height:28px;"></i>
+                    <i class="material-symbols-outlined" style="font-size:28px;">auto_stories</i>
                 </div>
                 <span style="font-weight: 600; color: var(--text);">Papel/Cartón</span>
             </button>
-            <button class="category-btn">
+            <button class="category-btn" (click)="selectCategory('Vidrio')" [style.border]="selectedCategory() === 'Vidrio' ? '2px solid #1976D2' : '2px solid transparent'" style="border-radius: 16px; padding: 12px; background: white; transition: 0.2s;">
                 <div style="background: #E3F2FD; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; color: #1976D2;">
-                    <i data-lucide="wine" style="width:28px; height:28px;"></i>
+                    <i class="material-symbols-outlined" style="font-size:28px;">wine_bar</i>
                 </div>
                 <span style="font-weight: 600; color: var(--text);">Vidrio</span>
             </button>
-            <button class="category-btn">
+            <button class="category-btn" (click)="selectCategory('Metales')" [style.border]="selectedCategory() === 'Metales' ? '2px solid #4B5563' : '2px solid transparent'" style="border-radius: 16px; padding: 12px; background: white; transition: 0.2s;">
                 <div style="background: #F3F4F6; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; color: #4B5563;">
-                    <i data-lucide="settings" style="width:28px; height:28px;"></i>
+                    <i class="material-symbols-outlined" style="font-size:28px;">settings</i>
                 </div>
                 <span style="font-weight: 600; color: var(--text);">Metales</span>
             </button>
@@ -46,10 +46,12 @@
             <h3 style="font-size: 1.2rem; font-weight: 700;">Peso Estimado</h3>
         </div>
         <div style="background: #F9FAF5; padding: 32px; border-radius: 16px; text-align: center;">
-            <div style="font-size: 4rem; font-weight: 800; color: var(--primary); line-height: 1;">5.0</div>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <input type="number" [(ngModel)]="estimatedWeight" min="0.5" max="50" step="0.5" style="font-size: 4rem; font-weight: 800; color: var(--primary); line-height: 1; border: none; background: transparent; text-align: center; width: 140px; outline: none; border-bottom: 3px solid var(--primary);">
+            </div>
             <div class="text-muted" style="margin-bottom: 24px; font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Kilogramos (kg)</div>
             <div style="margin: 32px 0;">
-                <input type="range" min="0.5" max="20" step="0.5" value="5" style="width: 100%; margin-bottom: 12px; accent-color: var(--primary);">
+                <input type="range" [(ngModel)]="estimatedWeight" min="0.5" max="20" step="0.5" style="width: 100%; margin-bottom: 12px; accent-color: var(--primary);">
                 <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">
                     <span>0.5 kg</span>
                     <span>10 kg</span>
@@ -57,14 +59,43 @@
                 </div>
             </div>
             <div style="background: #E0F2FE; color: #0284C7; padding: 16px; border-radius: 12px; display: flex; align-items: center; gap: 12px; text-align: left;">
-                <i data-lucide="info" style="width:24px; height:24px; flex-shrink:0;"></i>
+                <i class="material-symbols-outlined" style="font-size:24px; flex-shrink:0;">info</i>
                 <span style="font-size: 0.9rem; font-weight: 500;">Una bolsa de mercado llena pesa aproximadamente entre 3kg y 5kg.</span>
             </div>
         </div>
     </div>
+    <!-- ADD BAG BUTTON -->
+    <div style="display: flex; justify-content: center; margin-bottom: 32px;">
+        <button class="btn-outline" (click)="addBag()" [disabled]="!selectedCategory()" style="padding: 12px 24px; display: flex; align-items: center; gap: 8px;">
+            <i class="material-symbols-outlined">add_circle</i> Agregar a la Lista
+        </button>
+    </div>
 
-    <button class="btn-white" style="width: 100%; padding: 18px; background: var(--primary); color: white; font-size: 1.2rem; font-weight: 700; border-radius: 100px; display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 32px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'" routerLink="/pickup-confirmation">
-        Solicitar Recojo <i data-lucide="truck" style="width:24px;"></i>
+    <!-- LISTA DE BOLSAS -->
+    @if (bagsList().length > 0) {
+        <div class="card mb-4" style="background: #f8fafc;">
+            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 16px;">Lista de Recolección ({{ bagsList().length }})</h3>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                @for (bag of bagsList(); track $index) {
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: white; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span class="material-symbols-outlined text-primary">recycling</span>
+                            <div>
+                                <div style="font-weight: 700; color: #1e293b;">{{ bag.category }}</div>
+                                <div style="font-size: 0.85rem; color: #64748b;">{{ bag.weight }} kg estimados</div>
+                            </div>
+                        </div>
+                        <button class="icon-btn" (click)="removeBag($index)" style="color: #ef4444; background: #fef2f2;">
+                            <i class="material-symbols-outlined">delete</i>
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    <button class="btn-white" [disabled]="bagsList().length === 0" style="width: 100%; padding: 18px; background: var(--primary); color: white; font-size: 1.2rem; font-weight: 700; border-radius: 100px; display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 32px; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'" (click)="confirmPickup()">
+        Solicitar Recojo <i class="material-symbols-outlined" style="font-size: 24px;">local_shipping</i>
     </button>
 
     <div class="grid-2">
@@ -81,7 +112,7 @@
                 <p style="font-size: 0.85rem; opacity: 0.9; line-height: 1.5;">Reciclar 1 tonelada de papel salva 17 árboles adultos de ser talados.</p>
             </div>
             <div style="text-align: right;">
-                <i data-lucide="leaf" style="width:40px; height:40px; opacity: 0.2;"></i>
+                <i class="material-symbols-outlined" style="font-size:40px; opacity: 0.2;">eco</i>
             </div>
         </div>
     </div>

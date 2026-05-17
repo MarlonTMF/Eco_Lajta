@@ -23,23 +23,23 @@
         <div class="flex items-center justify-between p-md bg-surface-container-low rounded-xl border border-outline-variant/30" style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #F9FAF5; border: 1px solid var(--border); border-radius: 12px;">
             <div class="flex items-center gap-3">
                 <span class="material-symbols-outlined text-primary">category</span>
-                <span class="font-label-lg text-label-lg text-on-surface-variant font-semibold">Categoría</span>
+                <span class="font-label-lg text-label-lg text-on-surface-variant font-semibold">Categoría(s)</span>
             </div>
-            <span class="font-title-lg text-title-lg text-primary font-bold">PET</span>
+            <span class="font-title-lg text-title-lg text-primary font-bold text-right truncate w-1/2">{{ categoriesSummary }}</span>
         </div>
         <div class="flex items-center justify-between p-md bg-surface-container-low rounded-xl border border-outline-variant/30" style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #F9FAF5; border: 1px solid var(--border); border-radius: 12px;">
             <div class="flex items-center gap-3">
                 <span class="material-symbols-outlined text-primary">weight</span>
-                <span class="font-label-lg text-label-lg text-on-surface-variant font-semibold">Peso Est.</span>
+                <span class="font-label-lg text-label-lg text-on-surface-variant font-semibold">Peso Total Est.</span>
             </div>
-            <span class="font-title-lg text-title-lg text-primary font-bold">5 kg</span>
+            <span class="font-title-lg text-title-lg text-primary font-bold">{{ totalWeight }} kg</span>
         </div>
         <div class="flex items-center justify-between p-md bg-primary-container/10 rounded-xl border border-primary-container/20" style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #E8F5E9; border: 1px solid #A5D6A7; border-radius: 12px;">
             <div class="flex items-center gap-3">
                 <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">token</span>
                 <span class="font-label-lg text-label-lg text-primary font-semibold">Recompensa</span>
             </div>
-            <span class="font-title-lg text-title-lg text-primary font-extrabold" style="font-size: 1.3rem;">+250 Dirty Points</span>
+            <span class="font-title-lg text-title-lg text-primary font-extrabold" style="font-size: 1.3rem;">+{{ totalPoints }} Dirty Points</span>
         </div>
     </section>
 

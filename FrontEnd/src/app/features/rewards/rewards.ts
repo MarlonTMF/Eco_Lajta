@@ -33,11 +33,47 @@ interface TransactionItem {
   styleUrl: './rewards.css',
 })
 export class RewardsComponent {
-  // Balanced aligned with Mateo Velasco profile data (2,450 DP)
   userBalance = signal<number>(2450);
   ecoHeroProgress = signal<number>(75); // 75% complete
 
-  constructor(private router: Router) {}
+  defaultTransactions: TransactionItem[] = [
+    {
+      id: 'tx-1',
+      title: 'Reciclaje de PET',
+      location: 'Centro de acopio Sur',
+      category: 'Reciclaje',
+      date: '24 Oct, 2026',
+      amount: 45,
+      isPositive: true,
+      icon: 'recycling',
+      bgClass: 'bg-primary-fixed',
+      textClass: 'text-primary'
+    },
+    {
+      id: 'tx-2',
+      title: 'Canje EMAPA',
+      location: 'Canje de beneficios',
+      category: 'Recompensa',
+      date: '22 Oct, 2026',
+      amount: 200,
+      isPositive: false,
+      icon: 'shopping_cart',
+      bgClass: 'bg-error-container',
+      textClass: 'text-error'
+    },
+    {
+      id: 'tx-3',
+      title: 'Entrega de Compost',
+      location: 'Residuos orgánicos',
+      category: 'Reciclaje',
+      date: '20 Oct, 2026',
+      amount: 120,
+      isPositive: true,
+      icon: 'compost',
+      bgClass: 'bg-primary-fixed',
+      textClass: 'text-primary'
+    }
+  ];
 
   rewards = signal<RewardItem[]>([
     {
@@ -69,44 +105,26 @@ export class RewardsComponent {
     }
   ]);
 
-  transactions = signal<TransactionItem[]>([
-    {
-      id: 'tx-1',
-      title: 'PET recycling',
-      location: 'Centro de acopio Sur',
-      category: 'Reciclaje',
-      date: '24 Oct, 2026',
-      amount: 45,
-      isPositive: true,
-      icon: 'recycling',
-      bgClass: 'bg-primary-fixed',
-      textClass: 'text-primary'
-    },
-    {
-      id: 'tx-2',
-      title: 'EMAPA redemption',
-      location: 'Canje de beneficios',
-      category: 'Recompensa',
-      date: '22 Oct, 2026',
-      amount: 200,
-      isPositive: false,
-      icon: 'shopping_cart',
-      bgClass: 'bg-error-container',
-      textClass: 'text-error'
-    },
-    {
-      id: 'tx-3',
-      title: 'Compost delivery',
-      location: 'Residuos orgánicos',
-      category: 'Reciclaje',
-      date: '20 Oct, 2026',
-      amount: 120,
-      isPositive: true,
-      icon: 'compost',
-      bgClass: 'bg-primary-fixed',
-      textClass: 'text-primary'
+
+  transactions = signal<TransactionItem[]>([]);
+
+  constructor(private router: Router) {
+    const savedBalance = localStorage.getItem('userBalance');
+    if (savedBalance) {
+      this.userBalance.set(parseInt(savedBalance, 10));
+    } else {
+      localStorage.setItem('userBalance', '2450');
     }
-  ]);
+
+    const savedTxs = localStorage.getItem('transactions');
+    if (savedTxs) {
+      this.transactions.set(JSON.parse(savedTxs));
+    } else {
+      const defaultTxs = this.defaultTransactions;
+      localStorage.setItem('transactions', JSON.stringify(defaultTxs));
+      this.transactions.set(defaultTxs);
+    }
+  }
 
   redeemReward(reward: RewardItem): void {
     if (this.userBalance() >= reward.cost) {
@@ -118,11 +136,15 @@ export class RewardsComponent {
 
   addPointsMock(): void {
     const amount = 100;
-    this.userBalance.update(bal => bal + amount);
+    this.userBalance.update(bal => {
+      const newVal = bal + amount;
+      localStorage.setItem('userBalance', newVal.toString());
+      return newVal;
+    });
     
     const newTx: TransactionItem = {
       id: `tx-${Date.now()}`,
-      title: 'EcoCam Scanning Bonus',
+      title: 'Bono de Escaneo EcoCam',
       location: 'Depósito Inteligente',
       category: 'Reciclaje',
       date: 'Hoy',
@@ -133,7 +155,11 @@ export class RewardsComponent {
       textClass: 'text-primary'
     };
 
-    this.transactions.update(txs => [newTx, ...txs]);
+    this.transactions.update(txs => {
+      const newTxs = [newTx, ...txs];
+      localStorage.setItem('transactions', JSON.stringify(newTxs));
+      return newTxs;
+    });
     alert(`¡Se han añadido +100 DP de bonificación a tu billetera ecológica!`);
   }
 }
