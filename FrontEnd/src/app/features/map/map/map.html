@@ -1,133 +1,154 @@
 <div class="map-view-wrapper">
-  
-  <!-- Real Leaflet Map Container -->
-  <div id="map" class="real-map-container" style="width: 100%; height: 100%; z-index: 1; border-radius: 24px; overflow: hidden;"></div>
 
-  <!-- Category Filters Overlay (Pills) -->
-  <div class="map-filters-overlay" style="z-index: 10;">
-    <button 
+  <!-- Loading -->
+  <div *ngIf="isLoading()" class="map-loading" role="status" aria-live="polite">
+    <div class="spinner-ring" aria-hidden="true"></div>
+    <p>Cargando mapa de EcoLlajta...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="hasError() && !isLoading()" class="map-error" role="alert">
+    <span class="material-symbols-outlined" aria-hidden="true">error_outline</span>
+    <h3>No se pudieron cargar los puntos del mapa</h3>
+    <button type="button" (click)="loadPoints()">Reintentar</button>
+  </div>
+
+  <!-- Google Map -->
+  <google-map
+    *ngIf="apiLoaded() && !isLoading() && !hasError()"
+    height="100%"
+    width="100%"
+    [center]="center()"
+    [zoom]="zoom()"
+    [options]="mapOptions">
+
+    <map-advanced-marker
+      *ngFor="let point of filteredPoints(); trackBy: trackById"
+      [position]="{ lat: point.lat, lng: point.lng }"
+      [content]="buildPinContent(point)"
+      (mapClick)="selectPoint(point)">
+    </map-advanced-marker>
+  </google-map>
+
+  <!-- Category Filters Overlay -->
+  <div class="map-filters-overlay" role="tablist" aria-label="Filtrar puntos del mapa">
+    <button
       *ngFor="let cat of categories"
-      class="btn-filter-pill" 
+      type="button"
+      class="btn-filter-pill"
+      role="tab"
+      [attr.aria-selected]="selectedCategory() === cat.id"
       [class.active]="selectedCategory() === cat.id"
-      (click)="selectCategory(cat.id)"
-    >
-      <span class="material-symbols-outlined filter-icon" [style.color]="cat.color">{{ cat.icon }}</span>
+      (click)="selectCategory(cat.id)">
+      <span class="material-symbols-outlined filter-icon" [style.color]="cat.color" aria-hidden="true">{{ cat.icon }}</span>
       {{ cat.label }}
     </button>
   </div>
 
   <!-- Zoom Controls -->
-  <div class="zoom-controls" style="z-index: 10;">
-    <button class="zoom-btn btn-top" (click)="zoomIn()"><span class="material-symbols-outlined">add</span></button>
-    <button class="zoom-btn btn-bottom" (click)="zoomOut()"><span class="material-symbols-outlined">remove</span></button>
-    <button class="zoom-btn btn-nav" (click)="centerOnPoint()"><span class="material-symbols-outlined">near_me</span></button>
+  <div class="zoom-controls">
+    <button type="button" class="zoom-btn btn-top" (click)="zoomIn()" aria-label="Acercar">
+      <span class="material-symbols-outlined" aria-hidden="true">add</span>
+    </button>
+    <button type="button" class="zoom-btn btn-bottom" (click)="zoomOut()" aria-label="Alejar">
+      <span class="material-symbols-outlined" aria-hidden="true">remove</span>
+    </button>
+    <button type="button" class="zoom-btn btn-nav" (click)="centerOnPoint()" aria-label="Centrar en punto seleccionado">
+      <span class="material-symbols-outlined" aria-hidden="true">near_me</span>
+    </button>
   </div>
 
-  <!-- Point Detail Drawer (Right Sidebar Panel) -->
-  <aside class="map-drawer-panel" [class.active]="isDrawerOpen() && selectedPoint()">
+  <!-- Point Detail Drawer -->
+  <aside class="map-drawer-panel" [class.active]="isDrawerOpen() && selectedPoint()" aria-label="Detalle del punto seleccionado">
     <ng-container *ngIf="selectedPoint() as activePoint">
-      
+
       <div class="drawer-header-image">
         <img [src]="activePoint.image" [alt]="activePoint.title" class="header-cover-img" />
-        <button class="btn-close-drawer" (click)="toggleDrawer()">
-          <span class="material-symbols-outlined">close</span>
+        <button type="button" class="btn-close-drawer" (click)="toggleDrawer()" aria-label="Cerrar detalle">
+          <span class="material-symbols-outlined" aria-hidden="true">close</span>
         </button>
       </div>
 
       <div class="drawer-content">
         <div class="drawer-header-info">
           <div class="title-area">
-            <!-- Title with custom type indicators -->
             <span class="type-pill" [class]="activePoint.type">
               {{ activePoint.type === 'recycling' ? 'Reciclaje' : activePoint.type === 'mission' ? 'Misión' : 'Reportado' }}
             </span>
-            <h2 class="drawer-title" [class.text-primary]="activePoint.type === 'recycling'" [class.text-secondary]="activePoint.type === 'mission'" [class.text-error]="activePoint.type === 'reported'">
-              {{ activePoint.title }}
-            </h2>
+            <h2 class="drawer-title">{{ activePoint.title }}</h2>
             <div class="location-row">
-              <span class="material-symbols-outlined location-icon">location_on</span>
+              <span class="material-symbols-outlined location-icon" aria-hidden="true">location_on</span>
               <span class="location-text">{{ activePoint.location }}</span>
             </div>
           </div>
-          <div class="points-badge" [class.badge-mission]="activePoint.type === 'mission'" [class.badge-reported]="activePoint.type === 'reported'">
+          <div class="points-badge"
+               [class.badge-mission]="activePoint.type === 'mission'"
+               [class.badge-reported]="activePoint.type === 'reported'">
             <span class="points-number">{{ activePoint.rewardText }}</span>
             <span class="points-label">{{ activePoint.rewardLabel }}</span>
           </div>
         </div>
 
-        <!-- Info KPIs Grid -->
         <div class="info-kpi-grid">
           <div class="kpi-card">
             <span class="kpi-label">
-              {{ activePoint.type === 'recycling' ? 'Horario de Atención' : activePoint.type === 'mission' ? 'Fecha del Evento' : 'Tiempo Transcurrido' }}
+              {{ activePoint.type === 'recycling' ? 'Horario' : activePoint.type === 'mission' ? 'Fecha' : 'Tiempo' }}
             </span>
-            <div class="kpi-value text-primary">
-              <span class="material-symbols-outlined kpi-icon">schedule</span> 
+            <div class="kpi-value">
+              <span class="material-symbols-outlined kpi-icon" aria-hidden="true">schedule</span>
               {{ activePoint.hoursOrDate }}
             </div>
           </div>
           <div class="kpi-card">
             <span class="kpi-label">Estado</span>
             <div class="kpi-value" [class]="activePoint.statusClass">
-              <span class="material-symbols-outlined kpi-icon">info</span> 
+              <span class="material-symbols-outlined kpi-icon" aria-hidden="true">info</span>
               {{ activePoint.statusText }}
             </div>
           </div>
         </div>
 
-        <!-- Capacity / Demand / Severity indicators -->
         <div class="capacity-gauge">
           <div class="capacity-header">
             <span class="gauge-title">
-              {{ activePoint.type === 'recycling' ? 'Capacidad del Contenedor' : activePoint.type === 'mission' ? 'Estado de Convocatoria' : 'Nivel de Severidad' }}
+              {{ activePoint.type === 'recycling' ? 'Capacidad' : activePoint.type === 'mission' ? 'Convocatoria' : 'Severidad' }}
             </span>
             <span class="gauge-percentage" [class]="activePoint.severityClass || 'text-accent'">
               {{ activePoint.capacityOrSeverity }}
             </span>
           </div>
-          
-          <!-- Progress bar shown only for recycling points -->
-          <div class="progress-container" *ngIf="activePoint.type === 'recycling' && activePoint.capacityPercentage as pct">
-            <div 
-              class="progress-bar" 
-              [style.width.%]="pct"
-              [class.bg-danger]="pct > 75"
-              [class.bg-success]="pct <= 75"
-            ></div>
+          <div class="progress-container" *ngIf="activePoint.type === 'recycling' && activePoint.capacityPercentage as pct"
+               role="progressbar" [attr.aria-valuenow]="pct" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar"
+                 [style.width.%]="pct"
+                 [class.bg-danger]="pct > 75"
+                 [class.bg-success]="pct <= 75"></div>
           </div>
-          
-          <p class="gauge-hint text-muted">{{ activePoint.description }}</p>
+          <p class="gauge-hint">{{ activePoint.description }}</p>
         </div>
 
-        <!-- Actions panel -->
         <div class="action-buttons-column">
-          <button class="btn-primary-action" (click)="primaryAction(activePoint)">
-            <span class="material-symbols-outlined">
+          <button type="button" class="btn-primary-action" (click)="primaryAction(activePoint)">
+            <span class="material-symbols-outlined" aria-hidden="true">
               {{ activePoint.type === 'mission' ? 'groups' : 'near_me' }}
-            </span> 
-            {{ activePoint.type === 'mission' ? 'Registrarse en la Misión' : 'Obtener Ruta' }}
+            </span>
+            {{ activePoint.type === 'mission' ? 'Registrarse' : 'Obtener Ruta' }}
           </button>
-          
-          <button class="btn-secondary-action" (click)="secondaryAction(activePoint)">
-            <span class="material-symbols-outlined">
+          <button type="button" class="btn-secondary-action" (click)="secondaryAction(activePoint)">
+            <span class="material-symbols-outlined" aria-hidden="true">
               {{ activePoint.type === 'reported' ? 'verified' : 'info' }}
-            </span> 
-            {{ activePoint.type === 'reported' ? 'Verificar Reporte' : 'Reportar Incidencia' }}
+            </span>
+            {{ activePoint.type === 'reported' ? 'Verificar' : 'Reportar' }}
           </button>
         </div>
 
-        <!-- Photos Gallery -->
-        <div class="site-photos-gallery" *ngIf="activePoint.photos && activePoint.photos.length > 0">
-          <h3 class="gallery-title">Galería de Fotos</h3>
+        <div class="site-photos-gallery" *ngIf="activePoint.photos?.length">
+          <h3 class="gallery-title">Galería</h3>
           <div class="gallery-grid">
-            <img *ngFor="let photo of activePoint.photos" [src]="photo" alt="Photo" class="gallery-thumb" />
-            <div class="gallery-more-card" *ngIf="activePoint.photos.length > 2">+2 más</div>
+            <img *ngFor="let photo of activePoint.photos" [src]="photo" alt="" class="gallery-thumb" loading="lazy" />
           </div>
         </div>
-
       </div>
-
     </ng-container>
   </aside>
-
 </div>
