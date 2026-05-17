@@ -2,7 +2,9 @@ package com.ucb.ecollajta.common;
 
 import com.ucb.ecollajta.model.Event;
 import com.ucb.ecollajta.model.EventStatus;
+import com.ucb.ecollajta.model.CommunityPost;
 import com.ucb.ecollajta.repository.events.EventRepository;
+import com.ucb.ecollajta.repository.community.CommunityPostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -18,10 +20,12 @@ import java.util.List;
 public class DatabaseSeeder implements CommandLineRunner {
 
     private final EventRepository eventRepository;
+    private final CommunityPostRepository communityPostRepository;
 
     @Override
     public void run(String... args) throws Exception {
         try {
+            // Seed Events
             if (eventRepository.count() == 0) {
                 log.info("Seeding default events into Neon PostgreSQL...");
 
@@ -78,8 +82,51 @@ public class DatabaseSeeder implements CommandLineRunner {
             } else {
                 log.info("Events already present in database (count: {}). Skipping seeding.", eventRepository.count());
             }
+
+            // Seed Community Posts
+            if (communityPostRepository.count() == 0) {
+                log.info("Seeding default community posts into Neon PostgreSQL...");
+
+                CommunityPost post1 = new CommunityPost(
+                    null,
+                    "Alcaldía de Cochabamba",
+                    "Gobierno Autónomo Municipal",
+                    "account_balance",
+                    false,
+                    "HACE 2 HORAS",
+                    "OFICIAL",
+                    "feed-official",
+                    "¡Nuevos contenedores de reciclaje diferenciado en el centro histórico! Estamos instalando 50 puntos nuevos para facilitar la separación de residuos sólidos, orgánicos y plásticos.",
+                    "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=800",
+                    342,
+                    48,
+                    false
+                );
+
+                CommunityPost post2 = new CommunityPost(
+                    null,
+                    "Dra. Maria Elena",
+                    "Líder Recoleta",
+                    "https://i.pravatar.cc/150?img=47",
+                    true,
+                    "HACE 5 HORAS",
+                    "COMUNIDAD",
+                    "feed-community",
+                    "Tips de Reciclaje: Composta Casera. ¿Sabías que el 40% de nuestra basura diaria es orgánica? Aquí te dejo 3 pasos simples para empezar tu propia compostera urbana sin olores:\n1. Usa un balde con tapa y pequeños orificios laterales.\n2. Alterna capas 'verdes' (restos de verdura) con 'marrones' (cartón seco).\n3. Revuelve una vez por semana para airear.",
+                    null,
+                    1200,
+                    156,
+                    true
+                );
+
+                communityPostRepository.saveAll(List.of(post1, post2));
+                log.info("Default community posts successfully seeded!");
+            } else {
+                log.info("Community posts already present in database (count: {}). Skipping seeding.", communityPostRepository.count());
+            }
+
         } catch (Exception e) {
-            log.error("Error seeding default events: {}", e.getMessage(), e);
+            log.error("Error seeding database: {}", e.getMessage(), e);
         }
     }
 }

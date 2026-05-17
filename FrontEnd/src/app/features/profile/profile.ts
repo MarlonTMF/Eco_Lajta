@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { UserService } from '../../shared/services/user';
 
 @Component({
   selector: 'app-profile',
@@ -9,8 +10,10 @@ import { RouterModule } from '@angular/router';
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
-export class ProfileComponent {
-  // Mock data matching Mateo Velasco profile from second screenshot
+export class ProfileComponent implements OnInit {
+  private userService = inject(UserService);
+
+  // Mock data as initial state / robust fallback
   profile = {
     name: 'Mateo Velasco',
     role: 'GUARDIÁN DEL VALLE',
@@ -68,7 +71,25 @@ export class ProfileComponent {
     }
   ];
 
+  ngOnInit(): void {
+    this.userService.getMe().subscribe({
+      next: (user) => {
+        if (user) {
+          this.profile.name = user.fullName;
+          this.profile.avatarUrl = user.photoUrl || 'https://i.pravatar.cc/150?img=11';
+          this.profile.balanceDirtyPoints = user.pointsBalance;
+          if (user.role === 'ROLE_ADMIN') {
+            this.profile.role = 'ADMINISTRADOR';
+          }
+        }
+      },
+      error: (err) => {
+        console.warn('Error loading dynamic user profile, using mock fallback:', err);
+      }
+    });
+  }
+
   downloadCertificate(): void {
-    alert('Descargando Certificado Verde de Mateo Velasco en formato PDF...');
+    alert('Descargando Certificado Verde en formato PDF...');
   }
 }

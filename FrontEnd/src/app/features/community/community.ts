@@ -1,6 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { CommunityService, FeedItem } from '../../shared/services/community.service';
+import { UserService, UserMe } from '../../shared/services/user';
 
 interface ReportedPlace {
   id: string;
@@ -19,22 +21,6 @@ interface OtbLeader {
   isTrendingUp: boolean;
 }
 
-interface FeedItem {
-  id: string;
-  author: string;
-  authorTitle: string;
-  avatar: string;
-  isAvatarImage: boolean;
-  timeAgo: string;
-  category: 'OFICIAL' | 'COMUNIDAD';
-  categoryClass: string;
-  content: string;
-  image?: string;
-  likes: number;
-  commentsCount: number;
-  likedByUser?: boolean;
-}
-
 @Component({
   selector: 'app-community',
   standalone: true,
@@ -42,9 +28,14 @@ interface FeedItem {
   templateUrl: './community.html',
   styleUrl: './community.css',
 })
-export class CommunityComponent {
+export class CommunityComponent implements OnInit {
+  private communityService = inject(CommunityService);
+  private userService = inject(UserService);
+
   activeSection = signal<'news' | 'ranking'>('news');
   selectedPeriod = signal<string>('month');
+
+  currentUser: UserMe | null = null;
 
   // Reported Critical Places
   reportedPlaces = signal<ReportedPlace[]>([
@@ -55,7 +46,7 @@ export class CommunityComponent {
       description: 'Gran cantidad de desechos plásticos acumulados en la acera norte desde hace 3 días.',
       status: 'Reportado',
       statusClass: 'status-reported',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBPxFlzeJeliHO2Hu9QUSrpbInHOWhFQABqu4mi1JPMHEMF0kaMvJ10VDF8RorIRk-kekqGjrdcYJ-fhzPtk2WvtMlmDVZmcBBM-6s_Ni71MHKBYALDe_aYV3frm0qhDT2NTiUVSCB1XSVA78Jixk2EzjFo7VUoDrOEmINbdmK51xnta3_GpVAPfveywI3NG4tSksvX-8I4haDbiJmWOC5E3R8QJrsAIFuR9blapz8eOTnEXwMABx5dTZZ7scR7ufyJrWTWoOb68HdC'
+      image: 'https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?w=600'
     },
     {
       id: 'report-2',
@@ -64,7 +55,7 @@ export class CommunityComponent {
       description: 'Maleza alta y bancos dañados en el sector infantil. Se requiere mantenimiento urgente.',
       status: 'En Revisión',
       statusClass: 'status-review',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBeVAiugut6VqNT0HWPZKlVL3fZ1oRJW-Zxw1b4SGAnUaXezNIjF6_2to9PDqWaewwca1J5Ui0D3BvTuwjgAACoPGcmX8fz1VrkbhK4diB98oy_UtLjyzyqj2BJbsefA0YouQjNQ_B1HKlvNNiDwqV4AAxKSOd3ZzwWhh9hgtAlhenpUjl685cDVs0mv--GDbRSTh495HtHdFlwna4CJRPjxwOGv35dB7BwKSWnTbuYS932CtoGhEX0OFY7EjovjnDupegHMA9pBEZ7'
+      image: 'https://images.unsplash.com/photo-1597430162007-41846b9c9f0c?w=600'
     }
   ]);
 
@@ -76,36 +67,7 @@ export class CommunityComponent {
   ]);
 
   // Social/Official Feed Items
-  feedItems = signal<FeedItem[]>([
-    {
-      id: 'feed-1',
-      author: 'Alcaldía de Cochabamba',
-      authorTitle: 'Gobierno Autónomo Municipal',
-      avatar: 'account_balance',
-      isAvatarImage: false,
-      timeAgo: 'HACE 2 HORAS',
-      category: 'OFICIAL',
-      categoryClass: 'feed-official',
-      content: '¡Nuevos contenedores de reciclaje diferenciado en el centro histórico! Estamos instalando 50 puntos nuevos para facilitar la separación de residuos sólidos, orgánicos y plásticos.',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBPxFlzeJeliHO2Hu9QUSrpbInHOWhFQABqu4mi1JPMHEMF0kaMvJ10VDF8RorIRk-kekqGjrdcYJ-fhzPtk2WvtMlmDVZmcBBM-6s_Ni71MHKBYALDe_aYV3frm0qhDT2NTiUVSCB1XSVA78Jixk2EzjFo7VUoDrOEmINbdmK51xnta3_GpVAPfveywI3NG4tSksvX-8I4haDbiJmWOC5E3R8QJrsAIFuR9blapz8eOTnEXwMABx5dTZZ7scR7ufyJrWTWoOb68HdC',
-      likes: 342,
-      commentsCount: 48
-    },
-    {
-      id: 'feed-2',
-      author: 'Dra. Maria Elena',
-      authorTitle: 'Líder Recoleta',
-      avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAbDPpuCd_9BUls4tM9pcvlTOrE35jq28uMG9tlQLnty0lQob9mu8HB7nW2GkK2rxfz8bJVBI7tdz39ok3k5QZUokqSjo_7na6Hlj4n7TkFkjoBbR1meBB0LjcicTdtUe3L5zv1jhyuQHRCUw0HdB0ICyG56qo2nA0ver0lvswLOVuhhLkLn2TeYc4pQJgXS5iFsq8gfQ4f-wLUsWaOhlQOEqnkdBE_xmjWWSn5UQ7eEg2LVDdydykHHNMA-jOma12ZzSxKRe1_r2jS',
-      isAvatarImage: true,
-      timeAgo: 'HACE 5 HORAS',
-      category: 'COMUNIDAD',
-      categoryClass: 'feed-community',
-      content: 'Tips de Reciclaje: Composta Casera. ¿Sabías que el 40% de nuestra basura diaria es orgánica? Aquí te dejo 3 pasos simples para empezar tu propia compostera urbana sin olores:\n1. Usa un balde con tapa y pequeños orificios laterales.\n2. Alterna capas "verdes" (restos de verdura) con "marrones" (cartón seco).\n3. Revuelve una vez por semana para airear.',
-      likes: 1200,
-      commentsCount: 156,
-      likedByUser: true
-    }
-  ]);
+  feedItems = signal<FeedItem[]>([]);
 
   podium = [
     {
@@ -177,6 +139,32 @@ export class CommunityComponent {
     }
   ];
 
+  ngOnInit(): void {
+    this.loadFeed();
+
+    this.userService.getMe().subscribe({
+      next: (user) => {
+        if (user) {
+          this.currentUser = user;
+        }
+      },
+      error: (err) => {
+        console.warn('Could not load logged-in user profile:', err);
+      }
+    });
+  }
+
+  loadFeed(): void {
+    this.communityService.getAll().subscribe({
+      next: (data) => {
+        this.feedItems.set(data);
+      },
+      error: (err) => {
+        console.error('Error loading community feed:', err);
+      }
+    });
+  }
+
   setSection(section: 'news' | 'ranking'): void {
     this.activeSection.set(section);
   }
@@ -186,26 +174,44 @@ export class CommunityComponent {
   }
 
   likePost(item: FeedItem): void {
-    if (item.likedByUser) {
-      item.likes--;
-      item.likedByUser = false;
-    } else {
-      item.likes++;
-      item.likedByUser = true;
+    const isLiked = !item.likedByUser;
+    const numericId = parseInt(item.id, 10);
+    if (isNaN(numericId)) {
+      // Local/mock post fallback
+      if (item.likedByUser) {
+        item.likes--;
+        item.likedByUser = false;
+      } else {
+        item.likes++;
+        item.likedByUser = true;
+      }
+      return;
     }
+
+    this.communityService.likePost(numericId, isLiked).subscribe({
+      next: (updatedPost) => {
+        this.feedItems.update(items =>
+          items.map(p => p.id === item.id ? { ...p, likes: updatedPost.likes, likedByUser: updatedPost.likedByUser } : p)
+        );
+      },
+      error: (err) => {
+        console.error('Error liking post:', err);
+      }
+    });
   }
 
   createPost(): void {
     const text = prompt('¿Qué está ocurriendo en tu OTB de Cochabamba? Escribe tu reporte ecológico:');
     if (!text) return;
 
-    const newItem: FeedItem = {
-      id: `feed-${Date.now()}`,
-      author: 'Mateo Velasco (Tú)',
-      authorTitle: 'Guardián del Valle',
-      avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAvK5VHACcfVfCv1FZrzbl5bpyT1ST9hFMJvtCHaQjdDD-ErUzFXPBa196IH-JiLE0j-bBQHt4U3wv9YHCVJBgfgF8B4TQrvb44XxLEyfiM0VySvCik-HtUkhz5_Dtr3ME7opLs-ASO4mZp6bJYBaiQ7snc5EoE98nn7qJU_lvao0Uq22zisAnypzAO3A_XUZ1BMGA561jVRk91tG6t6F0Lf0HhdE7mJO0GffKD4U-3gHtg9FDcugYK7-31R_fjUxQ1kQQBUhuHF343',
+    const authorName = this.currentUser ? this.currentUser.fullName : 'Usuario Eco';
+    const authorPhoto = this.currentUser ? this.currentUser.photoUrl : 'https://i.pravatar.cc/150?img=11';
+
+    const newPostData: Partial<FeedItem> = {
+      author: authorName,
+      authorTitle: this.currentUser?.role === 'ROLE_ADMIN' ? 'Administrador OTB' : 'Guardián del Valle',
+      avatar: authorPhoto || 'https://i.pravatar.cc/150?img=11',
       isAvatarImage: true,
-      timeAgo: 'HACE UN MOMENTO',
       category: 'COMUNIDAD',
       categoryClass: 'feed-community',
       content: text,
@@ -214,8 +220,22 @@ export class CommunityComponent {
       likedByUser: true
     };
 
-    this.feedItems.update(items => [newItem, ...items]);
-    alert('¡Tu publicación ha sido compartida con la comunidad ecológica de Cochabamba!');
+    this.communityService.create(newPostData).subscribe({
+      next: (savedPost) => {
+        this.feedItems.update(items => [savedPost, ...items]);
+        alert('¡Tu publicación ha sido compartida con la comunidad ecológica de Cochabamba y guardada en la base de datos!');
+      },
+      error: (err) => {
+        console.error('Error saving post to DB:', err);
+        // Fallback local insert
+        const fallbackPost: FeedItem = {
+          ...newPostData,
+          id: `local-${Date.now()}`
+        } as FeedItem;
+        this.feedItems.update(items => [fallbackPost, ...items]);
+        alert('¡Tu publicación ha sido agregada localmente!');
+      }
+    });
   }
 
   inviteFriends(): void {
