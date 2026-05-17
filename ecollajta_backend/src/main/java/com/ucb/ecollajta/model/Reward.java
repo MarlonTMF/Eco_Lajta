@@ -31,6 +31,18 @@ public class Reward {
     @Column(name = "points_cost", nullable = false)
     private Integer pointsCost;
 
+    @Column(name = "provider", length = 100)
+    private String provider;
+
+    @Column(name = "category", length = 50)
+    private String category;
+
+    @Column(name = "image_url", length = 500)
+    private String imageUrl;
+
+    @Column(name = "icon", length = 50)
+    private String icon;
+
     @ManyToMany(mappedBy = "rewards")
     private Set<User> users = new HashSet<>();
 }

@@ -68,7 +68,8 @@ public class AuthController {
             if ("marlontomasmarzofernandez@gmail.com".equalsIgnoreCase(email) || "christian.ledezma@ucb.edu.bo".equalsIgnoreCase(email)) {
                 if (user.getRole() != com.ucb.ecollajta.model.UserRole.ROLE_ADMIN) {
                     user.setRole(com.ucb.ecollajta.model.UserRole.ROLE_ADMIN);
-                    user = userService.save(user);
+                    var saveResult = userService.save(user);
+                    if (saveResult.isSuccess()) user = saveResult.getValue();
                     log.info("Role successfully updated to ROLE_ADMIN in the database for: {}", email);
                 }
             }

@@ -70,12 +70,55 @@ export class HttpRewardRepository implements IRewardRepository {
   constructor(private http: HttpClient) {}
 
   getRewards(): Observable<RewardEntity[]> {
-    return this.http.get<RewardDto[]>(`${BASE_URL}/rewards`).pipe(
-      map(dtos => dtos.map(mapDtoToReward)),
+    return this.http.get<{success: boolean, value: any[]}>(`${BASE_URL}/rewards`).pipe(
+      map(res => {
+        if (!res.success || !res.value) return [];
+        return res.value.map(item => this.mapBackendToEntity(item));
+      }),
       catchError(() => {
         console.warn('[RewardRepository] Backend not reachable — using mock data');
         return of(MOCK_REWARDS.map(mapDtoToReward));
       })
+    );
+  }
+
+  createReward(data: any): Observable<RewardEntity> {
+    return this.http.post<{success: boolean, value: any}>(`${BASE_URL}/rewards`, data).pipe(
+      map(res => {
+        if (!res.success || !res.value) throw new Error('Failed to create reward');
+        return this.mapBackendToEntity(res.value);
+      })
+    );
+  }
+
+  updateReward(id: string, data: any): Observable<RewardEntity> {
+    return this.http.put<{success: boolean, value: any}>(`${BASE_URL}/rewards/${id}`, data).pipe(
+      map(res => {
+        if (!res.success || !res.value) throw new Error('Failed to update reward');
+        return this.mapBackendToEntity(res.value);
+      })
+    );
+  }
+
+  deleteReward(id: string): Observable<void> {
+    return this.http.delete<{success: boolean, value: any}>(`${BASE_URL}/rewards/${id}`).pipe(
+      map(res => {
+        if (!res.success) throw new Error('Failed to delete reward');
+      })
+    );
+  }
+
+  private mapBackendToEntity(item: any): RewardEntity {
+    return new RewardEntity(
+      item.id ? item.id.toString() : ('reward-' + Date.now()),
+      item.name || 'Untitled',
+      item.description || '',
+      item.pointsCost || 0,
+      item.imageUrl || 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=400',
+      item.icon || 'eco',
+      item.category || 'Otro',
+      item.provider || '',
+      item.stock ? item.stock > 0 : true
     );
   }
 
