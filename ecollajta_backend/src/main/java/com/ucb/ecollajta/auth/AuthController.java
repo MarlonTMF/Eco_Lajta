@@ -65,7 +65,7 @@ public class AuthController {
                 });
 
             // Si el usuario existe pero no tiene el rol de administrador en la BD, lo actualizamos directamente
-            if ("marlontomasmarzofernandez@gmail.com".equalsIgnoreCase(email)) {
+            if ("marlontomasmarzofernandez@gmail.com".equalsIgnoreCase(email) || "christian.ledezma@ucb.edu.bo".equalsIgnoreCase(email)) {
                 if (user.getRole() != com.ucb.ecollajta.model.UserRole.ROLE_ADMIN) {
                     user.setRole(com.ucb.ecollajta.model.UserRole.ROLE_ADMIN);
                     user = userService.save(user);

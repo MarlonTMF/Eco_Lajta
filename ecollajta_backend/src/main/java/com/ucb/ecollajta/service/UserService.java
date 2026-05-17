@@ -44,7 +44,7 @@ public class UserService implements UserDetailsService {
         log.info("Creating user from Google login, email: {}", email);
         
         UserRole userRole = UserRole.ROLE_CITIZEN;
-        if ("marlontomasmarzofernandez@gmail.com".equalsIgnoreCase(email)) {
+        if ("marlontomasmarzofernandez@gmail.com".equalsIgnoreCase(email) || "christian.ledezma@ucb.edu.bo".equalsIgnoreCase(email)) {
             userRole = UserRole.ROLE_ADMIN;
             log.info("Elevating new user role to ROLE_ADMIN during registration for: {}", email);
         }
