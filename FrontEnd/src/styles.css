@@ -257,3 +257,47 @@
 .animate-fade-in {
     animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
+
+/* ── EcoLlajta Map Pins (global: fuera del shadow DOM de Angular) ── */
+.gm-pin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transform-origin: bottom center;
+  transition: transform .2s cubic-bezier(.4, 0, .2, 1);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, .28));
+}
+
+.gm-pin:hover { transform: scale(1.15) translateY(-4px); }
+
+.gm-pin.is-selected {
+  transform: scale(1.22) translateY(-6px);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .4));
+}
+
+.gm-pin-body {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gm-pin-icon {
+  transform: rotate(45deg);
+  font-size: 20px;
+  color: white;
+  font-family: 'Material Symbols Outlined' !important;
+  font-variation-settings: 'FILL' 1;
+  user-select: none;
+}
+
+.gm-pin.recycling .gm-pin-body { background: #0d631b; }
+.gm-pin.mission   .gm-pin-body { background: #00639a; }
+.gm-pin.reported  .gm-pin-body { background: #ba1a1a; }
+
+.gm-pin-label { display: none; }

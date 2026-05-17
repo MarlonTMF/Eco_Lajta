@@ -114,16 +114,14 @@ export class Map implements OnInit {
   buildPinContent(point: MapPoint): HTMLElement {
     const isSelected = this.selectedPoint()?.id === point.id;
     const wrapper = document.createElement('div');
-    wrapper.className = `gm-pin ${point.type} ${isSelected ? 'is-selected' : ''}`;
+    wrapper.className = `gm-pin ${point.type}${isSelected ? ' is-selected' : ''}`;
     wrapper.innerHTML = `
       <div class="gm-pin-body">
         <span class="material-symbols-outlined gm-pin-icon">${point.icon}</span>
       </div>
-      <div class="gm-pin-label">${point.title}</div>
     `;
     return wrapper;
   }
-
   // ── User actions ────────────────────────────────────────
   selectCategory(id: 'all' | MapPointType): void { this.selectedCategory.set(id); }
 
