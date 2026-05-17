@@ -1,16 +1,10 @@
 <div class="map-view-wrapper">
   
-  <!-- Satellite Map Background -->
-  <div class="map-background">
-    <img 
-      src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM9ow0uavbuqqbxuL_M5EzhebdD8ficww_ml8hyvc8l1UsCLfSCwZDHAW6IqkAK4fFeiq69oUPv1R9MgWSwneSpWEG-nMeyQIm6dfV-xYRW9SAR0PQDrFlVcloij9tfQTPxomVn05e91NdRiyduPl7fRr719p9pbIixxTabaq6wpb7Nx1o0v9l4wZeAQkIMLv07aCRLq08YOnRgj2Ceaq9HKDfQnoRQaYUEbVJ64mUWX5fk9wU3BeOqkZW13x2D7ZoexSZtPiQaNB9" 
-      alt="Satellite Map of Cochabamba" 
-      class="map-img" 
-    />
-  </div>
+  <!-- Real Leaflet Map Container -->
+  <div id="map" class="real-map-container" style="width: 100%; height: 100%; z-index: 1; border-radius: 24px; overflow: hidden;"></div>
 
   <!-- Category Filters Overlay (Pills) -->
-  <div class="map-filters-overlay">
+  <div class="map-filters-overlay" style="z-index: 10;">
     <button 
       *ngFor="let cat of categories"
       class="btn-filter-pill" 
@@ -22,26 +16,11 @@
     </button>
   </div>
 
-  <!-- Dynamic Floating Markers on Map -->
-  <div 
-    *ngFor="let point of filteredPoints()"
-    class="map-marker-container"
-    [style.top]="point.topPercent" 
-    [style.left]="point.leftPercent"
-    (click)="selectPoint(point)"
-    [class.active-selected]="selectedPoint()?.id === point.id"
-  >
-    <div class="marker-pin" [class]="point.markerBorderClass">
-      <span class="material-symbols-outlined icon-inside" [class]="point.markerIconClass">{{ point.icon }}</span>
-    </div>
-    <div class="marker-label">{{ point.title }}</div>
-  </div>
-
   <!-- Zoom Controls -->
-  <div class="zoom-controls">
-    <button class="zoom-btn btn-top"><span class="material-symbols-outlined">add</span></button>
-    <button class="zoom-btn btn-bottom"><span class="material-symbols-outlined">remove</span></button>
-    <button class="zoom-btn btn-nav"><span class="material-symbols-outlined">near_me</span></button>
+  <div class="zoom-controls" style="z-index: 10;">
+    <button class="zoom-btn btn-top" (click)="zoomIn()"><span class="material-symbols-outlined">add</span></button>
+    <button class="zoom-btn btn-bottom" (click)="zoomOut()"><span class="material-symbols-outlined">remove</span></button>
+    <button class="zoom-btn btn-nav" (click)="centerOnPoint()"><span class="material-symbols-outlined">near_me</span></button>
   </div>
 
   <!-- Point Detail Drawer (Right Sidebar Panel) -->

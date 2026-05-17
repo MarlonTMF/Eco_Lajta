@@ -618,3 +618,89 @@
     width: 100%;
   }
 }
+
+/* Custom Leaflet Marker Pins styling */
+.custom-leaflet-marker-container {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.custom-leaflet-pin {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-leaflet-pin .marker-pin {
+  width: 44px;
+  height: 44px;
+  background: white;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border: 3px solid var(--primary, #0d631b);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.custom-leaflet-pin .icon-inside {
+  transform: rotate(45deg);
+  font-size: 22px;
+  font-family: 'Material Symbols Outlined' !important;
+  display: block;
+}
+
+/* Category Marker Colors */
+.custom-leaflet-pin.recycling .marker-pin {
+  border-color: #0d631b !important;
+  color: #0d631b;
+}
+
+.custom-leaflet-pin.mission .marker-pin {
+  border-color: #00639a !important;
+  color: #00639a;
+}
+
+.custom-leaflet-pin.reported .marker-pin {
+  border-color: #ba1a1a !important;
+  color: #ba1a1a;
+}
+
+/* Marker Labels styled beautifully */
+.custom-leaflet-pin .marker-label {
+  position: absolute;
+  top: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  color: #1f2937;
+  pointer-events: none;
+  opacity: 0.95;
+  transition: all 0.2s ease;
+}
+
+/* Hover and Selected active states */
+.custom-leaflet-pin:hover .marker-pin {
+  transform: rotate(-45deg) scale(1.12);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  z-index: 999;
+}
+
+.custom-leaflet-pin.active-selected .marker-pin {
+  transform: rotate(-45deg) scale(1.18);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  border-width: 4px;
+  z-index: 1000;
+}
