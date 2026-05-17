@@ -14,10 +14,10 @@ export class Map {
   selectedCategory = signal<string>('all');
 
   categories = [
-    { id: 'all', label: 'All', icon: 'layout_grid' },
+    { id: 'all', label: 'Todos', icon: 'layout_grid' },
     { id: 'pet', label: 'PET', color: '#51b2fe' },
-    { id: 'glass', label: 'Glass', color: '#707a6c' },
-    { id: 'organic', label: 'Organic', color: '#0d631b' }
+    { id: 'glass', label: 'Vidrio', color: '#707a6c' },
+    { id: 'organic', label: 'Orgánico', color: '#0d631b' }
   ];
 
   toggleDrawer(): void {

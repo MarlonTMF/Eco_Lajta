@@ -11,6 +11,6 @@ export class DirtyPointsPipe implements PipeTransform {
     if (isNaN(num)) return value.toString();
     
     const formatted = num.toLocaleString('es-BO');
-    return showLabel ? `${formatted} Dirty Points` : formatted;
+    return showLabel ? `${formatted} Puntos Sucios` : formatted;
   }
 }

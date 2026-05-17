@@ -3,7 +3,7 @@
   <div class="detail-topbar">
     <a routerLink="/admin/missions" class="back-btn">
       <span class="material-symbols-outlined">arrow_back</span>
-      Back to Missions
+      Volver a Misiones
     </a>
     <div class="topbar-actions">
       <button class="icon-btn"><span class="material-symbols-outlined">notifications</span></button>
@@ -42,22 +42,22 @@
           <div class="kpi-row">
             <div class="kpi-card">
               <span class="material-symbols-outlined kpi-icon">payments</span>
-              <p class="kpi-label">Reward Pool</p>
+              <p class="kpi-label">Fondo de Recompensas</p>
               <p class="kpi-val">{{ m.rewardPoolDirtyPoints | dirtyPoints }}</p>
             </div>
             <div class="kpi-card">
               <span class="material-symbols-outlined kpi-icon">group</span>
-              <p class="kpi-label">Slots Filled</p>
+              <p class="kpi-label">Cupos Llenos</p>
               <p class="kpi-val">{{ m.slotsFilled }} / {{ m.slotsTotal }}</p>
             </div>
             <div class="kpi-card">
               <span class="material-symbols-outlined kpi-icon">qr_code_scanner</span>
-              <p class="kpi-label">QR Scans</p>
+              <p class="kpi-label">Escaneos QR</p>
               <p class="kpi-val">{{ m.qrScans }}</p>
             </div>
             <div class="kpi-card">
               <span class="material-symbols-outlined kpi-icon">trending_up</span>
-              <p class="kpi-label">Engagement</p>
+              <p class="kpi-label">Participación</p>
               <p class="kpi-val" [style.color]="m.engagementColor">{{ m.engagement }}</p>
             </div>
           </div>
@@ -65,7 +65,7 @@
           <!-- SLOT FILL PROGRESS -->
           <div class="progress-section">
             <div class="progress-header">
-              <span class="meta-label">SLOT FILL RATE</span>
+              <span class="meta-label">TASA DE OCUPACIÓN</span>
               <span class="meta-val">{{ m.slotFillPercent }}%</span>
             </div>
             <app-progress-bar [percent]="m.slotFillPercent" [color]="m.slotBarColor" height="12px" />
@@ -75,11 +75,11 @@
           <div class="action-row">
             <button class="btn-primary">
               <span class="material-symbols-outlined">edit</span>
-              Edit Mission
+              Editar Misión
             </button>
             <button class="btn-outline-danger">
               <span class="material-symbols-outlined">pause_circle</span>
-              Pause Mission
+              Pausar Misión
             </button>
           </div>
         </div>
@@ -88,36 +88,36 @@
       <!-- SIDE PANEL: PARTICIPANT LOG / QR ACTIVITY -->
       <div class="detail-side">
         <div class="side-card">
-          <h3 class="side-title">Recent QR Activity</h3>
+          <h3 class="side-title">Actividad QR Reciente</h3>
           <div class="activity-list">
             @for (scan of [1,2,3,4,5]; track scan) {
               <div class="scan-row">
                 <div class="scan-avatar">{{ scan }}</div>
                 <div class="scan-info">
-                  <span class="scan-name">Volunteer #{{ 1000 + scan }}</span>
+                  <span class="scan-name">Voluntario #{{ 1000 + scan }}</span>
                   <span class="scan-time text-muted">hace {{ scan * 12 }} min</span>
                 </div>
-                <span class="scan-points text-primary">+15 DP</span>
+                <span class="scan-points text-primary">+15 PS</span>
               </div>
             }
           </div>
         </div>
 
         <div class="side-card">
-          <h3 class="side-title">Mission Timeline</h3>
+          <h3 class="side-title">Línea de Tiempo</h3>
           <div class="timeline">
             <div class="tl-item active">
               <div class="tl-dot"></div>
               <div>
-                <p class="tl-label">Mission Created</p>
+                <p class="tl-label">Misión Creada</p>
                 <p class="tl-date text-muted">{{ m.createdAt }}</p>
               </div>
             </div>
             <div class="tl-item">
               <div class="tl-dot inactive"></div>
               <div>
-                <p class="tl-label">Target Completion</p>
-                <p class="tl-date text-muted">TBD</p>
+                <p class="tl-label">Finalización Objetivo</p>
+                <p class="tl-date text-muted">Por definir</p>
               </div>
             </div>
           </div>

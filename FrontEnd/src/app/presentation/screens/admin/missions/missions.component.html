@@ -3,13 +3,13 @@
 
   <!-- PAGE TOPBAR -->
   <header class="page-topbar">
-    <h2 class="page-title">Community Missions</h2>
+    <h2 class="page-title">Misiones Comunitarias</h2>
     <div class="topbar-actions">
       <div class="search-pill">
         <span class="material-symbols-outlined">search</span>
         <input
           type="text"
-          placeholder="Search missions..."
+          placeholder="Buscar misiones..."
           [value]="searchTerm()"
           (input)="searchTerm.set($any($event.target).value)"
         />
@@ -30,23 +30,23 @@
     <!-- STATS ROW -->
     <section class="stats-row">
       <div class="stat-card">
-        <p class="stat-label">Total Rewards Distributed</p>
+        <p class="stat-label">Total Recompensas Entregadas</p>
         <h3 class="stat-value text-secondary">{{ page.totalDirtyPointsDistributed | dirtyPoints }}</h3>
         <p class="stat-trend">
           <span class="material-symbols-outlined trend-icon">trending_up</span>
-          +12% from last month
+          +12% vs mes pasado
         </p>
       </div>
       <div class="stat-card">
-        <p class="stat-label">Active Missions</p>
-        <h3 class="stat-value text-primary">{{ page.activeMissionsCount }} Live</h3>
+        <p class="stat-label">Misiones Activas</p>
+        <h3 class="stat-value text-primary">{{ page.activeMissionsCount }} En curso</h3>
         <p class="stat-sub">
           <span class="material-symbols-outlined">group</span>
-          {{ page.activeVolunteers.toLocaleString() }} Volunteers active
+          {{ page.activeVolunteers.toLocaleString() }} Voluntarios
         </p>
       </div>
       <div class="stat-card">
-        <p class="stat-label">QR Verification Rate</p>
+        <p class="stat-label">Tasa de Escaneo QR</p>
         <h3 class="stat-value text-on-surface">{{ page.qrVerificationRate }}%</h3>
         <div class="qr-bar">
           <div class="qr-fill" [style.width.%]="page.qrVerificationRate"></div>
@@ -61,10 +61,10 @@
       <!-- LEFT: MISSION LIST -->
       <div class="mission-col">
         <div class="section-header">
-          <h3 class="section-title">Mission Management</h3>
+          <h3 class="section-title">Gestión de Misiones</h3>
           <button class="btn-create" (click)="openModal()">
             <span class="material-symbols-outlined">add</span>
-            Create New Mission
+            Crear Nueva Misión
           </button>
         </div>
 
@@ -81,22 +81,22 @@
                 <div class="mission-header-row">
                   <h4 class="mission-title">{{ mission.title }}</h4>
                   <span class="reward-pool" [style.color]="'var(--primary)'">
-                    {{ mission.rewardPoolDirtyPoints | dirtyPoints }} Pool
+                    Fondo: {{ mission.rewardPoolDirtyPoints | dirtyPoints }}
                   </span>
                 </div>
                 <p class="mission-desc">{{ mission.description }}</p>
                 <div class="mission-meta">
                   <div class="meta-item">
-                    <span class="meta-label">SLOTS FILLED</span>
+                    <span class="meta-label">CUPOS</span>
                     <span class="meta-val">{{ mission.slotsFilled }} / {{ mission.slotsTotal }}</span>
                   </div>
                   <div class="meta-item">
-                    <span class="meta-label">QR SCANS</span>
+                    <span class="meta-label">ESCANEO QR</span>
                     <span class="meta-val">{{ mission.qrScans }}</span>
                   </div>
                 </div>
                 <div class="engagement-row">
-                  <span class="meta-label">ENGAGEMENT</span>
+                  <span class="meta-label">PARTICIPACIÓN</span>
                   <span class="engagement-val" [style.color]="mission.engagementColor">
                     {{ mission.engagement }}
                   </span>
@@ -110,7 +110,7 @@
       <!-- RIGHT: OTB RANKINGS -->
       <div class="otb-col">
         <div class="section-header">
-          <h3 class="section-title">OTB Rankings</h3>
+          <h3 class="section-title">Ranking OTBs</h3>
           <span class="material-symbols-outlined text-muted">military_tech</span>
         </div>
 
@@ -120,17 +120,17 @@
               <div class="otb-rank">{{ otb.rank }}</div>
               <div class="otb-info">
                 <span class="otb-name">{{ otb.name }}</span>
-                <span class="otb-members">{{ otb.members }} members</span>
+                <span class="otb-members">{{ otb.members }} miembros</span>
               </div>
               <div class="otb-stats">
-                <span class="otb-points text-primary">{{ otb.dirtyPointsDistributed | dirtyPoints:false }}k DP</span>
-                <span class="otb-eff text-muted">{{ otb.efficiencyPercent }}% Eff.</span>
+                <span class="otb-points text-primary">{{ otb.dirtyPointsDistributed | dirtyPoints:false }}k PS</span>
+                <span class="otb-eff text-muted">{{ otb.efficiencyPercent }}% Efic.</span>
               </div>
             </div>
           }
         </div>
 
-        <button class="btn-outline mt-4">View Detailed OTB Reports</button>
+        <button class="btn-outline mt-4">Ver Reportes OTB</button>
       </div>
 
     </div>
@@ -143,43 +143,43 @@
   <div class="modal-overlay" (click)="closeModal()">
     <div class="modal-card" (click)="$event.stopPropagation()">
       <div class="modal-header">
-        <h3>Create New Mission</h3>
+        <h3>Crear Misión</h3>
         <button class="icon-btn" (click)="closeModal()">
           <span class="material-symbols-outlined">close</span>
         </button>
       </div>
 
       <div class="modal-body">
-        <label class="field-label">Mission Title</label>
-        <input class="field-input" type="text" placeholder="Mission name..."
+        <label class="field-label">Título</label>
+        <input class="field-input" type="text" placeholder="Nombre..."
           [value]="formTitle()"
           (input)="formTitle.set($any($event.target).value)" />
 
-        <label class="field-label">Reward Pool (Dirty Points)</label>
-        <input class="field-input" type="number" placeholder="e.g. 5000"
+        <label class="field-label">Fondo (Puntos Sucios)</label>
+        <input class="field-input" type="number" placeholder="ej. 5000"
           [value]="formPool()"
           (input)="formPool.set(+$any($event.target).value)" />
 
-        <label class="field-label">Required Slots</label>
-        <input class="field-input" type="number" placeholder="e.g. 100"
+        <label class="field-label">Cupos Requeridos</label>
+        <input class="field-input" type="number" placeholder="ej. 100"
           [value]="formSlots()"
           (input)="formSlots.set(+$any($event.target).value)" />
 
-        <label class="field-label">District</label>
-        <input class="field-input" type="text" placeholder="e.g. Distrito 4"
+        <label class="field-label">Distrito</label>
+        <input class="field-input" type="text" placeholder="ej. Distrito 4"
           [value]="formDistrict()"
           (input)="formDistrict.set($any($event.target).value)" />
 
-        <label class="field-label">Mission Description</label>
-        <textarea class="field-input" rows="3" placeholder="Describe the mission..."
+        <label class="field-label">Descripción</label>
+        <textarea class="field-input" rows="3" placeholder="Descripción de la misión..."
           [value]="formDescription()"
           (input)="formDescription.set($any($event.target).value)"></textarea>
       </div>
 
       <div class="modal-footer">
-        <button class="btn-outline" (click)="closeModal()">Cancel</button>
+        <button class="btn-outline" (click)="closeModal()">Cancelar</button>
         <button class="btn-primary" (click)="launchMission()" [disabled]="submitting()">
-          @if (submitting()) { Launching... } @else { Launch Mission }
+          @if (submitting()) { Lanzando... } @else { Lanzar Misión }
         </button>
       </div>
     </div>

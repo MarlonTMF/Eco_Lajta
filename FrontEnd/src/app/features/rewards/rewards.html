@@ -10,7 +10,7 @@
         <p class="balance-tag">SALDO TOTAL DE PUNTOS</p>
         <h2 class="balance-amount">
           {{ userBalance() | number }} 
-          <span class="balance-unit">DP</span>
+          <span class="balance-unit">PS</span>
         </h2>
       </div>
 
@@ -33,7 +33,7 @@
       </div>
       <div class="hero-level-info">
         <h3 class="hero-level-title">Nivel Eco-Héroe</h3>
-        <p class="hero-level-subtitle">¡Estás a solo 250 DP del siguiente rango!</p>
+        <p class="hero-level-subtitle">¡Estás a solo 250 PS del siguiente rango!</p>
       </div>
       <div class="gauge-container">
         <div class="gauge-bar" [style.width.%]="ecoHeroProgress()"></div>
@@ -59,7 +59,7 @@
           <div class="reward-image-container">
             <img [src]="reward.image" [alt]="reward.title" class="reward-img" />
             <div class="reward-cost-badge">
-              {{ reward.cost }} DP
+              {{ reward.cost }} PS
             </div>
           </div>
           <div class="reward-info">
@@ -120,7 +120,7 @@
                 </td>
                 <td class="tx-date-cell">{{ tx.date }}</td>
                 <td class="tx-amount-cell text-right" [class.text-primary]="tx.isPositive" [class.text-error]="!tx.isPositive">
-                  {{ tx.isPositive ? '+' : '-' }}{{ tx.amount }} DP
+                  {{ tx.isPositive ? '+' : '-' }}{{ tx.amount }} PS
                 </td>
               </tr>
             }
