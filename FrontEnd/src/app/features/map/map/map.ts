@@ -55,10 +55,7 @@ export class Map implements OnInit {
     mapId: 'ECOLLAJTA_MAP',
     disableDefaultUI: true,
     clickableIcons: false,
-    gestureHandling: 'greedy',
-    styles: [
-      { featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'off' }] }
-    ]
+    gestureHandling: 'greedy'
   };
 
   constructor() {
