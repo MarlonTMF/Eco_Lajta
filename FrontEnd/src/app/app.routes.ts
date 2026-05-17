@@ -16,6 +16,7 @@ import { CommunityComponent }   from './features/community/community';
 import { RewardsComponent }     from './features/rewards/rewards';
 import { RedeemConfirmComponent } from './features/rewards/redeem-confirm/redeem-confirm';
 import { RedeemTicketComponent }  from './features/rewards/redeem-ticket/redeem-ticket';
+import { authGuard } from './shared/guards/auth.guard';
 
 import { adminAuthGuard }      from './presentation/guards/admin-auth.guard';
 import { AdminLayoutComponent } from './presentation/layout/admin-layout/admin-layout.component';
@@ -24,22 +25,22 @@ export const routes: Routes = [
   { path: '', redirectTo: 'onboarding', pathMatch: 'full' },
   { path: 'onboarding', component: Onboarding },
   { path: 'login', component: Login },
-  { path: 'dashboard', component: Dashboard },
-  { path: 'my-recycling', component: MyRecycling },
-  { path: 'register-bag', component: RegisterBag },
-  { path: 'pickup-confirmation', component: PickupConfirmation },
-  { path: 'report-step-1', component: ReportStep1 },
-  { path: 'report-step-2', component: ReportStep2 },
-  { path: 'report', redirectTo: 'report-step-2' },
-  { path: 'map', component: Map },
-  { path: 'projects', component: ExploreMissions },
-  { path: 'mission-detail', component: MissionDetail },
-  { path: 'participation-success', component: ParticipationSuccess },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'community', component: CommunityComponent },
-  { path: 'rewards', component: RewardsComponent },
-  { path: 'rewards/confirm/:id', component: RedeemConfirmComponent },
-  { path: 'rewards/ticket/:id', component: RedeemTicketComponent },
+  { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
+  { path: 'my-recycling', component: MyRecycling, canActivate: [authGuard] },
+  { path: 'register-bag', component: RegisterBag, canActivate: [authGuard] },
+  { path: 'pickup-confirmation', component: PickupConfirmation, canActivate: [authGuard] },
+  { path: 'report-step-1', component: ReportStep1, canActivate: [authGuard] },
+  { path: 'report-step-2', component: ReportStep2, canActivate: [authGuard] },
+  { path: 'report', redirectTo: 'report-step-2'},
+  { path: 'map', component: Map, canActivate: [authGuard] },
+  { path: 'projects', component: ExploreMissions, canActivate: [authGuard] },
+  { path: 'mission-detail', component: MissionDetail, canActivate: [authGuard] },
+  { path: 'participation-success', component: ParticipationSuccess, canActivate: [authGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
+  { path: 'community', component: CommunityComponent, canActivate: [authGuard] },
+  { path: 'rewards', component: RewardsComponent, canActivate: [authGuard] },
+  { path: 'rewards/confirm/:id', component: RedeemConfirmComponent, canActivate: [authGuard] },
+  { path: 'rewards/ticket/:id', component: RedeemTicketComponent, canActivate: [authGuard] },
   {
     path: 'admin',
     component: AdminLayoutComponent,
