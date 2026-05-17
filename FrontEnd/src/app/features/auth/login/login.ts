@@ -18,6 +18,19 @@ export class Login implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (typeof google !== 'undefined') {
+      this.initGoogleSignIn();
+    } else {
+      const interval = setInterval(() => {
+        if (typeof google !== 'undefined') {
+          this.initGoogleSignIn();
+          clearInterval(interval);
+        }
+      }, 100);
+    }
+  }
+
+  private initGoogleSignIn(): void {
     google.accounts.id.initialize({
       client_id: '437570902163-ffqiv27cft6udu4l6k4i407vfhjh71io.apps.googleusercontent.com',
       callback: (response: any) => this.handleCredentialResponse(response)
@@ -25,7 +38,11 @@ export class Login implements OnInit {
   }
 
   loginWithGoogle(): void {
-    google.accounts.id.prompt();
+    if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+      google.accounts.id.prompt();
+    } else {
+      alert('El servicio de inicio de sesión de Google se está cargando. Por favor, intenta de nuevo en un segundo.');
+    }
   }
 
   handleCredentialResponse(response: any): void {
