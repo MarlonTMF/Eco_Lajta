@@ -1,115 +1,106 @@
 <div class="rewards-wrapper animate-fade-in">
 
-  <!-- ── LOADING STATE ───────────────────────────────────────── -->
-  <div *ngIf="isLoading()" style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 80px 0; gap: 20px;">
-    <div style="width:48px; height:48px; border:4px solid rgba(13,99,27,0.15); border-top-color:var(--primary); border-radius:50%; animation: spin-google 0.8s linear infinite;"></div>
-    <p style="color: var(--text-muted); font-weight: 600;">Cargando tu billetera ecológica...</p>
+  <div *ngIf="isLoading()" role="status" aria-live="polite" style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:80px 0; gap:20px;">
+    <div aria-hidden="true" style="width:48px; height:48px; border:4px solid rgba(13,99,27,.15); border-top-color:var(--primary); border-radius:50%; animation: spin-google .8s linear infinite;"></div>
+    <p style="color: var(--text-muted); font-weight:600;">Cargando tu billetera ecológica...</p>
   </div>
 
-  <!-- ── ERROR STATE ─────────────────────────────────────────── -->
-  <div *ngIf="hasError() && !isLoading()" style="text-align:center; padding: 60px 20px;">
-    <span class="material-symbols-outlined" style="font-size:56px; color: #ef4444;">error_outline</span>
-    <h3 style="font-size:1.3rem; font-weight:700; margin: 16px 0 8px;">No se pudo cargar tu información</h3>
-    <p style="color:var(--text-muted); margin-bottom: 24px;">Verifica tu conexión y vuelve a intentarlo.</p>
-    <button (click)="loadData()" style="background:var(--primary); color:white; border:none; padding:12px 32px; border-radius:100px; font-weight:700; cursor:pointer;">
+  <div *ngIf="hasError() && !isLoading()" role="alert" style="text-align:center; padding:60px 20px;">
+    <span class="material-symbols-outlined" aria-hidden="true" style="font-size:56px; color:#ef4444;">error_outline</span>
+    <h3 style="font-size:1.3rem; font-weight:700; margin:16px 0 8px;">No se pudo cargar tu información</h3>
+    <p style="color:var(--text-muted); margin-bottom:24px;">Verifica tu conexión y vuelve a intentarlo.</p>
+    <button type="button" (click)="loadData()" style="background:var(--primary); color:white; border:none; padding:12px 32px; border-radius:100px; font-weight:700; cursor:pointer;">
       Reintentar
     </button>
   </div>
 
-  <!-- ── SUCCESS CONTENT ─────────────────────────────────────── -->
   <ng-container *ngIf="!isLoading()">
-
-    <!-- Bento Balance Section -->
-    <section class="bento-grid">
-      <!-- Left Balance Hero Card -->
-      <div class="balance-hero-card">
-        <div class="bento-glow-top"></div>
-        <div class="bento-glow-bottom"></div>
-        
+    <section class="bento-grid" aria-label="Resumen de billetera">
+      <article class="balance-hero-card" aria-labelledby="balance-label">
+        <div class="bento-glow-top" aria-hidden="true"></div>
+        <div class="bento-glow-bottom" aria-hidden="true"></div>
         <div class="card-top">
-          <p class="balance-tag">SALDO TOTAL DE PUNTOS</p>
+          <p class="balance-tag" id="balance-label">SALDO TOTAL DE PUNTOS</p>
           <h2 class="balance-amount">
-            {{ userBalance() | number }} 
-            <span class="balance-unit">DP</span>
+            {{ userBalance() | number }}
+            <span class="balance-unit" aria-label="Dirty Points">DP</span>
           </h2>
         </div>
-      </div>
+      </article>
 
-      <!-- Right Eco-Hero Level Card -->
-      <div class="eco-hero-card">
-        <div class="hero-icon-wrap">
+      <article class="eco-hero-card" aria-labelledby="ecohero-title">
+        <div class="hero-icon-wrap" aria-hidden="true">
           <span class="material-symbols-outlined eco-badge-icon">eco</span>
         </div>
         <div class="hero-level-info">
-          <h3 class="hero-level-title">Nivel Eco-Héroe</h3>
+          <h3 id="ecohero-title" class="hero-level-title">Nivel Eco-Héroe</h3>
           <p class="hero-level-subtitle">¡Estás a solo 250 DP del siguiente rango!</p>
         </div>
-        <div class="gauge-container">
+        <div class="gauge-container" role="progressbar"
+             [attr.aria-valuenow]="ecoHeroProgress()" aria-valuemin="0" aria-valuemax="100"
+             aria-label="Progreso al siguiente nivel">
           <div class="gauge-bar" [style.width.%]="ecoHeroProgress()"></div>
         </div>
         <span class="gauge-percentage">{{ ecoHeroProgress() }}% Completado</span>
-      </div>
+      </article>
     </section>
 
-    <!-- Redeem Rewards Section -->
-    <section class="rewards-list-section">
+    <section class="rewards-list-section" aria-labelledby="rewards-title">
       <div class="section-header">
-        <h3 class="section-title">Canjear Recompensas</h3>
-        <button class="btn-view-all">
-          Ver todo 
-          <span class="material-symbols-outlined text-sm align-middle font-bold">chevron_right</span>
+        <h3 id="rewards-title" class="section-title">Canjear Recompensas</h3>
+        <button type="button" class="btn-view-all" aria-label="Ver todas las recompensas">
+          Ver todo
+          <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
         </button>
       </div>
 
-      <!-- Empty state -->
       <div *ngIf="rewards().length === 0 && !isLoading()" style="text-align:center; padding:40px 0; color:var(--text-muted);">
-        <span class="material-symbols-outlined" style="font-size:40px; display:block; margin-bottom:12px;">inventory_2</span>
+        <span class="material-symbols-outlined" aria-hidden="true" style="font-size:40px; display:block; margin-bottom:12px;">inventory_2</span>
         No hay recompensas disponibles en este momento.
       </div>
 
       <div class="rewards-grid">
         @for (reward of rewards(); track reward.id) {
-          <div class="reward-card group">
+          <article class="reward-card">
             <div class="reward-image-container">
-              <img [src]="reward.imageUrl" [alt]="reward.title" class="reward-img" />
-              <div class="reward-cost-badge">
-                {{ reward.costDp }} DP
-              </div>
+              <img [src]="reward.imageUrl" alt="" class="reward-img" loading="lazy">
+              <div class="reward-cost-badge" aria-label="Costo: {{ reward.costDp }} Dirty Points">{{ reward.costDp }} DP</div>
             </div>
             <div class="reward-info">
               <span class="reward-category-badge">{{ reward.category }}</span>
               <h4 class="reward-title">{{ reward.title }}</h4>
               <p class="reward-desc">{{ reward.description }}</p>
-              <button 
-                class="btn-redeem" 
-                (click)="redeemReward(reward)" 
+              <button
+                type="button"
+                class="btn-redeem"
+                (click)="redeemReward(reward)"
                 [class.btn-disabled]="userBalance() < reward.costDp"
                 [disabled]="!reward.isAvailable"
-              >
-                <span class="material-symbols-outlined">{{ reward.icon }}</span>
+                [attr.aria-label]="userBalance() >= reward.costDp ? 'Canjear ' + reward.title : 'Puntos insuficientes para ' + reward.title">
+                <span class="material-symbols-outlined" aria-hidden="true">{{ reward.icon }}</span>
                 {{ userBalance() >= reward.costDp ? 'Canjear ahora' : 'Puntos insuficientes' }}
               </button>
             </div>
-          </div>
+          </article>
         }
       </div>
     </section>
 
-    <!-- Recent Transaction Activity Section -->
-    <section class="activity-section">
+    <section class="activity-section" aria-labelledby="activity-title">
       <div class="section-header">
-        <h3 class="section-title">Actividad Reciente</h3>
+        <h3 id="activity-title" class="section-title">Actividad Reciente</h3>
       </div>
 
       <div class="table-card-container">
         <div class="table-responsive">
           <table class="activity-table">
+            <caption class="sr-only">Historial de transacciones recientes</caption>
             <thead>
               <tr>
-                <th>Transacción</th>
-                <th>Categoría</th>
-                <th>Fecha</th>
-                <th class="text-right">Monto</th>
+                <th scope="col">Transacción</th>
+                <th scope="col">Categoría</th>
+                <th scope="col">Fecha</th>
+                <th scope="col" class="text-right">Monto</th>
               </tr>
             </thead>
             <tbody>
@@ -117,10 +108,8 @@
                 <tr class="table-row">
                   <td>
                     <div class="tx-cell-wrap">
-                      <div class="tx-icon-circle" [class.bg-green-soft]="tx.isPositive" [class.bg-red-soft]="!tx.isPositive">
-                        <span class="material-symbols-outlined" [class.text-primary]="tx.isPositive" [class.text-error]="!tx.isPositive">
-                          {{ tx.icon }}
-                        </span>
+                      <div class="tx-icon-circle" aria-hidden="true" [class.bg-green-soft]="tx.isPositive" [class.bg-red-soft]="!tx.isPositive">
+                        <span class="material-symbols-outlined" [class.text-primary]="tx.isPositive" [class.text-error]="!tx.isPositive">{{ tx.icon }}</span>
                       </div>
                       <div class="tx-details">
                         <p class="tx-title">{{ tx.title }}</p>
@@ -129,12 +118,10 @@
                     </div>
                   </td>
                   <td>
-                    <span 
-                      class="badge-pill" 
-                      [class.badge-green]="tx.category === 'Reciclaje'" 
-                      [class.badge-orange]="tx.category === 'Recompensa'"
-                      [class.badge-blue]="tx.category === 'Misión'"
-                    >
+                    <span class="badge-pill"
+                          [class.badge-green]="tx.category === 'Reciclaje'"
+                          [class.badge-orange]="tx.category === 'Recompensa'"
+                          [class.badge-blue]="tx.category === 'Misión'">
                       {{ tx.category }}
                     </span>
                   </td>
@@ -149,7 +136,5 @@
         </div>
       </div>
     </section>
-
   </ng-container>
-
 </div>
