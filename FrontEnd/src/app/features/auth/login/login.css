@@ -1,0 +1,241 @@
+/* Container for split layout */
+.split-layout {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #f8fafc;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Left Hero Section */
+.split-left {
+  flex: 1.2;
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.split-left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.split-left:hover img {
+  transform: scale(1.03);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(13, 99, 27, 0.85), rgba(0, 0, 0, 0.3));
+}
+
+.hero-content {
+  position: absolute;
+  bottom: 60px;
+  left: 60px;
+  right: 60px;
+  color: white;
+  z-index: 10;
+}
+
+.hero-badge {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  padding: 8px 20px;
+  border-radius: 100px;
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin-bottom: 20px;
+  line-height: 1.15;
+  letter-spacing: -1px;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  line-height: 1.6;
+  font-weight: 500;
+  max-width: 540px;
+}
+
+/* Right Login Panel */
+.split-right {
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 80px;
+  background: white;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.03);
+  z-index: 20;
+}
+
+.login-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 48px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  background: var(--primary);
+  color: white;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(13, 99, 27, 0.2);
+}
+
+.logo-icon i {
+  font-size: 24px;
+}
+
+.logo-text {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--primary);
+  letter-spacing: -1px;
+}
+
+.logo-decoration {
+  color: #cbd5e1;
+  font-size: 3rem;
+}
+
+.login-title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  margin-bottom: 12px;
+  color: #1e293b;
+  letter-spacing: -0.5px;
+}
+
+.login-subtitle {
+  margin-bottom: 40px;
+  font-size: 1.05rem;
+  color: #64748b;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* Divider styling */
+.divider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 32px;
+  position: relative;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: #f1f5f9;
+}
+
+.divider-label {
+  padding: 0 16px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #94a3b8;
+  letter-spacing: 2px;
+}
+
+/* Button Google styling */
+.btn-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px;
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 20px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+}
+
+.btn-google:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+.btn-google:active {
+  transform: translateY(0);
+}
+
+.btn-google-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Responsiveness */
+@media (max-width: 1024px) {
+  .split-layout {
+    flex-direction: column;
+    overflow-y: auto;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .split-left {
+    height: 35vh;
+    flex: none;
+  }
+
+  .split-right {
+    flex: 1;
+    padding: 40px 32px;
+    box-shadow: none;
+  }
+
+  .hero-content {
+    bottom: 32px;
+    left: 32px;
+    right: 32px;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.05rem;
+  }
+
+  .hero-badge {
+    margin-bottom: 16px;
+  }
+}
