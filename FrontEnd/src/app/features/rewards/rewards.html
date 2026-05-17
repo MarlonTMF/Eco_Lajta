@@ -1,121 +1,156 @@
 <div class="rewards-wrapper animate-fade-in">
-  <!-- Bento Balance Section -->
-  <section class="bento-grid">
-    <!-- Left Balance Hero Card -->
-    <div class="balance-hero-card">
-      <div class="bento-glow-top"></div>
-      <div class="bento-glow-bottom"></div>
-      
-      <div class="card-top">
-        <p class="balance-tag">SALDO TOTAL DE PUNTOS</p>
-        <h2 class="balance-amount">
-          {{ userBalance() | number }} 
-          <span class="balance-unit">DP</span>
-        </h2>
-      </div>
-    </div>
 
-    <!-- Right Eco-Hero Level Card -->
-    <div class="eco-hero-card">
-      <div class="hero-icon-wrap">
-        <span class="material-symbols-outlined eco-badge-icon">eco</span>
-      </div>
-      <div class="hero-level-info">
-        <h3 class="hero-level-title">Nivel Eco-Héroe</h3>
-        <p class="hero-level-subtitle">¡Estás a solo 250 DP del siguiente rango!</p>
-      </div>
-      <div class="gauge-container">
-        <div class="gauge-bar" [style.width.%]="ecoHeroProgress()"></div>
-      </div>
-      <span class="gauge-percentage">{{ ecoHeroProgress() }}% Completado</span>
+  <!-- Estado de carga -->
+  @if (isLoading()) {
+    <div class="loading-state">
+      <span class="material-symbols-outlined spin-icon">progress_activity</span>
+      <p>Cargando recompensas...</p>
     </div>
-  </section>
+  }
 
-  <!-- Redeem Rewards Section -->
-  <section class="rewards-list-section">
-    <div class="section-header">
-      <h3 class="section-title">Canjear Recompensas</h3>
-      <button class="btn-view-all">
-        Ver todo 
-        <span class="material-symbols-outlined text-sm align-middle font-bold">chevron_right</span>
-      </button>
+  <!-- Error de conexión -->
+  @if (!isLoading() && errorMsg()) {
+    <div class="error-state">
+      <span class="material-symbols-outlined">error_outline</span>
+      <p>{{ errorMsg() }}</p>
     </div>
+  }
 
-    <div class="rewards-grid">
-      <!-- Reward Cards dynamic rendering -->
-      @for (reward of rewards(); track reward.id) {
-        <div class="reward-card group">
-          <div class="reward-image-container">
-            <img [src]="reward.image" [alt]="reward.title" class="reward-img" />
-            <div class="reward-cost-badge">
-              {{ reward.cost }} DP
+  @if (!isLoading() && !errorMsg()) {
+    <!-- Bento Balance Section -->
+    <section class="bento-grid">
+      <!-- Left Balance Hero Card -->
+      <div class="balance-hero-card">
+        <div class="bento-glow-top"></div>
+        <div class="bento-glow-bottom"></div>
+
+        <div class="card-top">
+          <p class="balance-tag">SALDO TOTAL DE PUNTOS</p>
+          <h2 class="balance-amount">
+            {{ userBalance() | number }}
+            <span class="balance-unit">DP</span>
+          </h2>
+        </div>
+      </div>
+
+      <!-- Right Eco-Hero Level Card -->
+      <div class="eco-hero-card">
+        <div class="hero-icon-wrap">
+          <span class="material-symbols-outlined eco-badge-icon">eco</span>
+        </div>
+        <div class="hero-level-info">
+          <h3 class="hero-level-title">Nivel Eco-Héroe</h3>
+          <p class="hero-level-subtitle">¡Estás a solo {{ 3000 - (userBalance() % 3000) }} DP del siguiente rango!</p>
+        </div>
+        <div class="gauge-container">
+          <div class="gauge-bar" [style.width.%]="ecoHeroProgress()"></div>
+        </div>
+        <span class="gauge-percentage">{{ ecoHeroProgress() }}% Completado</span>
+      </div>
+    </section>
+
+    <!-- Redeem Rewards Section -->
+    <section class="rewards-list-section">
+      <div class="section-header">
+        <h3 class="section-title">Canjear Recompensas</h3>
+        <button class="btn-view-all">
+          Ver todo
+          <span class="material-symbols-outlined text-sm align-middle font-bold">chevron_right</span>
+        </button>
+      </div>
+
+      @if (rewards().length === 0) {
+        <p class="empty-state">No hay premios disponibles en este momento.</p>
+      }
+
+      <div class="rewards-grid">
+        @for (reward of rewards(); track reward.id) {
+          <div class="reward-card group">
+            <div class="reward-image-container">
+              <img [src]="reward.imagenUrl" [alt]="reward.nombre" class="reward-img" />
+              <div class="reward-cost-badge">{{ reward.costo }} DP</div>
+            </div>
+            <div class="reward-info">
+              <span class="reward-category-badge">{{ reward.categoria }}</span>
+              <h4 class="reward-title">{{ reward.nombre }}</h4>
+              <p class="reward-desc">{{ reward.descripcion }}</p>
+
+              <!-- Mensaje de déficit de puntos -->
+              @if (!canRedeem(reward)) {
+                <p class="deficit-msg">
+                  <span class="material-symbols-outlined deficit-icon">info</span>
+                  Te faltan {{ deficit(reward) | number }} Dirty Points
+                </p>
+              }
+
+              <button
+                class="btn-redeem"
+                [class.btn-disabled]="!canRedeem(reward)"
+                [disabled]="!canRedeem(reward)"
+                (click)="redeemReward(reward)"
+              >
+                <span class="material-symbols-outlined">redeem</span>
+                {{ canRedeem(reward) ? 'Canjear ahora' : 'Puntos insuficientes' }}
+              </button>
             </div>
           </div>
-          <div class="reward-info">
-            <span class="reward-category-badge">{{ reward.category }}</span>
-            <h4 class="reward-title">{{ reward.title }}</h4>
-            <p class="reward-desc">{{ reward.description }}</p>
-            <button class="btn-redeem" (click)="redeemReward(reward)" [class.btn-disabled]="userBalance() < reward.cost">
-              <span class="material-symbols-outlined">{{ reward.icon }}</span>
-              {{ userBalance() >= reward.cost ? 'Canjear ahora' : 'Puntos insuficientes' }}
-            </button>
-          </div>
-        </div>
-      }
-    </div>
-  </section>
-
-  <!-- Recent Transaction Activity Section -->
-  <section class="activity-section">
-    <div class="section-header">
-      <h3 class="section-title">Actividad Reciente</h3>
-    </div>
-
-    <div class="table-card-container">
-      <div class="table-responsive">
-        <table class="activity-table">
-          <thead>
-            <tr>
-              <th>Transacción</th>
-              <th>Categoría</th>
-              <th>Fecha</th>
-              <th class="text-right">Monto</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (tx of transactions(); track tx.id) {
-              <tr class="table-row">
-                <td>
-                  <div class="tx-cell-wrap">
-                    <div class="tx-icon-circle" [class.bg-green-soft]="tx.isPositive" [class.bg-red-soft]="!tx.isPositive">
-                      <span class="material-symbols-outlined" [class.text-primary]="tx.isPositive" [class.text-error]="!tx.isPositive">
-                        {{ tx.icon }}
-                      </span>
-                    </div>
-                    <div class="tx-details">
-                      <p class="tx-title">{{ tx.title }}</p>
-                      <p class="tx-subtext">{{ tx.location }}</p>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span 
-                    class="badge-pill" 
-                    [class.badge-green]="tx.category === 'Reciclaje'" 
-                    [class.badge-orange]="tx.category === 'Recompensa'"
-                  >
-                    {{ tx.category }}
-                  </span>
-                </td>
-                <td class="tx-date-cell">{{ tx.date }}</td>
-                <td class="tx-amount-cell text-right" [class.text-primary]="tx.isPositive" [class.text-error]="!tx.isPositive">
-                  {{ tx.isPositive ? '+' : '-' }}{{ tx.amount }} DP
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
+        }
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- Recent Transaction Activity Section -->
+    <section class="activity-section">
+      <div class="section-header">
+        <h3 class="section-title">Actividad Reciente</h3>
+      </div>
+
+      <div class="table-card-container">
+        <div class="table-responsive">
+          <table class="activity-table">
+            <thead>
+              <tr>
+                <th>Transacción</th>
+                <th>Categoría</th>
+                <th>Fecha</th>
+                <th class="text-right">Monto</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (tx of transactions(); track tx.id) {
+                <tr class="table-row">
+                  <td>
+                    <div class="tx-cell-wrap">
+                      <div class="tx-icon-circle" [class.bg-green-soft]="tx.isPositive" [class.bg-red-soft]="!tx.isPositive">
+                        <span class="material-symbols-outlined" [class.text-primary]="tx.isPositive" [class.text-error]="!tx.isPositive">
+                          {{ tx.icon }}
+                        </span>
+                      </div>
+                      <div class="tx-details">
+                        <p class="tx-title">{{ tx.title }}</p>
+                        <p class="tx-subtext">{{ tx.location }}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <span
+                      class="badge-pill"
+                      [class.badge-green]="tx.category === 'Reciclaje'"
+                      [class.badge-orange]="tx.category === 'Recompensa'"
+                    >
+                      {{ tx.category }}
+                    </span>
+                  </td>
+                  <td class="tx-date-cell">{{ tx.date }}</td>
+                  <td class="tx-amount-cell text-right" [class.text-primary]="tx.isPositive" [class.text-error]="!tx.isPositive">
+                    {{ tx.isPositive ? '+' : '-' }}{{ tx.amount }} DP
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  }
+
 </div>

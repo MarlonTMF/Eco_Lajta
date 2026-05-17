@@ -1,27 +1,26 @@
 <div class="community-container">
-  
-  <!-- PAGE HEADER & NAVIGATION TABS -->
+
+  <!-- ENCABEZADO Y TABS DE NAVEGACIÓN -->
   <div class="community-header animate-fade-in">
     <div class="header-left">
-      <p class="section-tag text-primary">REWARDS / ECO-COMUNIDAD LLAJTA</p>
+      <p class="section-tag text-primary">RECOMPENSAS / ECO-COMUNIDAD LLAJTA</p>
       <h1 class="page-title">Centro de Comunidad</h1>
       <p class="text-muted max-w-600">
         Conéctate con tu OTB, revisa los puntos críticos reportados en Cochabamba y consulta el ranking global de ciudadanos guardianes.
       </p>
     </div>
 
-    <!-- Navigation Tabs -->
     <div class="community-tabs-wrap">
-      <button 
-        class="tab-nav-btn" 
+      <button
+        class="tab-nav-btn"
         [class.active]="activeSection() === 'news'"
         (click)="setSection('news')"
       >
         <span class="material-symbols-outlined align-middle">forum</span>
         Novedades y Reportes
       </button>
-      <button 
-        class="tab-nav-btn" 
+      <button
+        class="tab-nav-btn"
         [class.active]="activeSection() === 'ranking'"
         (click)="setSection('ranking')"
       >
@@ -31,252 +30,229 @@
     </div>
   </div>
 
-  <!-- SECTION 1: NOVEDADES Y REPORTES -->
-  <div *ngIf="activeSection() === 'news'" class="news-section-wrap space-y-xl animate-fade-in">
-    
-    <!-- Hero Section: Proyecto Río Rocha -->
-    <section class="relative-hero-banner shadow-xl">
-      <img 
-        class="absolute-hero-img" 
-        alt="Proyecto Río Rocha cleanup"
-        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeVAiugut6VqNT0HWPZKlVL3fZ1oRJW-Zxw1b4SGAnUaXezNIjF6_2to9PDqWaewwca1J5Ui0D3BvTuwjgAACoPGcmX8fz1VrkbhK4diB98oy_UtLjyzyqj2BJbsefA0YouQjNQ_B1HKlvNNiDwqV4AAxKSOd3ZzwWhh9hgtAlhenpUjl685cDVs0mv--GDbRSTh495HtHdFlwna4CJRPjxwOGv35dB7BwKSWnTbuYS932CtoGhEX0OFY7EjovjnDupegHMA9pBEZ7"
-      />
-      <div class="absolute-hero-overlay">
-        <div class="hero-text-content">
-          <span class="hero-tag">Evento Destacado</span>
-          <h1 class="hero-title">Proyecto Río Rocha</h1>
-          <p class="hero-desc">Únete a la jornada de limpieza masiva para revitalizar nuestro pulmón hídrico. Tu participación suma puntos dobles para el ranking de tu OTB.</p>
-          <div class="hero-meta-row">
-            <div class="meta-item">
-              <span class="material-symbols-outlined icon-meta">calendar_month</span>
-              <span class="meta-label">15 de Octubre, 2026</span>
-            </div>
-            <div class="meta-item">
-              <span class="material-symbols-outlined icon-meta">schedule</span>
-              <span class="meta-label">08:00 - 12:00</span>
+  <!-- =============================== -->
+  <!-- SECCIÓN 1: NOVEDADES Y REPORTES -->
+  <!-- =============================== -->
+  @if (activeSection() === 'news') {
+    <div class="news-section-wrap space-y-xl animate-fade-in">
+
+      <!-- Banner: Proyecto Río Rocha -->
+      <section class="relative-hero-banner shadow-xl">
+        <img
+          class="absolute-hero-img"
+          alt="Proyecto Río Rocha - limpieza comunitaria"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeVAiugut6VqNT0HWPZKlVL3fZ1oRJW-Zxw1b4SGAnUaXezNIjF6_2to9PDqWaewwca1J5Ui0D3BvTuwjgAACoPGcmX8fz1VrkbhK4diB98oy_UtLjyzyqj2BJbsefA0YouQjNQ_B1HKlvNNiDwqV4AAxKSOd3ZzwWhh9hgtAlhenpUjl685cDVs0mv--GDbRSTh495HtHdFlwna4CJRPjxwOGv35dB7BwKSWnTbuYS932CtoGhEX0OFY7EjovjnDupegHMA9pBEZ7"
+        />
+        <div class="absolute-hero-overlay">
+          <div class="hero-text-content">
+            <span class="hero-tag">Evento Destacado</span>
+            <h1 class="hero-title">Proyecto Río Rocha</h1>
+            <p class="hero-desc">Únete a la jornada de limpieza masiva para revitalizar nuestro pulmón hídrico. Tu participación suma puntos dobles para el ranking de tu OTB.</p>
+            <div class="hero-meta-row">
+              <div class="meta-item">
+                <span class="material-symbols-outlined icon-meta">calendar_month</span>
+                <span class="meta-label">15 de Octubre, 2026</span>
+              </div>
+              <div class="meta-item">
+                <span class="material-symbols-outlined icon-meta">schedule</span>
+                <span class="meta-label">08:00 - 12:00</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Split Leaders & Feed Grid -->
-    <div class="leaders-feed-grid">
-      
-      <!-- LEFT SIDEBAR: LEADERS OTB & PROMO -->
-      <aside class="sidebar-left-wrap">
-        
-
-        <!-- Did you know promo card -->
-
-        <div class="did-you-know-card">
-          <span class="material-symbols-outlined did-you-know-icon">psychology</span>
-          <h3 class="did-you-know-title">¿Sabías que...?</h3>
-          <p class="did-you-know-desc">Reciclar una tonelada de papel ahorra 17 árboles y 26,000 litros de agua. ¡Tu esfuerzo local tiene impacto global!</p>
-        </div>
-
-      </aside>
-
-      <!-- RIGHT MAIN FEED: LUGARES REPORTADOS & NEWS -->
-      <section class="main-feed-wrap">
-        
-
-        <!-- Comunidad y Noticias Section Header -->
-
-        <div class="feed-header-row mt-lg">
-          <h2 class="feed-section-title">Comunidad y Noticias</h2>
-          <div class="feed-filter-toggle">
-            <button class="filter-toggle-btn active">Todos</button>
-            <button class="filter-toggle-btn">Oficial</button>
-          </div>
-        </div>
-
-        <!-- News / Social Feed List -->
-        <div class="feed-list-wrap">
-          <article *ngFor="let item of feedItems()" class="feed-article card-glass">
-            
-            <div class="article-header-row">
-              <div class="author-info-wrap">
-                <!-- Avatar image or Icon representation -->
-                <div *ngIf="!item.isAvatarImage" class="author-icon-avatar bg-primary-container text-primary">
-                  <span class="material-symbols-outlined">{{ item.avatar }}</span>
-                </div>
-                <img *ngIf="item.isAvatarImage" [src]="item.avatar" alt="Author" class="author-image-avatar" />
-                
-                <div class="author-names-column">
-                  <h4 class="author-name-text">{{ item.author }}</h4>
-                  <p class="author-meta-sub">{{ item.timeAgo }} • <span [class]="item.categoryClass">{{ item.category }}</span></p>
-                </div>
-              </div>
-              <button class="material-symbols-outlined btn-more-opt">more_vert</button>
-            </div>
-
-            <p class="article-content-text">{{ item.content }}</p>
-            
-            <!-- Article Media image if present -->
-            <div *ngIf="item.image" class="article-media-container">
-              <img [src]="item.image" alt="Feed media" class="article-media-img" />
-            </div>
-
-            <!-- Article Actions Row (Like & Comment) -->
-            <div class="article-actions-row">
-              <div class="left-action-group">
-                <button 
-                  class="action-btn-like" 
-                  [class.liked]="item.likedByUser" 
-                  (click)="likePost(item)"
-                >
-                  <span class="material-symbols-outlined icon-action" [class.filled]="item.likedByUser">favorite</span>
-                  <span class="action-count">{{ item.likes }}</span>
-                </button>
-                <button class="action-btn-comment">
-                  <span class="material-symbols-outlined icon-action">comment</span>
-                  <span class="action-count">{{ item.commentsCount }}</span>
-                </button>
-              </div>
-              <button class="material-symbols-outlined icon-share-action">share</button>
-            </div>
-
-          </article>
-        </div>
-
-        <!-- Load More Button -->
-        <div class="load-more-btn-wrap">
-          <button class="btn-load-more">
-            Cargar más noticias
-          </button>
-        </div>
-
       </section>
 
-    </div>
+      <!-- Grid: Leaders y Feed -->
+      <div class="leaders-feed-grid">
 
-    <!-- Floating Action Button: Add Report/Post -->
-    <button class="fab-add-post shadow-2xl" (click)="createPost()">
-      <span class="material-symbols-outlined">add_comment</span>
-    </button>
+        <!-- Sidebar izquierdo -->
+        <aside class="sidebar-left-wrap">
+          <div class="did-you-know-card">
+            <span class="material-symbols-outlined did-you-know-icon">psychology</span>
+            <h3 class="did-you-know-title">¿Sabías que...?</h3>
+            <p class="did-you-know-desc">Reciclar una tonelada de papel ahorra 17 árboles y 26,000 litros de agua. ¡Tu esfuerzo local tiene impacto global!</p>
+          </div>
+        </aside>
 
-  </div>
-
-  <!-- SECTION 2: RANKING GLOBAL DE CIUDADANOS -->
-  <div *ngIf="activeSection() === 'ranking'" class="ranking-section-wrap animate-fade-in">
-    <!-- LEADERBOARD SPLIT GRID -->
-    <div class="community-grid animate-slide-up">
-      <!-- LEFT: PODIO DE HONOR -->
-      <div class="podium-card card-glass">
-        <div class="card-title">
-          <span class="material-symbols-outlined trophy-icon">emoji_events</span>
-          Podio de Honor
-        </div>
-
-        <div class="podium-layout">
-          <!-- 2nd PLACE (Sofia) -->
-          <div class="podium-col second-place">
-            <div class="avatar-wrapper border-silver">
-              <img [src]="podium[0].avatar" alt="Sofia" class="podium-avatar" />
-              <div class="rank-badge bg-silver">2</div>
-            </div>
-            <div class="podium-info">
-              <h4 class="podium-name">{{ podium[0].name }}</h4>
-              <div class="podium-points text-primary">{{ podium[0].points | number }} DP</div>
-              <div class="podium-badge">{{ podium[0].badge }}</div>
+        <!-- Feed de Noticias Principal -->
+        <section class="main-feed-wrap">
+          <div class="feed-header-row mt-lg">
+            <h2 class="feed-section-title">Comunidad y Noticias</h2>
+            <div class="feed-filter-toggle">
+              <button class="filter-toggle-btn active">Todos</button>
+              <button class="filter-toggle-btn">Oficial</button>
             </div>
           </div>
 
-          <!-- 1st PLACE (Alejandro - Elevated) -->
-          <div class="podium-col first-place">
-            <div class="avatar-wrapper border-gold">
-              <div class="crown-overlay">👑</div>
-              <img [src]="podium[1].avatar" alt="Alejandro" class="podium-avatar-large" />
-              <div class="rank-badge bg-gold">1</div>
+          <!-- Estado de carga del feed -->
+          @if (isLoadingFeed()) {
+            <div class="loading-state">
+              <span class="material-symbols-outlined spin-icon">progress_activity</span>
+              <p>Cargando publicaciones...</p>
             </div>
-            <div class="podium-info mt-4">
-              <h4 class="podium-name-large">{{ podium[1].name }}</h4>
-              <div class="podium-points-large text-primary">{{ podium[1].points | number }} DP</div>
-              <div class="role-chip">{{ podium[1].badge }}</div>
-            </div>
-          </div>
+          }
 
-          <!-- 3rd PLACE (Renato) -->
-          <div class="podium-col third-place">
-            <div class="avatar-wrapper border-bronze">
-              <img [src]="podium[2].avatar" alt="Renato" class="podium-avatar" />
-              <div class="rank-badge bg-bronze">3</div>
+          <!-- Error del feed -->
+          @if (!isLoadingFeed() && errorFeed()) {
+            <div class="error-state">
+              <span class="material-symbols-outlined">error_outline</span>
+              <p>{{ errorFeed() }}</p>
+              <button class="btn-retry" (click)="cargarFeed()">Reintentar</button>
             </div>
-            <div class="podium-info">
-              <h4 class="podium-name">{{ podium[2].name }}</h4>
-              <div class="podium-points text-primary">{{ podium[2].points | number }} DP</div>
-              <div class="podium-badge">{{ podium[2].badge }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
+          }
 
-      <!-- RIGHT: CLASIFICACIÓN GENERAL -->
-      <div class="leaderboard-card card-glass">
-        <div class="leaderboard-header">
-          <h3 class="card-title mb-0">Clasificación General</h3>
-          <div class="period-toggle">
-            <button 
-              class="toggle-btn" 
-              [class.active]="selectedPeriod() === 'month'"
-              (click)="setPeriod('month')"
-            >
-              Este Mes
-            </button>
-            <button 
-              class="toggle-btn" 
-              [class.active]="selectedPeriod() === 'alltime'"
-              (click)="setPeriod('alltime')"
-            >
-              Histórico
-            </button>
-          </div>
-        </div>
-
-        <div class="table-container">
-          <table class="leaderboard-table">
-            <thead>
-              <tr>
-                <th class="col-rank">Rango</th>
-                <th class="col-user">Ciudadano</th>
-                <th class="col-points text-center">Dirty Points</th>
-                <th class="col-growth text-right">Crecimiento</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let user of leaderboard" [class.current-user-row]="user.isCurrentUser">
-                <td class="cell-rank">{{ user.rank }}</td>
-                <td class="cell-user">
-                  <div class="user-cell-wrap">
-                    <img *ngIf="user.avatar" [src]="user.avatar" alt="Avatar" class="cell-avatar" />
-                    <div *ngIf="!user.avatar" class="cell-avatar-initials" [class.bg-white-opacity]="user.isCurrentUser">
-                      {{ user.initials }}
+          <!-- Lista del Feed -->
+          @if (!isLoadingFeed() && !errorFeed()) {
+            <div class="feed-list-wrap">
+              @if (feedItems().length === 0) {
+                <p class="empty-state">No hay publicaciones recientes en la comunidad.</p>
+              }
+              @for (item of feedItems(); track item.id) {
+                <article class="feed-article card-glass">
+                  <div class="article-header-row">
+                    <div class="author-info-wrap">
+                      <img
+                        [src]="item.avatarActor"
+                        [alt]="item.usuarioActor"
+                        class="author-image-avatar"
+                        (error)="$any($event.target).style.display='none'"
+                      />
+                      <div class="author-names-column">
+                        <h4 class="author-name-text">{{ item.usuarioActor }}</h4>
+                        <p class="author-meta-sub">
+                          {{ tiempoRelativo(item.fechaHora) }} •
+                          <span class="feed-{{ item.tipo }}">{{ item.tipo | uppercase }}</span>
+                        </p>
+                      </div>
                     </div>
-                    <div class="user-names">
-                      <div class="user-main-name">{{ user.name }}</div>
-                      <div class="user-zone">{{ user.zone }}</div>
-                    </div>
+                    <span class="material-symbols-outlined feed-type-icon">{{ iconoPorTipo(item.tipo) }}</span>
                   </div>
-                </td>
-                <td class="cell-points text-center">{{ user.points | number }}</td>
-                <td class="cell-growth text-right" [class.text-highlight]="user.isCurrentUser">
-                  {{ user.growth }}
-                  <span class="material-symbols-outlined trending-icon align-middle">trending_up</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
 
-        <div class="leaderboard-footer" (click)="inviteFriends()">
-          <span class="footer-btn">
-            Ver Clasificación Completa 
-            <span class="material-symbols-outlined align-middle">chevron_down</span>
-          </span>
+                  <p class="article-content-text">{{ item.mensaje }}</p>
+
+                  <div class="article-actions-row">
+                    <button class="action-btn-comment">
+                      <span class="material-symbols-outlined icon-action">comment</span>
+                    </button>
+                    <button class="material-symbols-outlined icon-share-action">share</button>
+                  </div>
+                </article>
+              }
+            </div>
+
+            <div class="load-more-btn-wrap">
+              <button class="btn-load-more" (click)="cargarFeed()">
+                Cargar más publicaciones
+              </button>
+            </div>
+          }
+        </section>
+      </div>
+    </div>
+  }
+
+  <!-- ================================= -->
+  <!-- SECCIÓN 2: RANKING GLOBAL         -->
+  <!-- ================================= -->
+  @if (activeSection() === 'ranking') {
+    <div class="ranking-section-wrap animate-fade-in">
+      <div class="community-grid animate-slide-up">
+
+        <!-- LEADERBOARD DINÁMICO -->
+        <div class="leaderboard-card card-glass">
+          <div class="leaderboard-header">
+            <h3 class="card-title mb-0">Clasificación General</h3>
+            <div class="period-toggle">
+              <button
+                class="toggle-btn"
+                [class.active]="selectedPeriod() === 'month'"
+                (click)="setPeriod('month')"
+              >
+                Este Mes
+              </button>
+              <button
+                class="toggle-btn"
+                [class.active]="selectedPeriod() === 'alltime'"
+                (click)="setPeriod('alltime')"
+              >
+                Histórico
+              </button>
+            </div>
+          </div>
+
+          <!-- Estado de carga del leaderboard -->
+          @if (isLoadingLeaderboard()) {
+            <div class="loading-state">
+              <span class="material-symbols-outlined spin-icon">progress_activity</span>
+              <p>Cargando ranking...</p>
+            </div>
+          }
+
+          <!-- Error del leaderboard -->
+          @if (!isLoadingLeaderboard() && errorLeaderboard()) {
+            <div class="error-state">
+              <span class="material-symbols-outlined">error_outline</span>
+              <p>{{ errorLeaderboard() }}</p>
+              <button class="btn-retry" (click)="cargarLeaderboard()">Reintentar</button>
+            </div>
+          }
+
+          <!-- Tabla de Clasificación -->
+          @if (!isLoadingLeaderboard() && !errorLeaderboard()) {
+            @if (leaderboard().length === 0) {
+              <p class="empty-state">No hay datos de ranking disponibles.</p>
+            }
+            <div class="table-container">
+              <table class="leaderboard-table">
+                <thead>
+                  <tr>
+                    <th class="col-rank">Pos.</th>
+                    <th class="col-user">Ciudadano</th>
+                    <th class="col-points text-center">Dirty Points</th>
+                    <th class="col-badge text-right">Insignia</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (entry of leaderboard(); track entry.userId) {
+                    <tr [class.current-user-row]="esUsuarioActual(entry.userId)">
+                      <td class="cell-rank">
+                        @if (entry.posicion === 1) { 🥇 }
+                        @else if (entry.posicion === 2) { 🥈 }
+                        @else if (entry.posicion === 3) { 🥉 }
+                        @else { {{ entry.posicion }} }
+                      </td>
+                      <td class="cell-user">
+                        <div class="user-cell-wrap">
+                          @if (entry.avatarUrl) {
+                            <img [src]="entry.avatarUrl" [alt]="entry.nombreUsuario" class="cell-avatar" />
+                          } @else {
+                            <div class="cell-avatar-initials" [class.bg-white-opacity]="esUsuarioActual(entry.userId)">
+                              {{ entry.nombreUsuario.slice(0, 2).toUpperCase() }}
+                            </div>
+                          }
+                          <div class="user-names">
+                            <div class="user-main-name">
+                              {{ entry.nombreUsuario }}
+                              @if (esUsuarioActual(entry.userId)) {
+                                <span class="you-badge">(Tú)</span>
+                              }
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="cell-points text-center">{{ entry.dirtyPoints | number }}</td>
+                      <td class="cell-growth text-right" [class.text-highlight]="esUsuarioActual(entry.userId)">
+                        {{ entry.nivelInsignia }}
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          }
         </div>
       </div>
     </div>
-  </div>
+  }
 
 </div>
