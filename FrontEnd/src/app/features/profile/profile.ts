@@ -20,34 +20,11 @@ export class ProfileComponent implements OnInit {
     totalRecycled: 428,
     balanceDirtyPoints: 2450,
     eventsCount: 24,
-    avatarUrl: 'https://i.pravatar.cc/150?img=11',
+    avatarUrl: '',
     coverUrl: 'https://images.unsplash.com/photo-1518005020250-68a0d0d7a982?auto=format&fit=crop&q=80&w=1000'
   };
 
-  achievements = [
-    {
-      title: 'Pionero Orgánico',
-      level: 'Nivel 2',
-      icon: 'recycling',
-      bgClass: 'bg-green-soft',
-      colorClass: 'color-green'
-    },
-    {
-      title: 'Ciclista Urbano',
-      level: 'Nivel 4',
-      icon: 'directions_bike',
-      bgClass: 'bg-blue-soft',
-      colorClass: 'color-blue'
-    },
-    {
-      title: 'Líder Regional',
-      level: 'Bloqueado',
-      icon: 'lock',
-      bgClass: 'bg-gray-soft',
-      colorClass: 'color-gray',
-      locked: true
-    }
-  ];
+
 
   recentActivities = [
     {
@@ -76,7 +53,7 @@ export class ProfileComponent implements OnInit {
       next: (user) => {
         if (user) {
           this.profile.name = user.fullName;
-          this.profile.avatarUrl = user.photoUrl || 'https://i.pravatar.cc/150?img=11';
+          this.profile.avatarUrl = user.photoUrl || '';
           this.profile.balanceDirtyPoints = user.pointsBalance;
           if (user.role === 'ROLE_ADMIN') {
             this.profile.role = 'ADMINISTRADOR';
