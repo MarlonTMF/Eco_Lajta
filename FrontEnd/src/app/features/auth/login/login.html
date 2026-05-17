@@ -34,9 +34,19 @@
             <span class="divider-label">O CONTINÚA CON</span>
         </div>
 
-        <button type="button" class="btn-google" (click)="loginWithGoogle()">
-            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="" class="btn-google-icon">
-            <span>Google</span>
+        <!-- Official Google Sign-in Button Container (Hidden if we need mock fallback) -->
+        <div [style.display]="showFallbackButton() ? 'none' : 'flex'" id="googleBtnContainer" style="justify-content: center; width: 100%; min-height: 50px;"></div>
+
+        <!-- Custom Fallback Google button for local development and demo presentations -->
+        <button *ngIf="showFallbackButton()" type="button" class="btn-google" (click)="loginWithGoogleMock()" [disabled]="isLoading()">
+            <ng-container *ngIf="!isLoading()">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="" class="btn-google-icon">
+                <span>Google</span>
+            </ng-container>
+            <ng-container *ngIf="isLoading()">
+                <div class="spinner-google"></div>
+                <span>Iniciando sesión...</span>
+            </ng-container>
         </button>
     </div>
 </div>
