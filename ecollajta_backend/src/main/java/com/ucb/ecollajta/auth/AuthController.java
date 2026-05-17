@@ -44,8 +44,6 @@ public class AuthController {
 
             GoogleIdToken idToken = verifier.verify(tokenDto.getToken());
 
-            log.info("idToken resultado: {}", idToken);
-
             if (idToken == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
@@ -57,7 +55,14 @@ public class AuthController {
             String fullName = (String) payload.get("name");
 
             User user = userService.findByEmail(email)
-                .orElseGet(() -> userService.createFromGoogle(email, fullName, googleSub, photoUrl));
+                .orElseGet(() -> {
+                    try {
+                        return userService.createFromGoogle(email, fullName, googleSub, photoUrl);
+                    } catch (Exception e) {
+                        log.error("Error creating user: {} - {}", e.getClass().getName(), e.getMessage());
+                        throw new RuntimeException(e);
+                    }
+                });
 
             Map<String, Object> extraClaims = new HashMap<>();
             extraClaims.put("role", user.getRole().name());
