@@ -46,8 +46,7 @@ export class Map implements AfterViewInit, OnDestroy {
   categories = [
     { id: 'all', label: 'Todos', icon: 'grid_view', color: '#10b981' },
     { id: 'recycling', label: 'Puntos de Reciclaje', icon: 'recycling', color: '#0d631b' },
-    { id: 'mission', label: 'Misiones Ecológicas', icon: 'groups', color: '#00639a' },
-    { id: 'reported', label: 'Puntos Reportados', icon: 'warning', color: '#ba1a1a' }
+    { id: 'mission', label: 'Misiones Ecológicas', icon: 'groups', color: '#00639a' }
   ];
 
   mapPoints = signal<MapPoint[]>([
@@ -101,30 +100,6 @@ export class Map implements AfterViewInit, OnDestroy {
       ]
     },
     {
-      id: 'point-3',
-      type: 'reported',
-      title: 'Acumulación de Basura',
-      location: 'Av. América & Villarroel',
-      rewardText: '+50',
-      rewardLabel: 'DP',
-      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBPxFlzeJeliHO2Hu9QUSrpbInHOWhFQABqu4mi1JPMHEMF0kaMvJ10VDF8RorIRk-kekqGjrdcYJ-fhzPtk2WvtMlmDVZmcBBM-6s_Ni71MHKBYALDe_aYV3frm0qhDT2NTiUVSCB1XSVA78Jixk2EzjFo7VUoDrOEmINbdmK51xnta3_GpVAPfveywI3NG4tSksvX-8I4haDbiJmWOC5E3R8QJrsAIFuR9blapz8eOTnEXwMABx5dTZZ7scR7ufyJrWTWoOb68HdC',
-      hoursOrDate: 'Hace 3 días',
-      statusText: 'Reportado',
-      statusClass: 'text-danger font-bold',
-      capacityOrSeverity: 'Gravedad Alta',
-      isSeverity: true,
-      severityClass: 'severity-high',
-      description: 'Microbasural formado en la esquina norte. Hay escombros y plásticos que obstruyen la acera peatonal.',
-      lat: -17.3712,
-      lng: -66.1485,
-      icon: 'warning',
-      markerBorderClass: 'border-red',
-      markerIconClass: 'text-error',
-      photos: [
-        'https://lh3.googleusercontent.com/aida-public/AB6AXuBPxFlzeJeliHO2Hu9QUSrpbInHOWhFQABqu4mi1JPMHEMF0kaMvJ10VDF8RorIRk-kekqGjrdcYJ-fhzPtk2WvtMlmDVZmcBBM-6s_Ni71MHKBYALDe_aYV3frm0qhDT2NTiUVSCB1XSVA78Jixk2EzjFo7VUoDrOEmINbdmK51xnta3_GpVAPfveywI3NG4tSksvX-8I4haDbiJmWOC5E3R8QJrsAIFuR9blapz8eOTnEXwMABx5dTZZ7scR7ufyJrWTWoOb68HdC'
-      ]
-    },
-    {
       id: 'point-4',
       type: 'mission',
       title: 'Eco-Rally Cala Cala',
@@ -144,28 +119,6 @@ export class Map implements AfterViewInit, OnDestroy {
       icon: 'sports_score',
       markerBorderClass: 'border-blue',
       markerIconClass: 'text-secondary',
-      photos: []
-    },
-    {
-      id: 'point-5',
-      type: 'reported',
-      title: 'Contenedor Rebasado',
-      location: 'Parque Fidel Anze',
-      rewardText: '+30',
-      rewardLabel: 'DP',
-      image: 'https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?auto=format&fit=crop&q=80&w=600',
-      hoursOrDate: 'Hace 5 horas',
-      statusText: 'En Revisión',
-      statusClass: 'text-warning font-bold',
-      capacityOrSeverity: 'Gravedad Media',
-      isSeverity: true,
-      severityClass: 'severity-medium',
-      description: 'El contenedor inteligente de residuos ha superado su límite y hay desechos desbordados. Se solicita vaciado inmediato.',
-      lat: -17.3752,
-      lng: -66.1518,
-      icon: 'report',
-      markerBorderClass: 'border-red',
-      markerIconClass: 'text-error',
       photos: []
     }
   ]);

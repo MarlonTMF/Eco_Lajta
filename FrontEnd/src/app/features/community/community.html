@@ -66,50 +66,9 @@
       <!-- LEFT SIDEBAR: LEADERS OTB & PROMO -->
       <aside class="sidebar-left-wrap">
         
-        <!-- OTB Leaderboard Card -->
-        <div class="sidebar-card card-glass">
-          <div class="sidebar-card-header">
-            <span class="material-symbols-outlined sidebar-card-icon">emoji_events</span>
-            <h3 class="sidebar-card-title">Líderes (OTBs)</h3>
-          </div>
-          
-          <table class="otb-leaderboard-table">
-            <thead>
-              <tr class="table-header-bg">
-                <th class="th-pos">Pos</th>
-                <th class="th-otb">OTB</th>
-                <th class="th-waste text-right">Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let otb of otbLeaders()" class="otb-table-row">
-                <td class="td-pos">
-                  <span class="pos-badge" [class.pos-gold]="otb.rank === 1" [class.pos-other]="otb.rank > 1">
-                    {{ otb.rank }}
-                  </span>
-                </td>
-                <td class="td-name">{{ otb.name }}</td>
-                <td class="td-waste text-right">
-                  <div class="waste-wrap-row">
-                    <span class="waste-value">{{ otb.totalWaste }}</span>
-                    <span 
-                      class="material-symbols-outlined trend-arrow"
-                      [class.text-primary]="otb.isTrendingUp"
-                      [class.text-error]="!otb.isTrendingUp"
-                    >
-                      {{ otb.isTrendingUp ? 'trending_up' : 'trending_down' }}
-                    </span>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="sidebar-card-footer" (click)="inviteFriends()">
-            <span class="footer-link-text">Ver ranking completo</span>
-          </div>
-        </div>
 
         <!-- Did you know promo card -->
+
         <div class="did-you-know-card">
           <span class="material-symbols-outlined did-you-know-icon">psychology</span>
           <h3 class="did-you-know-title">¿Sabías que...?</h3>
@@ -121,30 +80,9 @@
       <!-- RIGHT MAIN FEED: LUGARES REPORTADOS & NEWS -->
       <section class="main-feed-wrap">
         
-        <!-- Lugares Reportados Section -->
-        <div class="reported-places-header-row">
-          <h3 class="reported-places-title">Lugares Reportados</h3>
-          <span class="reported-places-link">Ver todos</span>
-        </div>
-
-        <div class="reported-places-grid">
-          <div *ngFor="let place of reportedPlaces()" class="reported-card card-glass">
-            <div class="reported-image-container">
-              <img [src]="place.image" [alt]="place.title" class="reported-img" />
-              <span class="status-badge" [class]="place.statusClass">{{ place.status }}</span>
-            </div>
-            <div class="reported-info">
-              <h4 class="reported-title-text">{{ place.title }}</h4>
-              <div class="reported-location-row">
-                <span class="material-symbols-outlined reported-loc-icon">location_on</span>
-                <span class="reported-loc-text">{{ place.location }}</span>
-              </div>
-              <p class="reported-desc-text">{{ place.description }}</p>
-            </div>
-          </div>
-        </div>
 
         <!-- Comunidad y Noticias Section Header -->
+
         <div class="feed-header-row mt-lg">
           <h2 class="feed-section-title">Comunidad y Noticias</h2>
           <div class="feed-filter-toggle">

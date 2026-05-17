@@ -1,0 +1,67 @@
+.category-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+    background: #F9FAF5;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.category-btn:hover {
+    border-color: var(--primary, #0d631b);
+    transform: translateY(-2px);
+}
+
+.category-btn.selected {
+    border-color: var(--primary, #0d631b) !important;
+    background: #e8f5e9 !important;
+    box-shadow: 0 4px 15px rgba(13, 99, 27, 0.12);
+}
+
+/* Custom styles for the editable borderless weight input box */
+.editable-weight-input {
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--primary, #0d631b);
+  line-height: 1;
+  text-align: center;
+  width: 220px;
+  background: transparent;
+  border: none;
+  outline: none;
+  transition: all 0.2s ease;
+  border-bottom: 2px dashed transparent;
+}
+
+.editable-weight-input:hover {
+  border-bottom-color: rgba(13, 99, 27, 0.2);
+}
+
+.editable-weight-input:focus {
+  border-bottom-color: var(--primary, #0d631b);
+  background: rgba(13, 99, 27, 0.02);
+  border-radius: 8px;
+}
+
+/* Hide scrollbars / spinner buttons for number input */
+.editable-weight-input::-webkit-outer-spin-button,
+.editable-weight-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.editable-weight-input {
+  -moz-appearance: textfield;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s infinite;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}

@@ -1,64 +1,128 @@
 <div style="max-width: 800px; margin: 0 auto;">
     <div class="flex flex-col md:flex-row items-center gap-4 md:gap-8 mb-8 md:mb-12">
-        <button class="icon-btn" routerLink="/my-recycling" style="background: #F3F4F6; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i data-lucide="arrow-left" style="width: 20px;"></i></button>
+        <button class="icon-btn" routerLink="/my-recycling" style="background: #F3F4F6; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+            <i data-lucide="arrow-left" style="width: 20px;"></i>
+        </button>
         <div>
             <h1 style="font-size: 2.5rem; font-weight: 800; color: var(--primary);">Registro de Bolsa</h1>
             <p class="text-muted">Ayúdanos a clasificar tus residuos para un recojo eficiente.</p>
         </div>
     </div>
 
+    <!-- Step 1: Category Selection -->
     <div class="card mb-4">
         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
             <span style="width: 32px; height: 32px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">1</span>
             <h3 style="font-size: 1.2rem; font-weight: 700;">Selecciona la Categoría</h3>
         </div>
         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
-            <button class="category-btn">
-                <div style="background: #E8F5E9; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; color: var(--primary);">
-                    <i data-lucide="droplets" style="width:28px; height:28px;"></i>
+            <!-- Plástico -->
+            <button
+                class="category-btn"
+                [class.selected]="selectedCategory() === 'plastic'"
+                (click)="setCategory('plastic')"
+            >
+                <div style="background: #E8F5E9; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;" [style.background]="selectedCategory() === 'plastic' ? '#C8E6C9' : '#E8F5E9'">
+                    <i data-lucide="droplets" style="width:28px; height:28px; color: var(--primary);"></i>
                 </div>
                 <span style="font-weight: 600; color: var(--text);">Plástico (PET)</span>
             </button>
-            <button class="category-btn">
-                <div style="background: #FFF3E0; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; color: #E65100;">
-                    <i data-lucide="book" style="width:28px; height:28px;"></i>
+
+            <!-- Papel/Cartón -->
+            <button
+                class="category-btn"
+                [class.selected]="selectedCategory() === 'paper'"
+                (click)="setCategory('paper')"
+            >
+                <div style="width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;" [style.background]="selectedCategory() === 'paper' ? '#FFCC80' : '#FFF3E0'">
+                    <i data-lucide="book" style="width:28px; height:28px; color: #E65100;"></i>
                 </div>
                 <span style="font-weight: 600; color: var(--text);">Papel/Cartón</span>
             </button>
-            <button class="category-btn">
-                <div style="background: #E3F2FD; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; color: #1976D2;">
-                    <i data-lucide="wine" style="width:28px; height:28px;"></i>
+
+            <!-- Vidrio -->
+            <button
+                class="category-btn"
+                [class.selected]="selectedCategory() === 'glass'"
+                (click)="setCategory('glass')"
+            >
+                <div style="width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;" [style.background]="selectedCategory() === 'glass' ? '#BBDEFB' : '#E3F2FD'">
+                    <i data-lucide="wine" style="width:28px; height:28px; color: #1976D2;"></i>
                 </div>
                 <span style="font-weight: 600; color: var(--text);">Vidrio</span>
             </button>
-            <button class="category-btn">
-                <div style="background: #F3F4F6; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; color: #4B5563;">
-                    <i data-lucide="settings" style="width:28px; height:28px;"></i>
+
+            <!-- Metales -->
+            <button
+                class="category-btn"
+                [class.selected]="selectedCategory() === 'metal'"
+                (click)="setCategory('metal')"
+            >
+                <div style="width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;" [style.background]="selectedCategory() === 'metal' ? '#D1D5DB' : '#F3F4F6'">
+                    <i data-lucide="settings" style="width:28px; height:28px; color: #4B5563;"></i>
                 </div>
                 <span style="font-weight: 600; color: var(--text);">Metales</span>
             </button>
         </div>
+
+        <!-- Category confirmation badge -->
+        <div *ngIf="selectedCategory()" style="margin-top: 16px; padding: 10px 16px; background: #E8F5E9; border-radius: 10px; display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="check-circle" style="width:18px; height:18px; color: var(--primary); flex-shrink:0;"></i>
+            <span style="font-size: 0.9rem; font-weight: 600; color: var(--primary);">
+                Categoría seleccionada:
+                <b>
+                    {{ selectedCategory() === 'plastic' ? 'Plástico (PET)' :
+                       selectedCategory() === 'paper'   ? 'Papel/Cartón'   :
+                       selectedCategory() === 'glass'   ? 'Vidrio'         : 'Metales' }}
+                </b>
+            </span>
+        </div>
     </div>
 
+    <!-- Step 2: Editable Estimated Weight -->
     <div class="card mb-4">
         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
             <span style="width: 32px; height: 32px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">2</span>
             <h3 style="font-size: 1.2rem; font-weight: 700;">Peso Estimado</h3>
         </div>
         <div style="background: #F9FAF5; padding: 32px; border-radius: 16px; text-align: center;">
-            <div style="font-size: 4rem; font-weight: 800; color: var(--primary); line-height: 1;">5.0</div>
-            <div class="text-muted" style="margin-bottom: 24px; font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Kilogramos (kg)</div>
+
+            <!-- Editable weight number (click to type manually) -->
+            <input
+                type="number"
+                class="editable-weight-input"
+                [ngModel]="weight()"
+                (ngModelChange)="weight.set(+$event)"
+                min="0.1"
+                max="99.9"
+                step="0.5"
+                title="Haz clic para editar el peso manualmente"
+            />
+            <div class="text-muted" style="margin-bottom: 24px; font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
+                Kilogramos (kg)
+            </div>
+
+            <!-- Synchronized Slider -->
             <div style="margin: 32px 0;">
-                <input type="range" min="0.5" max="20" step="0.5" value="5" style="width: 100%; margin-bottom: 12px; accent-color: var(--primary);">
+                <input
+                    type="range"
+                    min="0.5"
+                    max="20"
+                    step="0.5"
+                    [value]="weight() > 20 ? 20 : weight()"
+                    (input)="onSliderChange($event)"
+                    style="width: 100%; margin-bottom: 12px; accent-color: var(--primary);"
+                >
                 <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">
                     <span>0.5 kg</span>
                     <span>10 kg</span>
                     <span>20 kg</span>
                 </div>
             </div>
+
             <div style="background: #E0F2FE; color: #0284C7; padding: 16px; border-radius: 12px; display: flex; align-items: center; gap: 12px; text-align: left;">
                 <i data-lucide="info" style="width:24px; height:24px; flex-shrink:0;"></i>
-                <span style="font-size: 0.9rem; font-weight: 500;">Una bolsa de mercado llena pesa aproximadamente entre 3kg y 5kg.</span>
+                <span style="font-size: 0.9rem; font-weight: 500;">Una bolsa de mercado llena pesa aproximadamente entre 3kg y 5kg. Puedes editar el número directamente.</span>
             </div>
         </div>
     </div>
