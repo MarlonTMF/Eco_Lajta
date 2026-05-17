@@ -31,22 +31,23 @@
         </p>
 
         <div class="divider">
-            <span class="divider-label">O CONTINÚA CON</span>
+            <span class="divider-label">CONTINÚA CON</span>
         </div>
 
-        <!-- Official Google Sign-in Button Container (Hidden if we need mock fallback) -->
-        <div [style.display]="showFallbackButton() ? 'none' : 'flex'" id="googleBtnContainer" style="justify-content: center; width: 100%; min-height: 50px;"></div>
+        <div id="hiddenGoogleBtn" style="position: absolute; opacity: 0; pointer-events: none;"></div>
 
-        <!-- Custom Fallback Google button for local development and demo presentations -->
-        <button *ngIf="showFallbackButton()" type="button" class="btn-google" (click)="loginWithGoogleMock()" [disabled]="isLoading()">
-            <ng-container *ngIf="!isLoading()">
+        <button type="button"
+                class="btn-google"
+                (click)="loginWithGoogle()"
+                [disabled]="isLoading()"
+                style="width: 100%; margin: 0 auto;">
+            @if (!isLoading()) {
                 <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="" class="btn-google-icon">
-                <span>Google</span>
-            </ng-container>
-            <ng-container *ngIf="isLoading()">
+                <span>Continuar con Google</span>
+            } @else {
                 <div class="spinner-google"></div>
                 <span>Iniciando sesión...</span>
-            </ng-container>
+            }
         </button>
 
         <!-- Admin Entry Button (smaller and styled professionally) -->

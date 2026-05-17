@@ -15,12 +15,47 @@
             <i class="material-symbols-outlined">settings</i>
         </button>
         <div style="width: 1px; height: 32px; background: var(--border); margin: 0 8px;"></div>
-        <div style="display: flex; align-items: center; gap: 12px; cursor: pointer;" routerLink="/profile">
-            <div style="text-align: right;">
-                <div style="font-weight: 800; font-size: 0.9rem; color: var(--text);">Mateo V.</div>
-                <div style="font-size: 0.7rem; font-weight: 600; color: var(--primary);">2,450 Dirty Points</div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 12px; cursor: pointer;" routerLink="/profile">
+                <div style="text-align: right;">
+                    <div style="font-weight: 800; font-size: 0.9rem; color: var(--text);">{{ user()?.fullName }}</div>
+                    <div style="font-size: 0.7rem; font-weight: 600; color: var(--primary);">{{ user()?.pointsBalance }} Points</div>
+                </div>
+                @if (user()?.photoUrl) {
+                    <img [src]="user()!.photoUrl"
+                         alt="Profile"
+                         referrerpolicy="no-referrer"
+                         class="user-profile-thumb">
+                } @else {
+                    <div class="user-profile-thumb" style="background: #dcfce7; display: flex; align-items: center; justify-content: center;">
+                        <i class="material-symbols-outlined" style="color: var(--primary);">person</i>
+                    </div>
+                }
             </div>
-            <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&q=80" alt="Profile" class="user-profile-thumb">
+            <button class="icon-btn" (click)="confirmLogout()" title="Cerrar sesión">
+                <i class="material-symbols-outlined">logout</i>
+            </button>
         </div>
     </div>
 </div>
+
+<!-- Modal de confirmación -->
+@if (showLogoutModal()) {
+    <div style="position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 9999; display: flex; align-items: center; justify-content: center;">
+        <div style="background: white; border-radius: 24px; padding: 40px; width: 100%; max-width: 400px; box-shadow: 0 20px 60px rgba(0,0,0,0.15); text-align: center;">
+            <div style="background: #fef2f2; width: 64px; height: 64px; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
+                <i class="material-symbols-outlined" style="font-size: 32px; color: #ef4444;">logout</i>
+            </div>
+            <h3 style="font-size: 1.4rem; font-weight: 900; color: var(--text); margin-bottom: 12px;">¿Cerrar sesión?</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 32px; line-height: 1.5;">Tu sesión será cerrada y deberás iniciar sesión nuevamente.</p>
+            <div style="display: flex; gap: 12px;">
+                <button (click)="cancelLogout()" style="flex: 1; padding: 14px; border-radius: 16px; border: 2px solid #e2e8f0; background: white; font-weight: 700; cursor: pointer; font-size: 0.95rem; color: var(--text);">
+                    Cancelar
+                </button>
+                <button (click)="logout()" style="flex: 1; padding: 14px; border-radius: 16px; border: none; background: #ef4444; color: white; font-weight: 700; cursor: pointer; font-size: 0.95rem;">
+                    Cerrar sesión
+                </button>
+            </div>
+        </div>
+    </div>
+}
