@@ -1,4 +1,4 @@
-// application/dtos/mission.dto.ts
+﻿// application/dtos/mission.dto.ts
 export interface MissionDto {
   id: string;
   title: string;
@@ -30,7 +30,7 @@ export interface OtbRankingDto {
   rank: number;
   name: string;
   members: number;
-  dirtyPointsDistributed: number;        // NOT "ETK" — Dirty Points
+  dirtyPointsDistributed: number;        // NOT "ETK" â€” Puntos Ecológicos
   efficiencyPercent: number;
 }
 
@@ -41,3 +41,4 @@ export interface CreateMissionFormDto {
   slotsTotal: number;
   district: string;
 }
+

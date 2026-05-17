@@ -1,4 +1,4 @@
-import { Component, signal, computed, effect, AfterViewInit, OnDestroy } from '@angular/core';
+﻿import { Component, signal, computed, effect, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -46,14 +46,14 @@ export class Map implements AfterViewInit, OnDestroy {
   categories = [
     { id: 'all', label: 'Todos', icon: 'grid_view', color: '#10b981' },
     { id: 'recycling', label: 'Puntos de Reciclaje', icon: 'recycling', color: '#0d631b' },
-    { id: 'mission', label: 'Misiones Ecológicas', icon: 'groups', color: '#00639a' }
+    { id: 'mission', label: 'Misiones EcolÃ³gicas', icon: 'groups', color: '#00639a' }
   ];
 
   mapPoints = signal<MapPoint[]>([
     {
       id: 'point-1',
       type: 'recycling',
-      title: 'Plaza Colón Point',
+      title: 'Plaza ColÃ³n Point',
       location: 'Cochabamba Centro, Zona 1',
       rewardText: '+15',
       rewardLabel: 'Tokens',
@@ -64,7 +64,7 @@ export class Map implements AfterViewInit, OnDestroy {
       capacityOrSeverity: '78% Full',
       capacityPercentage: 78,
       isSeverity: false,
-      description: 'Contenedor inteligente de botellas PET y latas de aluminio con compensación automática de Dirty Points.',
+      description: 'Contenedor inteligente de botellas PET y latas de aluminio con compensaciÃ³n automÃ¡tica de Puntos Ecológicos.',
       lat: -17.3935,
       lng: -66.1570,
       icon: 'recycling',
@@ -78,8 +78,8 @@ export class Map implements AfterViewInit, OnDestroy {
     {
       id: 'point-2',
       type: 'mission',
-      title: 'Limpieza del Río Rocha',
-      location: 'Río Rocha, Puente Cobija',
+      title: 'Limpieza del RÃ­o Rocha',
+      location: 'RÃ­o Rocha, Puente Cobija',
       rewardText: '+500',
       rewardLabel: 'DP',
       image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBeVAiugut6VqNT0HWPZKlVL3fZ1oRJW-Zxw1b4SGAnUaXezNIjF6_2to9PDqWaewwca1J5Ui0D3BvTuwjgAACoPGcmX8fz1VrkbhK4diB98oy_UtLjyzyqj2BJbsefA0YouQjNQ_B1HKlvNNiDwqV4AAxKSOd3ZzwWhh9hgtAlhenpUjl685cDVs0mv--GDbRSTh495HtHdFlwna4CJRPjxwOGv35dB7BwKSWnTbuYS932CtoGhEX0OFY7EjovjnDupegHMA9pBEZ7',
@@ -89,7 +89,7 @@ export class Map implements AfterViewInit, OnDestroy {
       capacityOrSeverity: 'Falta 24 Voluntarios',
       isSeverity: true,
       severityClass: 'severity-medium',
-      description: 'Jornada masiva de reforestación y limpieza del lecho del río Rocha. El municipio proveerá guantes, bolsas y refrigerios.',
+      description: 'Jornada masiva de reforestaciÃ³n y limpieza del lecho del rÃ­o Rocha. El municipio proveerÃ¡ guantes, bolsas y refrigerios.',
       lat: -17.3879,
       lng: -66.1645,
       icon: 'groups',
@@ -108,12 +108,12 @@ export class Map implements AfterViewInit, OnDestroy {
       rewardLabel: 'DP',
       image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=600',
       hoursOrDate: '22 de Oct, 09:00',
-      statusText: 'Próximamente',
+      statusText: 'PrÃ³ximamente',
       statusClass: 'text-primary',
       capacityOrSeverity: 'Faltan 12 Voluntarios',
       isSeverity: true,
       severityClass: 'severity-low',
-      description: 'Competencia vecinal amistosa de recolección de botellas plásticas y vidrio en los alrededores de la histórica Plaza de Cala Cala.',
+      description: 'Competencia vecinal amistosa de recolecciÃ³n de botellas plÃ¡sticas y vidrio en los alrededores de la histÃ³rica Plaza de Cala Cala.',
       lat: -17.3685,
       lng: -66.1601,
       icon: 'sports_score',
@@ -133,7 +133,7 @@ export class Map implements AfterViewInit, OnDestroy {
   });
 
   constructor() {
-    // Open Plaza Colón point by default
+    // Open Plaza ColÃ³n point by default
     this.selectedPoint.set(this.mapPoints()[0]);
 
     // Reactive effect to keep markers synchronized with the signals
@@ -255,17 +255,18 @@ export class Map implements AfterViewInit, OnDestroy {
 
   primaryAction(point: MapPoint): void {
     if (point.type === 'mission') {
-      alert(`¡Te has registrado con éxito para participar en la misión "${point.title}"! Te esperamos en ${point.location}.`);
+      alert(`Â¡Te has registrado con Ã©xito para participar en la misiÃ³n "${point.title}"! Te esperamos en ${point.location}.`);
     } else {
-      alert(`Calculando ruta óptima para llegar a "${point.title}" en Cochabamba...`);
+      alert(`Calculando ruta Ã³ptima para llegar a "${point.title}" en Cochabamba...`);
     }
   }
 
   secondaryAction(point: MapPoint): void {
     if (point.type === 'reported') {
-      alert(`¡Gracias por verificar este reporte! Tu contribución ayuda a agilizar la limpieza en Cochabamba.`);
+      alert(`Â¡Gracias por verificar este reporte! Tu contribuciÃ³n ayuda a agilizar la limpieza en Cochabamba.`);
     } else {
-      alert(`Reportando incidencia para "${point.title}"... El departamento técnico de EcoLlajta ha sido alertado.`);
+      alert(`Reportando incidencia para "${point.title}"... El departamento tÃ©cnico de EcoLlajta ha sido alertado.`);
     }
   }
 }
+

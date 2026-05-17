@@ -1,4 +1,4 @@
-<div class="rewards-wrapper animate-fade-in">
+﻿<div class="rewards-wrapper animate-fade-in">
 
   <!-- Estado de carga -->
   @if (isLoading()) {
@@ -8,11 +8,11 @@
     </div>
   }
 
-  <!-- Error de conexión -->
+  <!-- Error de conexiÃ³n -->
   @if (hasError()) {
     <div class="error-state">
       <span class="material-symbols-outlined">error_outline</span>
-      <p>No se pudo cargar la información. Por favor, intenta de nuevo más tarde.</p>
+      <p>No se pudo cargar la informaciÃ³n. Por favor, intenta de nuevo mÃ¡s tarde.</p>
     </div>
   }
 
@@ -39,8 +39,8 @@
           <span class="material-symbols-outlined eco-badge-icon">eco</span>
         </div>
         <div class="hero-level-info">
-          <h3 class="hero-level-title">Nivel Eco-Héroe</h3>
-          <p class="hero-level-subtitle">¡Estás a solo {{ 3000 - (userBalance() % 3000) || 3000 }} DP del siguiente rango!</p>
+          <h3 class="hero-level-title">Nivel Eco-HÃ©roe</h3>
+          <p class="hero-level-subtitle">Â¡EstÃ¡s a solo {{ 3000 - (userBalance() % 3000) || 3000 }} DP del siguiente rango!</p>
         </div>
         <div class="gauge-container">
           <div class="gauge-bar" [style.width.%]="ecoHeroProgress()"></div>
@@ -75,11 +75,11 @@
               <h4 class="reward-title">{{ reward.title }}</h4>
               <p class="reward-desc">{{ reward.description }}</p>
 
-              <!-- Mensaje de déficit de puntos -->
+              <!-- Mensaje de dÃ©ficit de puntos -->
               @if (!canRedeem(reward)) {
                 <p class="deficit-msg">
                   <span class="material-symbols-outlined deficit-icon">info</span>
-                  Te faltan {{ deficit(reward) | number }} Dirty Points
+                  Te faltan {{ deficit(reward) | number }} Puntos Ecológicos
                 </p>
               }
 
@@ -109,8 +109,8 @@
           <table class="activity-table">
             <thead>
               <tr>
-                <th>Transacción</th>
-                <th>Categoría</th>
+                <th>TransacciÃ³n</th>
+                <th>CategorÃ­a</th>
                 <th>Fecha</th>
                 <th class="text-right">Monto</th>
               </tr>
@@ -154,3 +154,4 @@
   }
 
 </div>
+

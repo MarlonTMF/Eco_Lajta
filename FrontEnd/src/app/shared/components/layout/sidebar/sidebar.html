@@ -1,7 +1,7 @@
-<aside class="sidebar">
+﻿<aside class="sidebar">
     <div class="logo-container">
         <div class="logo">
-            <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; shadow: 0 4px 12px rgba(13,99,27,0.2);">
+            <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
                 <i class="material-symbols-outlined" style="font-size: 24px;">eco</i>
             </div>
             <span style="letter-spacing: -1px;">EcoLlajta</span>
@@ -14,7 +14,7 @@
     <nav class="nav-links">
         <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">
             <i class="material-symbols-outlined">dashboard</i>
-            <span>Dashboard</span>
+            <span>Panel Principal</span>
         </a>
         <a routerLink="/my-recycling" routerLinkActive="active" class="nav-link">
             <i class="material-symbols-outlined">recycling</i>
@@ -22,38 +22,89 @@
         </a>
         <a routerLink="/rewards" routerLinkActive="active" class="nav-link">
             <i class="material-symbols-outlined">redeem</i>
-            <span>Rewards</span>
+            <span>Recompensas</span>
         </a>
         <a routerLink="/community" routerLinkActive="active" class="nav-link">
             <i class="material-symbols-outlined">groups</i>
-            <span>Community</span>
+            <span>Comunidad</span>
         </a>
         <a routerLink="/projects" routerLinkActive="active" class="nav-link">
             <i class="material-symbols-outlined">rocket_launch</i>
-            <span>Missions</span>
+            <span>Misiones</span>
         </a>
         <a routerLink="/map" routerLinkActive="active" class="nav-link">
             <i class="material-symbols-outlined">map</i>
-            <span>Map</span>
+            <span>Mapa</span>
         </a>
         <a routerLink="/profile" routerLinkActive="active" class="nav-link">
             <i class="material-symbols-outlined">person</i>
-            <span>Profile</span>
+            <span>Perfil</span>
         </a>
     </nav>
 
     <div class="sidebar-footer">
-        <button class="scanner-btn-side" style="background: #ef4444; box-shadow: 0 10px 20px rgba(239, 68, 68, 0.2);" routerLink="/report">
-            <i class="material-symbols-outlined">report_problem</i>
-            <span>Report Critical Point</span>
-        </button>
-        <a href="#" class="nav-link">
+        <button class="nav-link help-btn" (click)="openHelp()">
             <i class="material-symbols-outlined">help</i>
-            <span>Help Center</span>
-        </a>
-        <a href="#" class="nav-link" style="color: #ef4444;">
+            <span>Centro de Ayuda</span>
+        </button>
+        <button class="nav-link" style="color: #ef4444; background: none; border: none; width: 100%; text-align: left; cursor: pointer;" (click)="logout()">
             <i class="material-symbols-outlined">logout</i>
-            <span>Logout</span>
-        </a>
+            <span>Cerrar SesiÃ³n</span>
+        </button>
     </div>
 </aside>
+
+<!-- Modal: Centro de Ayuda -->
+@if (showHelp()) {
+    <div class="help-overlay" (click)="closeHelp()">
+        <div class="help-modal card-glass" (click)="$event.stopPropagation()">
+            <div class="help-modal-header">
+                <h2 class="help-title">
+                    <span class="material-symbols-outlined">help</span>
+                    Centro de Ayuda
+                </h2>
+                <button class="icon-btn" (click)="closeHelp()">
+                    <i class="material-symbols-outlined">close</i>
+                </button>
+            </div>
+            <div class="help-body">
+                <div class="help-item">
+                    <span class="material-symbols-outlined help-item-icon">eco</span>
+                    <div>
+                        <h4>Â¿QuÃ© son los Puntos Ecológicos?</h4>
+                        <p>Son puntos que acumulas cada vez que reciclas materiales en los puntos de acopio certificados de Cochabamba. Puedes canjearlos por recompensas reales.</p>
+                    </div>
+                </div>
+                <div class="help-item">
+                    <span class="material-symbols-outlined help-item-icon">location_on</span>
+                    <div>
+                        <h4>Â¿CÃ³mo encuentro puntos de acopio?</h4>
+                        <p>Ve a la secciÃ³n <strong>Mapa</strong> en el menÃº lateral. AllÃ­ encontrarÃ¡s todos los puntos de acopio habilitados en tu zona.</p>
+                    </div>
+                </div>
+                <div class="help-item">
+                    <span class="material-symbols-outlined help-item-icon">redeem</span>
+                    <div>
+                        <h4>Â¿CÃ³mo canjeo mis recompensas?</h4>
+                        <p>En la secciÃ³n <strong>Recompensas</strong>, elige el beneficio que deseas y presiona "Canjear ahora". RecibirÃ¡s un cÃ³digo de ticket para presentarlo en el punto indicado.</p>
+                    </div>
+                </div>
+                <div class="help-item">
+                    <span class="material-symbols-outlined help-item-icon">groups</span>
+                    <div>
+                        <h4>Â¿QuÃ© es la Comunidad?</h4>
+                        <p>Es el espacio donde puedes ver el ranking de tu barrio, desafÃ­os ecolÃ³gicos semanales y las noticias de la comunidad ambiental de Cochabamba.</p>
+                    </div>
+                </div>
+                <div class="help-item">
+                    <span class="material-symbols-outlined help-item-icon">mail</span>
+                    <div>
+                        <h4>Â¿Necesitas mÃ¡s ayuda?</h4>
+                        <p>EscrÃ­benos a <strong>soporte&#64;ecollajta.bo</strong> o visÃ­tanos en las oficinas de la AlcaldÃ­a de Cochabamba, piso 3, Oficina de Medio Ambiente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

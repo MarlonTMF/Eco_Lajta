@@ -1,4 +1,4 @@
-<!-- missions.component.html -->
+﻿<!-- missions.component.html -->
 <div class="admin-page">
 
   <!-- PAGE TOPBAR -->
@@ -155,7 +155,7 @@
           [value]="formTitle()"
           (input)="formTitle.set($any($event.target).value)" />
 
-        <label class="field-label">Reward Pool (Dirty Points)</label>
+        <label class="field-label">Reward Pool (Puntos Ecológicos)</label>
         <input class="field-input" type="number" placeholder="e.g. 5000"
           [value]="formPool()"
           (input)="formPool.set(+$any($event.target).value)" />
@@ -185,3 +185,4 @@
     </div>
   </div>
 }
+

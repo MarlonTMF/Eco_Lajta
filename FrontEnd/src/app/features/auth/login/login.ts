@@ -1,6 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth';
 import { Router } from '@angular/router';
 
@@ -9,14 +10,17 @@ declare var google: any;
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, FormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class Login implements OnInit {
-  // Signals for state management
-  showFallbackButton = signal(true); // Default to beautiful fallback button for local demo resilience
-  isLoading = signal(false);         // Tracks spinner state on fallback click
+  showFallbackButton = signal(true);
+  isLoading = signal(false);
+  errorMsg  = signal<string | null>(null);
+
+  email    = '';
+  password = '';
 
   constructor(
     private authService: AuthService,
@@ -42,30 +46,40 @@ export class Login implements OnInit {
         client_id: '437570902163-ffqiv27cft6udu4l6k4i407vfhjh71io.apps.googleusercontent.com',
         callback: (response: any) => this.handleCredentialResponse(response)
       });
-
-      // Try to render official button (if not blocked/suppressed)
       const container = document.getElementById('googleBtnContainer');
       if (container) {
         google.accounts.id.renderButton(container, {
-          theme: 'outline',
-          size: 'large',
-          width: 320,
-          shape: 'pill',
-          text: 'continue_with',
-          logo_alignment: 'left'
+          theme: 'outline', size: 'large', width: 320,
+          shape: 'pill', text: 'continue_with', logo_alignment: 'left'
         });
+        this.showFallbackButton.set(false);
       }
     } catch (err) {
-      console.warn('Google GSI SDK failed to initialize. Displaying fallback mock button:', err);
       this.showFallbackButton.set(true);
     }
   }
 
-  // Premium, resilient mock login flow with dynamic spinner
+  // Login con email + contraseña (mock: acepta cualquier correo + mínimo 6 chars)
+  loginWithEmail(): void {
+    this.errorMsg.set(null);
+    if (!this.email || !this.password) {
+      this.errorMsg.set('Completa todos los campos para continuar.');
+      return;
+    }
+    if (this.password.length < 6) {
+      this.errorMsg.set('La contraseña debe tener al menos 6 caracteres.');
+      return;
+    }
+    this.isLoading.set(true);
+    setTimeout(() => {
+      this.authService.saveToken('mock-jwt-token-mateo-velasco');
+      this.router.navigate(['/dashboard']);
+      this.isLoading.set(false);
+    }, 900);
+  }
+
   loginWithGoogleMock(): void {
     this.isLoading.set(true);
-
-    // Simulate authenticating/connecting with Google servers for 1.2 seconds
     setTimeout(() => {
       this.authService.saveToken('mock-jwt-token-mateo-velasco');
       this.router.navigate(['/dashboard']);
@@ -79,10 +93,7 @@ export class Login implements OnInit {
         this.authService.saveToken(res.token);
         this.router.navigate(['/dashboard']);
       },
-      error: (err) => {
-        console.error('Login failed, applying fallback auth:', err);
-        this.loginWithGoogleMock();
-      }
+      error: () => { this.loginWithGoogleMock(); }
     });
   }
 }

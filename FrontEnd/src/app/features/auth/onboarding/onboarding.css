@@ -1,0 +1,161 @@
+/* ─── Layout ─────────────────────────────────────────── */
+.landing-wrapper {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 2000;
+  background: white;
+  display: flex;
+}
+
+.landing-topbar {
+  position: absolute; top: 0; left: 0; right: 0;
+  padding: 28px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  z-index: 1001;
+}
+
+.landing-logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none;
+}
+
+.logo-icon-box {
+  background: var(--primary); color: white;
+  width: 40px; height: 40px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.btn-login-top {
+  padding: 12px 32px; border-radius: 100px;
+  font-weight: 800; border: 1px solid var(--border);
+  cursor: pointer; background: white; color: var(--text);
+  transition: background 0.2s;
+}
+.btn-login-top:hover { background: #f4f4f4; }
+
+/* ─── Hero ─────────────────────────────────────────── */
+.onboarding-image {
+  flex: 1;
+  background-image: url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1000');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.onboarding-image::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 40%, transparent 100%);
+}
+
+/* ─── Carrusel Testimonios ─────────────────────────── */
+.testimonial-carousel {
+  position: absolute; bottom: 48px; left: 40px; right: 40px;
+  z-index: 2;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 28px 32px 20px;
+  border-radius: 28px;
+  color: white;
+  min-height: 160px;
+}
+
+.testimonial-slide {
+  display: none;
+  animation: fadeSlide 0.4s ease;
+}
+.testimonial-slide.active { display: block; }
+
+.testimonial-text {
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.65;
+  margin-bottom: 14px;
+  opacity: 0.96;
+}
+
+.testimonial-author {
+  font-weight: 700;
+  font-size: 0.88rem;
+  opacity: 0.85;
+}
+
+.carousel-dots {
+  display: flex; gap: 8px;
+  justify-content: center;
+  margin-top: 16px;
+}
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  border: none; cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+.dot-active {
+  background: white;
+  transform: scale(1.4);
+}
+
+/* ─── Content ───────────────────────────────────────── */
+.onboarding-content {
+  flex: 1;
+  padding: 140px 64px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.landing-title {
+  font-size: 3.8rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--text);
+  margin-bottom: 28px;
+}
+
+.landing-desc {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 48px;
+  max-width: 480px;
+}
+
+.landing-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-guia {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 4px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.btn-guia:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-comenzar {
+  padding: 20px 40px;
+  border-radius: 24px;
+  display: flex; align-items: center; gap: 8px;
+  font-size: 1.05rem;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}

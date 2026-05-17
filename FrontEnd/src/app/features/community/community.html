@@ -1,12 +1,12 @@
-<div class="community-container">
+﻿<div class="community-container">
 
-  <!-- ENCABEZADO Y TABS DE NAVEGACIÓN -->
+  <!-- ENCABEZADO Y TABS DE NAVEGACIÃ“N -->
   <div class="community-header animate-fade-in">
     <div class="header-left">
       <p class="section-tag text-primary">RECOMPENSAS / ECO-COMUNIDAD LLAJTA</p>
       <h1 class="page-title">Centro de Comunidad</h1>
       <p class="text-muted max-w-600">
-        Conéctate con tu OTB, revisa los puntos críticos reportados en Cochabamba y consulta el ranking global de ciudadanos guardianes.
+        ConÃ©ctate con tu OTB, revisa los puntos crÃ­ticos reportados en Cochabamba y consulta el ranking global de ciudadanos guardianes.
       </p>
     </div>
 
@@ -31,23 +31,23 @@
   </div>
 
   <!-- =============================== -->
-  <!-- SECCIÓN 1: NOVEDADES Y REPORTES -->
+  <!-- SECCIÃ“N 1: NOVEDADES Y REPORTES -->
   <!-- =============================== -->
   @if (activeSection() === 'news') {
     <div class="news-section-wrap space-y-xl animate-fade-in">
 
-      <!-- Banner: Proyecto Río Rocha -->
+      <!-- Banner: Proyecto RÃ­o Rocha -->
       <section class="relative-hero-banner shadow-xl">
         <img
           class="absolute-hero-img"
-          alt="Proyecto Río Rocha - limpieza comunitaria"
+          alt="Proyecto RÃ­o Rocha - limpieza comunitaria"
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeVAiugut6VqNT0HWPZKlVL3fZ1oRJW-Zxw1b4SGAnUaXezNIjF6_2to9PDqWaewwca1J5Ui0D3BvTuwjgAACoPGcmX8fz1VrkbhK4diB98oy_UtLjyzyqj2BJbsefA0YouQjNQ_B1HKlvNNiDwqV4AAxKSOd3ZzwWhh9hgtAlhenpUjl685cDVs0mv--GDbRSTh495HtHdFlwna4CJRPjxwOGv35dB7BwKSWnTbuYS932CtoGhEX0OFY7EjovjnDupegHMA9pBEZ7"
         />
         <div class="absolute-hero-overlay">
           <div class="hero-text-content">
             <span class="hero-tag">Evento Destacado</span>
-            <h1 class="hero-title">Proyecto Río Rocha</h1>
-            <p class="hero-desc">Únete a la jornada de limpieza masiva para revitalizar nuestro pulmón hídrico. Tu participación suma puntos dobles para el ranking de tu OTB.</p>
+            <h1 class="hero-title">Proyecto RÃ­o Rocha</h1>
+            <p class="hero-desc">Ãšnete a la jornada de limpieza masiva para revitalizar nuestro pulmÃ³n hÃ­drico. Tu participaciÃ³n suma puntos dobles para el ranking de tu OTB.</p>
             <div class="hero-meta-row">
               <div class="meta-item">
                 <span class="material-symbols-outlined icon-meta">calendar_month</span>
@@ -69,8 +69,8 @@
         <aside class="sidebar-left-wrap">
           <div class="did-you-know-card">
             <span class="material-symbols-outlined did-you-know-icon">psychology</span>
-            <h3 class="did-you-know-title">¿Sabías que...?</h3>
-            <p class="did-you-know-desc">Reciclar una tonelada de papel ahorra 17 árboles y 26,000 litros de agua. ¡Tu esfuerzo local tiene impacto global!</p>
+            <h3 class="did-you-know-title">Â¿SabÃ­as que...?</h3>
+            <p class="did-you-know-desc">Reciclar una tonelada de papel ahorra 17 Ã¡rboles y 26,000 litros de agua. Â¡Tu esfuerzo local tiene impacto global!</p>
           </div>
         </aside>
 
@@ -121,7 +121,7 @@
                       <div class="author-names-column">
                         <h4 class="author-name-text">{{ item.author }}</h4>
                         <p class="author-meta-sub">
-                          {{ item.timeAgo }} • <span [class]="item.categoryClass">{{ item.category }}</span>
+                          {{ item.timeAgo }} â€¢ <span [class]="item.categoryClass">{{ item.category }}</span>
                         </p>
                       </div>
                     </div>
@@ -132,7 +132,7 @@
 
                   @if (item.image) {
                     <div class="article-media-container">
-                      <img [src]="item.image" alt="Imagen de la publicación" class="article-media-img" />
+                      <img [src]="item.image" alt="Imagen de la publicaciÃ³n" class="article-media-img" />
                     </div>
                   }
 
@@ -155,7 +155,7 @@
 
             <div class="load-more-btn-wrap">
               <button class="btn-load-more" (click)="cargarFeed()">
-                Cargar más publicaciones
+                Cargar mÃ¡s publicaciones
               </button>
             </div>
           }
@@ -165,16 +165,16 @@
   }
 
   <!-- ================================= -->
-  <!-- SECCIÓN 2: RANKING GLOBAL         -->
+  <!-- SECCIÃ“N 2: RANKING GLOBAL         -->
   <!-- ================================= -->
   @if (activeSection() === 'ranking') {
     <div class="ranking-section-wrap animate-fade-in">
       <div class="community-grid animate-slide-up">
 
-        <!-- LEADERBOARD DINÁMICO -->
+        <!-- LEADERBOARD DINÃMICO -->
         <div class="leaderboard-card card-glass">
           <div class="leaderboard-header">
-            <h3 class="card-title mb-0">Clasificación General</h3>
+            <h3 class="card-title mb-0">ClasificaciÃ³n General</h3>
             <div class="period-toggle">
               <button
                 class="toggle-btn"
@@ -188,7 +188,7 @@
                 [class.active]="selectedPeriod() === 'alltime'"
                 (click)="setPeriod('alltime')"
               >
-                Histórico
+                HistÃ³rico
               </button>
             </div>
           </div>
@@ -210,7 +210,7 @@
             </div>
           }
 
-          <!-- Tabla de Clasificación -->
+          <!-- Tabla de ClasificaciÃ³n -->
           @if (!isLoadingLeaderboard() && !errorLeaderboard()) {
             @if (leaderboard().length === 0) {
               <p class="empty-state">No hay datos de ranking disponibles.</p>
@@ -221,7 +221,7 @@
                   <tr>
                     <th class="col-rank">Pos.</th>
                     <th class="col-user">Ciudadano</th>
-                    <th class="col-points text-center">Dirty Points</th>
+                    <th class="col-points text-center">Puntos Ecológicos</th>
                     <th class="col-badge text-right">Insignia</th>
                   </tr>
                 </thead>
@@ -229,9 +229,9 @@
                   @for (entry of leaderboard(); track entry.rank) {
                     <tr [class.current-user-row]="entry.isCurrentUser">
                       <td class="cell-rank">
-                        @if (entry.rank === 1) { 🥇 }
-                        @else if (entry.rank === 2) { 🥈 }
-                        @else if (entry.rank === 3) { 🥉 }
+                        @if (entry.rank === 1) { ðŸ¥‡ }
+                        @else if (entry.rank === 2) { ðŸ¥ˆ }
+                        @else if (entry.rank === 3) { ðŸ¥‰ }
                         @else { {{ entry.rank }} }
                       </td>
                       <td class="cell-user">
@@ -246,7 +246,7 @@
                           <div class="user-names">
                             <div class="user-main-name">
                               {{ entry.name }}
-                              @if (entry.isCurrentUser) { <span class="you-badge">(Tú)</span> }
+                              @if (entry.isCurrentUser) { <span class="you-badge">(TÃº)</span> }
                             </div>
                             <div class="user-zone">{{ entry.zone }}</div>
                           </div>
@@ -269,3 +269,4 @@
   }
 
 </div>
+

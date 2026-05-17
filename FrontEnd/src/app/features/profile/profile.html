@@ -24,13 +24,6 @@
 
       <!-- Right side: Actions & Stats -->
       <div class="info-right">
-        <div class="action-row">
-          <button class="btn-download" (click)="downloadCertificate()">
-            <span class="material-symbols-outlined">download</span>
-            Descargar Certificado Verde
-          </button>
-        </div>
-
         <div class="stats-grid">
           <div class="stat-item">
             <span class="stat-number">{{ profile.totalRecycled }} <span class="stat-unit">kg</span></span>
@@ -78,7 +71,7 @@
     <div class="card-glass activity-card">
       <div class="card-header">
         <h2 class="card-title text-primary">Actividad Reciente</h2>
-        <a href="#" class="header-link text-primary" (click)="$event.preventDefault()">Ver Historial Completo</a>
+        <a href="#" class="header-link text-muted" style="font-size: 0.8rem;" (click)="$event.preventDefault()">Próximamente</a>
       </div>
 
       <div class="activity-timeline">

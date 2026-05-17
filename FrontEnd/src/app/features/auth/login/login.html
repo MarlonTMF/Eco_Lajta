@@ -2,7 +2,7 @@
     <!-- Left: Hero -->
     <div class="split-left" style="position: relative;">
         <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1000"
-            alt="Green Future" style="width: 100%; height: 100%; object-fit: cover;">
+            alt="Cochabamba Verde" style="width: 100%; height: 100%; object-fit: cover;">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <span class="hero-badge">COCHABAMBA SOSTENIBLE</span>
@@ -16,28 +16,70 @@
     <!-- Right: Login -->
     <div class="split-right login-panel">
         <header class="login-header">
-            <div class="logo">
+            <a routerLink="/onboarding" class="logo" style="text-decoration: none;">
                 <div class="logo-icon">
                     <i class="material-symbols-outlined">eco</i>
                 </div>
-                <span class="logo-text">EcoKawsay</span>
-            </div>
-            <i class="material-symbols-outlined logo-decoration">spa</i>
+                <span class="logo-text">EcoLlajta</span>
+            </a>
         </header>
 
         <h2 class="login-title">Bienvenido de vuelta</h2>
         <p class="text-muted login-subtitle">
-            Ingresa tus credenciales para continuar sumando por Cochabamba
+            Ingresa tus datos o continúa con Google
         </p>
 
+        <!-- Formulario Email + Contraseña -->
+        <form class="login-form" (ngSubmit)="loginWithEmail()">
+            <div class="form-field">
+                <label class="form-label">Correo electrónico</label>
+                <input
+                    type="email"
+                    class="form-input"
+                    placeholder="usuario@ejemplo.com"
+                    [(ngModel)]="email"
+                    name="email"
+                    autocomplete="email"
+                    required
+                />
+            </div>
+            <div class="form-field">
+                <label class="form-label">Contraseña</label>
+                <input
+                    type="password"
+                    class="form-input"
+                    placeholder="••••••••"
+                    [(ngModel)]="password"
+                    name="password"
+                    autocomplete="current-password"
+                    required
+                />
+            </div>
+
+            @if (errorMsg()) {
+                <div class="error-banner">
+                    <i class="material-symbols-outlined">error_outline</i>
+                    {{ errorMsg() }}
+                </div>
+            }
+
+            <button type="submit" class="btn-primary btn-email-login" [disabled]="isLoading()">
+                @if (isLoading()) {
+                    <div class="spinner-google"></div>
+                    <span>Ingresando...</span>
+                } @else {
+                    <span>Iniciar Sesión</span>
+                }
+            </button>
+        </form>
+
         <div class="divider">
-            <span class="divider-label">O CONTINÚA CON</span>
+            <span class="divider-label">o continúa con</span>
         </div>
 
-        <!-- Official Google Sign-in Button Container (Hidden if we need mock fallback) -->
+        <!-- Google Sign-in -->
         <div [style.display]="showFallbackButton() ? 'none' : 'flex'" id="googleBtnContainer" style="justify-content: center; width: 100%; min-height: 50px;"></div>
 
-        <!-- Custom Fallback Google button for local development and demo presentations -->
         <button *ngIf="showFallbackButton()" type="button" class="btn-google" (click)="loginWithGoogleMock()" [disabled]="isLoading()">
             <ng-container *ngIf="!isLoading()">
                 <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="" class="btn-google-icon">
@@ -45,7 +87,7 @@
             </ng-container>
             <ng-container *ngIf="isLoading()">
                 <div class="spinner-google"></div>
-                <span>Iniciando sesión...</span>
+                <span>Ingresando...</span>
             </ng-container>
         </button>
     </div>
