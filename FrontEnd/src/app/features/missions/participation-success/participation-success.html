@@ -12,8 +12,20 @@
             <div style="background: white; border-radius: 20px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 32px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
                 <div style="padding: 32px; border-bottom: 2px dashed var(--border); position: relative;">
                     <!-- QR Simulation -->
-                    <div style="background: #F9FAF5; padding: 16px; border-radius: 16px; display: inline-block; margin-bottom: 16px; border: 1px solid var(--border);">
-                        <img [src]="'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=EK-MISSION-' + m.id" alt="QR" style="width: 150px; height: 150px;">
+                    <div style="background: #F9FAF5; padding: 16px; border-radius: 16px; display: inline-block; margin-bottom: 16px; border: 1px solid var(--border); min-width: 182px; min-height: 182px;">
+                        @if (qrImageUrl()) {
+                            <img [src]="qrImageUrl()" alt="QR Seguro" style="width: 150px; height: 150px; display: block;">
+                        } @else if (qrError()) {
+                            <div style="width: 150px; height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #c0392b; font-size: 0.75rem; padding: 8px; text-align: center; gap: 8px;">
+                                <i data-lucide="alert-circle" style="width:32px; height:32px;"></i>
+                                {{ qrError() }}
+                            </div>
+                        } @else {
+                            <div style="width: 150px; height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); gap: 8px;">
+                                <div style="width: 32px; height: 32px; border: 3px solid var(--primary); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                                <span style="font-size: 0.8rem;">Generando QR...</span>
+                            </div>
+                        }
                     </div>
                     <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
                         Muestra este código al llegar para validar tu participación y ganar tus <span style="color: var(--primary); font-weight: 800;">{{ m.pointsReward }} Dirty Points</span>.

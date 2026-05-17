@@ -104,6 +104,14 @@ export class MissionService {
     );
   }
 
+  getAttendanceQr(eventId: number): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/attendance/qr/${eventId}`, { responseType: 'blob' });
+  }
+
+  registerAttendance(eventId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/attendance`, { eventId });
+  }
+
   private getFallbackById(id: number): Mission {
     return FALLBACK_MISSIONS.find(m => m.id === id) || FALLBACK_MISSIONS[0];
   }

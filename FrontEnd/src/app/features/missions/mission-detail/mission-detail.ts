@@ -1,5 +1,5 @@
 import { Component, OnInit, signal, inject, NgZone } from '@angular/core';
-import { RouterModule, ActivatedRoute } from '@angular/router';
+import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MissionService, Mission } from '../../../shared/services/mission.service';
@@ -16,9 +16,11 @@ export class MissionDetail implements OnInit {
   private route = inject(ActivatedRoute);
   private missionService = inject(MissionService);
   private ngZone = inject(NgZone);
+  private router = inject(Router);
 
   mission = signal<Mission | null>(null);
   apiLoaded = signal(false);
+  isRegistering = signal<boolean>(false);
 
   readonly mapOptions: google.maps.MapOptions = {
     mapId: 'DEMO_MAP_ID',
@@ -122,5 +124,24 @@ export class MissionDetail implements OnInit {
       h = h % 12 || 12;
       return `${h}:${m} ${ampm}`;
     } catch { return '08:30 AM'; }
+  }
+
+  confirmParticipation(): void {
+    const currentMission = this.mission();
+    if (!currentMission || this.isRegistering()) return;
+
+    this.isRegistering.set(true);
+    this.missionService.registerAttendance(currentMission.id).subscribe({
+      next: () => {
+        this.isRegistering.set(false);
+        this.router.navigate(['/participation-success'], { queryParams: { id: currentMission.id } });
+      },
+      error: (err) => {
+        this.isRegistering.set(false);
+        console.error('Failed to register attendance:', err);
+        // Navigate anyway (user may already be registered)
+        this.router.navigate(['/participation-success'], { queryParams: { id: currentMission.id } });
+      }
+    });
   }
 }

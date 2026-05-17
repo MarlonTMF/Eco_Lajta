@@ -65,9 +65,11 @@
             </div>
 
             <button class="scanner-btn-side" style="width: 100%; padding: 20px; font-size: 1.2rem; margin-bottom: 40px;"
-                    [routerLink]="['/participation-success']" [queryParams]="{ id: m.id }">
-                Confirmar Participación
-                <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+                    (click)="confirmParticipation()" [disabled]="isRegistering()">
+                {{ isRegistering() ? 'Confirmando...' : 'Confirmar Participación' }}
+                @if (!isRegistering()) {
+                    <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+                }
             </button>
         </div>
     </div>

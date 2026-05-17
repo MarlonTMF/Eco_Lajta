@@ -52,10 +52,12 @@ public class EventController {
     private final EventService eventService;
     private final QRService qrService;
     private final RegisterAttendanceUseCase registerAttendanceUseCase;
-    public EventController(EventService service, RegisterAttendanceUseCase registerAttendanceUseCase, QRService qrService) {
+    private final com.ucb.ecollajta.service.UserService userService;
+    public EventController(EventService service, RegisterAttendanceUseCase registerAttendanceUseCase, QRService qrService, com.ucb.ecollajta.service.UserService userService) {
         this.eventService = service;
         this.registerAttendanceUseCase = registerAttendanceUseCase;
         this.qrService = qrService;
+        this.userService = userService;
     }
     @Operation(summary = "Listar eventos", description = "Obtiene todos los eventos disponibles")
     @ApiResponses({
@@ -166,7 +168,10 @@ public class EventController {
         @PathVariable Long eventId,
         @AuthenticationPrincipal User user
     ) {
-        var payload = new QRPayloadAttendance(eventId, user.getCi());
+        String identifier = (user.getCi() != null && !user.getCi().isBlank())
+            ? user.getCi()
+            : user.getEmail();
+        var payload = new QRPayloadAttendance(eventId, identifier);
         var result = this.qrService.generateQrCode(payload);
 
         if (result.isFailure()) {
@@ -201,11 +206,15 @@ public class EventController {
                 return ResponseEntity.badRequest().body(Result.failure(decodeResult.getErrors()));
             }
             var payload = decodeResult.getValue();
-            var eventResult = registerAttendanceUseCase.execute(payload.eventId(),user.getId(),Optional.of(EventAttended.confirmed));
+            var citizenOpt = userService.findByCi(payload.ci());
+            if (citizenOpt.isEmpty()) {
+                return ResponseEntity.badRequest().body(Result.failure("qr", "Citizen not found"));
+            }
+            var citizen = citizenOpt.get();
+            var eventResult = registerAttendanceUseCase.execute(payload.eventId(), citizen.getId(), Optional.of(EventAttended.confirmed));
             return eventResult.isSuccess() ? ResponseEntity.ok(eventResult) : ResponseEntity.badRequest().body(eventResult);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(Result.failure("qr", e.getMessage()));
         }
     }
-    
 }
