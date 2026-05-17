@@ -14,6 +14,8 @@ import { ParticipationSuccess } from './features/missions/participation-success/
 import { ProfileComponent }       from './features/profile/profile';
 import { CommunityComponent }   from './features/community/community';
 import { RewardsComponent }     from './features/rewards/rewards';
+import { RedeemConfirmComponent } from './features/rewards/redeem-confirm/redeem-confirm';
+import { RedeemTicketComponent }  from './features/rewards/redeem-ticket/redeem-ticket';
 
 import { adminAuthGuard }      from './presentation/guards/admin-auth.guard';
 import { AdminLayoutComponent } from './presentation/layout/admin-layout/admin-layout.component';
@@ -36,6 +38,8 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'community', component: CommunityComponent },
   { path: 'rewards', component: RewardsComponent },
+  { path: 'rewards/confirm/:id', component: RedeemConfirmComponent },
+  { path: 'rewards/ticket/:id', component: RedeemTicketComponent },
   {
     path: 'admin',
     component: AdminLayoutComponent,

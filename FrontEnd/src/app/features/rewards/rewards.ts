@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 interface RewardItem {
   id: string;
@@ -36,6 +36,8 @@ export class RewardsComponent {
   // Balanced aligned with Mateo Velasco profile data (2,450 DP)
   userBalance = signal<number>(2450);
   ecoHeroProgress = signal<number>(75); // 75% complete
+
+  constructor(private router: Router) {}
 
   rewards = signal<RewardItem[]>([
     {
@@ -108,27 +110,7 @@ export class RewardsComponent {
 
   redeemReward(reward: RewardItem): void {
     if (this.userBalance() >= reward.cost) {
-      const confirmRedeem = confirm(`¿Estás seguro de que deseas canjear "${reward.title}" por ${reward.cost} DP?`);
-      if (confirmRedeem) {
-        this.userBalance.update(bal => bal - reward.cost);
-        
-        // Add new transaction to list
-        const newTx: TransactionItem = {
-          id: `tx-${Date.now()}`,
-          title: `Redemption: ${reward.title.split(' ')[0]}`,
-          location: 'Municipio de Cochabamba',
-          category: 'Recompensa',
-          date: 'Hoy',
-          amount: reward.cost,
-          isPositive: false,
-          icon: reward.icon,
-          bgClass: 'bg-error-container',
-          textClass: 'text-error'
-        };
-
-        this.transactions.update(txs => [newTx, ...txs]);
-        alert(`¡Canje exitoso! Se ha generado tu cupón digital. Se descontaron ${reward.cost} DP.`);
-      }
+      this.router.navigate(['/rewards/confirm', reward.id]);
     } else {
       alert(`Lo sentimos, necesitas ${reward.cost} DP para este canje. ¡Sigue reciclando para acumular más puntos!`);
     }

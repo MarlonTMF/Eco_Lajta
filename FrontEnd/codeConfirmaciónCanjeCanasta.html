@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Confirmar Canje - EcoKawsay</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#0d631b",
+                        "on-surface-variant": "#40493d",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e6e9e7",
+                        "inverse-primary": "#88d982",
+                        "on-primary": "#ffffff",
+                        "background": "#f8faf8",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#8b6557",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#001d32",
+                        "surface-container-low": "#f2f4f2",
+                        "tertiary": "#704d40",
+                        "on-primary-fixed-variant": "#005312",
+                        "inverse-on-surface": "#eff1ef",
+                        "on-secondary-fixed-variant": "#004a75",
+                        "tertiary-fixed": "#ffdbcf",
+                        "outline": "#707a6c",
+                        "on-primary-container": "#cbffc2",
+                        "surface-tint": "#1b6d24",
+                        "surface": "#f8faf8",
+                        "on-primary-fixed": "#002204",
+                        "on-tertiary-container": "#ffeee8",
+                        "surface-container-highest": "#e1e3e1",
+                        "secondary-fixed": "#cee5ff",
+                        "on-background": "#191c1b",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#eceeec",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e1e3e1",
+                        "secondary-container": "#51b2fe",
+                        "outline-variant": "#bfcaba",
+                        "on-tertiary-fixed-variant": "#603f33",
+                        "on-secondary-container": "#00436a",
+                        "inverse-surface": "#2e3130",
+                        "surface-dim": "#d8dad9",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f8faf8",
+                        "secondary": "#00639a",
+                        "tertiary-fixed-dim": "#ebbcac",
+                        "secondary-fixed-dim": "#96ccff",
+                        "primary-fixed-dim": "#88d982",
+                        "primary-fixed": "#a3f69c",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#2e150b",
+                        "on-surface": "#191c1b",
+                        "primary-container": "#2e7d32"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "xs": "4px",
+                        "md": "24px",
+                        "sm": "12px",
+                        "lg": "40px",
+                        "base": "8px",
+                        "xl": "64px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "80px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "label-lg": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "body-md": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "title-lg": ["Montserrat"],
+                        "headline-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                        "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}],
+                        "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Montserrat', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-dim shadow-[0px_2px_4px_rgba(27,109,36,0.05)] sticky top-0 z-50">
+<div class="flex items-center justify-between px-margin-mobile h-16 w-full max-w-screen-xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-primary-container/10 rounded-full transition-colors active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined text-primary" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary dark:text-primary-fixed-dim tracking-tight">Confirmar Canje</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-primary-container/10 rounded-full transition-colors active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-screen-md mx-auto px-margin-mobile py-lg">
+<div class="space-y-lg">
+<!-- Summary Card -->
+<section class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_12px_rgba(27,109,36,0.05)] overflow-hidden">
+<div class="h-48 w-full bg-surface-container">
+<img alt="Canasta de Alimentos" class="w-full h-full object-cover" data-alt="A vibrant and fresh basket overflowed with organic vegetables, fruits, and sustainable pantry staples, photographed in a high-key professional studio setting. The lighting is soft and natural, emphasizing the rich greens of the leaves and the bright reds of the tomatoes. The overall aesthetic is clean and corporate modern, reflecting a premium environmental commitment. The background is a subtle off-white to maintain focus on the colorful and vital contents of the food basket." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDf3CjGn3qQf_OHRYVQl42weDU42v_otjory5h7iuErm2Rr5QW2tr1JivdykwzQQRme-04a32dd1j4SqNB0ersGMLz3aJZ7pQccOJGobI_w3_2m4gYx3o4rzueek_Dmnwq2EE9m-Or2OkpcgDy5j2YIm1TyVCUjhw5078nr3qZR_OqAMA-IkG94i_VWDCOQBS9S9buHCcKly49cZYFDimjzRUpjCIrDujxqbxYGD2hxQ0TmgQNkO2Y_ocAHNUA5MsCMvafBDXSSI2PU"/>
+</div>
+<div class="p-md space-y-md">
+<div>
+<h2 class="font-title-lg text-title-lg text-on-surface">Canasta de Alimentos (EMAPA)</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Productos locales y sostenibles directamente a tu hogar.</p>
+</div>
+<div class="grid grid-cols-2 gap-md pt-base border-t border-outline-variant">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Costo</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary font-bold">450 ETK</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Saldo Final</span>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-semibold">800 ETK</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Balance Details Asymmetric Layout -->
+<section class="grid grid-cols-1 md:grid-cols-5 gap-md">
+<div class="md:col-span-3 bg-surface-container rounded-xl p-md flex flex-col justify-center">
+<div class="flex items-center gap-sm mb-xs">
+<span class="material-symbols-outlined text-secondary" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label-lg text-label-lg font-semibold text-on-surface-variant">Estado de Billetera</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">Tu saldo actual es de <span class="font-bold">1,250 ETK</span>. Después de esta transacción, mantendrás un balance positivo para futuros canjes.</p>
+</div>
+<div class="md:col-span-2 bg-secondary-container/20 rounded-xl p-md border border-secondary/10 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-secondary text-4xl mb-xs" data-icon="eco">eco</span>
+<span class="font-title-lg text-title-lg text-on-secondary-container font-bold">-450 ETK</span>
+<span class="font-label-sm text-label-sm text-on-secondary-container">Ahorro Ambiental</span>
+</div>
+</section>
+<!-- Warning Section -->
+<section class="bg-error-container/30 border border-error/10 rounded-xl p-md flex gap-md items-start">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Esta acción descontará <span class="font-bold text-on-surface">450 ETK</span> de tu billetera y generará un <span class="font-bold text-on-surface">ticket intransferible</span>. Asegúrate de que los datos sean correctos antes de confirmar.
+                </p>
+</section>
+<!-- Actions -->
+<section class="flex flex-col gap-sm pb-xl">
+<button class="w-full bg-primary text-on-primary font-title-lg text-title-lg py-4 rounded-xl shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 font-bold">
+                    Sí, Confirmar Canje
+                </button>
+<button class="w-full bg-transparent text-tertiary font-label-lg text-label-lg py-3 rounded-xl hover:bg-surface-variant/50 transition-all font-semibold">
+                    Cancelar
+                </button>
+</section>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 pb-safe bg-surface-container dark:bg-surface-container-high shadow-[0px_-4px_12px_rgba(27,109,36,0.08)] rounded-t-xl">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-variant/50 dark:hover:bg-surface-variant/10 rounded-xl transition-all active:scale-95 duration-200 ease-out">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-variant/50 dark:hover:bg-surface-variant/10 rounded-xl transition-all active:scale-95 duration-200 ease-out">
+<span class="material-symbols-outlined" data-icon="photo_camera">photo_camera</span>
+<span class="font-label-sm text-label-sm">EcoCam</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container dark:bg-primary-fixed-dim dark:text-on-primary-fixed rounded-xl px-4 py-1 active:scale-95 transition-transform duration-200 ease-out">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="font-label-sm text-label-sm">Wallet</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-variant/50 dark:hover:bg-surface-variant/10 rounded-xl transition-all active:scale-95 duration-200 ease-out">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-label-sm text-label-sm">Community</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-variant/50 dark:hover:bg-surface-variant/10 rounded-xl transition-all active:scale-95 duration-200 ease-out">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</div>
+</nav>
+</body></html>

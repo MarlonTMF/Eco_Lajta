@@ -534,6 +534,71 @@
   background: #e5e7eb;
 }
 
+/* Dynamic Marker selected state */
+.map-marker-container.active-selected .marker-pin {
+  transform: rotate(-45deg) scale(1.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  border-width: 4px;
+}
+
+/* Type Pill Indicators */
+.type-pill {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.type-pill.recycling {
+  background: #e8f5e9;
+  color: var(--primary, #0d631b);
+}
+
+.type-pill.mission {
+  background: #cee5ff;
+  color: #00639a;
+}
+
+.type-pill.reported {
+  background: #ffdad6;
+  color: #ba1a1a;
+}
+
+/* Dynamic Badges for Points in Drawer */
+.points-badge.badge-mission {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.points-badge.badge-reported {
+  background: #ffebee;
+  color: #c62828;
+}
+
+/* Severity Indicator Styles */
+.severity-high {
+  color: #ef4444 !important;
+  font-weight: 800;
+}
+
+.severity-medium {
+  color: #f59e0b !important;
+  font-weight: 800;
+}
+
+.severity-low {
+  color: #3b82f6 !important;
+  font-weight: 800;
+}
+
+.progress-bar.bg-success {
+  background: #10b981;
+}
+
 /* RESPONSIVE MEDIA QUERIES */
 @media (max-width: 768px) {
   .map-view-wrapper {

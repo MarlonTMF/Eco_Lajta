@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EcoKawsay Community Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#f8faf8",
+                    "secondary-fixed": "#cee5ff",
+                    "primary-container": "#2e7d32",
+                    "on-secondary-fixed-variant": "#004a75",
+                    "inverse-primary": "#88d982",
+                    "on-tertiary-fixed-variant": "#603f33",
+                    "outline": "#707a6c",
+                    "on-primary-container": "#cbffc2",
+                    "surface": "#f8faf8",
+                    "tertiary-fixed-dim": "#ebbcac",
+                    "surface-container-high": "#e6e9e7",
+                    "tertiary": "#704d40",
+                    "primary-fixed-dim": "#88d982",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed": "#001d32",
+                    "on-secondary-container": "#00436a",
+                    "secondary-fixed-dim": "#96ccff",
+                    "surface-dim": "#d8dad9",
+                    "on-tertiary-fixed": "#2e150b",
+                    "surface-tint": "#1b6d24",
+                    "inverse-surface": "#2e3130",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#40493d",
+                    "inverse-on-surface": "#eff1ef",
+                    "surface-container": "#eceeec",
+                    "on-tertiary-container": "#ffeee8",
+                    "secondary": "#00639a",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f2f4f2",
+                    "outline-variant": "#bfcaba",
+                    "on-primary-fixed": "#002204",
+                    "error": "#ba1a1a",
+                    "surface-container-highest": "#e1e3e1",
+                    "secondary-container": "#51b2fe",
+                    "surface-container-lowest": "#ffffff",
+                    "primary": "#0d631b",
+                    "on-primary": "#ffffff",
+                    "on-background": "#191c1b",
+                    "on-error-container": "#93000a",
+                    "background": "#f8faf8",
+                    "primary-fixed": "#a3f69c",
+                    "on-primary-fixed-variant": "#005312",
+                    "tertiary-fixed": "#ffdbcf",
+                    "on-surface": "#191c1b",
+                    "tertiary-container": "#8b6557",
+                    "surface-variant": "#e1e3e1",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "base": "8px",
+                    "xl": "64px",
+                    "gutter": "24px",
+                    "sm": "12px",
+                    "md": "24px",
+                    "margin-desktop": "80px",
+                    "xs": "4px",
+                    "lg": "40px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Montserrat"],
+                    "label-sm": ["Montserrat"],
+                    "headline-lg-mobile": ["Montserrat"],
+                    "title-lg": ["Montserrat"],
+                    "display-lg": ["Montserrat"],
+                    "body-md": ["Montserrat"],
+                    "label-lg": ["Montserrat"],
+                    "body-lg": ["Montserrat"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Montserrat', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopAppBar -->
+<header class="bg-surface-bright dark:bg-surface-dim shadow-sm bg-opacity-95 backdrop-blur-md flex justify-between items-center w-full px-margin-desktop h-16 sticky top-0 z-50">
+<div class="flex items-center gap-base">
+<span class="text-title-lg font-title-lg font-bold text-primary dark:text-inverse-primary">EcoKawsay</span>
+</div>
+<nav class="hidden md:flex items-center gap-xl">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="{{DATA:SCREEN:SCREEN_13}}">Dashboard</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="{{DATA:SCREEN:SCREEN_12}}">EcoCam</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md" href="{{DATA:SCREEN:SCREEN_11}}">Rewards</a>
+<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary py-1 font-body-md text-body-md" href="{{DATA:SCREEN:SCREEN_10}}">Community</a>
+</nav>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined p-xs rounded-full hover:bg-surface-container-high transition-all">notifications</button>
+<button class="material-symbols-outlined p-xs rounded-full hover:bg-surface-container-high transition-all">settings</button>
+<img alt="User Avatar" class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A professional headshot of a smiling user in a bright, modern setting. The lighting is soft and high-key, aligning with a light-mode UI aesthetic. The background is a clean, minimalist office with subtle hints of green indoor plants to emphasize an eco-conscious corporate atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvK5VHACcfVfCv1FZrzbl5bpyT1ST9hFMJvtCHaQjdDD-ErUzFXPBa196IH-JiLE0j-bBQHt4U3wv9YHCVJBgfgF8B4TQrvb44XxLEyfiM0VySvCik-HtUkhz5_Dtr3ME7opLs-ASO4mZp6bJYBaiQ7snc5EoE98nn7qJU_lvao0Uq22zisAnypzAO3A_XUZ1BMGA561jVRk91tG6t6F0Lf0HhdE7mJO0GffKD4U-3gHtg9FDcugYK7-31R_fjUxQ1kQQBUhuHF343"/>
+</div>
+</header>
+<div class="flex">
+<!-- SideNavBar -->
+<aside class="bg-surface-container-low dark:bg-surface-container-lowest border-r border-outline-variant fixed left-0 top-0 h-full w-64 flex flex-col py-md z-40 hidden xl:flex">
+<div class="px-md mb-lg">
+<span class="text-headline-lg font-headline-lg font-black text-primary dark:text-inverse-primary block">EcoKawsay</span>
+<span class="text-label-lg font-label-lg text-on-surface-variant opacity-70">Environmental Ecosystem</span>
+</div>
+<nav class="flex-1 space-y-xs pr-md">
+<a class="text-on-surface-variant dark:text-on-surface-variant flex items-center px-4 py-3 hover:bg-surface-container-high transition-all duration-200 hover:translate-x-1" href="{{DATA:SCREEN:SCREEN_13}}">
+<span class="material-symbols-outlined mr-md">dashboard</span>
+<span class="text-label-lg font-label-lg">Dashboard</span>
+</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant flex items-center px-4 py-3 hover:bg-surface-container-high transition-all duration-200 hover:translate-x-1" href="{{DATA:SCREEN:SCREEN_12}}">
+<span class="material-symbols-outlined mr-md">filter_center_focus</span>
+<span class="text-label-lg font-label-lg">EcoCam</span>
+</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant flex items-center px-4 py-3 hover:bg-surface-container-high transition-all duration-200 hover:translate-x-1" href="{{DATA:SCREEN:SCREEN_11}}">
+<span class="material-symbols-outlined mr-md">account_balance_wallet</span>
+<span class="text-label-lg font-label-lg">Rewards</span>
+</a>
+<a class="text-primary dark:text-inverse-primary bg-primary-container dark:bg-on-primary-fixed-variant rounded-r-full font-bold flex items-center px-4 py-3" href="{{DATA:SCREEN:SCREEN_10}}">
+<span class="material-symbols-outlined mr-md" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span class="text-label-lg font-label-lg">Community</span>
+</a>
+</nav>
+<div class="px-md mb-lg">
+<button class="w-full py-md bg-primary text-on-primary rounded-xl font-bold shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all" onclick="window.location.href='{{DATA:SCREEN:SCREEN_12}}'">
+                    Launch Waste Scanner
+                </button>
+</div>
+<div class="mt-auto space-y-xs pr-md">
+<a class="text-on-surface-variant flex items-center px-4 py-3 hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-md">help</span>
+<span class="text-label-lg font-label-lg">Help Center</span>
+</a>
+<a class="text-on-surface-variant flex items-center px-4 py-3 hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-md">logout</span>
+<span class="text-label-lg font-label-lg">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 xl:ml-64 p-gutter lg:p-margin-desktop min-h-screen">
+<div class="max-w-7xl mx-auto space-y-xl">
+<!-- Hero Section: Proyecto Río Rocha -->
+<section class="relative h-[480px] rounded-3xl overflow-hidden shadow-xl">
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="A wide-angle, cinematic view of a community river cleanup project along a riverbed with vibrant green banks. Dozens of enthusiastic volunteers of diverse ages are actively picking up waste under a bright, crystal-clear blue sky. The lighting is warm and golden, evoking a sense of hope and collective action. The composition is modern and professional, aligning with the Bio-digital eco-friendly tech aesthetic of EcoKawsay." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeVAiugut6VqNT0HWPZKlVL3fZ1oRJW-Zxw1b4SGAnUaXezNIjF6_2to9PDqWaewwca1J5Ui0D3BvTuwjgAACoPGcmX8fz1VrkbhK4diB98oy_UtLjyzyqj2BJbsefA0YouQjNQ_B1HKlvNNiDwqV4AAxKSOd3ZzwWhh9hgtAlhenpUjl685cDVs0mv--GDbRSTh495HtHdFlwna4CJRPjxwOGv35dB7BwKSWnTbuYS932CtoGhEX0OFY7EjovjnDupegHMA9pBEZ7"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-lg lg:p-xl">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div class="space-y-sm max-w-2xl text-white">
+<span class="bg-secondary px-md py-1 rounded-full text-label-sm font-label-sm uppercase tracking-wider">Evento Destacado</span>
+<h1 class="font-headline-lg text-headline-lg text-white">Proyecto Río Rocha</h1>
+<p class="font-body-lg text-body-lg opacity-90">Únete a la jornada de limpieza masiva para revitalizar nuestro pulmón hídrico. Tu participación suma puntos dobles para el ranking de tu OTB.</p>
+<div class="flex gap-md mt-sm">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary-container">calendar_month</span>
+<span class="text-label-lg">15 de Octubre, 2023</span>
+</div>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary-container">schedule</span>
+<span class="text-label-lg">08:00 - 12:00</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Leaders & Feed Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Sidebar: Leaderboard -->
+<section class="lg:col-span-4 space-y-md sticky top-24">
+<div class="flex justify-between items-center px-sm">
+<h2 class="font-title-lg text-title-lg text-primary flex items-center gap-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+                                Líderes (OTBs)
+                            </h2>
+</div>
+<div class="bg-surface-container-low border border-outline-variant rounded-2xl overflow-hidden shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high">
+<th class="p-md font-label-lg text-on-surface-variant">Pos</th>
+<th class="p-md font-label-lg text-on-surface-variant">OTB</th>
+<th class="p-md font-label-lg text-on-surface-variant text-right">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-outline-variant hover:bg-white transition-colors">
+<td class="p-md">
+<span class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">1</span>
+</td>
+<td class="p-md font-body-md font-semibold text-on-surface">OTB Recoleta</td>
+<td class="p-md text-right">
+<div class="flex items-center justify-end gap-xs">
+<span class="font-bold">1,240 kg</span>
+<span class="material-symbols-outlined text-primary scale-75">trending_up</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-white transition-colors">
+<td class="p-md">
+<span class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-bold">2</span>
+</td>
+<td class="p-md font-body-md font-semibold text-on-surface">OTB Cala Cala</td>
+<td class="p-md text-right">
+<div class="flex items-center justify-end gap-xs">
+<span class="font-bold">980 kg</span>
+<span class="material-symbols-outlined text-primary scale-75">trending_up</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-white transition-colors">
+<td class="p-md">
+<span class="w-8 h-8 rounded-full bg-surface-container-highest text-on-surface flex items-center justify-center font-bold">3</span>
+</td>
+<td class="p-md font-body-md font-semibold text-on-surface">OTB Tupuraya</td>
+<td class="p-md text-right">
+<div class="flex items-center justify-end gap-xs">
+<span class="font-bold">750 kg</span>
+<span class="material-symbols-outlined text-error scale-75">trending_down</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="p-md bg-surface-container-highest/50 text-center">
+<a class="text-secondary font-bold text-label-lg hover:underline" href="{{DATA:SCREEN:SCREEN_16}}">Ver ranking completo</a>
+</div>
+</div>
+<!-- Secondary Promo Card -->
+<div class="bg-secondary-container p-lg rounded-2xl space-y-sm text-on-secondary-container">
+<span class="material-symbols-outlined text-3xl">psychology</span>
+<h3 class="font-title-lg text-title-lg">¿Sabías que...?</h3>
+<p class="font-body-md">Reciclar una tonelada de papel ahorra 17 árboles y 26,000 litros de agua. ¡Tu esfuerzo local tiene impacto global!</p>
+</div>
+</section>
+<!-- Main Feed: Comunidad y Noticias -->
+<section class="lg:col-span-8 space-y-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-md mb-md">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Comunidad y Noticias</h2>
+<div class="flex gap-xs bg-surface-container p-1 rounded-full">
+<button class="px-xl py-2 bg-white rounded-full shadow-sm font-bold text-primary text-label-lg">Todos</button>
+<button class="px-xl py-2 text-on-surface-variant font-medium text-label-lg hover:bg-surface-container-high rounded-full transition-all">Oficial</button>
+</div>
+</div><section class="space-y-md">
+<div class="flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg text-on-surface">Lugares Reportados</h3>
+<a class="text-primary font-bold text-label-lg hover:underline" href="#">Ver todos</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Report Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+<div class="relative h-40">
+<img alt="Reported location" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPxFlzeJeliHO2Hu9QUSrpbInHOWhFQABqu4mi1JPMHEMF0kaMvJ10VDF8RorIRk-kekqGjrdcYJ-fhzPtk2WvtMlmDVZmcBBM-6s_Ni71MHKBYALDe_aYV3frm0qhDT2NTiUVSCB1XSVA78Jixk2EzjFo7VUoDrOEmINbdmK51xnta3_GpVAPfveywI3NG4tSksvX-8I4haDbiJmWOC5E3R8QJrsAIFuR9blapz8eOTnEXwMABx5dTZZ7scR7ufyJrWTWoOb68HdC"/>
+<div class="absolute top-2 right-2">
+<span class="bg-error-container text-on-error-container px-sm py-1 rounded-full text-label-sm font-bold uppercase">Reportado</span>
+</div>
+</div>
+<div class="p-md space-y-xs">
+<h4 class="font-bold text-body-lg text-on-surface">Acumulación de basura</h4>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span class="text-label-lg">Av. América &amp; Villarroel</span>
+</div>
+<p class="text-body-md text-on-surface-variant line-clamp-2">Gran cantidad de desechos plásticos acumulados en la acera norte desde hace 3 días.</p>
+</div>
+</div>
+<!-- Report Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+<div class="relative h-40">
+<img alt="Reported location" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeVAiugut6VqNT0HWPZKlVL3fZ1oRJW-Zxw1b4SGAnUaXezNIjF6_2to9PDqWaewwca1J5Ui0D3BvTuwjgAACoPGcmX8fz1VrkbhK4diB98oy_UtLjyzyqj2BJbsefA0YouQjNQ_B1HKlvNNiDwqV4AAxKSOd3ZzwWhh9hgtAlhenpUjl685cDVs0mv--GDbRSTh495HtHdFlwna4CJRPjxwOGv35dB7BwKSWnTbuYS932CtoGhEX0OFY7EjovjnDupegHMA9pBEZ7"/>
+<div class="absolute top-2 right-2">
+<span class="bg-secondary-container text-on-secondary-container px-sm py-1 rounded-full text-label-sm font-bold uppercase">En Revisión</span>
+</div>
+</div>
+<div class="p-md space-y-xs">
+<h4 class="font-bold text-body-lg text-on-surface">Parque Descuidado</h4>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span class="text-label-lg">Parque Fidel Anze</span>
+</div>
+<p class="text-body-md text-on-surface-variant line-clamp-2">Maleza alta y bancos dañados en el sector infantil. Se requiere mantenimiento urgente.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Feed Item 1: Alcaldía (Official) -->
+<article class="bg-surface-container-lowest rounded-2xl border border-outline-variant p-lg shadow-sm space-y-md hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start">
+<div class="flex gap-md items-center">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+<div>
+<h4 class="font-title-lg text-body-lg font-bold">Alcaldía de Cochabamba</h4>
+<p class="text-label-sm text-on-surface-variant">HACE 2 HORAS • OFICIAL</p>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant">more_vert</button>
+</div>
+<p class="font-body-lg text-on-surface">¡Nuevos contenedores de reciclaje diferenciado en el centro histórico! Estamos instalando 50 puntos nuevos para facilitar la separación de residuos sólidos, orgánicos y plásticos.</p>
+<img class="w-full h-80 object-cover rounded-xl" data-alt="Close-up shot of several modern, brightly colored recycling bins (green, yellow, blue) lined up on a clean, sunlit city sidewalk. The containers are sleek and have clear iconography for glass, paper, and plastic. The street is tidy and has a vibrant, well-maintained feel with soft bokeh of historic buildings in the background, reinforcing a high-end corporate-modern urban planning aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPxFlzeJeliHO2Hu9QUSrpbInHOWhFQABqu4mi1JPMHEMF0kaMvJ10VDF8RorIRk-kekqGjrdcYJ-fhzPtk2WvtMlmDVZmcBBM-6s_Ni71MHKBYALDe_aYV3frm0qhDT2NTiUVSCB1XSVA78Jixk2EzjFo7VUoDrOEmINbdmK51xnta3_GpVAPfveywI3NG4tSksvX-8I4haDbiJmWOC5E3R8QJrsAIFuR9blapz8eOTnEXwMABx5dTZZ7scR7ufyJrWTWoOb68HdC"/>
+<div class="flex items-center justify-between pt-md border-t border-outline-variant">
+<div class="flex gap-xl">
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-bold text-label-lg">342</span>
+</button>
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined">comment</span>
+<span class="font-bold text-label-lg">48</span>
+</button>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary">share</button>
+</div>
+</article>
+<!-- Feed Item 2: Tips de Reciclaje (Community) -->
+<article class="bg-surface-container-lowest rounded-2xl border border-outline-variant p-lg shadow-sm space-y-md hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start">
+<div class="flex gap-md items-center">
+<img alt="Leader Avatar" class="w-12 h-12 rounded-full object-cover" data-alt="A portrait of a confident and friendly young woman who is a community environmental leader. She is outdoors in a lush green garden setting with natural, warm daylight illuminating her face. The style is professional and vibrant, symbolizing mental clarity and environmental vitality as described in the brand guidelines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbDPpuCd_9BUls4tM9pcvlTOrE35jq28uMG9tlQLnty0lQob9mu8HB7nW2GkK2rxfz8bJVBI7tdz39ok3k5QZUokqSjo_7na6Hlj4n7TkFkjoBbR1meBB0LjcicTdtUe3L5zv1jhyuQHRCUw0HdB0ICyG56qo2nA0ver0lvswLOVuhhLkLn2TeYc4pQJgXS5iFsq8gfQ4f-wLUsWaOhlQOEqnkdBE_xmjWWSn5UQ7eEg2LVDdydykHHNMA-jOma12ZzSxKRe1_r2jS"/>
+<div>
+<h4 class="font-title-lg text-body-lg font-bold">Dra. Maria Elena - Líder Recoleta</h4>
+<p class="text-label-sm text-on-surface-variant">HACE 5 HORAS • COMUNIDAD</p>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant">more_vert</button>
+</div>
+<div class="bg-tertiary-fixed text-on-tertiary-fixed p-lg rounded-xl border-l-4 border-tertiary">
+<h5 class="font-bold mb-xs">Tips de Reciclaje: Composta Casera</h5>
+<p class="font-body-md">¿Sabías que el 40% de nuestra basura diaria es orgánica? Aquí te dejo 3 pasos simples para empezar tu propia compostera urbana sin olores.</p>
+<ul class="list-disc ml-md mt-sm text-body-md space-y-xs">
+<li class="">Usa un balde con tapa y pequeños orificios laterales.</li>
+<li class="">Alterna capas "verdes" (restos de verdura) con "marrones" (cartón seco).</li>
+<li class="">Revuelve una vez por semana para airear.</li>
+</ul>
+</div>
+<div class="flex items-center justify-between pt-md border-t border-outline-variant">
+<div class="flex gap-xl">
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1; color: #ba1a1a;">favorite</span>
+<span class="font-bold text-label-lg">1.2k</span>
+</button>
+<button class="flex items-center gap-xs text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined">comment</span>
+<span class="font-bold text-label-lg">156</span>
+</button>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary">share</button>
+</div>
+</article>
+<!-- Load More Button -->
+<div class="text-center py-lg">
+<button class="px-xl py-md border-2 border-outline-variant text-primary font-bold rounded-full hover:bg-surface-container-high transition-all">
+                                Cargar más noticias
+                            </button>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+<!-- FAB: Contextual Action (Post something new) -->
+<button class="fixed bottom-margin-desktop right-margin-desktop w-16 h-16 bg-primary text-on-primary rounded-2xl shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-3xl">add_comment</span>
+</button>
+</body></html>

@@ -1,0 +1,72 @@
+<div class="ticket-wrapper animate-fade-in" *ngIf="reward()">
+  
+  <!-- Success Header -->
+  <header class="success-header">
+    <div class="success-icon-wrap shadow-sm">
+      <span class="material-symbols-outlined check-icon">check_circle</span>
+    </div>
+    <h2 class="success-title">¡Canje Exitoso!</h2>
+    <p class="success-subtitle">Tu beneficio ha sido reservado con éxito.</p>
+  </header>
+
+  <!-- Ticket Card -->
+  <div class="ticket-card card-glass">
+    <!-- Decorative Cutouts for Ticket Look -->
+    <div class="ticket-cutout cut-left"></div>
+    <div class="ticket-cutout cut-right"></div>
+    
+    <div class="ticket-inner">
+      <!-- QR Code Area -->
+      <div class="qr-box">
+        <img alt="QR Code" class="qr-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkdvq31ukg6F-ysle_zmSwuLGjLdw9E3FRgi10nt4ocNZBwep6lW55v5Fmdo4opoytRrIgO6WE64K051qtymiH8lPnNi-uF2ABPu2orDRFKJNd4seAsS74kF1SDPZmhY_hf7jFWovJ2TS2e3vidcTxfPj65eyET4EBKEGCT1lzhZCPrd5MJnw8RDIHAQ3yZhMXd1NRN6POzzcbg28I6lvNJPOg8edueyauZsgB-1KN3Jqxp55EGLZCMwIf5-aOGCQ7TSumkcy3xbW7" />
+      </div>
+
+      <!-- Transaction Details -->
+      <div class="details-list">
+        <div class="detail-row">
+          <span class="detail-label">ID de Ticket:</span>
+          <span class="detail-value font-bold text-dark">{{ ticketId() }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Fecha:</span>
+          <span class="detail-value text-dark">{{ currentDate() }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Monto:</span>
+          <span class="detail-value text-primary font-bold">{{ reward()?.cost }} DP</span>
+        </div>
+      </div>
+
+      <!-- Product Summary -->
+      <div class="product-summary">
+        <h3 class="summary-header text-primary">Resumen de Producto</h3>
+        <div class="summary-card-bg">
+          <p class="product-name">{{ reward()?.title }}</p>
+          <div class="location-row">
+            <span class="material-symbols-outlined loc-icon text-secondary">location_on</span>
+            <p class="loc-text">{{ reward()?.location }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Instructions disclaimer -->
+      <div class="instructions-card">
+        <span class="material-symbols-outlined info-icon text-secondary">info</span>
+        <p class="info-text">Presenta este código QR en el mostrador para recoger tu beneficio. Válido por 30 días.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="ticket-actions">
+    <button class="btn-download" (click)="downloadTicket()">
+      <span class="material-symbols-outlined">download</span>
+      Descargar Ticket
+    </button>
+    <button class="btn-home-back" (click)="goToStart()">
+      Volver a Rewards
+    </button>
+  </div>
+
+</div>

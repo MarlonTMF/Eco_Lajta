@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ticket de Canje - Canasta EMAPA</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#cee5ff",
+                        "secondary": "#00639a",
+                        "inverse-primary": "#88d982",
+                        "on-surface": "#191c1b",
+                        "on-secondary-fixed": "#001d32",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#88d982",
+                        "on-primary-fixed-variant": "#005312",
+                        "surface-container": "#eceeec",
+                        "on-tertiary-fixed": "#2e150b",
+                        "background": "#f8faf8",
+                        "on-tertiary-container": "#ffeee8",
+                        "on-tertiary-fixed-variant": "#603f33",
+                        "inverse-surface": "#2e3130",
+                        "surface-tint": "#1b6d24",
+                        "primary-container": "#2e7d32",
+                        "on-surface-variant": "#40493d",
+                        "surface": "#f8faf8",
+                        "secondary-fixed-dim": "#96ccff",
+                        "outline": "#707a6c",
+                        "tertiary-container": "#8b6557",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#51b2fe",
+                        "primary-fixed": "#a3f69c",
+                        "on-secondary-container": "#00436a",
+                        "tertiary-fixed-dim": "#ebbcac",
+                        "surface-dim": "#d8dad9",
+                        "tertiary": "#704d40",
+                        "on-secondary-fixed-variant": "#004a75",
+                        "on-background": "#191c1b",
+                        "surface-variant": "#e1e3e1",
+                        "surface-container-high": "#e6e9e7",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#ffdbcf",
+                        "inverse-on-surface": "#eff1ef",
+                        "on-primary-container": "#cbffc2",
+                        "surface-bright": "#f8faf8",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#002204",
+                        "surface-container-low": "#f2f4f2",
+                        "primary": "#0d631b",
+                        "outline-variant": "#bfcaba",
+                        "surface-container-highest": "#e1e3e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "xl": "64px",
+                        "xs": "4px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "margin-desktop": "80px",
+                        "base": "8px",
+                        "margin-mobile": "16px",
+                        "lg": "40px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "title-lg": ["Montserrat"],
+                        "label-sm": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "label-lg": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}],
+                        "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Montserrat', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .qr-gradient {
+            background: linear-gradient(135deg, #f8faf8 0%, #eceeec 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface docked full-width top-0 z-50 flex justify-between items-center w-full px-margin-mobile py-base">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="location_on">location_on</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">EcoKawsay</h1>
+</div>
+<button class="hover:bg-surface-container-high transition-colors p-2 rounded-full active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+</header>
+<!-- Main Content: Ticket Canvas -->
+<main class="flex-grow flex flex-col items-center px-margin-mobile pt-md pb-xl">
+<!-- Success Header -->
+<div class="flex flex-col items-center text-center mb-md">
+<div class="bg-primary-container text-on-primary-container p-4 rounded-full mb-base shadow-sm">
+<span class="material-symbols-outlined text-4xl" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary font-bold">¡Canje Exitoso!</h2>
+<p class="font-body-md text-on-surface-variant">Tu canasta ha sido reservada con éxito.</p>
+</div>
+<!-- Ticket Card -->
+<div class="w-full bg-surface-container-lowest rounded-xl shadow-[0_4px_12px_rgba(46,125,50,0.05)] overflow-hidden flex flex-col relative border border-outline-variant/30">
+<!-- Decorative Cutouts for Ticket Look -->
+<div class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 w-6 h-6 bg-background rounded-full border-r border-outline-variant/30"></div>
+<div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 w-6 h-6 bg-background rounded-full border-l border-outline-variant/30"></div>
+<div class="p-md flex flex-col items-center">
+<!-- QR Code Area -->
+<div class="qr-gradient p-4 rounded-xl border-2 border-primary/10 mb-md">
+<img alt="QR Code" class="w-48 h-48 mix-blend-multiply" data-alt="A high-contrast digital QR code generated for a mobile application, centered on a clean white background with a subtle green border. The lighting is even and studio-quality, emphasizing a professional and secure tech-forward vibe. The surrounding environment is a minimalist UI container that uses a soft green and white color palette to evoke a sense of environmental sustainability and corporate reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkdvq31ukg6F-ysle_zmSwuLGjLdw9E3FRgi10nt4ocNZBwep6lW55v5Fmdo4opoytRrIgO6WE64K051qtymiH8lPnNi-uF2ABPu2orDRFKJNd4seAsS74kF1SDPZmhY_hf7jFWovJ2TS2e3vidcTxfPj65eyET4EBKEGCT1lzhZCPrd5MJnw8RDIHAQ3yZhMXd1NRN6POzzcbg28I6lvNJPOg8edueyauZsgB-1KN3Jqxp55EGLZCMwIf5-aOGCQ7TSumkcy3xbW7"/>
+</div>
+<!-- Transaction Details -->
+<div class="w-full grid grid-cols-1 gap-base border-b border-dashed border-outline-variant pb-md mb-md">
+<div class="flex justify-between items-center">
+<span class="font-label-lg text-on-surface-variant">ID de Ticket:</span>
+<span class="font-label-lg text-on-surface font-bold">#EK-EMAPA-7782</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-lg text-on-surface-variant">Fecha:</span>
+<span class="font-label-lg text-on-surface">24 Oct, 2023</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-lg text-on-surface-variant">Monto:</span>
+<div class="flex items-center gap-1">
+<span class="font-label-lg text-primary font-bold">450 ETK</span>
+</div>
+</div>
+</div>
+<!-- Product Summary -->
+<div class="w-full text-left mb-md">
+<h3 class="font-label-lg text-primary font-bold mb-xs uppercase tracking-wider">Resumen de Producto</h3>
+<div class="bg-surface-container-low p-sm rounded-lg">
+<p class="font-body-lg font-bold text-on-surface mb-xs">Canasta de Alimentos (EMAPA)</p>
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary text-sm mt-1" data-icon="location_on">location_on</span>
+<p class="font-body-md text-on-surface-variant">Punto de recojo: Centros EMAPA Autorizados</p>
+</div>
+</div>
+</div>
+<!-- Instructions -->
+<div class="w-full flex items-start gap-2 bg-secondary-container/10 p-sm rounded-lg">
+<span class="material-symbols-outlined text-secondary" data-icon="info">info</span>
+<p class="font-label-sm text-on-secondary-container">Presenta este código QR en el mostrador para recoger tu canasta. Válido por 30 días.</p>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="w-full mt-lg flex flex-col gap-sm">
+<button class="w-full py-3 px-md border-2 border-secondary text-secondary font-label-lg rounded-full flex items-center justify-center gap-2 hover:bg-secondary/5 active:scale-95 transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                Descargar Ticket
+            </button>
+<button class="w-full py-3 px-md bg-primary text-on-primary font-label-lg rounded-full shadow-md hover:bg-primary/90 active:scale-95 transition-all duration-200">
+                Volver al Inicio
+            </button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pt-2 pb-6 bg-surface-container-lowest shadow-[0_-4px_12px_rgba(46,125,50,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant/50 transition-all active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined size-6" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant/50 transition-all active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined size-6" data-icon="photo_camera">photo_camera</span>
+<span class="font-label-sm text-label-sm">EcoCam</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 transition-all active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined size-6" data-icon="account_balance_wallet" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="font-label-sm text-label-sm">Wallet</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant/50 transition-all active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined size-6" data-icon="groups">groups</span>
+<span class="font-label-sm text-label-sm">Community</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant/50 transition-all active:scale-90 duration-300" href="#">
+<span class="material-symbols-outlined size-6" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+</body></html>

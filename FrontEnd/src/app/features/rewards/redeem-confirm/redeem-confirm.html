@@ -1,0 +1,79 @@
+<div class="confirm-wrapper animate-fade-in" *ngIf="reward()">
+  <!-- Header Navigation -->
+  <header class="confirm-header">
+    <div class="header-content">
+      <button class="btn-back" (click)="cancel()">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </button>
+      <h1 class="header-title">Confirmar Canje</h1>
+    </div>
+  </header>
+
+  <!-- Main Content Body -->
+  <main class="confirm-main">
+    <div class="confirm-card-container">
+      
+      <!-- Summary Card -->
+      <section class="summary-section card-glass">
+        <div class="cover-image-container">
+          <img [src]="reward()?.image" [alt]="reward()?.title" class="cover-img" />
+        </div>
+        <div class="summary-info">
+          <div>
+            <span class="category-tag text-primary">{{ reward()?.category }}</span>
+            <h2 class="reward-title">{{ reward()?.title }}</h2>
+            <p class="reward-desc">{{ reward()?.description }}</p>
+          </div>
+          
+          <div class="balance-split-row">
+            <div class="col-cost">
+              <span class="split-label">Costo</span>
+              <span class="split-value text-primary">{{ reward()?.cost }} DP</span>
+            </div>
+            <div class="col-final">
+              <span class="split-label">Saldo Final</span>
+              <span class="split-value text-dark">{{ finalBalance() | number }} DP</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Wallet Details Section -->
+      <section class="wallet-details-grid">
+        <div class="wallet-status-box card-glass">
+          <div class="status-header">
+            <span class="material-symbols-outlined icon-wallet text-secondary">account_balance_wallet</span>
+            <span class="status-label">Estado de Billetera</span>
+          </div>
+          <p class="status-text">
+            Tu saldo actual es de <span class="font-bold">{{ currentBalance() | number }} DP</span>. Después de esta transacción, mantendrás un balance positivo para futuros canjes.
+          </p>
+        </div>
+        <div class="saving-badge-box card-glass">
+          <span class="material-symbols-outlined badge-eco-icon">eco</span>
+          <span class="badge-saving-amount">-{{ reward()?.cost }} DP</span>
+          <span class="badge-saving-label">Ahorro Ambiental</span>
+        </div>
+      </section>
+
+      <!-- Warning Disclaimer -->
+      <section class="warning-disclaimer-box">
+        <span class="material-symbols-outlined warning-icon">warning</span>
+        <p class="warning-text">
+          Esta acción descontará <span class="font-bold text-dark">{{ reward()?.cost }} DP</span> de tu billetera y generará un <span class="font-bold text-dark">ticket intransferible</span>. Asegúrate de que los datos sean correctos antes de confirmar.
+        </p>
+      </section>
+
+      <!-- Final Actions -->
+      <section class="action-buttons-column">
+        <button class="btn-confirm-action" (click)="confirmRedeem()">
+          Sí, Confirmar Canje
+        </button>
+        <button class="btn-cancel-action" (click)="cancel()">
+          Cancelar
+        </button>
+      </section>
+
+    </div>
+  </main>
+</div>

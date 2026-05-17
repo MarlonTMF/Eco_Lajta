@@ -1,46 +1,40 @@
 <div class="map-view-wrapper">
+  
   <!-- Satellite Map Background -->
   <div class="map-background">
-    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM9ow0uavbuqqbxuL_M5EzhebdD8ficww_ml8hyvc8l1UsCLfSCwZDHAW6IqkAK4fFeiq69oUPv1R9MgWSwneSpWEG-nMeyQIm6dfV-xYRW9SAR0PQDrFlVcloij9tfQTPxomVn05e91NdRiyduPl7fRr719p9pbIixxTabaq6wpb7Nx1o0v9l4wZeAQkIMLv07aCRLq08YOnRgj2Ceaq9HKDfQnoRQaYUEbVJ64mUWX5fk9wU3BeOqkZW13x2D7ZoexSZtPiQaNB9" alt="Satellite Map of Cochabamba" class="map-img" />
+    <img 
+      src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM9ow0uavbuqqbxuL_M5EzhebdD8ficww_ml8hyvc8l1UsCLfSCwZDHAW6IqkAK4fFeiq69oUPv1R9MgWSwneSpWEG-nMeyQIm6dfV-xYRW9SAR0PQDrFlVcloij9tfQTPxomVn05e91NdRiyduPl7fRr719p9pbIixxTabaq6wpb7Nx1o0v9l4wZeAQkIMLv07aCRLq08YOnRgj2Ceaq9HKDfQnoRQaYUEbVJ64mUWX5fk9wU3BeOqkZW13x2D7ZoexSZtPiQaNB9" 
+      alt="Satellite Map of Cochabamba" 
+      class="map-img" 
+    />
   </div>
 
-  <!-- Category Filters Overlay -->
+  <!-- Category Filters Overlay (Pills) -->
   <div class="map-filters-overlay">
-    @for (cat of categories; track cat.id) {
-      <button 
-        class="btn-filter-pill" 
-        [class.active]="selectedCategory() === cat.id"
-        (click)="selectCategory(cat.id)"
-      >
-        @if (cat.id === 'all') {
-          <span class="material-symbols-outlined filter-icon">grid_view</span>
-        } @else {
-          <span class="dot-indicator" [style.background-color]="cat.color"></span>
-        }
-        {{ cat.label }}
-      </button>
-    }
+    <button 
+      *ngFor="let cat of categories"
+      class="btn-filter-pill" 
+      [class.active]="selectedCategory() === cat.id"
+      (click)="selectCategory(cat.id)"
+    >
+      <span class="material-symbols-outlined filter-icon" [style.color]="cat.color">{{ cat.icon }}</span>
+      {{ cat.label }}
+    </button>
   </div>
 
-  <!-- Floating Markers -->
-  <div class="map-marker-container primary-marker" style="top: 45%; left: 52%;" (click)="toggleDrawer()">
-    <div class="marker-pin border-primary">
-      <span class="material-symbols-outlined icon-inside">recycling</span>
+  <!-- Dynamic Floating Markers on Map -->
+  <div 
+    *ngFor="let point of filteredPoints()"
+    class="map-marker-container"
+    [style.top]="point.topPercent" 
+    [style.left]="point.leftPercent"
+    (click)="selectPoint(point)"
+    [class.active-selected]="selectedPoint()?.id === point.id"
+  >
+    <div class="marker-pin" [class]="point.markerBorderClass">
+      <span class="material-symbols-outlined icon-inside" [class]="point.markerIconClass">{{ point.icon }}</span>
     </div>
-    <div class="marker-label">Plaza Colón Point</div>
-  </div>
-
-  <!-- Other markers (simulated) -->
-  <div class="map-marker-container blue-marker" style="top: 30%; left: 40%;" (click)="toggleDrawer()">
-    <div class="marker-pin border-blue">
-      <span class="material-symbols-outlined icon-inside">delete</span>
-    </div>
-  </div>
-  
-  <div class="map-marker-container red-marker" style="top: 60%; left: 35%;" (click)="toggleDrawer()">
-    <div class="marker-pin border-red">
-      <span class="material-symbols-outlined icon-inside">warning</span>
-    </div>
+    <div class="marker-label">{{ point.title }}</div>
   </div>
 
   <!-- Zoom Controls -->
@@ -50,80 +44,111 @@
     <button class="zoom-btn btn-nav"><span class="material-symbols-outlined">near_me</span></button>
   </div>
 
-  <!-- Floating Action Button (FAB) -->
-  <button class="map-fab-btn" (click)="toggleDrawer()">
-    <span class="material-symbols-outlined fab-icon">add</span>
-  </button>
-
-  <!-- Point Detail Drawer (Right Sidebar) -->
-  <aside class="map-drawer-panel" [class.active]="isDrawerOpen()">
-    <div class="drawer-header-image">
-      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuByeR3AbL6Qe1nFpIiOkavFkPREWKwENE6khjZyIh5-YovTfujR-Lr0Lm5u4tqe7SlHrrEEeHfgS-3w0NaQK5E_jrTlnlF5q68gddMU9Ck3KOHzH_R95IUTP1GzKUQUme3FWD1w6QhKVseWzhVhJaiYuyYKfBoAA7hH-a_dSc1BI7flMKebcGGreald5DiwMfYF0oYBVUY6VirUuBIIls1sQyYyk79vdlPqFOxUPTYXIDvDd_VCL7MXqlswYRuTzfhqaQZYyqgQobs9" alt="Plaza Colón" class="header-cover-img" />
-      <button class="btn-close-drawer" (click)="toggleDrawer()">
-        <span class="material-symbols-outlined">close</span>
-      </button>
-    </div>
-
-    <div class="drawer-content">
-      <div class="drawer-header-info">
-        <div class="title-area">
-          <h2 class="drawer-title text-primary">Plaza Colón Point</h2>
-          <div class="location-row">
-            <span class="material-symbols-outlined location-icon">location_on</span>
-            <span class="location-text">Cochabamba Centro, Zona 1</span>
-          </div>
-        </div>
-        <div class="points-badge">
-          <span class="points-number">+15</span>
-          <span class="points-label">Tokens</span>
-        </div>
-      </div>
-
-      <div class="info-kpi-grid">
-        <div class="kpi-card">
-          <span class="kpi-label">Operating Hours</span>
-          <div class="kpi-value text-primary">
-            <span class="material-symbols-outlined kpi-icon">schedule</span> 
-            08:00 - 20:00
-          </div>
-        </div>
-        <div class="kpi-card">
-          <span class="kpi-label">Status</span>
-          <div class="kpi-value text-accent">
-            <span class="material-symbols-outlined kpi-icon">check_circle</span> 
-            Open Now
-          </div>
-        </div>
-      </div>
-
-      <div class="capacity-gauge">
-        <div class="capacity-header">
-          <span class="gauge-title">Current Capacity</span>
-          <span class="gauge-percentage text-danger">78% Full</span>
-        </div>
-        <div class="progress-container">
-          <div class="progress-bar bg-danger" style="width: 78%;"></div>
-        </div>
-        <p class="gauge-hint text-muted">Recommended: Disposal scheduled in 2 hours.</p>
-      </div>
-
-      <div class="action-buttons-column">
-        <button class="btn-primary-action">
-          <span class="material-symbols-outlined">near_me</span> Get Directions
-        </button>
-        <button class="btn-secondary-action">
-          <span class="material-symbols-outlined">info</span> Report Issue
+  <!-- Point Detail Drawer (Right Sidebar Panel) -->
+  <aside class="map-drawer-panel" [class.active]="isDrawerOpen() && selectedPoint()">
+    <ng-container *ngIf="selectedPoint() as activePoint">
+      
+      <div class="drawer-header-image">
+        <img [src]="activePoint.image" [alt]="activePoint.title" class="header-cover-img" />
+        <button class="btn-close-drawer" (click)="toggleDrawer()">
+          <span class="material-symbols-outlined">close</span>
         </button>
       </div>
 
-      <div class="site-photos-gallery">
-        <h3 class="gallery-title">Site Photos</h3>
-        <div class="gallery-grid">
-          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2HaQ0jT-QLuQm3C3-pfGv-dPAosegulTpX-MdaVjwhyFEUEbIr2_s6du0L5PoIIGTSuFlQh7SBUS2dthY1f60wcXeytuO3T5NRUvLMM79-a9Vrvsb-WRpVOpt3AeXroYVP--EWAb2BegjkNB1EC2bBcbaWjgNhWKKjV_TF8jQPnU2gmwOiMM4ZGybVD5HjwxNZMOEIWaGgPp2QBZ45lnYbTrySzyPc-jTQ1Qu9N3uS2jout5M9ghvsDjqZcT6tYM-liUrOs8d7WmR" alt="Site 1" class="gallery-thumb" />
-          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9Z2CY8BztCGLo4Dgdd-r6EoqCW7hEg9NvxVSJ6JQuAFr3qCnXoXpd0y6iqKPalcxX5bM5FP_8BwpXjeGUphH8wLCCrUwmmDkgYupU8h6W8Pil0pD1ThL4f0xHdc_1yEkVIYWlX8f5_q83RaXeFagDR1pdjiz_pnYSwzKcGsxB77N0-VSn91s37kF384YQEgtfphHNrVo_kClawvB8DQWOq4ZDf0BUcEy9qoO_AiDEYHVFVIBSddvqstcKOjB3pXBA7OJcVOQBb9wI" alt="Site 2" class="gallery-thumb" />
-          <div class="gallery-more-card">+5 more</div>
+      <div class="drawer-content">
+        <div class="drawer-header-info">
+          <div class="title-area">
+            <!-- Title with custom type indicators -->
+            <span class="type-pill" [class]="activePoint.type">
+              {{ activePoint.type === 'recycling' ? 'Reciclaje' : activePoint.type === 'mission' ? 'Misión' : 'Reportado' }}
+            </span>
+            <h2 class="drawer-title" [class.text-primary]="activePoint.type === 'recycling'" [class.text-secondary]="activePoint.type === 'mission'" [class.text-error]="activePoint.type === 'reported'">
+              {{ activePoint.title }}
+            </h2>
+            <div class="location-row">
+              <span class="material-symbols-outlined location-icon">location_on</span>
+              <span class="location-text">{{ activePoint.location }}</span>
+            </div>
+          </div>
+          <div class="points-badge" [class.badge-mission]="activePoint.type === 'mission'" [class.badge-reported]="activePoint.type === 'reported'">
+            <span class="points-number">{{ activePoint.rewardText }}</span>
+            <span class="points-label">{{ activePoint.rewardLabel }}</span>
+          </div>
         </div>
+
+        <!-- Info KPIs Grid -->
+        <div class="info-kpi-grid">
+          <div class="kpi-card">
+            <span class="kpi-label">
+              {{ activePoint.type === 'recycling' ? 'Horario de Atención' : activePoint.type === 'mission' ? 'Fecha del Evento' : 'Tiempo Transcurrido' }}
+            </span>
+            <div class="kpi-value text-primary">
+              <span class="material-symbols-outlined kpi-icon">schedule</span> 
+              {{ activePoint.hoursOrDate }}
+            </div>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-label">Estado</span>
+            <div class="kpi-value" [class]="activePoint.statusClass">
+              <span class="material-symbols-outlined kpi-icon">info</span> 
+              {{ activePoint.statusText }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Capacity / Demand / Severity indicators -->
+        <div class="capacity-gauge">
+          <div class="capacity-header">
+            <span class="gauge-title">
+              {{ activePoint.type === 'recycling' ? 'Capacidad del Contenedor' : activePoint.type === 'mission' ? 'Estado de Convocatoria' : 'Nivel de Severidad' }}
+            </span>
+            <span class="gauge-percentage" [class]="activePoint.severityClass || 'text-accent'">
+              {{ activePoint.capacityOrSeverity }}
+            </span>
+          </div>
+          
+          <!-- Progress bar shown only for recycling points -->
+          <div class="progress-container" *ngIf="activePoint.type === 'recycling' && activePoint.capacityPercentage as pct">
+            <div 
+              class="progress-bar" 
+              [style.width.%]="pct"
+              [class.bg-danger]="pct > 75"
+              [class.bg-success]="pct <= 75"
+            ></div>
+          </div>
+          
+          <p class="gauge-hint text-muted">{{ activePoint.description }}</p>
+        </div>
+
+        <!-- Actions panel -->
+        <div class="action-buttons-column">
+          <button class="btn-primary-action" (click)="primaryAction(activePoint)">
+            <span class="material-symbols-outlined">
+              {{ activePoint.type === 'mission' ? 'groups' : 'near_me' }}
+            </span> 
+            {{ activePoint.type === 'mission' ? 'Registrarse en la Misión' : 'Obtener Ruta' }}
+          </button>
+          
+          <button class="btn-secondary-action" (click)="secondaryAction(activePoint)">
+            <span class="material-symbols-outlined">
+              {{ activePoint.type === 'reported' ? 'verified' : 'info' }}
+            </span> 
+            {{ activePoint.type === 'reported' ? 'Verificar Reporte' : 'Reportar Incidencia' }}
+          </button>
+        </div>
+
+        <!-- Photos Gallery -->
+        <div class="site-photos-gallery" *ngIf="activePoint.photos && activePoint.photos.length > 0">
+          <h3 class="gallery-title">Galería de Fotos</h3>
+          <div class="gallery-grid">
+            <img *ngFor="let photo of activePoint.photos" [src]="photo" alt="Photo" class="gallery-thumb" />
+            <div class="gallery-more-card" *ngIf="activePoint.photos.length > 2">+2 más</div>
+          </div>
+        </div>
+
       </div>
-    </div>
+
+    </ng-container>
   </aside>
+
 </div>
