@@ -1,3 +1,4 @@
+import { environment } from '../../../environments/environment';
 // infrastructure/repositories/http-reward.repository.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -10,7 +11,7 @@ import { RewardEntity, TransactionEntity, UserWalletEntity } from '../../domain/
 import { RewardDto, TransactionDto, WalletDto, RedeemResponseDto } from '../../application/dtos/reward.dto';
 import { mapDtoToReward, mapDtoToTransaction, mapDtoToWallet } from '../../application/mappers/reward.mapper';
 
-const BASE_URL = 'http://localhost:8080/api';
+const BASE_URL = environment.apiUrl;
 
 // ─────────────────────────────────────────────────────────────────
 // MOCK DATA — used as fallback when backend is not yet available

@@ -1,3 +1,4 @@
+import { environment } from '../../../../../environments/environment';
 import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -132,7 +133,7 @@ export class AdminRewardsComponent implements OnInit {
       try {
         const formData = new FormData();
         formData.append('file', this.selectedFile() as Blob);
-        const uploadRes = await firstValueFrom(this.http.post<{success: boolean, value: string}>('http://localhost:8080/api/upload', formData));
+        const uploadRes = await firstValueFrom(this.http.post<{success: boolean, value: string}>(environment.apiUrl + '/upload', formData));
         if (uploadRes.success && uploadRes.value) {
           imageUrl = uploadRes.value;
         }

@@ -1,3 +1,4 @@
+import { environment } from '../../../environments/environment';
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
@@ -24,7 +25,7 @@ interface ApiResponse {
 @Injectable({ providedIn: 'root' })
 export class HttpMapPointRepository implements MapPointRepository {
   private http = inject(HttpClient);
-  private url = 'http://localhost:8080/api/events';
+  private url = environment.apiUrl + '/events';
 
   getActivePoints(): Observable<MapPoint[]> {
     return this.http.get<ApiResponse>(this.url).pipe(

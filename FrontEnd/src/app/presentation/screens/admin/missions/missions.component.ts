@@ -1,3 +1,4 @@
+import { environment } from '../../../../../environments/environment';
 // presentation/screens/admin/missions/missions.component.ts
 import { Component, inject, signal, linkedSignal, computed, resource } from '@angular/core';
 import { Router } from '@angular/router';
@@ -71,7 +72,7 @@ export class AdminMissionsComponent {
       try {
         const formData = new FormData();
         formData.append('file', this.selectedFile() as Blob);
-        const uploadRes = await firstValueFrom(this.http.post<{success: boolean, value: string}>('http://localhost:8080/api/upload', formData));
+        const uploadRes = await firstValueFrom(this.http.post<{success: boolean, value: string}>(environment.apiUrl + '/upload', formData));
         if (uploadRes.success && uploadRes.value) {
           imageUrl = uploadRes.value;
         }

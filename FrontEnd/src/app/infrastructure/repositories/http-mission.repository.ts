@@ -1,3 +1,4 @@
+import { environment } from '../../../environments/environment';
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
@@ -9,7 +10,7 @@ import { MissionEntity, MissionStatus, EngagementLevel } from '../../domain/enti
 })
 export class HttpMissionRepository implements IMissionRepository {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/api/events';
+  private apiUrl = environment.apiUrl + '/events';
 
   async getAll(): Promise<MissionEntity[]> {
     const response = await firstValueFrom(this.http.get<{success: boolean, value: any[]}>(this.apiUrl));

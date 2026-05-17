@@ -1,3 +1,4 @@
+import { environment } from '../../../environments/environment';
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
@@ -8,7 +9,7 @@ import { Result } from '../../domain/models/result.model';
   providedIn: 'root'
 })
 export class HttpUserRepository extends UserRepository {
-  private readonly apiUrl = 'http://localhost:8080/api/users';
+  private readonly apiUrl = environment.apiUrl + '/users';
   private http = inject(HttpClient);
 
   async getAllUsers(): Promise<AdminUserDTO[]> {

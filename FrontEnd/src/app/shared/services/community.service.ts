@@ -1,3 +1,4 @@
+import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
@@ -58,7 +59,7 @@ const FALLBACK_FEED: FeedItem[] = [
 
 @Injectable({ providedIn: 'root' })
 export class CommunityService {
-  private apiUrl = 'http://localhost:8080/api/community';
+  private apiUrl = environment.apiUrl + '/community';
 
   constructor(private http: HttpClient) {}
 
