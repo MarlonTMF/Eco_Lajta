@@ -4,3 +4,8 @@ DB_USERNAME=neondb_owner
 GOOGLE_CLIENT_ID=437570902163-ffqiv27cft6udu4l6k4i407vfhjh71io.apps.googleusercontent.com
 JWT_EXPIRATION_TIME=10800000
 JWT_SECRET_KEY=OAHahgdWcMIvqMpf4j0AOtvKcvBK2e3Z3GFKQEKcnRo=
+
+# ImageKit Configuration
+IMAGEKIT_PUBLIC_KEY=public_8kkZpUVnlCTghi4yZ1GhomLSKc0=
+IMAGEKIT_PRIVATE_KEY=private_uJ0NBDvNrgIAUtLS73h8jyNvD3A=
+IMAGEKIT_URL_ENDPOINT=https://ik.imagekit.io/qmaimojbg6

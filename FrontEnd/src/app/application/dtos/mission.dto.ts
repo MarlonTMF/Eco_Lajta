@@ -40,4 +40,5 @@ export interface CreateMissionFormDto {
   rewardPoolDirtyPoints: number;
   slotsTotal: number;
   district: string;
+  imageUrl: string;
 }

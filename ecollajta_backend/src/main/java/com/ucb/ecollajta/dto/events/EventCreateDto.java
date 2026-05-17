@@ -11,6 +11,9 @@ public record EventCreateDto(
     OffsetDateTime endsAt,
     int pointsReward,
     BigDecimal longitude,
-    BigDecimal latitude
+    BigDecimal latitude,
+    Integer slotsTotal,
+    String district,
+    String imageUrl
 ) {
 }

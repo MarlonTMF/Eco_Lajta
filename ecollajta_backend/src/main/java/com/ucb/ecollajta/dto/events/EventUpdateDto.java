@@ -13,7 +13,10 @@ public record EventUpdateDto(
     Optional<OffsetDateTime> endsAt,
     Optional<Integer> pointsReward,
     Optional<BigDecimal> longitude,
-    Optional<BigDecimal> latitude
+    Optional<BigDecimal> latitude,
+    Optional<Integer> slotsTotal,
+    Optional<String> district,
+    Optional<String> imageUrl
 ) {
 
 }

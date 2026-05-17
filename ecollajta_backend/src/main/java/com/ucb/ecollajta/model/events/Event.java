@@ -1,10 +1,12 @@
-package com.ucb.ecollajta.model;
+package com.ucb.ecollajta.model.events;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "events")
@@ -49,8 +51,33 @@ public class Event {
     @Column(name= "longitude", nullable= false ,precision = 9, scale = 6)
     private BigDecimal longitude;
 
+    // ── New admin-panel fields ──
+    @Column(name = "slots_total")
+    @Builder.Default
+    private Integer slotsTotal = 50;
+
+    @Column(name = "slots_filled")
+    @Builder.Default
+    private Integer slotsFilled = 0;
+
+    @Column(name = "qr_scans")
+    @Builder.Default
+    private Integer qrScans = 0;
+
+    @Column(length = 100)
+    @Builder.Default
+    private String district = "";
+
+    @Column(name = "image_url", length = 500)
+    private String imageUrl;
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
+
+    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<EventAttendance> attendances = new ArrayList<>();
+    
 }

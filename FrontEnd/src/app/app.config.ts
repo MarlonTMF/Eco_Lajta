@@ -2,7 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessC
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideHttpClient, withInterceptors, withFetch } from '@angular/common/http';
 import { routes } from './app.routes';
-import { MockMissionRepository } from './infrastructure/repositories/mock-mission.repository';
+import { HttpMissionRepository } from './infrastructure/repositories/http-mission.repository';
 import { HttpRewardRepository } from './infrastructure/repositories/http-reward.repository';
 import { MISSION_REPOSITORY_TOKEN, REWARD_REPOSITORY_TOKEN } from './infrastructure/tokens/injection-tokens';
 import { authInterceptor } from './shared/interceptors/auth-interceptor';
@@ -16,7 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(withInterceptors([authInterceptor]), withFetch()),
-    { provide: MISSION_REPOSITORY_TOKEN, useClass: MockMissionRepository },
+    { provide: MISSION_REPOSITORY_TOKEN, useClass: HttpMissionRepository },
     { provide: REWARD_REPOSITORY_TOKEN, useClass: HttpRewardRepository },
     {
       provide: 'SocialAuthServiceConfig',

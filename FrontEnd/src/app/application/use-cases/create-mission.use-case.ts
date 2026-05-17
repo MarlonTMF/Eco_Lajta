@@ -15,6 +15,7 @@ export class CreateMissionUseCase {
       rewardPoolDirtyPoints:  form.rewardPoolDirtyPoints,
       slotsTotal:             form.slotsTotal,
       district:               form.district,
+      imageUrl:               form.imageUrl,
     });
     return mapMissionToDto(entity);
   }

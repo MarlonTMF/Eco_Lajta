@@ -39,6 +39,11 @@ public class DatabaseSeeder implements CommandLineRunner {
                     .status(EventStatus.published)
                     .latitude(new BigDecimal("-17.385150"))
                     .longitude(new BigDecimal("-66.155700"))
+                    .slotsTotal(100)
+                    .slotsFilled(85)
+                    .qrScans(162)
+                    .district("Distrito Sur")
+                    .imageUrl("https://images.unsplash.com/photo-1542838132-92c53300491e?w=600")
                     .build();
 
                 Event event2 = Event.builder()
@@ -51,6 +56,11 @@ public class DatabaseSeeder implements CommandLineRunner {
                     .status(EventStatus.published)
                     .latitude(new BigDecimal("-17.393500"))
                     .longitude(new BigDecimal("-66.156800"))
+                    .slotsTotal(50)
+                    .slotsFilled(12)
+                    .qrScans(0)
+                    .district("Distrito 4")
+                    .imageUrl("https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600")
                     .build();
 
                 Event event3 = Event.builder()
@@ -63,6 +73,11 @@ public class DatabaseSeeder implements CommandLineRunner {
                     .status(EventStatus.published)
                     .latitude(new BigDecimal("-17.412100"))
                     .longitude(new BigDecimal("-66.143200"))
+                    .slotsTotal(80)
+                    .slotsFilled(5)
+                    .qrScans(0)
+                    .district("Cala Cala")
+                    .imageUrl("https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=600")
                     .build();
 
                 Event event4 = Event.builder()
@@ -75,6 +90,11 @@ public class DatabaseSeeder implements CommandLineRunner {
                     .status(EventStatus.published)
                     .latitude(new BigDecimal("-17.378900"))
                     .longitude(new BigDecimal("-66.159200"))
+                    .slotsTotal(150)
+                    .slotsFilled(150)
+                    .qrScans(148)
+                    .district("Distrito 2")
+                    .imageUrl("https://images.unsplash.com/photo-1622353381669-e339bf4b3e8e?w=600")
                     .build();
 
                 eventRepository.saveAll(List.of(event1, event2, event3, event4));
