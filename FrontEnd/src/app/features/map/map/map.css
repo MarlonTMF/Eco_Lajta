@@ -1,3 +1,7 @@
+/* ============================================
+   MAP VIEW — Layout completo
+   ============================================ */
+
 .map-view-wrapper {
   position: relative;
   height: calc(100vh - 120px);
@@ -8,21 +12,70 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
 }
 
-.map-background {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: #eaeaea;
-}
-
-.map-img {
+/* ── Google Map container ─────────────────── */
+google-map {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  opacity: 0.95;
 }
 
-/* Category Filters Overlay */
+/* ── Loading / Error overlays ───────────────── */
+.map-loading,
+.map-error {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: white;
+  border-radius: 24px;
+}
+
+.map-error span {
+  font-size: 56px;
+  color: #ef4444;
+}
+
+.map-error h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text, #1e293b);
+}
+
+.map-error button {
+  background: var(--primary, #0d631b);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 100px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.map-error button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(13, 99, 27, .25);
+}
+
+.spinner-ring {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(13, 99, 27, 0.15);
+  border-top-color: var(--primary, #0d631b);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Category Filters Overlay ───────────────── */
 .map-filters-overlay {
   position: absolute;
   top: 24px;
@@ -30,120 +83,53 @@
   transform: translateX(-50%);
   z-index: 30;
   display: flex;
-  gap: 12px;
+  gap: 10px;
   width: max-content;
   max-width: 90%;
   overflow-x: auto;
   padding: 4px;
+  scrollbar-width: none;
 }
+
+.map-filters-overlay::-webkit-scrollbar { display: none; }
 
 .btn-filter-pill {
   background: white;
   color: var(--text, #191c1b);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  padding: 10px 24px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 10px 20px;
   border-radius: 100px;
   font-weight: 700;
-  font-size: 0.9rem;
-  display: flex;
+  font-size: 0.88rem;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  transition: transform .2s, box-shadow .2s, background .2s, color .2s;
 }
 
 .btn-filter-pill:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-filter-pill:focus-visible {
+  outline: 3px solid var(--primary, #0d631b);
+  outline-offset: 2px;
 }
 
 .btn-filter-pill.active {
   background: var(--primary, #0d631b);
   color: white;
   border-color: transparent;
-  box-shadow: 0 6px 20px rgba(13, 99, 27, 0.2);
+  box-shadow: 0 6px 20px rgba(13, 99, 27, 0.25);
 }
 
-.filter-icon {
-  font-size: 18px;
-}
+.filter-icon { font-size: 18px; }
 
-.dot-indicator {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-/* Floating Markers */
-.map-marker-container {
-  position: absolute;
-  transform: translate(-50%, -100%);
-  cursor: pointer;
-  z-index: 10;
-  transition: transform 0.2s ease, z-index 0.2s ease;
-}
-
-.map-marker-container:hover {
-  transform: translate(-50%, -100%) scale(1.08);
-  z-index: 25;
-}
-
-.marker-pin {
-  width: 44px;
-  height: 44px;
-  background: white;
-  border-radius: 50% 50% 50% 0;
-  transform: rotate(-45deg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  border: 3px solid var(--primary, #0d631b);
-  transition: all 0.2s ease;
-}
-
-.icon-inside {
-  transform: rotate(45deg);
-  font-size: 22px;
-}
-
-/* Color Overrides for Markers */
-.border-primary {
-  border-color: var(--primary, #0d631b) !important;
-  color: var(--primary, #0d631b);
-}
-
-.border-blue {
-  border-color: #00639a !important;
-  color: #00639a;
-}
-
-.border-red {
-  border-color: #ba1a1a !important;
-  color: #ba1a1a;
-}
-
-.marker-label {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: 8px;
-  background: white;
-  padding: 4px 12px;
-  border-radius: 8px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  white-space: nowrap;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  color: #1f2937;
-}
-
-/* Zoom Controls */
+/* ── Zoom Controls ──────────────────────────── */
 .zoom-controls {
   position: absolute;
   bottom: 32px;
@@ -151,94 +137,103 @@
   z-index: 30;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 
 .zoom-btn {
   background: white;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  width: 46px;
-  height: 46px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  width: 44px;
+  height: 44px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: #4b5563;
-  transition: all 0.2s ease;
+  transition: background .2s, transform .2s, box-shadow .2s;
 }
 
 .zoom-btn:hover {
   background: #f9fafb;
   color: #111827;
   transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
-.btn-top {
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
+.zoom-btn:focus-visible {
+  outline: 3px solid var(--primary, #0d631b);
+  outline-offset: 2px;
 }
 
-.btn-bottom {
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  margin-top: -8px;
+.btn-top    { border-radius: 12px 12px 4px 4px; }
+.btn-bottom { border-radius: 4px 4px 12px 12px; }
+.btn-nav    { margin-top: 8px; border-radius: 12px; }
+
+/* ── Google Maps Advanced Marker ────────────── */
+.gm-pin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transform-origin: bottom center;
+  transition: transform .2s cubic-bezier(.4, 0, .2, 1);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, .28));
 }
 
-.btn-nav {
-  margin-top: 8px;
+.gm-pin:hover { transform: scale(1.15) translateY(-4px); }
+.gm-pin.is-selected {
+  transform: scale(1.22) translateY(-6px);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .4));
 }
 
-/* FAB Action Button */
-.map-fab-btn {
-  position: absolute;
-  bottom: 32px;
-  right: 32px;
-  z-index: 50;
-  background: var(--accent, #00639a);
-  color: white;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  border: none;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+.gm-pin-body {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-.map-fab-btn:hover {
-  transform: scale(1.08) translateY(-2px);
-  box-shadow: 0 14px 35px rgba(0, 99, 154, 0.35);
-  filter: brightness(1.05);
+.gm-pin-icon {
+  transform: rotate(45deg);
+  font-size: 20px;
+  color: white;
+  font-family: 'Material Symbols Outlined' !important;
+  font-variation-settings: 'FILL' 1;
+  user-select: none;
 }
 
-.fab-icon {
-  font-size: 32px;
-}
+/* Colores sólidos por tipo */
+.gm-pin.recycling .gm-pin-body { background: #0d631b; }
+.gm-pin.mission   .gm-pin-body { background: #00639a; }
+.gm-pin.reported  .gm-pin-body { background: #ba1a1a; }
 
-/* Point Detail Drawer */
+/* Sin label */
+.gm-pin-label { display: none; }
+
+/* ── Point Detail Drawer ────────────────────── */
 .map-drawer-panel {
   position: absolute;
   right: 0;
   top: 0;
   height: 100%;
-  width: 420px;
+  width: 400px;
   background: white;
   z-index: 100;
   border-left: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.12);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
   transform: translateX(100%);
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform .4s cubic-bezier(.4, 0, .2, 1);
   overflow-y: auto;
+  scrollbar-width: thin;
 }
 
-.map-drawer-panel.active {
-  transform: translateX(0);
-}
+.map-drawer-panel.active { transform: translateX(0); }
 
 .drawer-header-image {
   position: relative;
