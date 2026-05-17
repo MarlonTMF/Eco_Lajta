@@ -1,0 +1,13 @@
+.admin-users-page {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--text);
+}
+
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+.hover\:border-primary:hover {
+  border-color: var(--primary) !important;
+  box-shadow: 0 8px 16px rgba(13, 99, 27, 0.05);
+}

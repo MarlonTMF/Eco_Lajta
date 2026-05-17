@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sentinel-CBBA | Reward Catalog Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#1b6d24",
+                        "on-primary-fixed-variant": "#005312",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdbcf",
+                        "tertiary": "#704d40",
+                        "secondary-fixed-dim": "#96ccff",
+                        "inverse-primary": "#88d982",
+                        "surface-dim": "#d8dad9",
+                        "outline-variant": "#bfcaba",
+                        "surface-container-low": "#f2f4f2",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface": "#f8faf8",
+                        "on-tertiary-fixed": "#2e150b",
+                        "primary-fixed-dim": "#88d982",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#2e3130",
+                        "tertiary-container": "#8b6557",
+                        "on-background": "#191c1b",
+                        "outline": "#707a6c",
+                        "on-tertiary-fixed-variant": "#603f33",
+                        "primary-fixed": "#a3f69c",
+                        "on-secondary-fixed": "#001d32",
+                        "surface-variant": "#e1e3e1",
+                        "secondary-fixed": "#cee5ff",
+                        "on-primary-container": "#cbffc2",
+                        "surface-container": "#eceeec",
+                        "on-surface": "#191c1b",
+                        "secondary": "#00639a",
+                        "surface-container-highest": "#e1e3e1",
+                        "surface-bright": "#f8faf8",
+                        "primary-container": "#2e7d32",
+                        "background": "#f8faf8",
+                        "on-tertiary-container": "#ffeee8",
+                        "on-surface-variant": "#40493d",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#00436a",
+                        "primary": "#0d631b",
+                        "on-secondary-fixed-variant": "#004a75",
+                        "surface-container-high": "#e6e9e7",
+                        "on-primary-fixed": "#002204",
+                        "secondary-container": "#51b2fe",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#eff1ef",
+                        "tertiary-fixed-dim": "#ebbcac"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "lg": "40px",
+                        "xl": "64px",
+                        "md": "24px",
+                        "base": "8px",
+                        "gutter": "24px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "margin-desktop": "80px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "title-lg": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "body-lg": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "body-md": ["Montserrat"],
+                        "label-sm": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #f8faf8;
+            font-family: 'Montserrat', sans-serif;
+            color: #191c1b;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .reward-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .reward-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -12px rgba(46, 125, 50, 0.12);
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container dark:bg-surface-container-low shadow-sm dark:shadow-none flex flex-col py-lg z-50">
+<div class="px-md mb-xl">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined">eco</span>
+</div>
+<div>
+<h1 class="text-title-lg font-title-lg font-bold text-primary dark:text-inverse-primary leading-tight">Sentinel-CBBA</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Environmental Management</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-xs">
+<a class="flex items-center gap-base text-on-surface-variant dark:text-surface-variant px-md py-sm mx-sm hover:text-on-surface hover:bg-surface-variant dark:hover:bg-inverse-surface transition-all duration-200 scale-100 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant dark:text-surface-variant px-md py-sm mx-sm hover:text-on-surface hover:bg-surface-variant dark:hover:bg-inverse-surface transition-all duration-200 scale-100 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-body-md text-body-md">Missions</span>
+</a>
+<a class="flex items-center gap-base bg-primary-container text-on-primary-container rounded-lg px-md py-sm mx-sm font-bold scale-100 active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-body-md text-body-md">Logistics</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant dark:text-surface-variant px-md py-sm mx-sm hover:text-on-surface hover:bg-surface-variant dark:hover:bg-inverse-surface transition-all duration-200 scale-100 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md text-body-md">Users</span>
+</a>
+</nav>
+<div class="px-md mt-auto pt-lg">
+<div class="p-sm bg-surface-variant rounded-xl flex items-center gap-sm">
+<img alt="User Profile Menu" class="w-8 h-8 rounded-full object-cover" data-alt="A professional headshot of a corporate environmental administrator in a clean, modern office setting. The person is wearing a professional charcoal blazer over a crisp white shirt, looking directly at the camera with a confident, approachable expression. The background is softly blurred with hints of lush green indoor plants and minimalist furniture. The lighting is bright and airy, reflecting a high-quality light-mode corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTVEXahDFSeAwGi3ueGLATh5DjfHFQtbREBITQ3fLHtBbGJw_ZoeYaS-uHJJbUFXcxZ-Z8_EX0e4iCDED1u8JYEvjWzZBkYohZHo-sAeUqVBDe4Nk1kEGoO07bLwdCgMfO6EUJNmvgxqLuGBgbSIK9yctrCyA9DfM0wALyJRakcPQenJ6VJmlP1ZS-_v54AcnA6X1py50V1kvlOYSoy1ERWpApnuClvjphKYXu1MNmuzx-rdAskFHWy_-tcjc_FPOTy6w1H_Pgbd5j"/>
+<div class="overflow-hidden">
+<p class="text-label-lg font-label-lg font-bold truncate">Admin Carlos</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant truncate">Master Coordinator</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 ml-64 min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full h-16 pl-gutter pr-margin-desktop bg-surface dark:bg-surface-dim border-b border-outline-variant sticky top-0 z-40 shadow-sm dark:shadow-none">
+<div class="flex items-center gap-md flex-1 max-w-2xl">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary font-body-md text-body-md outline-none" placeholder="Search rewards by name or provider..." type="text"/>
+</div>
+<div class="flex gap-sm">
+<button class="px-sm py-2 rounded-full flex items-center gap-xs text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+<span class="text-label-lg font-label-lg">Filters</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="bg-primary text-on-primary px-md py-sm rounded-full font-label-lg text-label-lg flex items-center gap-sm hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-md">
+<span class="material-symbols-outlined">add</span>
+                    Create New Reward
+                </button>
+<div class="flex items-center gap-base border-l border-outline-variant pl-md ml-xs">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface rounded-full active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface rounded-full active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Canvas Content -->
+<div class="p-md md:p-lg lg:p-xl space-y-lg">
+<section class="flex flex-col gap-sm">
+<h2 class="font-headline-lg text-headline-lg text-primary">Gestión de Recompensas</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">Manage your catalog of ecological incentives and rewards. Adjust DP (Digital Points) costs, update availability, and coordinate with eco-friendly providers.</p>
+</section>
+<!-- Reward Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter">
+<!-- Card 1 -->
+<div class="reward-card bg-surface-container-lowest rounded-xl flex flex-col border border-outline-variant overflow-hidden group">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A premium reusable bamboo and stainless steel water bottle set against a minimalist architectural background with natural sunlight. The design is sleek and modern, emphasizing high-end sustainable product design. The color palette features natural wood tones, brushed steel, and soft white shadows. The lighting is professional and high-key, conveying a sense of quality and ecological responsibility." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN7-9NvZbQMmh2ysQPxINRh1dMprFYPr7mPllFrwqsXqodhaVnZrd0FBHQ9Dbu5S6K9gCo63hu2Cv5BhcNtT1BRfL3ZX8WttHKf7Z_yracshrRMe9BQPKTywGXjsmL8_K4K68_x9lI4WkhsDEroVn-9DeTcQu8LLNoHMYRM35WBFCjH3dg0xCdUlSU3feLxreLJ4ska-r50Zc-b41Nnmeh_bRZ33O7oawkclnvpSdrysbS0_KCqG4PFO68_Fo3KgH118KgvRVt63My"/>
+<div class="absolute top-3 left-3 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm font-bold shadow-sm">
+                            Lifestyle
+                        </div>
+</div>
+<div class="p-md flex-1 flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-title-lg text-body-lg font-bold text-on-surface">Bamboo Eco-Set</h3>
+<p class="text-label-sm font-label-sm text-secondary">EcoLife Bolivia</p>
+</div>
+<div class="flex items-center gap-xs text-surface-tint">
+<span class="font-bold text-title-lg">250</span>
+<span class="text-label-sm font-bold uppercase tracking-widest">DP</span>
+</div>
+</div>
+<p class="text-body-md text-on-surface-variant line-clamp-2">Complete set of bamboo utensils and bottle for a waste-free daily routine.</p>
+<div class="mt-auto pt-md flex items-center justify-between border-t border-outline-variant">
+<div class="flex items-center gap-sm">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+</span>
+<span class="text-label-sm font-label-sm text-on-surface">Available</span>
+</div>
+<div class="flex gap-xs">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-error hover:bg-error-container/20 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="reward-card bg-surface-container-lowest rounded-xl flex flex-col border border-outline-variant overflow-hidden group">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="An assortment of organic skin care products in frosted glass jars with minimalist labels. The setting is a bright, airy bathroom with marble surfaces and fresh eucalyptus leaves. The color scheme focuses on soft greens, pristine whites, and light grays. High-key natural lighting creates a calm, clean, and premium organic aesthetic, highlighting the transparency and purity of the ingredients." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMiLiEvUCxePBtUEeQYHxj7jDbO0tYsGpaHrdIVjJh-BIvWQZFuuS1pZ4WYJWQI_LcH8DaTDkQnbQYEtPyiR-STSpnQZSH4EvJPOgWaZ6JinjGxie4M3DTshYIPAhClCy-uexJkIr-FqCK5ft0p0Tjbgg5HLM39hcQ4xVfFUT9mK2lDE9Jux9YD-35HH5Dq8WFI7EkxJNkhKTnXAaa7y-N2p_-Nl0M2Cit1De4nNTQFnvulkruwfhOET1DVaxQsQl3Hy_Pl1bOK_6-"/>
+<div class="absolute top-3 left-3 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm font-bold shadow-sm">
+                            Wellness
+                        </div>
+</div>
+<div class="p-md flex-1 flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-title-lg text-body-lg font-bold text-on-surface">Organic Care Kit</h3>
+<p class="text-label-sm font-label-sm text-secondary">GreenSkin Lab</p>
+</div>
+<div class="flex items-center gap-xs text-surface-tint">
+<span class="font-bold text-title-lg">480</span>
+<span class="text-label-sm font-bold uppercase tracking-widest">DP</span>
+</div>
+</div>
+<p class="text-body-md text-on-surface-variant line-clamp-2">Premium selection of organic, vegan skin care products from local labs.</p>
+<div class="mt-auto pt-md flex items-center justify-between border-t border-outline-variant">
+<div class="flex items-center gap-sm">
+<span class="h-3 w-3 rounded-full bg-outline"></span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Out of Stock</span>
+</div>
+<div class="flex gap-xs">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-error hover:bg-error-container/20 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="reward-card bg-surface-container-lowest rounded-xl flex flex-col border border-outline-variant overflow-hidden group">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A professional solar-powered portable power bank for camping and outdoors, placed on a modern outdoor patio. The device is sleek, featuring carbon fiber textures and bright green LED status indicators. The environment is lush with high-end landscaping and modern architecture. The lighting is crisp afternoon sun, creating high contrast and emphasizing the technological sophistication of the solar device." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDP4ODiYRz0MND1thTzlosBAk1ajkGKvrGsT0PexJzjSboUSEx3MsFrX4V3vzfC8Cw983VqHQ0MVS4rGVKvFiOAFCAcpyZHoGOatqWegG8VmOoiQWaSW58yCpwAhyhQf6_c17VoY1eieCTMWBrzbLIIpzl-md-VYXzNgjjVVqE_IeQd4Y0vQF_KPiJ7MmjhDR1cbCBpAgqHD9Nw1msHGeRQqGrUe5m-6MNII5igG9pyA-mtR_Hn5WxPEd9wn6d7uNfeK9Ij9p-BGuJG"/>
+<div class="absolute top-3 left-3 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm font-bold shadow-sm">
+                            Tech
+                        </div>
+</div>
+<div class="p-md flex-1 flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-title-lg text-body-lg font-bold text-on-surface">Solar Power Hub</h3>
+<p class="text-label-sm font-label-sm text-secondary">Voltaic Energy</p>
+</div>
+<div class="flex items-center gap-xs text-surface-tint">
+<span class="font-bold text-title-lg">1200</span>
+<span class="text-label-sm font-bold uppercase tracking-widest">DP</span>
+</div>
+</div>
+<p class="text-body-md text-on-surface-variant line-clamp-2">High-capacity portable battery with integrated solar panel charging.</p>
+<div class="mt-auto pt-md flex items-center justify-between border-t border-outline-variant">
+<div class="flex items-center gap-sm">
+<span class="h-3 w-3 rounded-full bg-primary"></span>
+<span class="text-label-sm font-label-sm text-on-surface">Available</span>
+</div>
+<div class="flex gap-xs">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-error hover:bg-error-container/20 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="reward-card bg-surface-container-lowest rounded-xl flex flex-col border border-outline-variant overflow-hidden group">
+<div class="relative h-48 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="An indoor smart garden kit with glowing full-spectrum LED grow lights, showcasing vibrant microgreens and herbs. The kit is placed in a high-end, minimalist kitchen with polished white countertops and warm wood accents. The image focus is on the lush green growth and the clean technology design. The mood is fresh, healthy, and technologically advanced, with soft ambient kitchen lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEwlKlAe_EDl-pAGA_hlW9PMT8wjHPgYSIPwWy9dW4p7cC4Y3HxaJizmMP4MtFy9DHj1IOEoosUqTHZup2NpYozz2fkCfIj7jrfWw7n54voNaJfx6ohh2nQ6qNIPwZqvDQCDd7Vq9caMhBNpVgBZR5V5NZBbJ_cXdKwK2QAETc6uToFSM0opIhFk1xyPWPLc9HJ0lQVxPJOUyqjtAsJj6A_GmltZ7-78DaSzSxRoyLBrzF_iA8N9vtbO5fmQwCyqZbFX7Bz9Yh9Hll"/>
+<div class="absolute top-3 left-3 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm font-bold shadow-sm">
+                            Home
+                        </div>
+</div>
+<div class="p-md flex-1 flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-title-lg text-body-lg font-bold text-on-surface">Urban Hydro-Kit</h3>
+<p class="text-label-sm font-label-sm text-secondary">Roots &amp; Tech</p>
+</div>
+<div class="flex items-center gap-xs text-surface-tint">
+<span class="font-bold text-title-lg">750</span>
+<span class="text-label-sm font-bold uppercase tracking-widest">DP</span>
+</div>
+</div>
+<p class="text-body-md text-on-surface-variant line-clamp-2">Smart hydroponic garden for growing fresh herbs and vegetables indoors.</p>
+<div class="mt-auto pt-md flex items-center justify-between border-t border-outline-variant">
+<div class="flex items-center gap-sm">
+<span class="h-3 w-3 rounded-full bg-primary"></span>
+<span class="text-label-sm font-label-sm text-on-surface">Available</span>
+</div>
+<div class="flex gap-xs">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-error hover:bg-error-container/20 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State Card / Create New -->
+<button class="reward-card h-full min-h-[400px] border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center gap-md p-lg hover:bg-surface-container transition-colors group">
+<div class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl">add_circle</span>
+</div>
+<div class="text-center">
+<h3 class="font-title-lg text-title-lg font-bold text-on-surface">Add New Reward</h3>
+<p class="text-body-md text-on-surface-variant px-md">Launch a new ecological incentive for the community.</p>
+</div>
+</button>
+</div>
+<!-- Footer Stats -->
+<footer class="mt-xl pt-lg border-t border-outline-variant flex flex-wrap gap-xl">
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-widest">Total Active Rewards</span>
+<span class="text-headline-lg font-headline-lg text-primary">124</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-widest">Total Redemptions (MTD)</span>
+<span class="text-headline-lg font-headline-lg text-secondary">2,842</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-widest">Provider Partnerships</span>
+<span class="text-headline-lg font-headline-lg text-surface-tint">18</span>
+</div>
+<div class="flex-1 flex justify-end items-end gap-sm">
+<button class="p-sm flex items-center gap-xs text-secondary font-label-lg text-label-lg hover:bg-secondary-container/10 rounded-lg">
+<span class="material-symbols-outlined text-[20px]">file_download</span>
+                        Export Catalog Report
+                    </button>
+</div>
+</footer>
+</div>
+</main>
+</body></html>

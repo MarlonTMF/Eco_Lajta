@@ -2,29 +2,31 @@
   <!-- SENTINEL SIDEBAR -->
   <aside class="sentinel-sidebar">
     <div class="sidebar-brand">
-      <span class="brand-icon material-symbols-outlined">eco</span>
+      <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; shadow: 0 4px 12px rgba(13,99,27,0.2);">
+        <span class="material-symbols-outlined" style="font-size: 24px; color: white;">eco</span>
+      </div>
       <div>
-        <h1 class="brand-name">Sentinel-CBBA</h1>
+        <h1 class="brand-name" style="letter-spacing: -1px; font-weight: 700; font-size: 1.3rem;">EcoLlajta</h1>
         <p class="brand-sub">Municipality Admin</p>
       </div>
     </div>
 
     <nav class="sidebar-nav">
-      <a routerLink="/admin/dashboard" routerLinkActive="active" class="nav-item">
-        <span class="material-symbols-outlined">dashboard</span>
-        Dashboard
-      </a>
       <a routerLink="/admin/missions" routerLinkActive="active" class="nav-item">
         <span class="material-symbols-outlined">fact_check</span>
         Missions
       </a>
-      <a routerLink="/admin/logistics" routerLinkActive="active" class="nav-item">
-        <span class="material-symbols-outlined">local_shipping</span>
-        Logistics
+      <a routerLink="/admin/rewards" routerLinkActive="active" class="nav-item">
+        <span class="material-symbols-outlined">redeem</span>
+        Rewards
+      </a>
+      <a routerLink="/admin/tickets" routerLinkActive="active" class="nav-item">
+        <span class="material-symbols-outlined">qr_code_scanner</span>
+        Validar Tickets
       </a>
       <a routerLink="/admin/users" routerLinkActive="active" class="nav-item">
-        <span class="material-symbols-outlined">manage_accounts</span>
-        User Management
+        <span class="material-symbols-outlined">group</span>
+        Usuarios y OTBs
       </a>
     </nav>
 

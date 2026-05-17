@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#1b6d24",
+                    "on-primary-fixed-variant": "#005312",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#ffdbcf",
+                    "tertiary": "#704d40",
+                    "secondary-fixed-dim": "#96ccff",
+                    "inverse-primary": "#88d982",
+                    "surface-dim": "#d8dad9",
+                    "outline-variant": "#bfcaba",
+                    "surface-container-low": "#f2f4f2",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface": "#f8faf8",
+                    "on-tertiary-fixed": "#2e150b",
+                    "primary-fixed-dim": "#88d982",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#2e3130",
+                    "tertiary-container": "#8b6557",
+                    "on-background": "#191c1b",
+                    "outline": "#707a6c",
+                    "on-tertiary-fixed-variant": "#603f33",
+                    "primary-fixed": "#a3f69c",
+                    "on-secondary-fixed": "#001d32",
+                    "surface-variant": "#e1e3e1",
+                    "secondary-fixed": "#cee5ff",
+                    "on-primary-container": "#cbffc2",
+                    "surface-container": "#eceeec",
+                    "on-surface": "#191c1b",
+                    "secondary": "#00639a",
+                    "surface-container-highest": "#e1e3e1",
+                    "surface-bright": "#f8faf8",
+                    "primary-container": "#2e7d32",
+                    "background": "#f8faf8",
+                    "on-tertiary-container": "#ffeee8",
+                    "on-surface-variant": "#40493d",
+                    "on-error-container": "#93000a",
+                    "on-secondary-container": "#00436a",
+                    "primary": "#0d631b",
+                    "on-secondary-fixed-variant": "#004a75",
+                    "surface-container-high": "#e6e9e7",
+                    "on-primary-fixed": "#002204",
+                    "secondary-container": "#51b2fe",
+                    "on-tertiary": "#ffffff",
+                    "inverse-on-surface": "#eff1ef",
+                    "tertiary-fixed-dim": "#ebbcac"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "lg": "40px",
+                    "xl": "64px",
+                    "md": "24px",
+                    "base": "8px",
+                    "gutter": "24px",
+                    "xs": "4px",
+                    "sm": "12px",
+                    "margin-desktop": "80px"
+            },
+            "fontFamily": {
+                    "label-lg": ["Montserrat"],
+                    "headline-lg-mobile": ["Montserrat"],
+                    "title-lg": ["Montserrat"],
+                    "display-lg": ["Montserrat"],
+                    "body-lg": ["Montserrat"],
+                    "headline-lg": ["Montserrat"],
+                    "body-md": ["Montserrat"],
+                    "label-sm": ["Montserrat"]
+            },
+            "fontSize": {
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Montserrat', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container flex flex-col py-lg shadow-sm z-50">
+<div class="px-md mb-xl">
+<h1 class="text-title-lg font-title-lg font-bold text-primary">Sentinel-CBBA</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Environmental Management</p>
+</div>
+<nav class="flex-grow space-y-xs">
+<a class="flex items-center gap-base text-on-surface-variant px-md py-sm mx-sm hover:text-on-surface hover:bg-surface-variant transition-all duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant px-md py-sm mx-sm hover:text-on-surface hover:bg-surface-variant transition-all duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-lg text-label-lg">Missions</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant px-md py-sm mx-sm hover:text-on-surface hover:bg-surface-variant transition-all duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-lg text-label-lg">Logistics</span>
+</a>
+<!-- Active State: Users -->
+<a class="flex items-center gap-base bg-primary-container text-on-primary-container rounded-lg px-md py-sm mx-sm font-bold active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined filled-icon">group</span>
+<span class="font-label-lg text-label-lg">Users</span>
+</a>
+</nav>
+<div class="px-md mt-auto pt-md border-t border-outline-variant">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">shield_person</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface font-bold">Admin Portal</p>
+<p class="text-label-sm text-on-surface-variant">Cochabamba HQ</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar Shell -->
+<header class="docked full-width top-0 sticky z-40 bg-surface border-b border-outline-variant shadow-sm flex justify-between items-center w-full h-16 pl-gutter pr-margin-desktop">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-body-md font-body-md focus:ring-2 focus:ring-primary" placeholder="Search citizens, CI, or zones..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="active:scale-95 transition-transform duration-150 hover:bg-surface-container-high rounded-full p-2">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<button class="active:scale-95 transition-transform duration-150 hover:bg-surface-container-high rounded-full p-2 flex items-center gap-xs">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Professional headshot of a municipal administrator in a bright, modern office setting with soft natural sunlight. The lighting is clean and corporate, reflecting a professional environmental agency aesthetic with subtle green accents in the background. The mood is trustworthy and focused." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0wEe472uXjcgb13w5AE4Rms1TtuaH5We3jonZ-LfQqHhjUeFlpPQwmvG2nug9Jor22X-xgragKJIRGgJYjSPaJri7ll6uLwnVP4ultQ-OLSrKSRTsPM87JaOAchpyMRpLfiLJd-dKta_a2oQecEWwKc7q9S_GwjMUN1h8ioV359CXqroCuC7pNYaUuggeXlYgBXGHxzU20wOnEJkqDnBjmUxKqiD3STTDCwIVD9dqys0kyr3tnKyLkykUUcrQIFR5icQJXsv53t_R"/>
+<span class="material-symbols-outlined text-on-surface-variant">arrow_drop_down</span>
+</button>
+</div>
+</header>
+<div class="p-lg space-y-lg">
+<!-- Header Section -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Gestión de Usuarios y OTBs</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Control centralizado de ciudadanos y Organizaciones Territoriales de Base.</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-xs border-2 border-secondary text-secondary rounded-lg px-md py-sm font-label-lg text-label-lg hover:bg-secondary-fixed transition-colors active:scale-95">
+<span class="material-symbols-outlined">download</span>
+                        Exportar Reporte
+                    </button>
+<button class="flex items-center gap-xs bg-primary text-on-primary rounded-lg px-md py-sm font-label-lg text-label-lg shadow-sm hover:brightness-110 transition-all active:scale-95">
+<span class="material-symbols-outlined">person_add</span>
+                        Nuevo Ciudadano
+                    </button>
+</div>
+</section>
+<!-- KPI Cards Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant flex items-center gap-md">
+<div class="w-14 h-14 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined text-[32px] filled-icon">group</span>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Total Active Users</p>
+<p class="text-headline-lg font-headline-lg text-primary">12,482</p>
+<p class="text-label-sm font-label-sm text-surface-tint flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> +5.2% this month
+                        </p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant flex items-center gap-md">
+<div class="w-14 h-14 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[32px] filled-icon">location_city</span>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Zona con Mayor Impacto</p>
+<p class="text-headline-lg font-headline-lg text-secondary">Queru Queru</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant flex items-center gap-md relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 opacity-5 text-primary">
+<span class="material-symbols-outlined text-[120px]">eco</span>
+</div>
+<div class="w-14 h-14 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined text-[32px] filled-icon">energy_savings_leaf</span>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">CO2 Mitigation</p>
+<p class="text-headline-lg font-headline-lg text-tertiary">42.8 Tons</p>
+<p class="text-label-sm font-label-sm text-on-tertiary-fixed-variant">System Lifetime Total</p>
+</div>
+</div>
+</section>
+<!-- Table Filters and Main Container -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden">
+<!-- Filters Bar -->
+<div class="p-md bg-surface-container-low border-b border-outline-variant flex flex-wrap gap-md items-center justify-between">
+<div class="flex flex-wrap gap-sm">
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-bright border border-outline rounded-lg text-body-md">
+<span class="material-symbols-outlined text-body-md">filter_list</span>
+<select class="bg-transparent border-none p-0 focus:ring-0 text-on-surface-variant font-medium">
+<option>Filter by Zona</option>
+<option>Queru Queru</option>
+<option>Sarcobamba</option>
+<option>Alalay</option>
+</select>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-bright border border-outline rounded-lg text-body-md">
+<span class="material-symbols-outlined text-body-md">stars</span>
+<select class="bg-transparent border-none p-0 focus:ring-0 text-on-surface-variant font-medium">
+<option>Filter by Zona</option>
+<option>0 - 100 ET</option>
+<option>101 - 500 ET</option>
+<option>500+ ET</option>
+</select>
+</div>
+<button class="px-3 py-1.5 text-primary font-label-lg hover:underline decoration-2 underline-offset-4">
+                            Clear all
+                        </button>
+</div>
+<div class="text-on-surface-variant text-label-sm">
+                        Showing <span class="font-bold">1-10</span> of <span class="font-bold">12,482</span> citizens
+                    </div>
+</div>
+<!-- Main Data Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant font-label-lg text-label-lg uppercase tracking-tight">
+<th class="px-lg py-md border-b border-outline-variant">Citizen</th>
+<th class="px-lg py-md border-b border-outline-variant">Identification (CI)</th>
+<th class="px-lg py-md border-b border-outline-variant">Zona de Residencia</th>
+<th class="px-lg py-md border-b border-outline-variant">Eco-Token Balance</th>
+<th class="px-lg py-md border-b border-outline-variant">Status</th>
+<th class="px-lg py-md border-b border-outline-variant text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="text-body-md font-body-md text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md border-b border-outline-variant">
+<div class="flex items-center gap-sm">
+<img class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="Detailed portrait of a female professional in her late 20s, featuring soft cinematic lighting against a blurred park background with vibrant green leaves. The aesthetic is clean, eco-conscious, and modern light-mode, with a high-contrast focus on the subject's face showing a friendly yet professional expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApoDaUxkLzxHv-7AzC76_Uigj65b_Ze_dB9-sHvTr8EzPhE9lf5OJEHWXFt3lw4b0kYT6ludfyjRxFD9mSQbbIoG2CUOT6dnxjhky-d4-yBk7NpeQPMzOr7dBbgXd6VW4RSs4xwoIvreaLmY0C6JQOKTjlWK1OUwS18iK6x0ljXoN_v6S__ByjIuQRjTm-uDrYDhwzJmp-I956GSjiy0kKOWQ20xdNzOV52b6bfZbtIMh8KfEX1m-j7gSrQtWE16D-NfUbleEpHExw"/>
+<div>
+<p class="font-bold">Alejandra Vargas</p>
+<p class="text-label-sm text-on-surface-variant">a.vargas@email.com</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md border-b border-outline-variant font-mono">7928341 SC</td>
+<td class="px-lg py-md border-b border-outline-variant"><p>Cala Cala</p></td>
+<td class="px-lg py-md border-b border-outline-variant">
+<div class="flex items-center gap-xs text-primary font-bold">
+<span class="material-symbols-outlined text-sm filled-icon">token</span>
+                                        1,240 ET
+                                    </div>
+</td>
+<td class="px-lg py-md border-b border-outline-variant">
+<span class="px-2 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-label-sm font-bold">Active</span>
+</td>
+<td class="px-lg py-md border-b border-outline-variant">
+<div class="flex justify-center gap-base">
+<button class="p-2 hover:bg-secondary-fixed text-secondary rounded-full transition-all"><span class="material-symbols-outlined">visibility</span></button>
+<button class="p-2 hover:bg-surface-variant text-on-surface-variant rounded-full transition-all"><span class="material-symbols-outlined">edit</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md border-b border-outline-variant">
+<div class="flex items-center gap-sm">
+<img class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="Modern close-up portrait of a male professional with a warm smile, set against a bright minimalist studio background. The lighting is soft and airy, fitting a high-end corporate green energy aesthetic. The image utilizes sharp focus and a neutral color palette with vibrant organic undertones for a reliable feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyy4YXrbVX6VV7H4vMspt_4QHXx2oW48GF5WLVPq7g5Y8Evk2N5qF5yxMYWSLDF6DZI8H-sYri5Gy2Wi3tJu93nkHV_Gd5WL4DqMyjpmeba6ZUeC2lSBaRDidaQjCJQH-X0i3ANvttJmX6kiHydW7GVaRdXD0cwmua3hoQF0sKFXwBP2zb0ko6Wd7H2Y5fAjHzCsqrsLr9dNq2g70z371yA451EHJ-pNYjalSPZ99tDXQalj7B9r9jgs5JCIG6vO1c-1jT6y0iDpTX"/>
+<div>
+<p class="font-bold">Ricardo Mendez</p>
+<p class="text-label-sm text-on-surface-variant">r.mendez@city.bo</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md border-b border-outline-variant font-mono">5482910 CB</td>
+<td class="px-lg py-md border-b border-outline-variant"><p>La Chimba</p></td>
+<td class="px-lg py-md border-b border-outline-variant">
+<div class="flex items-center gap-xs text-primary font-bold">
+<span class="material-symbols-outlined text-sm filled-icon">token</span>
+                                        850 ET
+                                    </div>
+</td>
+<td class="px-lg py-md border-b border-outline-variant">
+<span class="px-2 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-label-sm font-bold">Active</span>
+</td>
+<td class="px-lg py-md border-b border-outline-variant">
+<div class="flex justify-center gap-base">
+<button class="p-2 hover:bg-secondary-fixed text-secondary rounded-full transition-all"><span class="material-symbols-outlined">visibility</span></button>
+<button class="p-2 hover:bg-surface-variant text-on-surface-variant rounded-full transition-all"><span class="material-symbols-outlined">edit</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md border-b border-outline-variant">
+<div class="flex items-center gap-sm">
+<img class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="Sophisticated portrait of a professional woman in a light-filled modern workspace. The lighting emphasizes clarity and openness, using a soft key light to create a vibrant, tech-forward aesthetic. Background features subtle plant life, echoing the active environmentalism brand identity through high-chroma greens and bright whites." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAH1D7N33xRu1q8-vstVICPCSXucSQ0Sp3E8J87fE2ij_9xk_88_Pkf5X43VhA1lOvvIZ8zX-80Li1FaS755laFzRhxN3NjcgRVMQIj5sNWfPfwZBU8O4rdJ2FNSLnBNfq8mm8wnhLLlQA6vxkFM2QiFd3UiWkxSb_UYhsAH1jZHNgKrd551oPRfYfBv5Z25olf8LfZB3Cll97caelZxiEeLtuEmsrtlePPs8j6lEJgqPC9llaXjo9NVYU2KbBM25MJ7EB32AQA7mBp"/>
+<div>
+<p class="font-bold">Sofia Rojas</p>
+<p class="text-label-sm text-on-surface-variant">s.rojas@mail.com</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md border-b border-outline-variant font-mono">9201833 BN</td>
+<td class="px-lg py-md border-b border-outline-variant"><p>Quillacollo</p></td>
+<td class="px-lg py-md border-b border-outline-variant">
+<div class="flex items-center gap-xs text-primary font-bold">
+<span class="material-symbols-outlined text-sm filled-icon">token</span>
+                                        2,100 ET
+                                    </div>
+</td>
+<td class="px-lg py-md border-b border-outline-variant">
+<span class="px-2 py-1 rounded-full bg-surface-variant text-on-surface-variant text-label-sm font-bold">Suspended</span>
+</td>
+<td class="px-lg py-md border-b border-outline-variant">
+<div class="flex justify-center gap-base">
+<button class="p-2 hover:bg-secondary-fixed text-secondary rounded-full transition-all"><span class="material-symbols-outlined">visibility</span></button>
+<button class="p-2 hover:bg-surface-variant text-on-surface-variant rounded-full transition-all"><span class="material-symbols-outlined">edit</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md border-b border-outline-variant">
+<div class="flex items-center gap-sm">
+<img class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="High-quality professional portrait of a woman in a bright, modern architectural setting. The lighting is crisp and clear, highlighting a professional and reliable persona. The style is consistent with a modern corporate bio-digital aesthetic, emphasizing high-contrast tones and a healthy, vibrant appearance for municipal application use." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1xRlAyhgdyMl_pqpG97xOu4Ds5L_IZ2bp-xAiXbxRnKkNUShskeCZGizf6R40n7fcyohBKkftTQmrEM6IMsGaA2BopcX0mJluVQH7OBkN0fAXOwnjINSCDJmB6uA770rb3_1w6R1MSVnywOyYSHUG0njydAdqvXcG-SpSd0YL8WKwldegTxOOvWJpvQMD3SaTErnsY02ooqkCngikwNwmE6UuXH-QkdKT2cEiO52_ZZvslD0IcjbNq8I4-F6JSrTufsSnois5ikuI"/>
+<div>
+<p class="font-bold">Lucia Claros</p>
+<p class="text-label-sm text-on-surface-variant">l.claros@provider.bo</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md border-b border-outline-variant font-mono">8172645 CB</td>
+<td class="px-lg py-md border-b border-outline-variant"><p>Sacaba</p></td>
+<td class="px-lg py-md border-b border-outline-variant">
+<div class="flex items-center gap-xs text-primary font-bold">
+<span class="material-symbols-outlined text-sm filled-icon">token</span>
+                                        315 ET
+                                    </div>
+</td>
+<td class="px-lg py-md border-b border-outline-variant">
+<span class="px-2 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-label-sm font-bold">Active</span>
+</td>
+<td class="px-lg py-md border-b border-outline-variant">
+<div class="flex justify-center gap-base">
+<button class="p-2 hover:bg-secondary-fixed text-secondary rounded-full transition-all"><span class="material-symbols-outlined">visibility</span></button>
+<button class="p-2 hover:bg-surface-variant text-on-surface-variant rounded-full transition-all"><span class="material-symbols-outlined">edit</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-md bg-surface-container-low flex items-center justify-between">
+<div class="text-body-md text-on-surface-variant">
+                        Page <span class="font-bold">1</span> of 1,248
+                    </div>
+<div class="flex gap-base">
+<button class="p-2 rounded-lg border border-outline-variant text-on-surface-variant opacity-50 cursor-not-allowed">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-lg bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 rounded-lg border border-outline-variant hover:bg-surface-variant transition-colors">2</button>
+<button class="w-10 h-10 rounded-lg border border-outline-variant hover:bg-surface-variant transition-colors">3</button>
+<span class="flex items-center px-2">...</span>
+<button class="w-10 h-10 rounded-lg border border-outline-variant hover:bg-surface-variant transition-colors">1248</button>
+<button class="p-2 rounded-lg border border-outline-variant text-primary hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Secondary Section: OTB Overview Grid -->
+<section class="space-y-md">
+<div class="flex items-center justify-between">
+<h3 class="font-title-lg text-title-lg text-on-surface">Zonas con Mayor Compromiso</h3>
+<a class="text-primary font-label-lg hover:underline underline-offset-4" href="#">Ver todas las Zonas</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<!-- OTB Card 1 -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant hover:border-primary transition-all group">
+<div class="flex justify-between items-start mb-sm">
+<span class="material-symbols-outlined text-primary text-[32px]">park</span>
+<span class="text-label-sm text-surface-tint font-bold bg-primary-fixed px-2 py-0.5 rounded-full">Top 1</span>
+</div>
+<h4 class="font-bold text-body-lg">Cala Cala</h4>
+<p class="text-label-sm text-on-surface-variant mb-md">Zona Norte</p>
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between text-label-sm">
+<span class="text-on-surface-variant">Participación</span>
+<span class="text-primary font-bold">92%</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[92%]"></div>
+</div>
+</div>
+</div>
+<!-- OTB Card 2 -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant hover:border-primary transition-all">
+<div class="flex justify-between items-start mb-sm">
+<span class="material-symbols-outlined text-secondary text-[32px]">waves</span>
+<span class="text-label-sm text-on-surface-variant font-bold bg-surface-container px-2 py-0.5 rounded-full">Top 2</span>
+</div>
+<h4 class="font-bold text-body-lg">La Chimba</h4>
+<p class="text-label-sm text-on-surface-variant mb-md">Zona Central</p>
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between text-label-sm">
+<span class="text-on-surface-variant">Participación</span>
+<span class="text-primary font-bold">78%</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[78%]"></div>
+</div>
+</div>
+</div>
+<!-- OTB Card 3 -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant hover:border-primary transition-all">
+<div class="flex justify-between items-start mb-sm">
+<span class="material-symbols-outlined text-tertiary text-[32px]">landscape</span>
+<span class="text-label-sm text-on-surface-variant font-bold bg-surface-container px-2 py-0.5 rounded-full">Top 3</span>
+</div>
+<h4 class="font-bold text-body-lg">Quillacollo</h4>
+<p class="text-label-sm text-on-surface-variant mb-md">Zona Oeste</p>
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between text-label-sm">
+<span class="text-on-surface-variant">Participación</span>
+<span class="text-primary font-bold">65%</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[65%]"></div>
+</div>
+</div>
+</div>
+<!-- OTB Card 4 -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant hover:border-primary transition-all">
+<div class="flex justify-between items-start mb-sm">
+<span class="material-symbols-outlined text-on-secondary-container text-[32px]">apartment</span>
+<span class="text-label-sm text-on-surface-variant font-bold bg-surface-container px-2 py-0.5 rounded-full">Top 4</span>
+</div>
+<h4 class="font-bold text-body-lg">Sacaba</h4>
+<p class="text-label-sm text-on-surface-variant mb-md">Zona Este</p>
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between text-label-sm">
+<span class="text-on-surface-variant">Participación</span>
+<span class="text-primary font-bold">59%</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[59%]"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="p-lg mt-xl text-center text-on-surface-variant border-t border-outline-variant bg-surface-container-lowest">
+<p class="font-body-md text-body-md">© 2024 Sentinel-CBBA Municipal Environmental Management Platform. All rights reserved.</p>
+</footer>
+</main>
+</body></html>

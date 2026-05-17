@@ -3,7 +3,8 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { routes } from './app.routes';
 import { MockMissionRepository } from './infrastructure/repositories/mock-mission.repository';
-import { MISSION_REPOSITORY_TOKEN } from './infrastructure/tokens/injection-tokens';
+import { HttpRewardRepository } from './infrastructure/repositories/http-reward.repository';
+import { MISSION_REPOSITORY_TOKEN, REWARD_REPOSITORY_TOKEN } from './infrastructure/tokens/injection-tokens';
 import { authInterceptor } from './shared/interceptors/auth-interceptor';
 
 export const appConfig: ApplicationConfig = {
@@ -12,6 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(withInterceptors([authInterceptor])),
-    { provide: MISSION_REPOSITORY_TOKEN, useClass: MockMissionRepository }
+    { provide: MISSION_REPOSITORY_TOKEN, useClass: MockMissionRepository },
+    { provide: REWARD_REPOSITORY_TOKEN, useClass: HttpRewardRepository }
   ]
 };

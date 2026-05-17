@@ -1,0 +1,167 @@
+<div class="admin-tickets-page">
+  <!-- Header Section -->
+  <section class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg" style="margin-bottom: 24px;">
+    <div>
+      <h2 class="font-headline-lg text-headline-lg text-on-surface" style="font-size: 2rem; font-weight: 700; color: var(--text); margin: 0 0 8px 0;">Bandeja de Validación de Tickets</h2>
+      <p class="font-body-lg text-body-lg text-on-surface-variant" style="color: var(--text-muted); margin: 0; line-height: 1.6;">
+        Escanea códigos QR o valida manualmente los comprobantes de aportes ecológicos de los ciudadanos de Cochabamba.
+      </p>
+    </div>
+  </section>
+
+  <div class="grid grid-cols-12 gap-gutter" style="display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px;">
+    
+    <!-- Left Column: Validation Inputs -->
+    <section class="col-span-12 lg:col-span-5 space-y-gutter" style="grid-column: span 5; display: flex; flex-direction: column; gap: 24px;">
+      
+      <!-- Input Card -->
+      <div class="bg-surface-container-lowest rounded-xl p-md shadow-sm border border-outline-variant" style="background: white; border: 1px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+        <div class="mb-md" style="margin-bottom: 20px;">
+          <h3 class="font-title-lg text-title-lg text-on-surface mb-xs" style="font-size: 1.25rem; font-weight: 700; color: var(--text); margin: 0 0 4px 0;">Ingreso de Ticket</h3>
+          <p class="text-label-lg text-on-surface-variant" style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Escanea el código QR o introduce el código manual del ciudadano.</p>
+        </div>
+
+        <div class="space-y-md" style="display: flex; flex-direction: column; gap: 16px;">
+          
+          <!-- QR Scanner Placeholder/Simulation -->
+          <div (click)="scanQR()" class="relative group cursor-pointer aspect-square bg-surface-variant rounded-lg flex flex-col items-center justify-center overflow-hidden border-2 border-dashed border-outline" style="border: 2px dashed var(--border); border-radius: 12px; height: 260px; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; position: relative; background: #f8fafc; overflow: hidden;">
+            
+            <ng-container *ngIf="!isValidatingCamera()">
+              <img alt="Scanning QR interface" class="absolute inset-0 w-full h-full object-cover opacity-20" src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=400" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.05;">
+              <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; z-index: 10;">
+                <span class="material-symbols-outlined text-display-lg text-primary mb-sm" style="font-size: 48px; color: var(--primary);">qr_code_scanner</span>
+                <p class="font-label-lg text-label-lg text-on-surface" style="font-size: 0.9rem; font-weight: 700; color: var(--text); margin: 0;">Click para activar cámara</p>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">Simulador de lector integrado</p>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="isValidatingCamera()">
+              <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px;">
+                <div class="spinner" style="border: 4px solid rgba(13, 99, 27, 0.1); border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite;"></div>
+                <p class="font-label-lg text-label-lg text-on-surface" style="font-size: 0.9rem; font-weight: 700; color: var(--primary); margin: 0;">Buscando código QR...</p>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="flex items-center gap-sm" style="display: flex; align-items: center; gap: 12px; justify-content: center; margin: 8px 0;">
+            <div class="h-px bg-outline-variant flex-1" style="height: 1px; background: var(--border); flex: 1;"></div>
+            <span class="text-label-sm font-label-sm text-on-surface-variant" style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">Ó</span>
+            <div class="h-px bg-outline-variant flex-1" style="height: 1px; background: var(--border); flex: 1;"></div>
+          </div>
+
+          <!-- Manual Code Entry -->
+          <div class="space-y-sm" style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="position: relative; margin-top: 8px;">
+              <label style="position: absolute; top: -10px; left: 12px; background: white; padding: 0 6px; font-size: 0.75rem; font-weight: 700; color: var(--primary);">Código Manual</label>
+              <input type="text" [ngModel]="manualCode()" (ngModelChange)="manualCode.set($event)" placeholder="e.g. SN-9823-XYZ" style="width: 100%; border: 2px solid var(--primary); border-radius: 8px; padding: 12px; font-size: 1.1rem; font-weight: 700; tracking: 0.05em; outline: none; uppercase: true;">
+            </div>
+            
+            <button (click)="validateManualCode()" class="w-full bg-primary text-on-primary font-label-lg text-label-lg py-md rounded-lg shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-sm" style="background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+              <span class="material-symbols-outlined" style="font-size: 20px;">check_circle</span>
+              Validar Ticket
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status Result Area -->
+      <div *ngIf="validationStatus() === 'valid' && validationResult()" class="bg-primary-container/10 border-2 border-primary-container rounded-xl p-md flex flex-col items-center justify-center text-center space-y-md min-h-[200px]" style="background: #f0fdf4; border: 2px solid #bbf7d0; border-radius: 16px; padding: 24px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;">
+        <div class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container" style="background: #dcfce7; color: var(--primary); width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+          <span class="material-symbols-outlined" style="font-size: 40px;">verified</span>
+        </div>
+        <div>
+          <h4 class="font-headline-lg text-headline-lg text-primary" style="font-size: 1.25rem; font-weight: 800; color: var(--primary); margin: 0 0 6px 0;">¡Ticket Válido!</h4>
+          <p class="text-body-lg font-body-lg text-on-surface" style="font-size: 0.95rem; font-weight: 700; color: var(--text); margin: 0 0 4px 0;">Recompensa: {{ validationResult()?.reward }}</p>
+          <p class="text-label-sm font-label-sm text-on-surface-variant mt-xs" style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">ID de Misión: {{ validationResult()?.missionId }}</p>
+          <p class="text-label-sm font-label-sm text-on-surface-variant mt-xs" style="font-size: 0.8rem; color: var(--primary); font-weight: 700; margin: 4px 0 0 0;">Ciudadano: {{ validationResult()?.citizen }}</p>
+        </div>
+        <button (click)="resetValidation()" style="background: none; border: 1px solid #bbf7d0; color: #166534; padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; cursor: pointer; margin-top: 8px;">Aceptar</button>
+      </div>
+
+      <div *ngIf="validationStatus() === 'invalid'" class="bg-error-container/10 border-2 border-error-container rounded-xl p-md flex flex-col items-center justify-center text-center space-y-md min-h-[200px]" style="background: #fef2f2; border: 2px solid #fecaca; border-radius: 16px; padding: 24px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;">
+        <div class="w-16 h-16 rounded-full bg-error-container flex items-center justify-center text-on-error-container" style="background: #fee2e2; color: #ba1a1a; width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+          <span class="material-symbols-outlined" style="font-size: 40px;">error</span>
+        </div>
+        <div>
+          <h4 class="font-headline-lg text-headline-lg text-error" style="font-size: 1.25rem; font-weight: 800; color: #ba1a1a; margin: 0 0 6px 0;">Código Inválido</h4>
+          <p class="text-body-lg font-body-lg text-on-surface" style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">El ticket ingresado no existe o ya fue validado en el sistema.</p>
+        </div>
+        <button (click)="resetValidation()" style="background: none; border: 1px solid #fecaca; color: #ba1a1a; padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; cursor: pointer; margin-top: 8px;">Reintentar</button>
+      </div>
+    </section>
+
+    <!-- Right Column: Recent Validations Table -->
+    <section class="col-span-12 lg:col-span-7" style="grid-column: span 7;">
+      <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant flex flex-col h-full" style="background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; height: 100%;">
+        <div class="p-md border-b border-outline-variant flex justify-between items-center" style="padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <h3 class="font-title-lg text-title-lg text-on-surface" style="font-size: 1.25rem; font-weight: 700; color: var(--text); margin: 0 0 4px 0;">Validaciones Recientes</h3>
+            <p class="text-label-lg text-on-surface-variant" style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">Actualizaciones en tiempo real del procesamiento de aportes ecológicos.</p>
+          </div>
+          <button class="flex items-center gap-xs text-secondary font-label-lg text-label-lg hover:underline" style="background: none; border: none; color: #00639a; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; gap: 4px; cursor: pointer;">
+            <span class="material-symbols-outlined text-[18px]" style="font-size: 16px;">download</span>
+            Exportar CSV
+          </button>
+        </div>
+
+        <div class="overflow-x-auto" style="overflow-x: auto;">
+          <table class="w-full text-left" style="width: 100%; border-collapse: collapse; text-align: left;">
+            <thead>
+              <tr class="bg-surface-container text-on-surface-variant font-label-lg text-label-lg" style="background: #f8faf8; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; font-weight: 700; border-bottom: 1px solid var(--border);">
+                <th style="padding: 12px 24px;">Ciudadano</th>
+                <th style="padding: 12px 24px;">Aporte / Recompensa</th>
+                <th style="padding: 12px 24px;">Fecha y Hora</th>
+                <th style="padding: 12px 24px;">Estado</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-outline-variant" style="font-size: 0.85rem;">
+              <tr *ngFor="let val of recentValidations()" class="hover:bg-surface-container-low transition-colors group" style="border-bottom: 1px solid var(--border); transition: background-color 0.2s;">
+                <td style="padding: 14px 24px;">
+                  <div class="flex items-center gap-sm" style="display: flex; align-items: center; gap: 12px;">
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center text-label-sm font-bold" [style.background]="val.colorClass" style="width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #166534; font-size: 0.8rem;">
+                      {{ val.avatarInitials }}
+                    </div>
+                    <div>
+                      <p class="font-label-lg text-label-lg text-on-surface" style="font-weight: 700; margin: 0; color: var(--text);">{{ val.citizenName }}</p>
+                      <p class="text-label-sm font-label-sm text-on-surface-variant" style="font-size: 0.75rem; color: var(--text-muted); margin: 2px 0 0 0;">UID: {{ val.uid }}</p>
+                    </div>
+                  </div>
+                </td>
+                <td style="padding: 14px 24px;">
+                  <p class="font-body-md text-body-md" style="font-weight: 700; margin: 0; color: var(--text);">{{ val.rewardType }}</p>
+                  <span class="text-label-sm font-label-sm text-secondary" style="font-size: 0.75rem; color: #00639a; font-weight: 600;">{{ val.rewardSub }}</span>
+                </td>
+                <td style="padding: 14px 24px;">
+                  <p class="font-body-md text-body-md" style="margin: 0; color: var(--text);">{{ val.timestamp }}</p>
+                  <p class="text-label-sm font-label-sm text-on-surface-variant text-xs" style="font-size: 0.7rem; color: var(--text-muted); margin: 2px 0 0 0;">{{ val.timeAgo }}</p>
+                </td>
+                <td style="padding: 14px 24px;">
+                  <span class="px-sm py-xs rounded-full font-label-sm text-label-sm inline-flex items-center gap-xs" [style.background]="val.status === 'Delivered' ? '#dcfce7' : '#f1f5f9'" [style.color]="val.status === 'Delivered' ? '#166534' : 'var(--text-muted)'" style="padding: 4px 10px; border-radius: 100px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+                    <span class="material-symbols-outlined" style="font-size: 14px;">{{ val.status === 'Delivered' ? 'check' : 'pending' }}</span>
+                    {{ val.status === 'Delivered' ? 'Entregado' : 'Pendiente' }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-auto p-md border-t border-outline-variant bg-surface-container-low flex items-center justify-between" style="padding: 16px 24px; background: #f8fafc; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+          <span class="text-label-sm font-label-sm text-on-surface-variant" style="font-size: 0.8rem; color: var(--text-muted);">Mostrando {{ recentValidations().length }} de 124 validaciones diarias</span>
+          <div class="flex items-center gap-xs" style="display: flex; align-items: center; gap: 4px;">
+            <button class="p-1 rounded-full hover:bg-surface-variant transition-colors" style="background: none; border: none; padding: 4px; border-radius: 50%; cursor: pointer;">
+              <span class="material-symbols-outlined" style="font-size: 18px;">chevron_left</span>
+            </button>
+            <button class="w-8 h-8 rounded-full bg-primary text-on-primary font-bold text-label-sm" style="background: var(--primary); color: white; border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: 700; font-size: 0.8rem; cursor: pointer;">1</button>
+            <button class="w-8 h-8 rounded-full hover:bg-surface-variant transition-colors text-label-sm" style="background: white; border: 1px solid var(--border); width: 32px; height: 32px; border-radius: 50%; font-size: 0.8rem; cursor: pointer;">2</button>
+            <button class="w-8 h-8 rounded-full hover:bg-surface-variant transition-colors text-label-sm" style="background: white; border: 1px solid var(--border); width: 32px; height: 32px; border-radius: 50%; font-size: 0.8rem; cursor: pointer;">3</button>
+            <button class="p-1 rounded-full hover:bg-surface-variant transition-colors" style="background: none; border: none; padding: 4px; border-radius: 50%; cursor: pointer;">
+              <span class="material-symbols-outlined" style="font-size: 18px;">chevron_right</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>

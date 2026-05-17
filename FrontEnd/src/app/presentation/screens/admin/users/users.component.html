@@ -1,0 +1,207 @@
+<div class="admin-users-page">
+  <!-- Header Section -->
+  <section class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg" style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap;">
+    <div>
+      <h2 class="font-headline-lg text-headline-lg text-on-surface" style="font-size: 2rem; font-weight: 700; color: var(--text); margin: 0 0 8px 0;">Gestión de Usuarios y OTBs</h2>
+      <p class="font-body-lg text-body-lg text-on-surface-variant" style="color: var(--text-muted); margin: 0; line-height: 1.6;">
+        Control centralizado de ciudadanos y Organizaciones Territoriales de Base (OTB) en la plataforma EcoLlajta.
+      </p>
+    </div>
+    <div class="flex gap-sm" style="display: flex; gap: 12px; margin-top: 16px;">
+      <button class="flex items-center gap-xs border-2 border-secondary text-secondary rounded-lg px-md py-sm font-label-lg text-label-lg hover:bg-secondary-fixed transition-colors active:scale-95" style="border: 2px solid #00639a; background: none; color: #00639a; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+        <span class="material-symbols-outlined" style="font-size: 20px;">download</span>
+        Exportar Reporte
+      </button>
+      <button class="flex items-center gap-xs bg-primary text-on-primary rounded-lg px-md py-sm font-label-lg text-label-lg shadow-sm hover:brightness-110 transition-all active:scale-95" style="background: var(--primary); border: none; color: white; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+        <span class="material-symbols-outlined" style="font-size: 20px;">person_add</span>
+        Nuevo Ciudadano
+      </button>
+    </div>
+  </section>
+
+  <!-- KPI Cards Section -->
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-gutter" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 32px;">
+    <div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant flex items-center gap-md" style="background: white; border: 1px solid var(--border); border-radius: 16px; padding: 24px; display: flex; align-items: center; gap: 16px;">
+      <div class="w-14 h-14 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed" style="background: #dcfce7; color: var(--primary); width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+        <span class="material-symbols-outlined text-[32px]" style="font-size: 32px;">group</span>
+      </div>
+      <div>
+        <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider" style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin: 0 0 4px 0; tracking: 0.05em;">Total Active Users</p>
+        <p class="text-headline-lg font-headline-lg text-primary" style="font-size: 1.75rem; font-weight: 800; color: var(--primary); margin: 0 0 2px 0;">12,482</p>
+        <p class="text-label-sm font-label-sm text-surface-tint flex items-center gap-1" style="font-size: 0.75rem; color: #1b6d24; display: flex; align-items: center; gap: 4px; margin: 0;">
+          <span class="material-symbols-outlined text-sm" style="font-size: 14px;">trending_up</span> +5.2% este mes
+        </p>
+      </div>
+    </div>
+    
+    <div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant flex items-center gap-md" style="background: white; border: 1px solid var(--border); border-radius: 16px; padding: 24px; display: flex; align-items: center; gap: 16px;">
+      <div class="w-14 h-14 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed" style="background: #cee5ff; color: #00639a; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+        <span class="material-symbols-outlined text-[32px]" style="font-size: 32px;">location_city</span>
+      </div>
+      <div>
+        <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider" style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin: 0 0 4px 0; tracking: 0.05em;">Zona con Mayor Impacto</p>
+        <p class="text-headline-lg font-headline-lg text-secondary" style="font-size: 1.75rem; font-weight: 800; color: #00639a; margin: 0;">Queru Queru</p>
+      </div>
+    </div>
+
+    <div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant flex items-center gap-md relative overflow-hidden" style="background: white; border: 1px solid var(--border); border-radius: 16px; padding: 24px; display: flex; align-items: center; gap: 16px; position: relative; overflow: hidden;">
+      <div class="absolute -right-4 -bottom-4 opacity-5 text-primary" style="position: absolute; right: -16px; bottom: -16px; opacity: 0.05; color: var(--primary);">
+        <span class="material-symbols-outlined text-[120px]" style="font-size: 120px;">eco</span>
+      </div>
+      <div class="w-14 h-14 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed" style="background: #ffdbcf; color: #704d40; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+        <span class="material-symbols-outlined text-[32px]" style="font-size: 32px;">energy_savings_leaf</span>
+      </div>
+      <div>
+        <p class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider" style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin: 0 0 4px 0; tracking: 0.05em;">CO2 Mitigation</p>
+        <p class="text-headline-lg font-headline-lg text-tertiary" style="font-size: 1.75rem; font-weight: 800; color: #704d40; margin: 0 0 2px 0;">42.8 Toneladas</p>
+        <p class="text-label-sm font-label-sm text-on-tertiary-fixed-variant" style="font-size: 0.75rem; color: #603f33; margin: 0;">Total Histórico Mitigado</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Table Filters and Main Container -->
+  <section class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden" style="background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 32px;">
+    <!-- Filters Bar -->
+    <div class="p-md bg-surface-container-low border-b border-outline-variant flex flex-wrap gap-md items-center justify-between" style="padding: 16px 24px; background: #f8fafc; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+      <div class="flex flex-wrap gap-sm" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+        
+        <!-- Search bar input -->
+        <div style="position: relative; width: 260px;">
+          <span class="material-symbols-outlined" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 18px; color: var(--text-muted);">search</span>
+          <input type="text" [ngModel]="searchText()" (ngModelChange)="searchText.set($event)" placeholder="Buscar por Nombre, CI, Email..." style="width: 100%; padding: 8px 12px 8px 36px; font-size: 0.85rem; border: 1px solid var(--border); border-radius: 8px; outline: none; background: white;">
+        </div>
+
+        <!-- Zone filter select -->
+        <div class="flex items-center gap-2 px-3 py-1.5 bg-surface-bright border border-outline rounded-lg text-body-md" style="display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: white; border: 1px solid var(--border); border-radius: 8px;">
+          <span class="material-symbols-outlined text-body-md" style="font-size: 16px;">filter_list</span>
+          <select [ngModel]="selectedZone()" (ngModelChange)="selectedZone.set($event)" style="border: none; outline: none; font-size: 0.85rem; background: none; font-weight: 600; cursor: pointer;">
+            <option value="All">Todas las Zonas</option>
+            <option *ngFor="let zone of zones() | slice:1" [value]="zone">{{ zone }}</option>
+          </select>
+        </div>
+
+        <button *ngIf="searchText() !== '' || selectedZone() !== 'All'" (click)="searchText.set(''); selectedZone.set('All')" class="px-3 py-1.5 text-primary font-label-lg hover:underline decoration-2 underline-offset-4" style="background: none; border: none; color: var(--primary); font-weight: 700; font-size: 0.85rem; cursor: pointer;">
+          Limpiar Filtros
+        </button>
+      </div>
+      <div class="text-on-surface-variant text-label-sm" style="font-size: 0.85rem; color: var(--text-muted);">
+        Mostrando <span class="font-bold" style="font-weight: 700; color: var(--text);">{{ filteredCitizens().length }}</span> ciudadanos de <span class="font-bold" style="font-weight: 700; color: var(--text);">{{ citizens().length }}</span>
+      </div>
+    </div>
+
+    <!-- Main Data Table -->
+    <div class="overflow-x-auto" style="overflow-x: auto; width: 100%;">
+      <table class="w-full text-left border-collapse" style="width: 100%; border-collapse: collapse; text-align: left;">
+        <thead>
+          <tr class="bg-surface-container text-on-surface-variant font-label-lg text-label-lg uppercase tracking-tight" style="background: #f8faf8; color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; font-weight: 700; border-bottom: 1px solid var(--border);">
+            <th class="px-lg py-md border-b border-outline-variant" style="padding: 16px 24px;">Ciudadano</th>
+            <th class="px-lg py-md border-b border-outline-variant" style="padding: 16px 24px;">Cédula de Identidad (CI)</th>
+            <th class="px-lg py-md border-b border-outline-variant" style="padding: 16px 24px;">Zona de Residencia</th>
+            <th class="px-lg py-md border-b border-outline-variant" style="padding: 16px 24px;">Dirty Points (DP)</th>
+            <th class="px-lg py-md border-b border-outline-variant" style="padding: 16px 24px;">Estado</th>
+            <th class="px-lg py-md border-b border-outline-variant text-center" style="padding: 16px 24px; text-align: center;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="text-body-md font-body-md text-on-surface" style="font-size: 0.875rem;">
+          <!-- Rows -->
+          <tr *ngFor="let citizen of filteredCitizens()" class="hover:bg-surface-container-low transition-colors group" style="border-bottom: 1px solid var(--border); transition: background-color 0.2s;">
+            <td class="px-lg py-md border-b border-outline-variant" style="padding: 16px 24px;">
+              <div class="flex items-center gap-sm" style="display: flex; align-items: center; gap: 12px;">
+                <img class="w-10 h-10 rounded-full object-cover shadow-sm" [src]="citizen.avatarUrl" [alt]="citizen.name" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <div>
+                  <p class="font-bold" style="font-weight: 700; margin: 0; color: var(--text);">{{ citizen.name }}</p>
+                  <p class="text-label-sm text-on-surface-variant" style="font-size: 0.75rem; color: var(--text-muted); margin: 2px 0 0 0;">{{ citizen.email }}</p>
+                </div>
+              </div>
+            </td>
+            <td class="px-lg py-md border-b border-outline-variant font-mono" style="padding: 16px 24px; font-family: monospace; font-weight: 600; color: var(--text);">{{ citizen.ci }}</td>
+            <td class="px-lg py-md border-b border-outline-variant" style="padding: 16px 24px; color: var(--text);">{{ citizen.zone }}</td>
+            <td class="px-lg py-md border-b border-outline-variant" style="padding: 16px 24px;">
+              <div class="flex items-center gap-xs text-primary font-bold" style="display: flex; align-items: center; gap: 4px; color: var(--primary); font-weight: 700;">
+                <span class="material-symbols-outlined text-sm" style="font-size: 16px; color: var(--primary);">token</span>
+                {{ citizen.ecoTokenBalance }} DP
+              </div>
+            </td>
+            <td class="px-lg py-md border-b border-outline-variant" style="padding: 16px 24px;">
+              <span class="px-2 py-1 rounded-full text-label-sm font-bold" [style.background]="citizen.status === 'Active' ? '#dcfce7' : '#ffdad6'" [style.color]="citizen.status === 'Active' ? '#166534' : '#ba1a1a'" style="padding: 4px 10px; border-radius: 100px; font-size: 0.75rem; font-weight: 700;">
+                {{ citizen.status === 'Active' ? 'Activo' : 'Suspendido' }}
+              </span>
+            </td>
+            <td class="px-lg py-md border-b border-outline-variant" style="padding: 16px 24px;">
+              <div class="flex justify-center gap-base" style="display: flex; justify-content: center; gap: 8px;">
+                <button (click)="toggleUserStatus(citizen)" class="p-2 hover:bg-secondary-fixed text-secondary rounded-full transition-all" style="background: none; border: none; padding: 6px; border-radius: 50%; color: #00639a; cursor: pointer;" [title]="citizen.status === 'Active' ? 'Suspender Ciudadano' : 'Activar Ciudadano'">
+                  <span class="material-symbols-outlined" style="font-size: 20px;">{{ citizen.status === 'Active' ? 'block' : 'check_circle' }}</span>
+                </button>
+                <button (click)="deleteUser(citizen.id)" class="p-2 hover:bg-surface-variant text-error rounded-full transition-all" style="background: none; border: none; padding: 6px; border-radius: 50%; color: #ba1a1a; cursor: pointer;" title="Eliminar Usuario">
+                  <span class="material-symbols-outlined" style="font-size: 20px;">delete</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="filteredCitizens().length === 0">
+            <td colspan="6" style="padding: 32px; text-align: center; color: var(--text-muted); font-weight: 600;">
+              No se encontraron ciudadanos que coincidan con los filtros de búsqueda.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="p-md bg-surface-container-low flex items-center justify-between" style="padding: 16px 24px; background: #f8fafc; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border);">
+      <div class="text-body-md text-on-surface-variant" style="font-size: 0.85rem; color: var(--text-muted);">
+        Página <span class="font-bold" style="font-weight: 700; color: var(--text);">1</span> de 124
+      </div>
+      <div class="flex gap-base" style="display: flex; gap: 8px;">
+        <button class="p-2 rounded-lg border border-outline-variant text-on-surface-variant opacity-50 cursor-not-allowed" style="background: none; border: 1px solid var(--border); padding: 6px; border-radius: 8px;">
+          <span class="material-symbols-outlined" style="font-size: 20px;">chevron_left</span>
+        </button>
+        <button class="w-10 h-10 rounded-lg bg-primary text-on-primary font-bold" style="background: var(--primary); color: white; border: none; width: 40px; height: 40px; border-radius: 8px; font-weight: 700; cursor: pointer;">1</button>
+        <button class="w-10 h-10 rounded-lg border border-outline-variant hover:bg-surface-variant transition-colors" style="background: white; border: 1px solid var(--border); width: 40px; height: 40px; border-radius: 8px; cursor: pointer;">2</button>
+        <button class="w-10 h-10 rounded-lg border border-outline-variant hover:bg-surface-variant transition-colors" style="background: white; border: 1px solid var(--border); width: 40px; height: 40px; border-radius: 8px; cursor: pointer;">3</button>
+        <span class="flex items-center px-2" style="display: flex; align-items: center; padding: 0 8px;">...</span>
+        <button class="w-10 h-10 rounded-lg border border-outline-variant hover:bg-surface-variant transition-colors" style="background: white; border: 1px solid var(--border); width: 40px; height: 40px; border-radius: 8px; cursor: pointer;">124</button>
+        <button class="p-2 rounded-lg border border-outline-variant text-primary hover:bg-primary-fixed transition-colors" style="background: white; border: 1px solid var(--border); padding: 6px; border-radius: 8px; color: var(--primary); cursor: pointer;">
+          <span class="material-symbols-outlined" style="font-size: 20px;">chevron_right</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Secondary Section: OTB Overview Grid -->
+  <section class="space-y-md" style="display: flex; flex-direction: column; gap: 16px;">
+    <div class="flex items-center justify-between" style="display: flex; justify-content: space-between; align-items: center;">
+      <h3 class="font-title-lg text-title-lg text-on-surface" style="font-size: 1.5rem; font-weight: 700; color: var(--text); margin: 0;">Zonas con Mayor Compromiso</h3>
+      <a class="text-primary font-label-lg hover:underline underline-offset-4" style="color: var(--primary); font-weight: 700; font-size: 0.9rem; text-decoration: none; cursor: pointer;">Ver todas las Zonas</a>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px;">
+      <!-- OTB Cards dynamically mapped from otbs signal -->
+      <div *ngFor="let otb of otbs()" class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant hover:border-primary transition-all group" style="background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px; transition: all 0.3s; position: relative;">
+        <div class="flex justify-between items-start mb-sm" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+          <span class="material-symbols-outlined text-[32px]" [style.color]="otb.iconColor" style="font-size: 32px;">{{ otb.icon }}</span>
+          <span class="text-label-sm font-bold px-2 py-0.5 rounded-full" [style.background]="otb.rank === 1 ? '#dcfce7' : '#f1f5f9'" [style.color]="otb.rank === 1 ? '#1b6d24' : 'var(--text-muted)'" style="font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 100px;">
+            Top {{ otb.rank }}
+          </span>
+        </div>
+        <h4 class="font-bold text-body-lg" style="font-size: 1.1rem; font-weight: 700; color: var(--text); margin: 0 0 2px 0;">{{ otb.name }}</h4>
+        <p class="text-label-sm text-on-surface-variant mb-md" style="font-size: 0.8rem; color: var(--text-muted); margin: 0 0 16px 0;">{{ otb.region }}</p>
+        
+        <div class="flex flex-col gap-xs" style="display: flex; flex-direction: column; gap: 4px;">
+          <div class="flex justify-between text-label-sm" style="display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 600;">
+            <span class="text-on-surface-variant" style="color: var(--text-muted);">Participación</span>
+            <span class="text-primary font-bold" style="color: var(--primary); font-weight: 700;">{{ otb.participationPercent }}%</span>
+          </div>
+          <div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden" style="width: 100%; background: #f1f5f9; height: 6px; border-radius: 100px; overflow: hidden;">
+            <div class="bg-primary h-full transition-all duration-500" [style.width]="otb.participationPercent + '%'" style="background: var(--primary); height: 100%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="p-lg mt-xl text-center text-on-surface-variant border-t border-outline-variant bg-surface-container-lowest" style="margin-top: 48px; padding: 24px; text-align: center; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.85rem;">
+    <p class="font-body-md text-body-md">© 2026 Plataforma de Gestión Ambiental EcoLlajta. Todos los derechos reservados.</p>
+  </footer>
+</div>

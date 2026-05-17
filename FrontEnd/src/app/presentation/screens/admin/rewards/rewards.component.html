@@ -1,0 +1,193 @@
+<div class="admin-rewards-page">
+  <section class="flex flex-col gap-sm mb-lg" style="margin-bottom: 24px;">
+    <h2 class="font-headline-lg text-headline-lg text-primary" style="font-size: 2rem; font-weight: 700; color: var(--primary); margin: 0 0 8px 0;">Gestión de Recompensas</h2>
+    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl" style="color: var(--text-muted); margin: 0; line-height: 1.6;">
+      Administra el catálogo de incentivos y recompensas ecológicas del municipio. Ajusta el costo en Dirty Points (DP), actualiza la disponibilidad de stock en tiempo real y coordina la entrega con proveedores eco-amigables certificados.
+    </p>
+  </section>
+
+  <!-- LOADING STATE -->
+  <div *ngIf="isLoading()" class="flex justify-center items-center py-xl" style="display: flex; justify-content: center; align-items: center; padding: 48px 0;">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" style="width: 48px; height: 48px; border-radius: 50%; border: 3px solid transparent; border-top-color: var(--primary); animation: spin 1s linear infinite;"></div>
+  </div>
+
+  <!-- REWARD BENTO GRID -->
+  <div *ngIf="!isLoading()" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;">
+    
+    <!-- DYNAMIC CARDS FROM REWARDS SIGNAL -->
+    <div *ngFor="let reward of rewards()" class="reward-card bg-surface-container-lowest rounded-xl flex flex-col border border-outline-variant overflow-hidden group" style="background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s;">
+      
+      <div class="relative h-48 overflow-hidden" style="position: relative; height: 192px; overflow: hidden;">
+        <img [src]="reward.imageUrl" [alt]="reward.title" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;">
+        <div class="absolute top-3 left-3 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm font-bold shadow-sm" style="position: absolute; top: 12px; left: 12px; background: #cee5ff; color: #00436a; padding: 4px 12px; border-radius: 100px; font-size: 0.75rem; font-weight: 700;">
+          {{ reward.category }}
+        </div>
+      </div>
+      
+      <div class="p-md flex-1 flex flex-col gap-sm" style="padding: 16px; display: flex; flex-direction: column; flex: 1; gap: 8px;">
+        <div class="flex justify-between items-start" style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <h3 class="font-title-lg text-body-lg font-bold text-on-surface" style="font-size: 1.1rem; font-weight: 700; margin: 0;">{{ reward.title }}</h3>
+            <p class="text-label-sm font-label-sm text-secondary" style="font-size: 0.8rem; color: #00639a; margin: 2px 0 0 0;">{{ reward.provider }}</p>
+          </div>
+          <div class="flex items-center gap-xs text-surface-tint" style="display: flex; align-items: center; gap: 4px; color: #1b6d24;">
+            <span class="font-bold text-title-lg" style="font-size: 1.25rem; font-weight: 800;">{{ reward.costDp }}</span>
+            <span class="text-label-sm font-bold uppercase tracking-widest" style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;">DP</span>
+          </div>
+        </div>
+        
+        <p class="text-body-md text-on-surface-variant line-clamp-2" style="font-size: 0.85rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; margin: 8px 0;">
+          {{ reward.description }}
+        </p>
+        
+        <div class="mt-auto pt-md flex items-center justify-between border-t border-outline-variant" style="margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+          <div (click)="toggleAvailability(reward)" class="flex items-center gap-sm" style="display: flex; align-items: center; gap: 8px; cursor: pointer;" title="Haga clic para cambiar stock">
+            <span class="relative flex h-3 w-3" style="position: relative; display: flex; width: 12px; height: 12px;">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" [style.background]="reward.isAvailable ? '#0d631b' : '#ba1a1a'" style="position: absolute; width: 100%; height: 100%; border-radius: 50%; opacity: 0.75;"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3" [style.background]="reward.isAvailable ? '#0d631b' : '#ba1a1a'" style="position: relative; border-radius: 50%; width: 12px; height: 12px;"></span>
+            </span>
+            <span class="text-label-sm font-label-sm text-on-surface" style="font-size: 0.75rem; font-weight: 600;">
+              {{ reward.isAvailable ? 'Disponible' : 'Sin Stock' }}
+            </span>
+          </div>
+          <div class="flex gap-xs" style="display: flex; gap: 4px;">
+            <button (click)="toggleAvailability(reward)" class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" style="background: none; border: none; padding: 6px; border-radius: 8px; cursor: pointer;" title="Cambiar Disponibilidad">
+              <span class="material-symbols-outlined text-[20px]" style="font-size: 20px;">edit</span>
+            </button>
+            <button (click)="deleteReward(reward.id)" class="p-2 text-error hover:bg-error-container/20 rounded-lg transition-colors" style="background: none; border: none; padding: 6px; border-radius: 8px; color: #ba1a1a; cursor: pointer;" title="Eliminar Recompensa">
+              <span class="material-symbols-outlined text-[20px]" style="font-size: 20px;">delete</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- EMPTY STATE / ADD NEW BUTTON -->
+    <button (click)="openCreateModal()" class="reward-card h-full min-h-[400px] border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center gap-md p-lg hover:bg-surface-container transition-colors group" style="background: #f8faf8; border: 2px dashed var(--border); border-radius: 16px; min-height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; gap: 16px; cursor: pointer;">
+      <div class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container group-hover:scale-110 transition-transform" style="background: #dcfce7; width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary);">
+        <span class="material-symbols-outlined text-4xl" style="font-size: 36px;">add_circle</span>
+      </div>
+      <div class="text-center" style="text-align: center;">
+        <h3 class="font-title-lg text-title-lg font-bold text-on-surface" style="font-size: 1.1rem; font-weight: 700; margin: 0 0 4px 0;">Nueva Recompensa</h3>
+        <p class="text-body-md text-on-surface-variant px-md" style="font-size: 0.85rem; color: var(--text-muted); padding: 0 16px;">Crea y publica un nuevo beneficio ecológico en Cochabamba.</p>
+      </div>
+    </button>
+
+  </div>
+
+  <!-- FOOTER STATS -->
+  <footer class="mt-xl pt-lg border-t border-outline-variant flex flex-wrap gap-xl" style="margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-end;">
+    <div class="flex flex-col" style="display: flex; flex-direction: column;">
+      <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-widest" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; margin-bottom: 4px;">Premios Activos</span>
+      <span class="text-headline-lg font-headline-lg text-primary" style="font-size: 1.75rem; font-weight: 800; color: var(--primary);">{{ rewards().length }}</span>
+    </div>
+    <div class="flex flex-col" style="display: flex; flex-direction: column;">
+      <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-widest" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; margin-bottom: 4px;">Canjes Totales (Mensual)</span>
+      <span class="text-headline-lg font-headline-lg text-secondary" style="font-size: 1.75rem; font-weight: 800; color: #00639a;">2,842</span>
+    </div>
+    <div class="flex flex-col" style="display: flex; flex-direction: column;">
+      <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-widest" style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; margin-bottom: 4px;">Proveedores Asociados</span>
+      <span class="text-headline-lg font-headline-lg text-surface-tint" style="font-size: 1.75rem; font-weight: 800; color: #1b6d24;">18</span>
+    </div>
+    <div class="flex-1 flex justify-end items-end gap-sm" style="flex: 1; display: flex; justify-content: flex-end;">
+      <button class="p-sm flex items-center gap-xs text-secondary font-label-lg text-label-lg hover:bg-secondary-container/10 rounded-lg" style="background: none; border: none; padding: 8px 16px; color: #00639a; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; border-radius: 8px; cursor: pointer;">
+        <span class="material-symbols-outlined text-[20px]">file_download</span>
+        Exportar Reporte
+      </button>
+    </div>
+  </footer>
+
+  <!-- PREMIUM NEW REWARD MODAL overlay -->
+  <div *ngIf="isCreateModalOpen()" class="modal-overlay" style="position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 1000; font-family: 'Montserrat', sans-serif;">
+    <div class="modal-card" style="background: white; border-radius: 20px; width: 100%; max-width: 550px; padding: 32px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border: 1px solid rgba(226, 232, 240, 0.8); display: flex; flex-direction: column; gap: 20px;">
+      
+      <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 16px;">
+        <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--primary); margin: 0; display: flex; align-items: center; gap: 8px;">
+          <span class="material-symbols-outlined" style="font-size: 28px;">add_circle</span>
+          Nueva Recompensa
+        </h3>
+        <button (click)="closeCreateModal()" style="background: none; border: none; color: var(--text-muted); cursor: pointer;">
+          <span class="material-symbols-outlined" style="font-size: 24px;">close</span>
+        </button>
+      </div>
+
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 16px; max-height: 450px; overflow-y: auto; padding-right: 4px;">
+        
+        <!-- Row 1: Title & Provider -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div>
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 6px;">Nombre / Título *</label>
+            <input type="text" [ngModel]="newRewardTitle()" (ngModelChange)="newRewardTitle.set($event)" placeholder="e.g. Canasta de Alimentos" style="width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 0.85rem; outline: none; font-family: 'Montserrat', sans-serif;">
+          </div>
+          <div>
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 6px;">Proveedor *</label>
+            <input type="text" [ngModel]="newRewardProvider()" (ngModelChange)="newRewardProvider.set($event)" placeholder="e.g. EMAPA, Banco Verde" style="width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 0.85rem; outline: none; font-family: 'Montserrat', sans-serif;">
+          </div>
+        </div>
+
+        <!-- Row 2: Cost & Category -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div>
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 6px;">Costo (Dirty Points - DP) *</label>
+            <input type="number" [ngModel]="newRewardCost()" (ngModelChange)="newRewardCost.set($event)" style="width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 0.85rem; outline: none; font-family: 'Montserrat', sans-serif;">
+          </div>
+          <div>
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 6px;">Categoría *</label>
+            <select [ngModel]="newRewardCategory()" (ngModelChange)="newRewardCategory.set($event)" style="width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 0.85rem; outline: none; background: white; font-family: 'Montserrat', sans-serif;">
+              <option value="Alimentos">Alimentos</option>
+              <option value="Impuestos">Impuestos</option>
+              <option value="Finanzas">Finanzas</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Salud">Salud</option>
+              <option value="Educación">Educación</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div>
+          <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 6px;">Descripción *</label>
+          <textarea [ngModel]="newRewardDescription()" (ngModelChange)="newRewardDescription.set($event)" rows="3" placeholder="Describe brevemente los beneficios de la recompensa..." style="width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 0.85rem; outline: none; resize: none; font-family: 'Montserrat', sans-serif;"></textarea>
+        </div>
+
+        <!-- Row 3: Image URL & Icon -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div>
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 6px;">URL de Imagen (Opcional)</label>
+            <input type="text" [ngModel]="newRewardImageUrl()" (ngModelChange)="newRewardImageUrl.set($event)" placeholder="https://images.unsplash.com/..." style="width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 0.85rem; outline: none; font-family: 'Montserrat', sans-serif;">
+          </div>
+          <div>
+            <label style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 6px;">Icono Material (e.g. eco)</label>
+            <input type="text" [ngModel]="newRewardIcon()" (ngModelChange)="newRewardIcon.set($event)" placeholder="eco, redeem, star" style="width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 0.85rem; outline: none; font-family: 'Montserrat', sans-serif;">
+          </div>
+        </div>
+
+        <!-- Available Checkbox -->
+        <div style="display: flex; align-items: center; gap: 8px; padding-top: 8px;">
+          <input type="checkbox" id="isAvailable" [ngModel]="newRewardIsAvailable()" (ngModelChange)="newRewardIsAvailable.set($event)" style="width: 18px; height: 18px; cursor: pointer; accent-color: var(--primary);">
+          <label for="isAvailable" style="font-size: 0.85rem; font-weight: 600; color: var(--text); cursor: pointer; user-select: none;">Disponible inmediatamente (con Stock inicial)</label>
+        </div>
+
+      </div>
+
+      <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 12px; border-top: 1px solid #f1f5f9; padding-top: 20px; margin-top: 8px;">
+        <button (click)="closeCreateModal()" style="background: none; border: 1px solid var(--border); border-radius: 8px; padding: 10px 20px; font-size: 0.85rem; font-weight: 700; color: var(--text-muted); cursor: pointer; font-family: 'Montserrat', sans-serif;">
+          Cancelar
+        </button>
+        <button (click)="createReward()" style="background: var(--primary); border: none; border-radius: 8px; padding: 10px 24px; font-size: 0.85rem; font-weight: 800; color: white; cursor: pointer; box-shadow: 0 4px 6px rgba(13,99,27,0.15); font-family: 'Montserrat', sans-serif;">
+          Crear Recompensa
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>

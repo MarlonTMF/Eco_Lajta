@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sentinel-CBBA | Gestión de Misiones</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary": "#ffffff",
+                      "surface-tint": "#1b6d24",
+                      "on-primary-fixed-variant": "#005312",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#ffdbcf",
+                      "tertiary": "#704d40",
+                      "secondary-fixed-dim": "#96ccff",
+                      "inverse-primary": "#88d982",
+                      "surface-dim": "#d8dad9",
+                      "outline-variant": "#bfcaba",
+                      "surface-container-low": "#f2f4f2",
+                      "surface-container-lowest": "#ffffff",
+                      "on-error": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface": "#f8faf8",
+                      "on-tertiary-fixed": "#2e150b",
+                      "primary-fixed-dim": "#88d982",
+                      "on-primary": "#ffffff",
+                      "inverse-surface": "#2e3130",
+                      "tertiary-container": "#8b6557",
+                      "on-background": "#191c1b",
+                      "outline": "#707a6c",
+                      "on-tertiary-fixed-variant": "#603f33",
+                      "primary-fixed": "#a3f69c",
+                      "on-secondary-fixed": "#001d32",
+                      "surface-variant": "#e1e3e1",
+                      "secondary-fixed": "#cee5ff",
+                      "on-primary-container": "#cbffc2",
+                      "surface-container": "#eceeec",
+                      "on-surface": "#191c1b",
+                      "secondary": "#00639a",
+                      "surface-container-highest": "#e1e3e1",
+                      "surface-bright": "#f8faf8",
+                      "primary-container": "#2e7d32",
+                      "background": "#f8faf8",
+                      "on-tertiary-container": "#ffeee8",
+                      "on-surface-variant": "#40493d",
+                      "on-error-container": "#93000a",
+                      "on-secondary-container": "#00436a",
+                      "primary": "#0d631b",
+                      "on-secondary-fixed-variant": "#004a75",
+                      "surface-container-high": "#e6e9e7",
+                      "on-primary-fixed": "#002204",
+                      "secondary-container": "#51b2fe",
+                      "on-tertiary": "#ffffff",
+                      "inverse-on-surface": "#eff1ef",
+                      "tertiary-fixed-dim": "#ebbcac"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "lg": "40px",
+                      "xl": "64px",
+                      "md": "24px",
+                      "base": "8px",
+                      "gutter": "24px",
+                      "xs": "4px",
+                      "sm": "12px",
+                      "margin-desktop": "80px"
+              },
+              "fontFamily": {
+                      "label-lg": ["Montserrat"],
+                      "headline-lg-mobile": ["Montserrat"],
+                      "title-lg": ["Montserrat"],
+                      "display-lg": ["Montserrat"],
+                      "body-lg": ["Montserrat"],
+                      "headline-lg": ["Montserrat"],
+                      "body-md": ["Montserrat"],
+                      "label-sm": ["Montserrat"]
+              },
+              "fontSize": {
+                      "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.1px", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "title-lg": ["22px", {"lineHeight": "28px", "fontWeight": "500"}],
+                      "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                      "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8faf8;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .card-elevation {
+            box-shadow: 0 2px 4px rgba(46, 125, 50, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar (Authority: JSON) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container flex flex-col py-lg shadow-sm">
+<div class="px-md mb-xl">
+<h1 class="text-title-lg font-title-lg font-bold text-primary">Sentinel-CBBA</h1>
+<p class="font-body-md text-on-surface-variant text-[12px]">Environmental Management</p>
+</div>
+<nav class="flex-1 space-y-xs">
+<a class="flex items-center gap-base text-on-surface-variant px-md py-sm mx-sm hover:text-on-surface hover:bg-surface-variant transition-all duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<!-- Active Navigation State: Missions -->
+<a class="flex items-center gap-base bg-primary-container text-on-primary-container rounded-lg px-md py-sm mx-sm font-bold active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment</span>
+<span class="font-label-lg text-label-lg">Missions</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant px-md py-sm mx-sm hover:text-on-surface hover:bg-surface-variant transition-all duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-lg text-label-lg">Logistics</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant px-md py-sm mx-sm hover:text-on-surface hover:bg-surface-variant transition-all duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-lg text-label-lg">Users</span>
+</a>
+</nav>
+<div class="px-md mt-auto pt-lg border-t border-outline-variant">
+<div class="flex items-center gap-base">
+<img alt="Sentinel-CBBA Official Emblem" class="w-10 h-10 rounded-full object-cover" data-alt="A professional circular emblem for an environmental management organization, featuring stylized green leaf patterns and digital circuit lines to represent a bio-digital fusion. The lighting is clean and bright with high-key whites and vibrant primary green accents, maintaining a corporate and reliable aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCX3N7YVI0oz0eRE2JhmruMZKxyRbbgNXd11NLwADQr9WRCtKVk7KKyZxsobCwV6INHndIWuXIqYIiiU4Qwbv8-UKGWtHmQffvgWrlGV_Pyi_DC8jnzLPBE_AWgskeS8LuwmkqsxqPpLAbUzv9rXrB7BV7B76H25Set_Jt2Uw9NBYad94o_wbDh2YbkksvlY4OeEfIU4tFFhUf6jWJAYMO2CTz_kPlGT5zpyCrS7QqveNWwwDuGZJ7OyQtzyz4BpHnhYRgC3qvOuhak"/>
+<div>
+<p class="font-label-lg text-label-lg font-bold">Admin Panel</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">v2.4.0-eco</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="pl-64 min-h-screen">
+<!-- TopNavBar (Authority: JSON) -->
+<header class="flex justify-between items-center w-full h-16 px-margin-desktop sticky top-0 z-40 bg-surface border-b border-outline-variant shadow-sm">
+<div class="flex items-center gap-md">
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 font-body-md text-body-md focus:ring-2 focus:ring-primary" placeholder="Search missions, volunteers, or regions..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="active:scale-95 transition-transform duration-150 hover:bg-surface-container-high rounded-full p-2">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+<div class="flex items-center gap-sm">
+<img alt="User Profile Menu" class="w-8 h-8 rounded-full object-cover" data-alt="Close-up portrait of a professional male environmental administrator in his 40s, wearing a clean white shirt. The background is a soft-focus office with lush indoor plants and bright, natural sunlight, creating an atmosphere of professional stability and ecological focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8N9577IcK6eUzC6EV9WJx-EQamZLjC5F1ji58RS6cEBNz2eSkuml1_AkdTlu1i7N53w9vcw7E69LKubfOkmniRL1bpY8Ycj6sQns2Rx3-LEGJiWcTbr7P3xKLOxf2TYh4cFeJCEGtEc1FpsOgIGL_JZGPpHyOXNmb7nIiAQFYbFXJdxp7iZurQ9tdAuE0wmHItvVPv9FfofTtlqncMQuwpzKxBh4l0m6jOdxNNT4WZCaKopaARpzKdfx6eJQzgl4YjhUtam6byP70"/>
+<span class="material-symbols-outlined text-primary">account_circle</span>
+</div>
+</div>
+</header>
+<section class="p-margin-desktop space-y-xl">
+<!-- Header Section with CTA -->
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Gestión de Misiones Admin</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Control centralizado para el despliegue de impacto ambiental.</p>
+</div>
+<button class="flex items-center gap-base bg-primary text-on-primary px-md py-sm rounded-lg font-label-lg text-label-lg shadow-sm hover:scale-[1.02] active:scale-[0.98] transition-transform">
+<span class="material-symbols-outlined">add</span>
+                    Create New Mission
+                </button>
+</div>
+<!-- Bento-style KPI Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-surface-container-lowest p-md rounded-xl card-elevation border border-outline-variant flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<p class="font-label-lg text-label-lg text-on-surface-variant">Total DP Payouts</p>
+<span class="material-symbols-outlined text-secondary">payments</span>
+</div>
+<div class="flex items-baseline gap-xs">
+<p class="font-display-lg text-[32px] font-bold text-primary">128,450</p>
+<p class="font-label-sm text-label-sm text-surface-tint">DP</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl card-elevation border border-outline-variant flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<p class="font-label-lg text-label-lg text-on-surface-variant">Active Missions</p>
+<span class="material-symbols-outlined text-secondary">rocket_launch</span>
+</div>
+<div class="flex items-baseline gap-xs">
+<p class="font-display-lg text-[32px] font-bold text-primary">24</p>
+<p class="font-label-sm text-label-sm text-surface-tint">Ongoing</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl card-elevation border border-outline-variant flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<p class="font-label-lg text-label-lg text-on-surface-variant">Total Volunteers</p>
+<span class="material-symbols-outlined text-secondary">volunteer_activism</span>
+</div>
+<div class="flex items-baseline gap-xs">
+<p class="font-display-lg text-[32px] font-bold text-primary">1,102</p>
+<p class="font-label-sm text-label-sm text-surface-tint">Active</p>
+</div>
+</div>
+</div>
+<!-- Mission List View -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant card-elevation overflow-hidden">
+<div class="px-md py-sm bg-surface-container flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg font-bold">Misiones Recientes</h3>
+<div class="flex gap-sm">
+<button class="p-xs hover:bg-surface-variant rounded"><span class="material-symbols-outlined text-on-surface-variant">filter_list</span></button>
+<button class="p-xs hover:bg-surface-variant rounded"><span class="material-symbols-outlined text-on-surface-variant">more_vert</span></button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="px-md py-sm font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Misión</th>
+<th class="px-md py-sm font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Estado</th>
+<th class="px-md py-sm font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Progreso de Cupos</th>
+<th class="px-md py-sm font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Recompensa</th>
+<th class="px-md py-sm font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Mission Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-md py-md">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-surface-variant">
+<img alt="Reforestation Mission" class="w-full h-full object-cover" data-alt="A lush aerial view of a reforestation site in a valley, showing young saplings planted in neat organic patterns. The lighting is vibrant morning sun with rich green and earthy brown tones, reflecting a successful and active environmental project under clear blue skies." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj6PJf8Yw585m_DgAkSmhC7kKS97qAit9_mMtB_npAINuXW8WxMLlTzauHZhmKuRZ6cGXMxOQxAD8ZZqcPhRiyB0SLFnDiKqcWCR21pE9dMCjMM5xzlqmYpgJa05zILjlCvlwDACTqAO8qAagIPUlPcIR8Afde18peF6Wt5o83MvJIKgOaRxxwMe_WUMQYs9HjcLdl4KSTj2o7jG984U1TKdAGe1ronnjnG_nUVX66F453WiZW4nhVbkz7WBLS9ZoDnNl9osDyp_lU"/>
+</div>
+<div>
+<p class="font-label-lg text-label-lg font-bold text-on-surface">Reforestación Tunari Sector B</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Cochabamba, Bolivia</p>
+</div>
+</div>
+</td>
+<td class="px-md py-md">
+<span class="bg-primary-container text-on-primary-container px-sm py-xs rounded-full font-label-sm text-label-sm font-bold">Activa</span>
+</td>
+<td class="px-md py-md">
+<div class="w-48">
+<div class="flex justify-between mb-1">
+<span class="font-label-sm text-label-sm">45/50 Slots</span>
+<span class="font-label-sm text-label-sm">90%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 90%;"></div>
+</div>
+</div>
+</td>
+<td class="px-md py-md font-label-lg text-label-lg font-bold text-primary">
+                                    500 DP
+                                </td>
+<td class="px-md py-md text-right">
+<div class="flex justify-end gap-base opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-primary-container rounded-full transition-all" title="Edit">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-secondary hover:bg-secondary-container rounded-full transition-all" title="Metrics">
+<span class="material-symbols-outlined">analytics</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-error hover:bg-error-container rounded-full transition-all" title="Pause">
+<span class="material-symbols-outlined">pause_circle</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Mission Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-md py-md">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-surface-variant">
+<img alt="Waste Collection Mission" class="w-full h-full object-cover" data-alt="A clean, organized waste management station with modern sorting bins. The image is bright and professional, highlighting sustainable practices with high-chroma greens and crisp whites, conveying efficiency and civic duty." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApNd1R9Q_OmCgixdURylNhtfe9GOjV2LRl7Bcgd4Ci54wAKwT5R1BDavkLZALCPrFUqYXEJ3Yf-Z8bIIL9IfXhInIUGPmtlOQKKJd_HSXrPVGL_3wdNQ7MR0nN2bZEbA3k2PUyFOTh3vWbPPF699ugNQzEusw1sBjLtTAvfwtkLYskv0XfaHUpVuLeTTSwcOh23ol6ZmEZn-WD5Fyk95XIcwOTjOfxwi_ShpkLuh57WXo1LXwVxn0uX9lI7W-Iaq-eyAYi6B3WhwMz"/>
+</div>
+<div>
+<p class="font-label-lg text-label-lg font-bold text-on-surface">Recolección de Residuos Río Rocha</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Ribera Central</p>
+</div>
+</div>
+</td>
+<td class="px-md py-md">
+<span class="bg-primary-container text-on-primary-container px-sm py-xs rounded-full font-label-sm text-label-sm font-bold">Activa</span>
+</td>
+<td class="px-md py-md">
+<div class="w-48">
+<div class="flex justify-between mb-1">
+<span class="font-label-sm text-label-sm">12/30 Slots</span>
+<span class="font-label-sm text-label-sm">40%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 40%;"></div>
+</div>
+</div>
+</td>
+<td class="px-md py-md font-label-lg text-label-lg font-bold text-primary">
+                                    350 DP
+                                </td>
+<td class="px-md py-md text-right">
+<div class="flex justify-end gap-base opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-primary-container rounded-full transition-all" title="Edit">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-secondary hover:bg-secondary-container rounded-full transition-all" title="Metrics">
+<span class="material-symbols-outlined">analytics</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-error hover:bg-error-container rounded-full transition-all" title="Pause">
+<span class="material-symbols-outlined">pause_circle</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Mission Row 3 (Paused) -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-md py-md">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-surface-variant grayscale">
+<img alt="Environmental Workshop" class="w-full h-full object-cover" data-alt="A modern, glass-walled conference room where professional environmentalists are conducting a workshop. The space is filled with digital screens showing ecological data and lush indoor vertical gardens, lit by soft, balanced indoor lighting for a corporate-modern feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3g0TqXIC960mbIsatGwhUJKHtGQgJGDYfxd_KnGBaSn-vLV7AP4c78h0gDJtgsoHCSj3fnVoMjpK6ABLT9twAg1qxWDNt7U7jTu2k9soKkyGGwE-y03iOW4Keu0pREuGximoZH5ffC7cpuuqeCPg-przHUxZEf76EUBmlt8vGYOtbmO9oYToBzhO0KErBiedPP7AzgaznTWKCFFxMjO9JGmIyBZLGnwmpt2sVL2wPZ8mQdPI6a7ur_OzgYUtoNH4f6WQYDcsTBnf7"/>
+</div>
+<div>
+<p class="font-label-lg text-label-lg font-bold text-on-surface">Taller Conciencia Eco-Urbana</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Virtual / Campus Sur</p>
+</div>
+</div>
+</td>
+<td class="px-md py-md">
+<span class="bg-tertiary-container text-on-tertiary-container px-sm py-xs rounded-full font-label-sm text-label-sm font-bold">Pausada</span>
+</td>
+<td class="px-md py-md">
+<div class="w-48">
+<div class="flex justify-between mb-1">
+<span class="font-label-sm text-label-sm">100/100 Slots</span>
+<span class="font-label-sm text-label-sm">100%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-outline h-full rounded-full" style="width: 100%;"></div>
+</div>
+</div>
+</td>
+<td class="px-md py-md font-label-lg text-label-lg font-bold text-primary">
+                                    150 DP
+                                </td>
+<td class="px-md py-md text-right">
+<div class="flex justify-end gap-base opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-primary-container rounded-full transition-all" title="Edit">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-secondary hover:bg-secondary-container rounded-full transition-all" title="Metrics">
+<span class="material-symbols-outlined">analytics</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-primary-container rounded-full transition-all" title="Resume">
+<span class="material-symbols-outlined">play_circle</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="px-md py-sm bg-surface-container-low border-t border-outline-variant flex justify-between items-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Mostrando 3 de 24 misiones activas</p>
+<div class="flex items-center gap-sm">
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-variant text-on-surface-variant disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<span class="font-label-sm text-label-sm font-bold bg-primary text-on-primary w-8 h-8 flex items-center justify-center rounded-full">1</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-variant text-on-surface-variant">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-variant text-on-surface-variant">3</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-variant text-on-surface-variant">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Asymmetric Regional Insights Section -->
+<div class="grid grid-cols-1 lg:grid-cols-5 gap-gutter pb-xl">
+<div class="lg:col-span-3 bg-surface-container-lowest p-md rounded-xl border border-outline-variant card-elevation h-full min-h-[300px]">
+<h4 class="font-title-lg text-title-lg font-bold mb-md">Impacto Regional en Tiempo Real</h4>
+<div class="w-full h-64 rounded-lg overflow-hidden relative">
+<!-- Map Placeholder with Location attribute -->
+<img alt="Regional Heatmap" class="w-full h-full object-cover" data-alt="A detailed, clean minimalist satellite map of Cochabamba valley with highlighted eco-zones in glowing primary green overlays. The visual style is sleek and technical, resembling a high-end administrative GIS interface, using a palette of soft greys, white, and vibrant environmental green." data-location="Cochabamba" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaL8RgWKJf-ULVMCKVob9cB7xF9j6VTyMtoA4mbq_UWcXvWdsTcqjHK0cJqUXXu-WzJlXFYXn_BvwwhAPOWg6H4BEQfm_xK2ZAoKsRcEW0VFAcXR4Sqmf9ypDc3y8RUM-PDRMDrRbFdmdNpcICnnZceE3YZcTCc0wE8v2EVbkMNua7mMkWOLvakwkXnD-NA1iKYLJHGWjW-Hav1iJ5hiQo2PwQWj3jFBo0Zf8Q71WvI3_ZsLrrQLRUSOjbtPzfctLm8gWb-KyHpcZp"/>
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-md p-sm rounded-lg shadow-sm">
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-label-sm font-bold">12 Misiones en curso hoy</span>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-2 space-y-gutter">
+<div class="bg-secondary-container text-on-secondary-container p-md rounded-xl card-elevation">
+<p class="font-label-lg text-label-lg font-bold mb-xs">Alerta de Logística</p>
+<p class="font-body-md text-body-md opacity-90 mb-md">El sector Tunari B requiere reposición inmediata de insumos de riego para mañana a las 08:00 AM.</p>
+<button class="bg-on-secondary-container text-secondary-container px-md py-xs rounded-lg font-label-lg text-label-lg font-bold hover:brightness-110 transition-all">Despachar Recursos</button>
+</div>
+<div class="bg-surface-container-high p-md rounded-xl border border-outline-variant">
+<p class="font-label-lg text-label-lg font-bold mb-sm text-on-surface">Top Voluntarios del Mes</p>
+<div class="space-y-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-base">
+<div class="w-8 h-8 rounded-full bg-primary-fixed-dim border border-primary"></div>
+<span class="font-label-sm text-label-sm">Ana Maria G.</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold">2,400 DP</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-base">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed-dim border border-secondary"></div>
+<span class="font-label-sm text-label-sm">Carlos Rios</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold">1,850 DP</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

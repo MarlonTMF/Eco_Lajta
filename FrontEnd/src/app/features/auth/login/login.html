@@ -48,5 +48,13 @@
                 <span>Iniciando sesión...</span>
             </ng-container>
         </button>
+
+        <!-- Admin Entry Button (smaller and styled professionally) -->
+        <div style="margin-top: 24px; display: flex; justify-content: center; width: 100%;">
+            <button routerLink="/admin" style="background: none; border: 1px solid var(--border); color: var(--primary); padding: 8px 16px; border-radius: 12px; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#f0fdf4'; this.style.borderColor='var(--primary)'" onmouseout="this.style.background='none'; this.style.borderColor='var(--border)'">
+                <span class="material-symbols-outlined" style="font-size: 16px;">shield_person</span>
+                Panel Admin
+            </button>
+        </div>
     </div>
 </div>

@@ -5,8 +5,6 @@ import { Dashboard } from './features/dashboard/dashboard/dashboard';
 import { MyRecycling } from './features/recycling/my-recycling/my-recycling';
 import { RegisterBag } from './features/recycling/register-bag/register-bag';
 import { PickupConfirmation } from './features/recycling/pickup-confirmation/pickup-confirmation';
-import { ReportStep1 } from './features/reports/report-step1/report-step1';
-import { ReportStep2 } from './features/reports/report-step2/report-step2';
 import { Map } from './features/map/map/map';
 import { ExploreMissions } from './features/missions/explore-missions/explore-missions';
 import { MissionDetail } from './features/missions/mission-detail/mission-detail';
@@ -28,9 +26,6 @@ export const routes: Routes = [
   { path: 'my-recycling', component: MyRecycling },
   { path: 'register-bag', component: RegisterBag },
   { path: 'pickup-confirmation', component: PickupConfirmation },
-  { path: 'report-step-1', component: ReportStep1 },
-  { path: 'report-step-2', component: ReportStep2 },
-  { path: 'report', redirectTo: 'report-step-2' },
   { path: 'map', component: Map },
   { path: 'projects', component: ExploreMissions },
   { path: 'mission-detail', component: MissionDetail },
@@ -57,6 +52,24 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./presentation/screens/admin/mission-detail/mission-detail.component')
             .then(m => m.AdminMissionDetailComponent),
+      },
+      {
+        path: 'rewards',
+        loadComponent: () =>
+          import('./presentation/screens/admin/rewards/rewards.component')
+            .then(m => m.AdminRewardsComponent),
+      },
+      {
+        path: 'users',
+        loadComponent: () =>
+          import('./presentation/screens/admin/users/users.component')
+            .then(m => m.AdminUsersComponent),
+      },
+      {
+        path: 'tickets',
+        loadComponent: () =>
+          import('./presentation/screens/admin/tickets/tickets.component')
+            .then(m => m.AdminTicketsComponent),
       },
     ],
   },

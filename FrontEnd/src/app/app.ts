@@ -23,7 +23,8 @@ export class App implements AfterViewInit {
 
   showLayout() {
     const authRoutes = ['/login', '/onboarding'];
-    return !authRoutes.includes(this.router.url);
+    const isAdminRoute = this.router.url.startsWith('/admin');
+    return !authRoutes.includes(this.router.url) && !isAdminRoute;
   }
 
   ngAfterViewInit() {
