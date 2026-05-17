@@ -35,14 +35,26 @@ export class Login implements OnInit {
       client_id: '437570902163-ffqiv27cft6udu4l6k4i407vfhjh71io.apps.googleusercontent.com',
       callback: (response: any) => this.handleCredentialResponse(response)
     });
-  }
 
-  loginWithGoogle(): void {
-    if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
-      google.accounts.id.prompt();
-    } else {
-      alert('El servicio de inicio de sesión de Google se está cargando. Por favor, intenta de nuevo en un segundo.');
-    }
+    // Safely wait for Angular's DOM painting cycle
+    setTimeout(() => {
+      const container = document.getElementById('googleBtnContainer');
+      if (container) {
+        google.accounts.id.renderButton(container, {
+          theme: 'outline',
+          size: 'large',
+          width: 320,
+          shape: 'pill',
+          text: 'continue_with',
+          logo_alignment: 'left'
+        });
+      }
+    }, 50);
+
+    // Also trigger the One Tap prompt as an automatic floating option
+    google.accounts.id.prompt((notification: any) => {
+      console.log('Google One Tap Notification:', notification);
+    });
   }
 
   handleCredentialResponse(response: any): void {
