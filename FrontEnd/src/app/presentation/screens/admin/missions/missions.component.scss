@@ -1,0 +1,140 @@
+.admin-page { max-width: 1200px; }
+
+.page-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 32px;
+}
+.page-title { font-size: 1.375rem; font-weight: 700; color: var(--primary); margin: 0; }
+.topbar-actions { display: flex; align-items: center; gap: 12px; }
+
+.search-pill {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 24px; padding: 8px 16px;
+  input { border: none; outline: none; background: none; font-size: 0.875rem; width: 200px; }
+  .material-symbols-outlined { color: var(--text-muted); font-size: 18px; }
+}
+
+.icon-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--surface);
+  display: grid; place-items: center; cursor: pointer;
+  .material-symbols-outlined { font-size: 20px; color: var(--text-muted); }
+}
+.avatar-pill { width: 40px; height: 40px; border-radius: 50%; background: var(--primary); }
+
+/* STATS */
+.stats-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 32px;
+}
+.stat-card {
+  background: var(--surface); border-radius: 20px;
+  padding: 24px; border: 1px solid var(--border);
+  box-shadow: var(--shadow); position: relative;
+}
+.stat-label { font-size: 0.8125rem; color: var(--text-muted); margin: 0 0 8px; }
+.stat-value {
+  font-size: 2rem; font-weight: 700; margin: 0 0 8px;
+  &.text-secondary { color: #0288D1; }
+  &.text-primary   { color: var(--primary); }
+  &.text-on-surface { color: var(--text); }
+}
+.stat-trend, .stat-sub {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 0.8125rem; color: var(--primary); margin: 0;
+}
+.trend-icon { font-size: 16px; }
+.qr-bar { height: 8px; background: var(--border); border-radius: 4px; margin-top: 8px; }
+.qr-fill { height: 100%; background: var(--primary); border-radius: 4px; }
+.qr-icon { position: absolute; top: 24px; right: 24px; color: var(--text-muted); font-size: 40px; }
+
+/* CONTENT SPLIT */
+.content-split { display: grid; grid-template-columns: 1fr 300px; gap: 24px; }
+
+.section-header {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
+}
+.section-title { font-size: 1.0625rem; font-weight: 700; margin: 0; }
+
+.btn-create {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--primary); color: white;
+  border: none; border-radius: 24px; padding: 10px 20px;
+  font-weight: 600; font-size: 0.875rem; cursor: pointer;
+  &:hover { background: var(--primary-light); }
+}
+
+/* MISSION CARDS */
+.mission-list { display: flex; flex-direction: column; gap: 16px; }
+.mission-card {
+  display: grid; grid-template-columns: 180px 1fr;
+  background: var(--surface); border-radius: 20px;
+  border: 1px solid var(--border); overflow: hidden;
+  cursor: pointer; transition: box-shadow 0.2s;
+  &:hover { box-shadow: 0 4px 24px rgba(46,125,50,0.12); }
+}
+.mission-img-wrap { position: relative; height: 180px; }
+.mission-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.status-chip {
+  position: absolute; top: 12px; left: 12px;
+  padding: 4px 10px; border-radius: 8px;
+  font-size: 0.75rem; font-weight: 700; color: white;
+}
+.mission-info { padding: 20px; }
+.mission-header-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.mission-title { font-size: 1rem; font-weight: 700; margin: 0; }
+.reward-pool { font-weight: 700; font-size: 0.875rem; white-space: nowrap; }
+.mission-desc { font-size: 0.8125rem; color: var(--text-muted); margin: 0 0 16px; }
+.mission-meta { display: flex; gap: 32px; margin-bottom: 8px; }
+.meta-item { display: flex; flex-direction: column; gap: 2px; }
+.meta-label { font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
+.meta-val { font-size: 1rem; font-weight: 700; }
+.engagement-row { display: flex; gap: 8px; align-items: center; }
+.engagement-val { font-weight: 700; font-size: 0.875rem; }
+
+/* OTB RANKINGS */
+.otb-col { background: var(--surface); border-radius: 20px; padding: 24px; border: 1px solid var(--border); align-self: start; }
+.otb-list { display: flex; flex-direction: column; gap: 12px; }
+.otb-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px; border-radius: 12px; background: var(--background);
+}
+.otb-rank {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--primary); color: white;
+  display: grid; place-items: center; font-weight: 700; font-size: 0.875rem; flex-shrink: 0;
+}
+.otb-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.otb-name { font-weight: 600; font-size: 0.875rem; }
+.otb-members { font-size: 0.75rem; color: var(--text-muted); }
+.otb-stats { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.otb-points { font-weight: 700; font-size: 0.875rem; }
+.otb-eff { font-size: 0.75rem; }
+
+.btn-outline {
+  width: 100%; margin-top: 16px; background: white;
+  border: 1px solid var(--primary); color: var(--primary);
+  border-radius: 24px; padding: 10px; font-weight: 600; cursor: pointer;
+}
+
+/* MODAL */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+  display: grid; place-items: center; z-index: 1000;
+}
+.modal-card {
+  background: var(--surface); border-radius: 20px;
+  width: 480px; max-width: 90vw; padding: 32px; box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+}
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; h3 { margin: 0; font-size: 1.125rem; font-weight: 700; } }
+.modal-body { display: flex; flex-direction: column; gap: 12px; }
+.field-label { font-size: 0.8125rem; font-weight: 600; color: var(--text-muted); }
+.field-input {
+  width: 100%; padding: 10px 14px; border: 1px solid var(--border);
+  border-radius: 10px; font-size: 0.9rem; outline: none; box-sizing: border-box;
+  &:focus { border-color: var(--primary); }
+}
+.modal-footer { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
+
+.loading-state, .error-state { padding: 40px; text-align: center; color: var(--text-muted); }
+.mt-4 { margin-top: 16px; }

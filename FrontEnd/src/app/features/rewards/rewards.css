@@ -1,0 +1,515 @@
+.rewards-wrapper {
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Bento Balance Section */
+.bento-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.balance-hero-card {
+  background: linear-gradient(135deg, var(--primary, #0d631b), #14532d);
+  color: white;
+  padding: 32px;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 256px;
+  box-shadow: 0 10px 30px rgba(13, 99, 27, 0.15);
+}
+
+.bento-glow-top {
+  position: absolute;
+  right: -10%;
+  top: -10%;
+  width: 256px;
+  height: 256px;
+  background: rgba(203, 255, 194, 0.15);
+  border-radius: 50%;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.bento-glow-bottom {
+  position: absolute;
+  left: 20%;
+  bottom: -20%;
+  width: 192px;
+  height: 192px;
+  background: rgba(13, 99, 27, 0.3);
+  border-radius: 50%;
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+.card-top {
+  position: relative;
+  z-index: 5;
+}
+
+.balance-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+}
+
+.balance-amount {
+  font-size: 3.6rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin: 8px 0 0 0;
+  letter-spacing: -0.02em;
+}
+
+.balance-unit {
+  font-size: 1.8rem;
+  font-weight: 700;
+  opacity: 0.95;
+  margin-left: 4px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 16px;
+  position: relative;
+  z-index: 5;
+  margin-top: auto;
+}
+
+.btn-action-primary {
+  background: white;
+  color: var(--primary, #0d631b);
+  border: none;
+  padding: 12px 28px;
+  border-radius: 100px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-action-primary:hover {
+  transform: scale(1.04);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.btn-action-secondary {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 10px 28px;
+  border-radius: 100px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-action-secondary:hover {
+  background: white;
+  color: var(--primary, #0d631b);
+}
+
+/* Right Eco-Hero Level Card */
+.eco-hero-card {
+  background: #eceeec;
+  border: 1px solid rgba(0, 0, 0, 0.02);
+  padding: 32px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.01);
+}
+
+.hero-icon-wrap {
+  width: 64px;
+  height: 64px;
+  background: var(--secondary-fixed, #cee5ff);
+  color: var(--on-secondary-container, #00436a);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 10px rgba(0, 67, 106, 0.08);
+}
+
+.eco-badge-icon {
+  font-size: 36px;
+  font-variation-settings: 'FILL' 1;
+}
+
+.hero-level-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--primary, #0d631b);
+  margin: 0;
+}
+
+.hero-level-subtitle {
+  font-size: 0.85rem;
+  color: var(--on-surface-variant, #40493d);
+  margin: 4px 0 0 0;
+  font-weight: 500;
+}
+
+.gauge-container {
+  width: 100%;
+  background: white;
+  height: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 20px;
+  border: 1px solid rgba(0,0,0,0.02);
+}
+
+.gauge-bar {
+  height: 100%;
+  background: var(--secondary, #00639a);
+  border-radius: 10px;
+}
+
+.gauge-percentage {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--on-surface-variant, #40493d);
+  margin-top: 8px;
+  display: block;
+}
+
+/* Redeem Rewards Section */
+.rewards-list-section {
+  margin-top: 44px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #1f2937;
+  margin: 0;
+}
+
+.btn-view-all {
+  background: none;
+  border: none;
+  color: var(--secondary, #00639a);
+  font-weight: 800;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.btn-view-all:hover {
+  text-decoration: underline;
+}
+
+.rewards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.reward-card {
+  background: white;
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.reward-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.reward-image-container {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+  background: #f3f4f6;
+}
+
+.reward-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.reward-card:hover .reward-img {
+  transform: scale(1.06);
+}
+
+.reward-cost-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--primary, #0d631b);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(13, 99, 27, 0.2);
+}
+
+.reward-info {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+}
+
+.reward-category-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--secondary, #00639a);
+  letter-spacing: 0.06em;
+}
+
+.reward-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #1f2937;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.reward-desc {
+  font-size: 0.85rem;
+  color: var(--on-surface-variant, #40493d);
+  line-height: 1.5;
+  margin: 0;
+  height: 42px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.btn-redeem {
+  width: 100%;
+  padding: 12px;
+  background: white;
+  border: 2px solid var(--primary, #0d631b);
+  color: var(--primary, #0d631b);
+  font-weight: 800;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-top: auto;
+}
+
+.reward-card:hover .btn-redeem {
+  background: var(--primary, #0d631b);
+  color: white;
+}
+
+.btn-disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  border-color: #9ca3af !important;
+  color: #9ca3af !important;
+  pointer-events: none !important;
+}
+
+/* Recent Transaction Activity Section */
+.activity-section {
+  margin-top: 48px;
+}
+
+.table-card-container {
+  background: white;
+  border-radius: 20px;
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.01);
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.activity-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.activity-table th {
+  background: #fafbfa;
+  color: var(--on-surface-variant, #40493d);
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 16px 24px;
+  text-align: left;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+}
+
+.activity-table td {
+  padding: 18px 24px;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.3);
+}
+
+.table-row {
+  transition: background 0.2s ease;
+}
+
+.table-row:hover {
+  background: #fafbfa;
+}
+
+.tx-cell-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.tx-icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-green-soft {
+  background: var(--on-primary-container, #cbffc2);
+}
+
+.bg-red-soft {
+  background: var(--error-container, #ffdad6);
+}
+
+.tx-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.tx-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #1f2937;
+  margin: 0;
+}
+
+.tx-subtext {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.badge-pill {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 100px;
+  display: inline-block;
+  letter-spacing: 0.03em;
+}
+
+.badge-green {
+  background: var(--on-primary-container, #cbffc2);
+  color: var(--primary, #0d631b);
+}
+
+.badge-orange {
+  background: var(--tertiary-fixed, #ffdbcf);
+  color: var(--tertiary, #704d40);
+}
+
+.tx-date-cell {
+  font-size: 0.85rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.tx-amount-cell {
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+
+.text-error {
+  color: var(--error, #ba1a1a) !important;
+}
+
+/* RESPONSIVE MEDIA QUERIES */
+@media (max-width: 1024px) {
+  .rewards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .rewards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .balance-hero-card {
+    min-height: auto;
+    padding: 24px;
+  }
+
+  .balance-amount {
+    font-size: 2.8rem;
+  }
+
+  .rewards-wrapper {
+    padding: 16px;
+  }
+
+  .activity-table th, 
+  .activity-table td {
+    padding: 12px 16px;
+  }
+}

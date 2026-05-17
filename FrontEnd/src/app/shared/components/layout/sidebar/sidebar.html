@@ -1,0 +1,59 @@
+<aside class="sidebar">
+    <div class="logo-container">
+        <div class="logo">
+            <div style="background: var(--primary); color: white; width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; shadow: 0 4px 12px rgba(13,99,27,0.2);">
+                <i class="material-symbols-outlined" style="font-size: 24px;">eco</i>
+            </div>
+            <span style="letter-spacing: -1px;">EcoLlajta</span>
+        </div>
+        <button class="icon-btn md:hidden" (click)="onCloseClick()">
+            <i class="material-symbols-outlined">close</i>
+        </button>
+    </div>
+
+    <nav class="nav-links">
+        <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">
+            <i class="material-symbols-outlined">dashboard</i>
+            <span>Dashboard</span>
+        </a>
+        <a routerLink="/my-recycling" routerLinkActive="active" class="nav-link">
+            <i class="material-symbols-outlined">recycling</i>
+            <span>Mi Reciclaje</span>
+        </a>
+        <a routerLink="/rewards" routerLinkActive="active" class="nav-link">
+            <i class="material-symbols-outlined">redeem</i>
+            <span>Rewards</span>
+        </a>
+        <a routerLink="/community" routerLinkActive="active" class="nav-link">
+            <i class="material-symbols-outlined">groups</i>
+            <span>Community</span>
+        </a>
+        <a routerLink="/projects" routerLinkActive="active" class="nav-link">
+            <i class="material-symbols-outlined">rocket_launch</i>
+            <span>Missions</span>
+        </a>
+        <a routerLink="/map" routerLinkActive="active" class="nav-link">
+            <i class="material-symbols-outlined">map</i>
+            <span>Map</span>
+        </a>
+        <a routerLink="/profile" routerLinkActive="active" class="nav-link">
+            <i class="material-symbols-outlined">person</i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <button class="scanner-btn-side" style="background: #ef4444; box-shadow: 0 10px 20px rgba(239, 68, 68, 0.2);" routerLink="/report">
+            <i class="material-symbols-outlined">report_problem</i>
+            <span>Report Critical Point</span>
+        </button>
+        <a href="#" class="nav-link">
+            <i class="material-symbols-outlined">help</i>
+            <span>Help Center</span>
+        </a>
+        <a href="#" class="nav-link" style="color: #ef4444;">
+            <i class="material-symbols-outlined">logout</i>
+            <span>Logout</span>
+        </a>
+    </div>
+</aside>

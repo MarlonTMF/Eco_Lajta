@@ -1,0 +1,66 @@
+<div style="max-width: 800px; margin: 0 auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+        <h1 style="font-size: 2.5rem; font-weight: 800; color: var(--primary);">Explorar Misiones</h1>
+        <div class="search-container" style="width: 300px;">
+            <i data-lucide="search"></i>
+            <input type="text" placeholder="Buscar misiones, OTBs o proyectos...">
+        </div>
+    </div>
+
+    <!-- Category Filters -->
+    <div style="display: flex; gap: 12px; margin-bottom: 32px; overflow-x: auto; padding-bottom: 8px;">
+        <button class="btn-white" style="background: var(--primary); color: white; border: none; padding: 8px 24px;">Todas</button>
+        <button class="btn-white" style="padding: 8px 24px;">Reforestación</button>
+        <button class="btn-white" style="padding: 8px 24px;">Limpieza</button>
+        <button class="btn-white" style="padding: 8px 24px;">Talleres</button>
+        <button class="btn-white" style="padding: 8px 24px;">Reciclaje</button>
+    </div>
+
+    <!-- Featured Mission -->
+    <div class="card" style="padding: 0; overflow: hidden; margin-bottom: 40px; cursor: pointer;" routerLink="/mission-detail">
+        <div style="position: relative; height: 300px;">
+            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&q=80" style="width: 100%; height: 100%; object-fit: cover;">
+            <div style="position: absolute; top: 20px; right: 20px; background: var(--primary); color: white; padding: 6px 16px; border-radius: 20px; font-weight: 700;">500 Dirty Points</div>
+        </div>
+        <div style="padding: 32px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 8px;">Reforestación Urbana Sector Norte</h2>
+                    <p class="text-muted" style="display: flex; align-items: center; gap: 8px;"><i data-lucide="map-pin" style="width:18px;"></i> Sector Norte, Cochabamba</p>
+                </div>
+                <div style="text-align: right;">
+                    <div class="text-muted" style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">Fecha</div>
+                    <div style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">24 Ago</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 24px;">Cerca de ti</h2>
+    <div class="grid-2">
+        <!-- Card 1 -->
+        <div class="card" style="display: flex; gap: 20px; padding: 16px; align-items: center; cursor: pointer;" routerLink="/mission-detail">
+            <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=800&q=80" style="width: 100px; height: 100px; border-radius: 12px; object-fit: cover;">
+            <div style="flex: 1;">
+                <div style="display: flex; justify-content: space-between;">
+                    <h4 style="font-weight: 700;">Brigada Vidrio 2.0</h4>
+                    <span style="font-size: 0.75rem; font-weight: 800; color: var(--primary);">350 Dirty Points</span>
+                </div>
+                <p class="text-muted" style="font-size: 0.8rem; margin: 4px 0;"><i data-lucide="map-pin" style="width:14px;"></i> OTB Centro Histórico</p>
+                <div style="font-size: 0.8rem; font-weight: 700; color: var(--primary); margin-top: 8px;">14 Oct</div>
+            </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="card" style="display: flex; gap: 20px; padding: 16px; align-items: center; cursor: pointer;" routerLink="/mission-detail">
+            <img src="https://images.unsplash.com/photo-1622353381669-e339bf4b3e8e?w=800&q=80" style="width: 100px; height: 100px; border-radius: 12px; object-fit: cover;">
+            <div style="flex: 1;">
+                <div style="display: flex; justify-content: space-between;">
+                    <h4 style="font-weight: 700;">Taller Compostaje Comunitario</h4>
+                    <span style="font-size: 0.75rem; font-weight: 800; color: var(--primary);">400 Dirty Points</span>
+                </div>
+                <p class="text-muted" style="font-size: 0.8rem; margin: 4px 0;"><i data-lucide="map-pin" style="width:14px;"></i> OTB Sur Moderno</p>
+                <div style="font-size: 0.8rem; font-weight: 700; color: var(--primary); margin-top: 8px;">16 Oct</div>
+            </div>
+        </div>
+    </div>
+</div>

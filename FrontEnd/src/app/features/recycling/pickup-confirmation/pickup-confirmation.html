@@ -1,0 +1,57 @@
+<div class="flex-grow pt-8 pb-32 px-margin-mobile max-w-md mx-auto w-full">
+    <!-- Success Animation/Icon Header -->
+    <section class="flex flex-col items-center text-center mb-lg">
+        <div class="w-24 h-24 bg-primary-container rounded-full flex items-center justify-center mb-md shadow-lg shadow-primary/10">
+            <span class="material-symbols-outlined text-on-primary-container text-[48px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+        </div>
+        <h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-xs font-bold" style="font-size: 2rem;">¡Solicitud Confirmada!</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant px-4">Tu recolector está en camino para procesar tus materiales reciclables.</p>
+    </section>
+
+    <!-- QR Code Card -->
+    <div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_4px_24px_rgba(27,109,36,0.08)] mb-lg flex flex-col items-center" style="background: white; padding: 24px; border-radius: 16px;">
+        <div class="bg-white p-sm rounded-xl shadow-sm border border-outline-variant/20 mb-md flex items-center justify-center">
+            <img class="w-48 h-48 object-contain" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=EK-RECOJO-5510"/>
+        </div>
+        <p class="font-body-md text-body-md text-on-surface text-center font-medium">
+            Muestra este código al conductor para validar el peso real y recibir tus Dirty Points
+        </p>
+    </div>
+
+    <!-- Summary Details -->
+    <section class="space-y-sm mb-lg" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; text-align: left;">
+        <div class="flex items-center justify-between p-md bg-surface-container-low rounded-xl border border-outline-variant/30" style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #F9FAF5; border: 1px solid var(--border); border-radius: 12px;">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary">category</span>
+                <span class="font-label-lg text-label-lg text-on-surface-variant font-semibold">Categoría</span>
+            </div>
+            <span class="font-title-lg text-title-lg text-primary font-bold">PET</span>
+        </div>
+        <div class="flex items-center justify-between p-md bg-surface-container-low rounded-xl border border-outline-variant/30" style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #F9FAF5; border: 1px solid var(--border); border-radius: 12px;">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary">weight</span>
+                <span class="font-label-lg text-label-lg text-on-surface-variant font-semibold">Peso Est.</span>
+            </div>
+            <span class="font-title-lg text-title-lg text-primary font-bold">5 kg</span>
+        </div>
+        <div class="flex items-center justify-between p-md bg-primary-container/10 rounded-xl border border-primary-container/20" style="display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #E8F5E9; border: 1px solid #A5D6A7; border-radius: 12px;">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">token</span>
+                <span class="font-label-lg text-label-lg text-primary font-semibold">Recompensa</span>
+            </div>
+            <span class="font-title-lg text-title-lg text-primary font-extrabold" style="font-size: 1.3rem;">+250 Dirty Points</span>
+        </div>
+    </section>
+
+    <!-- Action Buttons -->
+    <div class="flex flex-col gap-sm" style="display: flex; flex-direction: column; gap: 16px;">
+        <button routerLink="/my-recycling" class="w-full bg-primary-container text-on-primary-container h-14 rounded-full font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-md" style="width: 100%; padding: 18px; background: var(--primary); color: white; border-radius: 100px;">
+            <span class="material-symbols-outlined">account_balance_wallet</span>
+            Guardar en Wallet
+        </button>
+        <button routerLink="/dashboard" class="w-full border-2 border-outline text-primary h-14 rounded-full font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform" style="width: 100%; padding: 18px; background: white; color: var(--primary); border: 2px solid var(--border); border-radius: 100px;">
+            <span class="material-symbols-outlined">home</span>
+            Volver al Inicio
+        </button>
+    </div>
+</div>

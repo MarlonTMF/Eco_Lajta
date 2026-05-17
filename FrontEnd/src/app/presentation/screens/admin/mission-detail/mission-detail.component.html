@@ -1,0 +1,130 @@
+<div class="detail-page">
+
+  <div class="detail-topbar">
+    <a routerLink="/admin/missions" class="back-btn">
+      <span class="material-symbols-outlined">arrow_back</span>
+      Back to Missions
+    </a>
+    <div class="topbar-actions">
+      <button class="icon-btn"><span class="material-symbols-outlined">notifications</span></button>
+      <button class="icon-btn"><span class="material-symbols-outlined">settings</span></button>
+      <div class="avatar-pill"></div>
+    </div>
+  </div>
+
+  @if (missionResource.isLoading()) {
+    <div class="loading-state">Cargando misión...</div>
+  } @else if (!vm()) {
+    <div class="error-state">Misión no encontrada.</div>
+  } @else {
+    @let m = vm()!;
+
+    <div class="detail-grid">
+
+      <!-- MAIN DETAIL CARD -->
+      <div class="detail-main">
+        <div class="mission-hero">
+          <img [src]="m.imageUrl" [alt]="m.title" class="hero-img" />
+          <div class="hero-overlay">
+            <span class="status-chip" [style.background]="m.statusColor">{{ m.status }}</span>
+            <h2 class="hero-title">{{ m.title }}</h2>
+            <p class="hero-district">
+              <span class="material-symbols-outlined">location_on</span>
+              {{ m.district }}
+            </p>
+          </div>
+        </div>
+
+        <div class="detail-body">
+          <p class="detail-desc">{{ m.description }}</p>
+
+          <!-- KEY STATS -->
+          <div class="kpi-row">
+            <div class="kpi-card">
+              <span class="material-symbols-outlined kpi-icon">payments</span>
+              <p class="kpi-label">Reward Pool</p>
+              <p class="kpi-val">{{ m.rewardPoolDirtyPoints | dirtyPoints }}</p>
+            </div>
+            <div class="kpi-card">
+              <span class="material-symbols-outlined kpi-icon">group</span>
+              <p class="kpi-label">Slots Filled</p>
+              <p class="kpi-val">{{ m.slotsFilled }} / {{ m.slotsTotal }}</p>
+            </div>
+            <div class="kpi-card">
+              <span class="material-symbols-outlined kpi-icon">qr_code_scanner</span>
+              <p class="kpi-label">QR Scans</p>
+              <p class="kpi-val">{{ m.qrScans }}</p>
+            </div>
+            <div class="kpi-card">
+              <span class="material-symbols-outlined kpi-icon">trending_up</span>
+              <p class="kpi-label">Engagement</p>
+              <p class="kpi-val" [style.color]="m.engagementColor">{{ m.engagement }}</p>
+            </div>
+          </div>
+
+          <!-- SLOT FILL PROGRESS -->
+          <div class="progress-section">
+            <div class="progress-header">
+              <span class="meta-label">SLOT FILL RATE</span>
+              <span class="meta-val">{{ m.slotFillPercent }}%</span>
+            </div>
+            <app-progress-bar [percent]="m.slotFillPercent" [color]="m.slotBarColor" height="12px" />
+          </div>
+
+          <!-- ACTIONS -->
+          <div class="action-row">
+            <button class="btn-primary">
+              <span class="material-symbols-outlined">edit</span>
+              Edit Mission
+            </button>
+            <button class="btn-outline-danger">
+              <span class="material-symbols-outlined">pause_circle</span>
+              Pause Mission
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDE PANEL: PARTICIPANT LOG / QR ACTIVITY -->
+      <div class="detail-side">
+        <div class="side-card">
+          <h3 class="side-title">Recent QR Activity</h3>
+          <div class="activity-list">
+            @for (scan of [1,2,3,4,5]; track scan) {
+              <div class="scan-row">
+                <div class="scan-avatar">{{ scan }}</div>
+                <div class="scan-info">
+                  <span class="scan-name">Volunteer #{{ 1000 + scan }}</span>
+                  <span class="scan-time text-muted">hace {{ scan * 12 }} min</span>
+                </div>
+                <span class="scan-points text-primary">+15 DP</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="side-card">
+          <h3 class="side-title">Mission Timeline</h3>
+          <div class="timeline">
+            <div class="tl-item active">
+              <div class="tl-dot"></div>
+              <div>
+                <p class="tl-label">Mission Created</p>
+                <p class="tl-date text-muted">{{ m.createdAt }}</p>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-dot inactive"></div>
+              <div>
+                <p class="tl-label">Target Completion</p>
+                <p class="tl-date text-muted">TBD</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  }
+
+</div>
