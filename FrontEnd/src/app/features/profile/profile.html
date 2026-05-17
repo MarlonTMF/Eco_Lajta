@@ -7,8 +7,12 @@
     <div class="profile-main-info">
       <!-- Left side: Avatar, Name & Badge -->
       <div class="info-left">
-        <div class="avatar-container">
-          <img [src]="profile.avatarUrl" alt="Avatar" class="avatar-img" />
+        <div class="avatar-container" [style.background]="profile.avatarUrl ? 'transparent' : '#a855f7'" style="display: flex; align-items: center; justify-content: center;">
+          @if (profile.avatarUrl) {
+            <img [src]="profile.avatarUrl" alt="Avatar" class="avatar-img" />
+          } @else {
+            <span style="font-size: 56px; color: white; font-weight: 800;">{{ profile.name.charAt(0).toUpperCase() }}</span>
+          }
         </div>
         <div class="user-details">
           <h1 class="user-name">
@@ -44,28 +48,7 @@
 
   <!-- SPLIT GRID (ACHIEVEMENTS + ACTIVITIES) -->
   <div class="profile-content-grid animate-slide-up">
-    <!-- LEFT: MURO DE LOGROS -->
-    <div class="card-glass achievements-card">
-      <div class="card-header">
-        <h2 class="card-title text-primary">Muro de Logros</h2>
-      </div>
 
-      <div class="achievements-list">
-        @for (item of achievements; track item.title) {
-          <div class="achievement-item" [class.locked]="item.locked">
-            <div class="achievement-icon-wrap" [class]="item.bgClass">
-              <span class="material-symbols-outlined" [class]="item.colorClass">{{ item.icon }}</span>
-            </div>
-            <h4 class="achievement-title">{{ item.title }}</h4>
-            <p class="achievement-level text-muted">{{ item.level }}</p>
-          </div>
-        }
-      </div>
-
-      <button routerLink="/rewards" class="btn-outline w-full mt-6">
-        Explorar Todas las Insignias
-      </button>
-    </div>
 
     <!-- RIGHT: ACTIVIDAD RECIENTE -->
     <div class="card-glass activity-card">
