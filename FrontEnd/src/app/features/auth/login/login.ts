@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, NgZone } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -24,7 +24,8 @@ export class Login implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -88,12 +89,14 @@ export class Login implements OnInit {
   }
 
   handleCredentialResponse(response: any): void {
-    this.authService.loginWithGoogle(response.credential).subscribe({
-      next: (res) => {
-        this.authService.saveToken(res.token);
-        this.router.navigate(['/dashboard']);
-      },
-      error: () => { this.loginWithGoogleMock(); }
+    this.ngZone.run(() => {
+      this.authService.loginWithGoogle(response.credential).subscribe({
+        next: (res) => {
+          this.authService.saveToken(res.token);
+          this.router.navigate(['/dashboard']);
+        },
+        error: () => { this.loginWithGoogleMock(); }
+      });
     });
   }
 }
