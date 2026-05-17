@@ -33,4 +33,36 @@ export class PickupConfirmation {
       this.totalPoints = 250;
     }
   }
+
+  saveToWallet() {
+    const savedBalance = localStorage.getItem('userBalance');
+    if (savedBalance) {
+      localStorage.setItem('userBalance', (parseInt(savedBalance, 10) + this.totalPoints).toString());
+    } else {
+      localStorage.setItem('userBalance', (2450 + this.totalPoints).toString());
+    }
+    
+    const newTx = {
+      id: `tx-${Date.now()}`,
+      title: 'Recolección ' + this.categoriesSummary,
+      location: 'Recojo a Domicilio',
+      category: 'Reciclaje',
+      date: 'Hoy',
+      amount: this.totalPoints,
+      isPositive: true,
+      icon: 'recycling',
+      bgClass: 'bg-primary-fixed',
+      textClass: 'text-primary'
+    };
+    
+    const savedTxsStr = localStorage.getItem('transactions');
+    if (savedTxsStr) {
+      const savedTxs = JSON.parse(savedTxsStr);
+      savedTxs.unshift(newTx);
+      localStorage.setItem('transactions', JSON.stringify(savedTxs));
+    }
+    
+    alert(`¡Se han añadido +${this.totalPoints} DP a tu billetera ecológica!`);
+    this.router.navigate(['/my-recycling']);
+  }
 }

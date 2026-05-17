@@ -9,11 +9,11 @@
 
     <!-- Category Filters -->
     <div style="display: flex; gap: 12px; margin-bottom: 32px; overflow-x: auto; padding-bottom: 8px;">
-        <button class="btn-white" style="background: var(--primary); color: white; border: none; padding: 8px 24px;">Todas</button>
-        <button class="btn-white" style="padding: 8px 24px;">Reforestación</button>
-        <button class="btn-white" style="padding: 8px 24px;">Limpieza</button>
-        <button class="btn-white" style="padding: 8px 24px;">Talleres</button>
-        <button class="btn-white" style="padding: 8px 24px;">Reciclaje</button>
+        <button class="btn-white" [style.background]="activeFilter() === 'Todas' ? 'var(--primary)' : 'white'" [style.color]="activeFilter() === 'Todas' ? 'white' : 'var(--text)'" [style.border]="activeFilter() === 'Todas' ? 'none' : '2px solid var(--border)'" style="padding: 8px 24px;" (click)="setFilter('Todas')">Todas</button>
+        <button class="btn-white" [style.background]="activeFilter() === 'Reforestación' ? 'var(--primary)' : 'white'" [style.color]="activeFilter() === 'Reforestación' ? 'white' : 'var(--text)'" [style.border]="activeFilter() === 'Reforestación' ? 'none' : '2px solid var(--border)'" style="padding: 8px 24px;" (click)="setFilter('Reforestación')">Reforestación</button>
+        <button class="btn-white" [style.background]="activeFilter() === 'Limpieza' ? 'var(--primary)' : 'white'" [style.color]="activeFilter() === 'Limpieza' ? 'white' : 'var(--text)'" [style.border]="activeFilter() === 'Limpieza' ? 'none' : '2px solid var(--border)'" style="padding: 8px 24px;" (click)="setFilter('Limpieza')">Limpieza</button>
+        <button class="btn-white" [style.background]="activeFilter() === 'Talleres' ? 'var(--primary)' : 'white'" [style.color]="activeFilter() === 'Talleres' ? 'white' : 'var(--text)'" [style.border]="activeFilter() === 'Talleres' ? 'none' : '2px solid var(--border)'" style="padding: 8px 24px;" (click)="setFilter('Talleres')">Talleres</button>
+        <button class="btn-white" [style.background]="activeFilter() === 'Reciclaje' ? 'var(--primary)' : 'white'" [style.color]="activeFilter() === 'Reciclaje' ? 'white' : 'var(--text)'" [style.border]="activeFilter() === 'Reciclaje' ? 'none' : '2px solid var(--border)'" style="padding: 8px 24px;" (click)="setFilter('Reciclaje')">Reciclaje</button>
     </div>
 
     <!-- Featured Mission -->

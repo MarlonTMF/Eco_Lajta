@@ -8,7 +8,7 @@
                 <button class="btn-white" routerLink="/register-bag">
                     <i class="material-symbols-outlined">recycling</i> RECICLAR AHORA
                 </button>
-                <button style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); color: white; border: 1px solid rgba(255,255,255,0.2); padding: 14px 28px; border-radius: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                <button style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); color: white; border: 1px solid rgba(255,255,255,0.2); padding: 14px 28px; border-radius: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'" (click)="showTutorialInfo()">
                     VER TUTORIAL
                 </button>
             </div>
@@ -24,8 +24,8 @@
                 <div class="card-title">
                     <span>Impacto Ambiental</span>
                     <div style="display: flex; gap: 8px;">
-                        <button class="icon-btn" style="padding: 6px 12px; font-size: 0.8rem; font-weight: 700;">Día</button>
-                        <button class="icon-btn active" style="padding: 6px 12px; font-size: 0.8rem; font-weight: 700; background: var(--primary); color: white;">Mes</button>
+                        <button class="icon-btn" [style.background]="filterPeriod() === 'day' ? 'var(--primary)' : 'transparent'" [style.color]="filterPeriod() === 'day' ? 'white' : 'var(--text)'" style="padding: 6px 12px; font-size: 0.8rem; font-weight: 700;" (click)="setFilter('day')">Día</button>
+                        <button class="icon-btn" [style.background]="filterPeriod() === 'month' ? 'var(--primary)' : 'transparent'" [style.color]="filterPeriod() === 'month' ? 'white' : 'var(--text)'" style="padding: 6px 12px; font-size: 0.8rem; font-weight: 700;" (click)="setFilter('month')">Mes</button>
                     </div>
                 </div>
                 <div style="display: flex; gap: 60px; align-items: center;">
@@ -33,7 +33,7 @@
                         <div style="background: white; width: 64px; height: 64px; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: var(--primary);">
                             <i class="material-symbols-outlined" style="font-size: 32px;">scale</i>
                         </div>
-                        <div style="font-size: 3rem; font-weight: 900; color: var(--primary); line-height: 1;">48.5 <span style="font-size: 1rem; font-weight: 500; color: var(--text-muted);">kg</span></div>
+                        <div style="font-size: 3rem; font-weight: 900; color: var(--primary); line-height: 1;">{{ totalCollected }} <span style="font-size: 1rem; font-weight: 500; color: var(--text-muted);">kg</span></div>
                         <div class="text-muted" style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-top: 8px;">Total Recolectado</div>
                     </div>
                     <div style="flex: 1;">
@@ -42,20 +42,20 @@
                             <span style="color: var(--primary); font-weight: 700;">Meta: 60kg</span>
                         </div>
                         <div class="progress-container" style="height: 12px; margin-bottom: 24px;">
-                            <div class="progress-bar" style="width: 80.8%; background: linear-gradient(to r, var(--primary), var(--accent));"></div>
+                            <div class="progress-bar" [style.width]="(totalCollected / 60 * 100) + '%'" style="background: linear-gradient(to r, var(--primary), var(--accent));"></div>
                         </div>
                         <div class="grid-3" style="gap: 16px;">
                             <div style="padding: 16px; background: #eff6ff; border-radius: 20px; border: 1px solid #dbeafe;">
                                 <div style="font-size: 0.7rem; font-weight: 800; color: #1e40af; text-transform: uppercase; margin-bottom: 4px;">Plástico</div>
-                                <div style="font-size: 1.2rem; font-weight: 800; color: #1e3a8a;">24.2 kg</div>
+                                <div style="font-size: 1.2rem; font-weight: 800; color: #1e3a8a;">{{ plasticCollected }} kg</div>
                             </div>
                             <div style="padding: 16px; background: #fff1f2; border-radius: 20px; border: 1px solid #ffe4e6;">
                                 <div style="font-size: 0.7rem; font-weight: 800; color: #9f1239; text-transform: uppercase; margin-bottom: 4px;">Papel</div>
-                                <div style="font-size: 1.2rem; font-weight: 800; color: #881337;">12.8 kg</div>
+                                <div style="font-size: 1.2rem; font-weight: 800; color: #881337;">{{ paperCollected }} kg</div>
                             </div>
                             <div style="padding: 16px; background: #f0fdf4; border-radius: 20px; border: 1px solid #dcfce7;">
                                 <div style="font-size: 0.7rem; font-weight: 800; color: #166534; text-transform: uppercase; margin-bottom: 4px;">Orgánico</div>
-                                <div style="font-size: 1.2rem; font-weight: 800; color: #14532d;">11.5 kg</div>
+                                <div style="font-size: 1.2rem; font-weight: 800; color: #14532d;">{{ organicCollected }} kg</div>
                             </div>
                         </div>
                     </div>

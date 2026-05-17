@@ -45,6 +45,12 @@ interface FeedItem {
 export class CommunityComponent {
   activeSection = signal<'news' | 'ranking'>('news');
   selectedPeriod = signal<string>('month');
+  newsFilter = signal<'Todos' | 'Oficial'>('Todos');
+
+  get filteredFeedItems() {
+    if (this.newsFilter() === 'Todos') return this.feedItems();
+    return this.feedItems().filter(item => item.category === 'OFICIAL');
+  }
 
   // Reported Critical Places
   reportedPlaces = signal<ReportedPlace[]>([
@@ -179,6 +185,10 @@ export class CommunityComponent {
 
   setSection(section: 'news' | 'ranking'): void {
     this.activeSection.set(section);
+  }
+
+  setNewsFilter(filter: 'Todos' | 'Oficial'): void {
+    this.newsFilter.set(filter);
   }
 
   setPeriod(period: string): void {
