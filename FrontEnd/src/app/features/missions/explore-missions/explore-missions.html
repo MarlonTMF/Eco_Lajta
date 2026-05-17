@@ -3,68 +3,85 @@
     <h1 class="missions-title">Explorar Misiones</h1>
     <div class="search-container missions-search">
       <i class="material-symbols-outlined" aria-hidden="true">search</i>
-      <input type="search" placeholder="Buscar misiones, OTBs o proyectos..." aria-label="Buscar misiones">
+      <input type="search" placeholder="Buscar misiones, OTBs o proyectos..." aria-label="Buscar misiones" [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)">
     </div>
   </header>
 
+  <!-- Category Filters -->
   <div class="filters" role="tablist" aria-label="Filtrar misiones por categoría">
-    <button type="button" class="filter-chip active" role="tab" aria-selected="true">Todas</button>
-    <button type="button" class="filter-chip" role="tab" aria-selected="false">Reforestación</button>
-    <button type="button" class="filter-chip" role="tab" aria-selected="false">Limpieza</button>
-    <button type="button" class="filter-chip" role="tab" aria-selected="false">Talleres</button>
-    <button type="button" class="filter-chip" role="tab" aria-selected="false">Reciclaje</button>
+    <button type="button" 
+            class="filter-chip" 
+            [class.active]="selectedCategory() === 'Todas'"
+            (click)="selectCategory('Todas')"
+            role="tab" 
+            [attr.aria-selected]="selectedCategory() === 'Todas'">
+      Todas
+    </button>
+    <button type="button" 
+            class="filter-chip" 
+            [class.active]="selectedCategory() === 'Reforestación'"
+            (click)="selectCategory('Reforestación')"
+            role="tab" 
+            [attr.aria-selected]="selectedCategory() === 'Reforestación'">
+      Reforestación
+    </button>
+    <button type="button" 
+            class="filter-chip" 
+            [class.active]="selectedCategory() === 'Limpieza'"
+            (click)="selectCategory('Limpieza')"
+            role="tab" 
+            [attr.aria-selected]="selectedCategory() === 'Limpieza'">
+      Limpieza
+    </button>
   </div>
 
-  <a class="card featured" routerLink="/mission-detail" aria-label="Misión destacada: Reforestación Urbana Sector Norte, 500 Dirty Points, 24 de agosto">
-    <div class="featured-media">
-      <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&q=80" alt="">
-      <span class="featured-cost">500 Dirty Points</span>
-    </div>
-    <div class="featured-body">
-      <div>
-        <h2 class="featured-title">Reforestación Urbana Sector Norte</h2>
-        <p class="featured-location">
-          <i class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">location_on</i>
-          Sector Norte, Cochabamba
-        </p>
+  <!-- Featured Mission -->
+  @if (featuredMission(); as mission) {
+    <a class="card featured" [routerLink]="['/mission-detail', mission.id]" [attr.aria-label]="'Misión destacada: ' + mission.title + ', ' + mission.pointsReward + ' Dirty Points'">
+      <div class="featured-media">
+        <img [src]="getMissionImage(mission.title)" alt="">
+        <span class="featured-cost">{{ mission.pointsReward }} Dirty Points</span>
       </div>
-      <div style="text-align:right;">
-        <div class="featured-date-label">Fecha</div>
-        <div class="featured-date">24 Ago</div>
-      </div>
-    </div>
-  </a>
-
-  <h2 class="section-h2">Cerca de ti</h2>
-  <div class="missions-grid">
-    <a class="mission-card" routerLink="/mission-detail" aria-label="Brigada Vidrio 2.0, 350 Dirty Points">
-      <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=400&q=80" alt="">
-      <div class="mission-card-body">
-        <div class="mission-card-head">
-          <h4 class="mission-card-title">Brigada Vidrio 2.0</h4>
-          <span class="mission-card-cost">350 DP</span>
+      <div class="featured-body">
+        <div>
+          <h2 class="featured-title">{{ mission.title }}</h2>
+          <p class="featured-location">
+            <i class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">location_on</i>
+            {{ mission.locationName }}
+          </p>
         </div>
-        <p class="mission-card-loc">
-          <i class="material-symbols-outlined" aria-hidden="true">location_on</i>
-          OTB Centro Histórico
-        </p>
-        <div class="mission-card-date">14 Oct</div>
+        <div style="text-align:right;">
+          <div class="featured-date-label">Fecha</div>
+          <div class="featured-date">{{ formatMissionDate(mission.startsAt) }}</div>
+        </div>
       </div>
     </a>
+  } @else {
+    <div class="card" style="padding: 48px; text-align: center; margin-bottom: 40px; border-radius: 16px;">
+      <p class="text-muted" style="font-size: 1.1rem; font-weight: 600;">No se encontraron misiones para los filtros aplicados.</p>
+    </div>
+  }
 
-    <a class="mission-card" routerLink="/mission-detail" aria-label="Taller Compostaje Comunitario, 400 Dirty Points">
-      <img src="https://images.unsplash.com/photo-1622353381669-e339bf4b3e8e?w=400&q=80" alt="">
-      <div class="mission-card-body">
-        <div class="mission-card-head">
-          <h4 class="mission-card-title">Taller Compostaje Comunitario</h4>
-          <span class="mission-card-cost">400 DP</span>
-        </div>
-        <p class="mission-card-loc">
-          <i class="material-symbols-outlined" aria-hidden="true">location_on</i>
-          OTB Sur Moderno
-        </p>
-        <div class="mission-card-date">16 Oct</div>
-      </div>
-    </a>
-  </div>
+  <!-- Nearby Missions -->
+  @if (nearbyMissions().length > 0) {
+    <h2 class="section-h2">Cerca de ti</h2>
+    <div class="missions-grid">
+      @for (mission of nearbyMissions(); track mission.id) {
+        <a class="mission-card" [routerLink]="['/mission-detail', mission.id]" [attr.aria-label]="mission.title + ', ' + mission.pointsReward + ' Dirty Points'">
+          <img [src]="getMissionImage(mission.title)" alt="">
+          <div class="mission-card-body">
+            <div class="mission-card-head">
+              <h4 class="mission-card-title">{{ mission.title }}</h4>
+              <span class="mission-card-cost">{{ mission.pointsReward }} DP</span>
+            </div>
+            <p class="mission-card-loc">
+              <i class="material-symbols-outlined" aria-hidden="true">location_on</i>
+              {{ mission.locationName }}
+            </p>
+            <div class="mission-card-date">{{ formatMissionDate(mission.startsAt) }}</div>
+          </div>
+        </a>
+      }
+    </div>
+  }
 </div>
