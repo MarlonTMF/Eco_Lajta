@@ -23,6 +23,10 @@ public class RewardService {
             reward.setDescription(requestDto.description());
             reward.setPointsCost(requestDto.pointsCost());
             reward.setStock(requestDto.stock());
+            reward.setProvider(requestDto.provider());
+            reward.setCategory(requestDto.category());
+            reward.setImageUrl(requestDto.imageUrl());
+            reward.setIcon(requestDto.icon());
             var savedReward = rewardRepository.save(reward);
             return Result.success(savedReward);
         } catch (Exception e) {
@@ -37,6 +41,10 @@ public class RewardService {
                 reward.setDescription(dto.description());
                 reward.setPointsCost(dto.pointsCost());
                 reward.setStock(dto.stock());
+                reward.setProvider(dto.provider());
+                reward.setCategory(dto.category());
+                reward.setImageUrl(dto.imageUrl());
+                reward.setIcon(dto.icon());
                 return reward;
             }).toList();
             var savedRewards = rewardRepository.saveAll(rewards);
@@ -66,6 +74,10 @@ public class RewardService {
                 reward.setDescription(requestDto.description());
                 reward.setPointsCost(requestDto.pointsCost());
                 reward.setStock(requestDto.stock());
+                reward.setProvider(requestDto.provider());
+                reward.setCategory(requestDto.category());
+                reward.setImageUrl(requestDto.imageUrl());
+                reward.setIcon(requestDto.icon());
                 var updatedReward = rewardRepository.save(reward);
                 return Result.success(updatedReward);
             } else {
@@ -73,6 +85,19 @@ public class RewardService {
             }
         } catch (Exception e) {
             return Result.failure("Error updating reward: " , e.getMessage());
+        }
+    }
+    public Result<String> deleteOne(Long id) {
+        try {
+            var rewardOpt = rewardRepository.findById(id);
+            if (rewardOpt.isPresent()) {
+                rewardRepository.deleteById(id);
+                return Result.success("Reward deleted successfully");
+            } else {
+                return Result.failure("Reward not found", "Reward not found with id: " + id);
+            }
+        } catch (Exception e) {
+            return Result.failure("Error deleting reward: ", e.getMessage());
         }
     }
     public Result<List<Reward>> getAll(){

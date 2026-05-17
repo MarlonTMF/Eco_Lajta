@@ -9,13 +9,24 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/community")
 @RequiredArgsConstructor
+@Tag(name = "Comunidad", description = "Publicaciones de la comunidad y reacciones")
 public class CommunityPostController {
 
     private final CommunityPostRepository communityPostRepository;
 
+    @Operation(summary = "Listar publicaciones", description = "Obtiene todas las publicaciones ordenadas por más recientes")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Publicaciones obtenidas correctamente")
+    })
     @GetMapping
     public ResponseEntity<Result<List<CommunityPost>>> getAll() {
         List<CommunityPost> posts = communityPostRepository.findAll();
@@ -24,6 +35,10 @@ public class CommunityPostController {
         return ResponseEntity.ok(Result.success(posts));
     }
 
+    @Operation(summary = "Crear publicación", description = "Crea una publicación de la comunidad")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Publicación creada correctamente")
+    })
     @PostMapping
     public ResponseEntity<Result<CommunityPost>> create(@RequestBody CommunityPost post) {
         if (post.getAuthor() == null || post.getAuthor().isEmpty()) {
@@ -40,8 +55,18 @@ public class CommunityPostController {
         return ResponseEntity.ok(Result.success(saved));
     }
 
+    @Operation(summary = "Dar o quitar like", description = "Marca una publicación como liked o no liked")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Publicación actualizada correctamente"),
+        @ApiResponse(responseCode = "404", description = "Publicación no encontrada")
+    })
     @PostMapping("/like")
-    public ResponseEntity<Result<CommunityPost>> likePost(@RequestParam Long id, @RequestParam boolean liked) {
+    public ResponseEntity<Result<CommunityPost>> likePost(
+        @Parameter(description = "ID de la publicación", required = true)
+        @RequestParam Long id,
+        @Parameter(description = "true para dar like, false para quitarlo", required = true)
+        @RequestParam boolean liked
+    ) {
         var opt = communityPostRepository.findById(id);
         if (opt.isPresent()) {
             CommunityPost post = opt.get();

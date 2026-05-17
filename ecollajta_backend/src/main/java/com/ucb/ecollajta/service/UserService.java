@@ -75,4 +75,31 @@ public class UserService implements UserDetailsService {
             return Result.failure(e.getClass().getSimpleName(), e.getMessage());
         }
     }
+
+    public Result<java.util.List<User>> getAllUsers() {
+        return Result.success(userRepository.findAll());
+    }
+
+    @Transactional
+    public Result<User> update(Long id, com.ucb.ecollajta.model.dto.AdminUserUpdateDTO dto) {
+        Optional<User> optUser = userRepository.findById(id);
+        if (optUser.isEmpty()) {
+            return Result.failure("UserNotFound", "User not found with id " + id);
+        }
+        User user = optUser.get();
+        if (dto.fullName() != null) user.setFullName(dto.fullName());
+        if (dto.ci() != null) user.setCi(dto.ci());
+        if (dto.phone() != null) user.setPhone(dto.phone());
+        if (dto.zone() != null) user.setAddressLine(dto.zone()); // mapping zone to addressLine for now
+        if (dto.pointsBalance() != null) user.setPointsBalance(dto.pointsBalance());
+        if (dto.isActive() != null) user.setIsActive(dto.isActive());
+        if (dto.role() != null) {
+            try {
+                user.setRole(UserRole.valueOf(dto.role()));
+            } catch (IllegalArgumentException e) {
+                // ignore or handle
+            }
+        }
+        return Result.success(userRepository.save(user));
+    }
 }
