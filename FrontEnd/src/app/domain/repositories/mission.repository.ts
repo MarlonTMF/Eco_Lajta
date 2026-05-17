@@ -5,6 +5,8 @@ export interface IMissionRepository {
   getAll(): Promise<MissionEntity[]>;
   getById(id: string): Promise<MissionEntity | null>;
   create(data: CreateMissionData): Promise<MissionEntity>;
+  registerAttendance(eventId: number): Promise<void>;
+  getAttendanceQr(eventId: number): Promise<Blob>;
 }
 
 export interface CreateMissionData {

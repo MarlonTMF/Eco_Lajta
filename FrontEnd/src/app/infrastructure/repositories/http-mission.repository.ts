@@ -53,6 +53,19 @@ export class HttpMissionRepository implements IMissionRepository {
     return this.mapBackendToEntity(response.value);
   }
 
+  async registerAttendance(eventId: number): Promise<void> {
+    const payload = { eventId };
+    const response = await firstValueFrom(this.http.post<any>(`${this.apiUrl}/attendance`, payload));
+    if (response && response.success === false) {
+      throw new Error(response.message || 'Failed to register attendance');
+    }
+  }
+
+  async getAttendanceQr(eventId: number): Promise<Blob> {
+    const blob = await firstValueFrom(this.http.get(`${this.apiUrl}/attendance/qr/${eventId}`, { responseType: 'blob' }));
+    return blob;
+  }
+
   private mapBackendToEntity(item: any): MissionEntity {
     // Map backend Event fields to frontend MissionEntity properties
     

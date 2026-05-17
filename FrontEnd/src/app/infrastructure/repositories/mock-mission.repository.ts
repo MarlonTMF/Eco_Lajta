@@ -56,4 +56,12 @@ export class MockMissionRepository implements IMissionRepository {
     this.missions.push(entity);
     return entity;
   }
+
+  async registerAttendance(eventId: number): Promise<void> {
+    return Promise.resolve();
+  }
+
+  async getAttendanceQr(eventId: number): Promise<Blob> {
+    return Promise.resolve(new Blob(['mock-qr'], { type: 'image/png' }));
+  }
 }

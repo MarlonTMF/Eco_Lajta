@@ -1,6 +1,7 @@
 import { Component, OnInit, signal, inject } from '@angular/core';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { MissionService, Mission } from '../../../shared/services/mission.service';
 
 @Component({
@@ -12,8 +13,11 @@ import { MissionService, Mission } from '../../../shared/services/mission.servic
 export class ParticipationSuccess implements OnInit {
   private route = inject(ActivatedRoute);
   private missionService = inject(MissionService);
+  private sanitizer = inject(DomSanitizer);
 
   mission = signal<Mission | null>(null);
+  qrImageUrl = signal<SafeUrl | null>(null);
+  qrError = signal<string | null>(null);
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -22,11 +26,11 @@ export class ParticipationSuccess implements OnInit {
         const id = parseInt(idStr, 10);
         this.loadMission(id);
       } else {
-        // Fallback: load all and pick the first one
         this.missionService.getAll().subscribe({
           next: (list) => {
             if (list.length > 0) {
               this.mission.set(list[0]);
+              this.loadQrCode(list[0].id);
             }
           }
         });
@@ -38,12 +42,37 @@ export class ParticipationSuccess implements OnInit {
     this.missionService.getOne(id).subscribe({
       next: (data) => {
         this.mission.set(data);
+        this.loadQrCode(id);
       },
       error: (err) => {
         console.error('Error loading success mission detail:', err);
       }
     });
   }
+
+  loadQrCode(eventId: number): void {
+    console.log('[QR] Requesting QR for eventId:', eventId);
+    this.qrError.set(null);
+    this.missionService.getAttendanceQr(eventId).subscribe({
+      next: (blob) => {
+        console.log('[QR] Blob received. Type:', blob.type, '| Size:', blob.size);
+        if (!blob || blob.size === 0) {
+          this.qrError.set('El servidor devolvió un QR vacío.');
+          return;
+        }
+        const objectUrl = URL.createObjectURL(blob);
+        console.log('[QR] Object URL created:', objectUrl);
+        const safeUrl = this.sanitizer.bypassSecurityTrustUrl(objectUrl);
+        this.qrImageUrl.set(safeUrl);
+        console.log('[QR] qrImageUrl signal set.');
+      },
+      error: (err) => {
+        console.error('[QR] HTTP Error:', err.status, err.statusText, err);
+        this.qrError.set(`Error ${err.status}: No se pudo generar el QR.`);
+      }
+    });
+  }
+
 
   formatMissionDate(dateStr: string): string {
     try {

@@ -34,6 +34,11 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(email);
     }
 
+    @Transactional(readOnly = true)
+    public Optional<User> findByCi(String ci) {
+        return userRepository.findByCi(ci);
+    }
+
     @Transactional
     public User createFromGoogle(String email, String fullName, String googleSub, String photoUrl) {
         log.info("Creating user from Google login, email: {}", email);
