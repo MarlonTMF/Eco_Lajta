@@ -34,17 +34,13 @@
             <span class="divider-label">CONTINÚA CON</span>
         </div>
 
-        <div id="hiddenGoogleBtn" style="position: absolute; opacity: 0; pointer-events: none;"></div>
+        <div id="googleBtnContainer" style="display: flex; justify-content: center; margin-top: 24px; min-height: 40px;"></div>
 
-        <button type="button" class="btn-google" (click)="loginWithGoogle()" [disabled]="isLoading()"
-            style="width: 100%; margin: 0 auto;">
-            @if (!isLoading()) {
-            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="" class="btn-google-icon">
-            <span>Continuar con Google</span>
-            } @else {
-            <div class="spinner-google"></div>
-            <span>Iniciando sesión...</span>
-            }
-        </button>
+        @if (isLoading()) {
+            <div style="display: flex; justify-content: center; align-items: center; margin-top: 24px; gap: 12px;">
+                <div class="spinner-google"></div>
+                <span style="font-weight: 600; color: var(--text-muted); font-size: 0.95rem;">Iniciando sesión...</span>
+            </div>
+        }
     </div>
 </div>

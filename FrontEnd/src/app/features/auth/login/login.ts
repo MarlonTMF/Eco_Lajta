@@ -43,7 +43,7 @@ export class Login implements OnInit {
       callback: (response: any) => this.handleCredentialResponse(response),
     });
 
-    const container = document.getElementById('hiddenGoogleBtn');
+    const container = document.getElementById('googleBtnContainer');
     if (container) {
       google.accounts.id.renderButton(container, {
         theme: 'outline',
@@ -53,19 +53,7 @@ export class Login implements OnInit {
     }
   }
 
-  loginWithGoogle(): void {
-    this.isLoading.set(true);
-    
-    // Para propósitos del MVP y debido a que el mock-server no tiene Auth real,
-    // simulamos un login exitoso creando un token JWT válido (Header.Payload.Signature).
-    setTimeout(() => {
-      // Un token que expira en el año 2100
-      const mockToken = 'mockHeader.eyJzdWIiOiJ1c3ItMDA2IiwibmFtZSI6Ik1hcmNlbG8gUmlvcyIsInJvbGUiOiJVU0VSIiwiZXhwIjo0MTAyNDQ0ODAwfQ==.mockSignature';
-      this.authService.saveToken(mockToken);
-      this.isLoading.set(false);
-      this.router.navigate(['/dashboard']);
-    }, 1200);
-  }
+
 
   handleCredentialResponse(response: any): void {
     this.isLoading.set(true);
