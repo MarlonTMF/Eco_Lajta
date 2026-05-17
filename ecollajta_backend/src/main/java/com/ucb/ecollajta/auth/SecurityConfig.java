@@ -25,7 +25,7 @@ import java.util.List;
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
 
-    @Value("${app.cors.allowed-origins:http://localhost:4200}")
+    @Value("${app.cors.allowed-origins:http://localhost:4200,http://localhost:8080,https://ecollajta.netlify.app}")
     private String allowedOrigins;
 
     @Bean
