@@ -1,4 +1,4 @@
-package com.ucb.ecollajta.model;
+package com.ucb.ecollajta.model.events;
 
 public enum EventStatus {
     published,

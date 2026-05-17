@@ -1,10 +1,12 @@
-package com.ucb.ecollajta.model;
+package com.ucb.ecollajta.model.events;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "events")
@@ -53,4 +55,9 @@ public class Event {
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
+
+    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<EventAttendance> attendances = new ArrayList<>();
+    
 }

@@ -5,7 +5,8 @@ import org.springframework.stereotype.Component;
 
 import com.ucb.ecollajta.dto.events.EventCreateDto;
 import com.ucb.ecollajta.dto.events.EventUpdateDto;
-import com.ucb.ecollajta.model.Event;
+import com.ucb.ecollajta.dto.events.response.EventResponseModel;
+import com.ucb.ecollajta.model.events.Event;
 
 @Component
 public class EventMapper {
@@ -19,6 +20,7 @@ public class EventMapper {
         event.setPointsReward(dto.pointsReward());
         event.setLongitude(dto.longitude());
         event.setLatitude(dto.latitude());
+        event.setAttendances(null);
         return event;
     }
     public static Event toEvent(EventUpdateDto dto, Event event){
@@ -33,6 +35,20 @@ public class EventMapper {
         updatedEvent.setLongitude(dto.longitude().orElse(event.getLongitude()));
         updatedEvent.setCreatedAt(event.getCreatedAt());
         updatedEvent.setLatitude(dto.latitude().orElse(event.getLatitude()));
+        updatedEvent.setAttendances(null);
         return updatedEvent;
+    }
+    public static EventResponseModel toModel(Event event) {
+        return new EventResponseModel(
+            event.getId(),
+            event.getTitle(),
+            event.getDescription(),
+            event.getLocationName(),
+            event.getStartsAt(),
+            event.getEndsAt(),
+            event.getPointsReward(),
+            event.getLongitude().doubleValue(),
+            event.getLatitude().doubleValue()
+        );
     }
 }
