@@ -11,14 +11,14 @@ import { Map } from './features/map/map/map';
 import { ExploreMissions } from './features/missions/explore-missions/explore-missions';
 import { MissionDetail } from './features/missions/mission-detail/mission-detail';
 import { ParticipationSuccess } from './features/missions/participation-success/participation-success';
-import { ProfileComponent }       from './features/profile/profile';
-import { CommunityComponent }   from './features/community/community';
-import { RewardsComponent }     from './features/rewards/rewards';
+
+import { CommunityComponent } from './features/community/community';
+import { RewardsComponent } from './features/rewards/rewards';
 import { RedeemConfirmComponent } from './features/rewards/redeem-confirm/redeem-confirm';
-import { RedeemTicketComponent }  from './features/rewards/redeem-ticket/redeem-ticket';
+import { RedeemTicketComponent } from './features/rewards/redeem-ticket/redeem-ticket';
 import { authGuard } from './shared/guards/auth.guard';
 
-import { adminAuthGuard }      from './presentation/guards/admin-auth.guard';
+import { adminAuthGuard } from './presentation/guards/admin-auth.guard';
 import { AdminLayoutComponent } from './presentation/layout/admin-layout/admin-layout.component';
 
 export const routes: Routes = [
@@ -31,13 +31,13 @@ export const routes: Routes = [
   { path: 'pickup-confirmation', component: PickupConfirmation, canActivate: [authGuard] },
   { path: 'report-step-1', component: ReportStep1, canActivate: [authGuard] },
   { path: 'report-step-2', component: ReportStep2, canActivate: [authGuard] },
-  { path: 'report', redirectTo: 'report-step-2'},
+  { path: 'report', redirectTo: 'report-step-2' },
   { path: 'map', component: Map, canActivate: [authGuard] },
   { path: 'projects', component: ExploreMissions, canActivate: [authGuard] },
   { path: 'mission-detail/:id', component: MissionDetail, canActivate: [authGuard] },
   { path: 'mission-detail', component: MissionDetail, canActivate: [authGuard] },
   { path: 'participation-success', component: ParticipationSuccess, canActivate: [authGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
+
   { path: 'community', component: CommunityComponent, canActivate: [authGuard] },
   { path: 'rewards', component: RewardsComponent, canActivate: [authGuard] },
   { path: 'rewards/confirm/:id', component: RedeemConfirmComponent, canActivate: [authGuard] },
