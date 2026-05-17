@@ -16,11 +16,20 @@
         </button>
         <div style="width: 1px; height: 32px; background: var(--border); margin: 0 8px;"></div>
         <div style="display: flex; align-items: center; gap: 12px; cursor: pointer;" routerLink="/profile">
-            <div style="text-align: right;">
-                <div style="font-weight: 800; font-size: 0.9rem; color: var(--text);">Mateo V.</div>
-                <div style="font-size: 0.7rem; font-weight: 600; color: var(--primary);">2,450 Dirty Points</div>
-            </div>
-            <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&q=80" alt="Profile" class="user-profile-thumb">
+        <div style="text-align: right;">
+            <div style="font-weight: 800; font-size: 0.9rem; color: var(--text);">{{ user()?.fullName }}</div>
+            <div style="font-size: 0.7rem; font-weight: 600; color: var(--primary);">{{ user()?.pointsBalance }} Points</div>
         </div>
+        @if (user()?.photoUrl) {
+            <img [src]="user()!.photoUrl" 
+                alt="Profile" 
+                referrerpolicy="no-referrer"
+                class="user-profile-thumb">
+        } @else {
+            <div class="user-profile-thumb" style="background: #dcfce7; display: flex; align-items: center; justify-content: center;">
+                <i class="material-symbols-outlined" style="color: var(--primary);">person</i>
+            </div>
+        }
+    </div>
     </div>
 </div>
